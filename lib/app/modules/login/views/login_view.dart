@@ -15,12 +15,6 @@ class _LoginViewState extends State<LoginView> {
   @override
   void initState() {
     super.initState();
-
-    Future.delayed(Duration(seconds: 1), () {
-      setState(() {
-        logoInitialScale = false;
-      });
-    });
   }
 
   @override
@@ -30,15 +24,18 @@ class _LoginViewState extends State<LoginView> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          AnimatedScale(
-            curve: Curves.bounceOut,
-            scale: logoInitialScale ? 0 : 1,
-            duration: Duration(seconds: 2),
+          Hero(
+            tag: 'logo',
             child: SvgPicture.asset(
               'assets/svg/logo.svg',
-              width: 200,
+              width: 100,
             ),
           ),
+          Text('holis'),
+          Text('holis'),
+          Text('holis'),
+          Text('holis'),
+          Text('holis'),
         ],
       ),
     );

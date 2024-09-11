@@ -6,10 +6,11 @@ import 'package:flutter/material.dart';
 class AuthLayout extends StatefulWidget {
   const AuthLayout({
     required this.child,
+    this.showBackground = true,
     super.key,
   });
   final Widget child;
-
+  final bool showBackground;
   @override
   _AuthLayoutState createState() => _AuthLayoutState();
 }
@@ -117,33 +118,36 @@ class _AuthLayoutState extends State<AuthLayout> {
                           .withOpacity(0.3), // Borde semi-transparente
                     ),
                   ),
-                  child: Center(
-                    child: Container(
-                      margin: EdgeInsets.all(isMobile ? 0 : 60),
-
-                      width: double.infinity, // Escalar para pantalla
-                      height: double.infinity, // Escalar para pantalla
-                      constraints: BoxConstraints(maxWidth: 480),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(20),
-                        child: BackdropFilter(
-                          filter: ImageFilter.blur(sigmaX: 5000, sigmaY: 5000),
+                  child: widget.showBackground
+                      ? Center(
                           child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white.withOpacity(0.2),
+                            margin: EdgeInsets.all(isMobile ? 0 : 60),
+
+                            width: double.infinity, // Escalar para pantalla
+                            height: double.infinity, // Escalar para pantalla
+                            constraints: BoxConstraints(maxWidth: 480),
+                            child: ClipRRect(
                               borderRadius: BorderRadius.circular(20),
-                              border: Border.all(
-                                width: 2,
-                                color: Colors.white.withOpacity(
-                                    0.3), // Borde semi-transparente
+                              child: BackdropFilter(
+                                filter: ImageFilter.blur(
+                                    sigmaX: 5000, sigmaY: 5000),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.white.withOpacity(0.2),
+                                    borderRadius: BorderRadius.circular(20),
+                                    border: Border.all(
+                                      width: 2,
+                                      color: Colors.white.withOpacity(
+                                          0.3), // Borde semi-transparente
+                                    ),
+                                  ),
+                                  child: widget.child,
+                                ),
                               ),
                             ),
-                            child: widget.child,
                           ),
-                        ),
-                      ),
-                    ),
-                  ),
+                        )
+                      : widget.child,
                 ),
               ),
             ),
