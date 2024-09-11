@@ -8,6 +8,7 @@ void main() {
       title: "Estrellas",
       locale: const Locale('es'),
       fallbackLocale: const Locale('es'),
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.greenAccent,
