@@ -24,6 +24,7 @@ class _LoginViewState extends State<LoginView> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          Spacer(),
           Hero(
             tag: 'logo',
             child: SvgPicture.asset(
@@ -31,11 +32,58 @@ class _LoginViewState extends State<LoginView> {
               width: 100,
             ),
           ),
-          Text('holis'),
-          Text('holis'),
-          Text('holis'),
-          Text('holis'),
-          Text('holis'),
+          Text(
+            'Ingresa a tu\n cuenta de Estrellas',
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(height: 16),
+          TextField(
+            keyboardType: TextInputType.text,
+            // controller: controller.textController,
+
+            onChanged: (v) {},
+            decoration: InputDecoration(
+              labelText: 'Documento',
+              hintText: 'Ingresa tu número de documento',
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+            ),
+          ),
+          SizedBox(height: 16),
+          TextField(
+            keyboardType: TextInputType.text,
+            // controller: controller.textController,
+
+            onChanged: (v) {},
+            decoration: InputDecoration(
+              labelText: 'Contraseña',
+              hintText: 'Ingresa tu contraseña',
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+            ),
+          ),
+          SizedBox(height: 16),
+          ElevatedButton(
+            onPressed: () {},
+            child: Text(
+              'Iniciar sesión',
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 16),
+            ),
+          ),
+          TextButton(onPressed: () {}, child: Text('Olvidé mi contraseña')),
+          Spacer(),
+          Text('¿Quieres ser una Estrella?'),
+          ElevatedButton(
+            onPressed: () {},
+            child: Text(
+              'Regístrate',
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 16),
+            ),
+          ),
         ],
       ),
     );

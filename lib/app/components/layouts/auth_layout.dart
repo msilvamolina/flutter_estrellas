@@ -110,8 +110,8 @@ class _AuthLayoutState extends State<AuthLayout> {
                   decoration: BoxDecoration(
                     color: Colors.white
                         .withOpacity(0.2), // Fondo semi-transparente
-                    borderRadius:
-                        BorderRadius.circular(20), // Bordes redondeados
+                    borderRadius: BorderRadius.circular(
+                        isMobile ? 0 : 20), // Bordes redondeados
                     border: Border.all(
                       width: 2,
                       color: Colors.white
@@ -127,14 +127,17 @@ class _AuthLayoutState extends State<AuthLayout> {
                             height: double.infinity, // Escalar para pantalla
                             constraints: BoxConstraints(maxWidth: 480),
                             child: ClipRRect(
-                              borderRadius: BorderRadius.circular(20),
+                              borderRadius:
+                                  BorderRadius.circular(isMobile ? 0 : 20),
                               child: BackdropFilter(
                                 filter: ImageFilter.blur(
                                     sigmaX: 5000, sigmaY: 5000),
                                 child: Container(
                                   decoration: BoxDecoration(
-                                    color: Colors.white.withOpacity(0.2),
-                                    borderRadius: BorderRadius.circular(20),
+                                    color: Colors.white
+                                        .withOpacity(isMobile ? 1 : 0.2),
+                                    borderRadius: BorderRadius.circular(
+                                        isMobile ? 0 : 20),
                                     border: Border.all(
                                       width: 2,
                                       color: Colors.white.withOpacity(
