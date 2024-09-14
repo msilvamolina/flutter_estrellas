@@ -44,19 +44,31 @@ class _HomeViewState extends State<HomeView> {
       ),
       body: Row(
         children: [
-          Container(
-            color: Colors.red,
-            child: NavigationRail(
-              useIndicator: true,
-              extended: _navigationExtended,
-              selectedIndex: _selectedIndex,
-              onDestinationSelected: (int index) {
-                setState(() {
-                  _selectedIndex = index;
-                });
-              },
-              destinations: navigationDestinations,
-            ),
+          Stack(
+            children: [
+              NavigationRail(
+                useIndicator: true,
+                extended: _navigationExtended,
+                selectedIndex: _selectedIndex,
+                onDestinationSelected: (int index) {
+                  setState(() {
+                    _selectedIndex = index;
+                  });
+                },
+                destinations: navigationDestinations,
+              ),
+              Positioned(
+                bottom: 16,
+                left: 16,
+                child: IconButton.outlined(
+                  onPressed: () {},
+                  icon: Padding(
+                    padding: const EdgeInsets.all(4),
+                    child: Icon(Icons.light_mode),
+                  ),
+                ),
+              ),
+            ],
           ),
           Expanded(
             child: Center(
