@@ -231,44 +231,58 @@ class _HomeViewState extends State<HomeView> {
                                   : Colors.white.withOpacity(0.75),
                               borderRadius: BorderRadius.circular(16),
                             ),
-                            child: NavigationBar(
-                              indicatorColor: Theme.of(context)
-                                  .colorScheme
-                                  .primaryContainer,
-                              backgroundColor: Colors.transparent,
-                              labelBehavior: !isTinyPhone
-                                  ? NavigationDestinationLabelBehavior
-                                      .alwaysShow
-                                  : NavigationDestinationLabelBehavior
-                                      .alwaysHide,
-                              selectedIndex: _selectedIndex,
-                              onDestinationSelected: (int index) {
-                                setState(() {
-                                  _selectedIndex = index;
-                                  pageController.animateToPage(
-                                    index,
-                                    duration: Duration(milliseconds: 500),
-                                    curve: Curves.ease,
-                                  );
-                                });
-                              },
-                              destinations: const [
-                                NavigationDestination(
-                                  icon: Icon(Icons.home),
-                                  label: 'Home',
+                            child: NavigationBarTheme(
+                              data: NavigationBarThemeData(
+                                indicatorColor: Theme.of(context)
+                                    .primaryColor, // Color del indicador
+                                labelTextStyle: MaterialStateProperty.all(
+                                  TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight
+                                          .w600), // Color del texto de la etiqueta
                                 ),
-                                NavigationDestination(
-                                    icon: Icon(Icons.wallet),
-                                    label: 'Billetera'),
-                                NavigationDestination(
-                                    icon: Icon(Icons.search), label: 'Buscar'),
-                                NavigationDestination(
-                                    icon: Icon(Icons.dataset_rounded),
-                                    label: 'Catálogo'),
-                                NavigationDestination(
-                                    icon: Icon(Icons.apps_rounded),
-                                    label: 'Más'),
-                              ],
+                              ),
+                              child: NavigationBar(
+                                height: 64,
+                                indicatorColor: Theme.of(context)
+                                    .colorScheme
+                                    .primaryContainer,
+                                backgroundColor: Colors.transparent,
+                                labelBehavior: !isTinyPhone
+                                    ? NavigationDestinationLabelBehavior
+                                        .alwaysShow
+                                    : NavigationDestinationLabelBehavior
+                                        .alwaysHide,
+                                selectedIndex: _selectedIndex,
+                                onDestinationSelected: (int index) {
+                                  setState(() {
+                                    _selectedIndex = index;
+                                    pageController.animateToPage(
+                                      index,
+                                      duration: Duration(milliseconds: 500),
+                                      curve: Curves.ease,
+                                    );
+                                  });
+                                },
+                                destinations: const [
+                                  NavigationDestination(
+                                    icon: Icon(Icons.home),
+                                    label: 'Home',
+                                  ),
+                                  NavigationDestination(
+                                      icon: Icon(Icons.wallet),
+                                      label: 'Billetera'),
+                                  NavigationDestination(
+                                      icon: Icon(Icons.search),
+                                      label: 'Buscar'),
+                                  NavigationDestination(
+                                      icon: Icon(Icons.dataset_rounded),
+                                      label: 'Catálogo'),
+                                  NavigationDestination(
+                                      icon: Icon(Icons.apps_rounded),
+                                      label: 'Más'),
+                                ],
+                              ),
                             ),
                           ),
                         ],
