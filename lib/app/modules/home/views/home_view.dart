@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_estrellas/app/themes/styles/colors.dart';
 import 'package:flutter_estrellas/app/themes/styles/typography.dart';
-
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class HomeView extends StatefulWidget {
   HomeView({super.key});
@@ -23,8 +21,6 @@ class _HomeViewState extends State<HomeView> {
         icon: Icon(Icons.home),
         label: Text(
           'For you',
-          style: GoogleFonts.montserrat(
-              textStyle: Theme.of(context).textTheme.titleMedium),
         ),
       ),
       NavigationRailDestination(
