@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_estrellas/app/data/models/video_model.dart';
 import 'package:video_player/video_player.dart';
@@ -31,20 +32,32 @@ class _VideoAppState extends State<VideoApp> {
   Widget build(BuildContext context) {
     return Center(
       child: _controller.value.isInitialized
-          ? AspectRatio(
-              aspectRatio: 9 / 16,
-              child: GestureDetector(
-                onTap: () {
-                  setState(() {
-                    _controller.value.isPlaying
-                        ? _controller.pause()
-                        : _controller.play();
-                  });
-                },
-                child: VideoPlayer(_controller),
+          ? Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: NetworkImage(widget.videoModel.imageUrl),
+                  fit: BoxFit.cover,
+                ),
+              ),
+              child: AspectRatio(
+                aspectRatio: 9 / 16,
+                child: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      _controller.value.isPlaying
+                          ? _controller.pause()
+                          : _controller.play();
+                    });
+                  },
+                  child: VideoPlayer(_controller),
+                ),
               ),
             )
-          : Container(),
+          : CachedNetworkImage(
+              imageUrl: widget.videoModel.imageUrl,
+              placeholder: (context, url) => CircularProgressIndicator(),
+              errorWidget: (context, url, error) => Icon(Icons.error),
+            ),
     );
   }
 
