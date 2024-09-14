@@ -11,6 +11,12 @@ class InitialView extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
     bool isMobile = screenWidth < 480;
 
+    List<String> videoList = [
+      'https://firebasestorage.googleapis.com/v0/b/estrellas-dev-4fea3.appspot.com/o/videos%2Fharry.mp4?alt=media&token=e1b3d447-232b-4080-a679-e4497a19b1fc',
+      'https://firebasestorage.googleapis.com/v0/b/estrellas-dev-4fea3.appspot.com/o/videos%2Fharry.mp4?alt=media&token=e1b3d447-232b-4080-a679-e4497a19b1fc',
+      'https://firebasestorage.googleapis.com/v0/b/estrellas-dev-4fea3.appspot.com/o/videos%2Fharry.mp4?alt=media&token=e1b3d447-232b-4080-a679-e4497a19b1fc',
+    ];
+
     PageController pageController = PageController();
     return Center(
       child: Container(
@@ -18,14 +24,12 @@ class InitialView extends StatelessWidget {
         width: double.infinity,
         height: double.infinity,
         constraints: BoxConstraints(maxWidth: 480),
-        // decoration: BoxDecoration(
-        //   image: const DecorationImage(
-        //     image: AssetImage('assets/images/mockup.png'),
-        //     fit: BoxFit.cover,
-        //   ),
-        //   borderRadius: BorderRadius.circular(isMobile ? 0 : 16),
-        // ),
-        child: VideoApp(),
+        child: PageView.builder(
+          itemCount: videoList.length,
+          controller: PageController(initialPage: 0, viewportFraction: 1),
+          scrollDirection: Axis.vertical,
+          itemBuilder: (context, index) => VideoApp(videoUrl: videoList[index]),
+        ),
       ),
     );
   }
