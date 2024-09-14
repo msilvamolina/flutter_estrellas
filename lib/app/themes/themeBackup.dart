@@ -8,23 +8,23 @@ class MaterialTheme {
   static ColorScheme lightScheme() {
     return const ColorScheme(
       brightness: Brightness.light,
-      primary: Color(4281559360),
-      surfaceTint: Color(4281559360),
-      onPrimary: Color(4294967295),
-      primaryContainer: Color(4290113980),
-      onPrimaryContainer: Color(4278198538),
-      secondary: Color(4284896654),
-      onSecondary: Color(4294967295),
-      secondaryContainer: Color(4293516799),
-      onSecondaryContainer: Color(4280356679),
-      tertiary: Color(4287189279),
-      onTertiary: Color(4294967295),
-      tertiaryContainer: Color(4294958276),
-      onTertiaryContainer: Color(4281275648),
-      error: Color(4287646274),
-      onError: Color(4294967295),
-      errorContainer: Color(4294957781),
-      onErrorContainer: Color(4282059014),
+      primary: Color(0xFF1FE371),
+      surfaceTint: Color(0XFF10753A),
+      onPrimary: Color(0xFFE5FFF6),
+      primaryContainer: Color(0xFFE5FFF6),
+      onPrimaryContainer: Color(0xFF10753A),
+      secondary: Color(0xFF6A00F5),
+      onSecondary: Color(0xFFF1E5FF),
+      secondaryContainer: Color(0xFFF1E5FF),
+      onSecondaryContainer: Color(0xFF3C1075),
+      tertiary: Color(0xFFFF8A00),
+      onTertiary: Color(0xFFF6A97D),
+      tertiaryContainer: Color(0xFFF6A97D),
+      onTertiaryContainer: Color(0xFF93370D),
+      error: Color(0xFFF14438),
+      onError: Color(0xFFFFE5E5),
+      errorContainer: Color(0xFFFFE5E5),
+      onErrorContainer: Color(0xFFCF1111),
       surface: Color(4294310651),
       onSurface: Color(4279704862),
       onSurfaceVariant: Color(4282468673),
@@ -33,18 +33,18 @@ class MaterialTheme {
       shadow: Color(4278190080),
       scrim: Color(4278190080),
       inverseSurface: Color(4281020723),
-      inversePrimary: Color(4288337057),
-      primaryFixed: Color(4290113980),
-      onPrimaryFixed: Color(4278198538),
-      primaryFixedDim: Color(4288337057),
-      onPrimaryFixedVariant: Color(4279914794),
-      secondaryFixed: Color(4293516799),
+      inversePrimary: Color(0xFFE5FFF6),
+      primaryFixed: Color(0xFFE5FFF6),
+      onPrimaryFixed: Color(0xFF10753A),
+      primaryFixedDim: Color(0xFFE5FFF6),
+      onPrimaryFixedVariant: Color(0xFF10753A),
+      secondaryFixed: Color(0xFFF1E5FF),
       onSecondaryFixed: Color(4280356679),
-      secondaryFixedDim: Color(4291869950),
-      onSecondaryFixedVariant: Color(4283252085),
-      tertiaryFixed: Color(4294958276),
+      secondaryFixedDim: Color(0xFFF1E5FF),
+      onSecondaryFixedVariant: Color(0xFF6A00F5),
+      tertiaryFixed: Color(0xFFF6A97D),
       onTertiaryFixed: Color(4281275648),
-      tertiaryFixedDim: Color(4294948735),
+      tertiaryFixedDim: Color(0xFFF6A97D),
       onTertiaryFixedVariant: Color(4285282824),
       surfaceDim: Color(4292205532),
       surfaceBright: Color(4294310651),
@@ -68,7 +68,7 @@ class MaterialTheme {
       onPrimary: Color(4294967295),
       primaryContainer: Color(4283072596),
       onPrimaryContainer: Color(4294967295),
-      secondary: Color(4282988913),
+      secondary: Color(0xFF6A00F5),
       onSecondary: Color(4294967295),
       secondaryContainer: Color(4286344102),
       onSecondaryContainer: Color(4294967295),
@@ -95,7 +95,7 @@ class MaterialTheme {
       onPrimaryFixedVariant: Color(4294967295),
       secondaryFixed: Color(4286344102),
       onSecondaryFixed: Color(4294967295),
-      secondaryFixedDim: Color(4284699276),
+      secondaryFixedDim: Color(0xFF6A00F5),
       onSecondaryFixedVariant: Color(4294967295),
       tertiaryFixed: Color(4288898611),
       onTertiaryFixed: Color(4294967295),
@@ -347,266 +347,7 @@ class MaterialTheme {
         canvasColor: colorScheme.surface,
       );
 
-  /// Custom Color 1
-  static const customColor1 = ExtendedColor(
-    seed: Color(4279268666),
-    value: Color(4279268666),
-    light: ColorFamily(
-      color: Color(4281493825),
-      onColor: Color(4294967295),
-      colorContainer: Color(4290048445),
-      onColorContainer: Color(4278198539),
-    ),
-    lightMediumContrast: ColorFamily(
-      color: Color(4281493825),
-      onColor: Color(4294967295),
-      colorContainer: Color(4290048445),
-      onColorContainer: Color(4278198539),
-    ),
-    lightHighContrast: ColorFamily(
-      color: Color(4281493825),
-      onColor: Color(4294967295),
-      colorContainer: Color(4290048445),
-      onColorContainer: Color(4278198539),
-    ),
-    dark: ColorFamily(
-      color: Color(4288271522),
-      onColor: Color(4278204696),
-      colorContainer: Color(4279783723),
-      onColorContainer: Color(4290048445),
-    ),
-    darkMediumContrast: ColorFamily(
-      color: Color(4288271522),
-      onColor: Color(4278204696),
-      colorContainer: Color(4279783723),
-      onColorContainer: Color(4290048445),
-    ),
-    darkHighContrast: ColorFamily(
-      color: Color(4288271522),
-      onColor: Color(4278204696),
-      colorContainer: Color(4279783723),
-      onColorContainer: Color(4290048445),
-    ),
-  );
-
-  /// Custom Color 2
-  static const customColor2 = ExtendedColor(
-    seed: Color(4282126453),
-    value: Color(4282126453),
-    light: ColorFamily(
-      color: Color(4285158541),
-      onColor: Color(4294967295),
-      colorContainer: Color(4293713151),
-      onColorContainer: Color(4280553029),
-    ),
-    lightMediumContrast: ColorFamily(
-      color: Color(4285158541),
-      onColor: Color(4294967295),
-      colorContainer: Color(4293713151),
-      onColorContainer: Color(4280553029),
-    ),
-    lightHighContrast: ColorFamily(
-      color: Color(4285158541),
-      onColor: Color(4294967295),
-      colorContainer: Color(4293713151),
-      onColorContainer: Color(4280553029),
-    ),
-    dark: ColorFamily(
-      color: Color(4292197372),
-      onColor: Color(4282000731),
-      colorContainer: Color(4283513971),
-      onColorContainer: Color(4293713151),
-    ),
-    darkMediumContrast: ColorFamily(
-      color: Color(4292197372),
-      onColor: Color(4282000731),
-      colorContainer: Color(4283513971),
-      onColorContainer: Color(4293713151),
-    ),
-    darkHighContrast: ColorFamily(
-      color: Color(4292197372),
-      onColor: Color(4282000731),
-      colorContainer: Color(4283513971),
-      onColorContainer: Color(4293713151),
-    ),
-  );
-
-  /// Custom Color 3
-  static const customColor3 = ExtendedColor(
-    seed: Color(4287837965),
-    value: Color(4287837965),
-    light: ColorFamily(
-      color: Color(4287581234),
-      onColor: Color(4294967295),
-      colorContainer: Color(4294958030),
-      onColorContainer: Color(4281863424),
-    ),
-    lightMediumContrast: ColorFamily(
-      color: Color(4287581234),
-      onColor: Color(4294967295),
-      colorContainer: Color(4294958030),
-      onColorContainer: Color(4281863424),
-    ),
-    lightHighContrast: ColorFamily(
-      color: Color(4287581234),
-      onColor: Color(4294967295),
-      colorContainer: Color(4294958030),
-      onColorContainer: Color(4281863424),
-    ),
-    dark: ColorFamily(
-      color: Color(4294948250),
-      onColor: Color(4283768841),
-      colorContainer: Color(4285609502),
-      onColorContainer: Color(4294958030),
-    ),
-    darkMediumContrast: ColorFamily(
-      color: Color(4294948250),
-      onColor: Color(4283768841),
-      colorContainer: Color(4285609502),
-      onColorContainer: Color(4294958030),
-    ),
-    darkHighContrast: ColorFamily(
-      color: Color(4294948250),
-      onColor: Color(4283768841),
-      colorContainer: Color(4285609502),
-      onColorContainer: Color(4294958030),
-    ),
-  );
-
-  /// Custom Color 4
-  static const customColor4 = ExtendedColor(
-    seed: Color(4293263350),
-    value: Color(4293263350),
-    light: ColorFamily(
-      color: Color(4278741850),
-      onColor: Color(4294967295),
-      colorContainer: Color(4288738013),
-      onColorContainer: Color(4278198298),
-    ),
-    lightMediumContrast: ColorFamily(
-      color: Color(4278741850),
-      onColor: Color(4294967295),
-      colorContainer: Color(4288738013),
-      onColorContainer: Color(4278198298),
-    ),
-    lightHighContrast: ColorFamily(
-      color: Color(4278741850),
-      onColor: Color(4294967295),
-      colorContainer: Color(4288738013),
-      onColorContainer: Color(4278198298),
-    ),
-    dark: ColorFamily(
-      color: Color(4286961345),
-      onColor: Color(4278204462),
-      colorContainer: Color(4278210884),
-      onColorContainer: Color(4288738013),
-    ),
-    darkMediumContrast: ColorFamily(
-      color: Color(4286961345),
-      onColor: Color(4278204462),
-      colorContainer: Color(4278210884),
-      onColorContainer: Color(4288738013),
-    ),
-    darkHighContrast: ColorFamily(
-      color: Color(4286961345),
-      onColor: Color(4278204462),
-      colorContainer: Color(4278210884),
-      onColorContainer: Color(4288738013),
-    ),
-  );
-
-  /// Custom Color 5
-  static const customColor5 = ExtendedColor(
-    seed: Color(4294043135),
-    value: Color(4294043135),
-    light: ColorFamily(
-      color: Color(4285027469),
-      onColor: Color(4294967295),
-      colorContainer: Color(4293647615),
-      onColorContainer: Color(4280487750),
-    ),
-    lightMediumContrast: ColorFamily(
-      color: Color(4285027469),
-      onColor: Color(4294967295),
-      colorContainer: Color(4293647615),
-      onColorContainer: Color(4280487750),
-    ),
-    lightHighContrast: ColorFamily(
-      color: Color(4285027469),
-      onColor: Color(4294967295),
-      colorContainer: Color(4293647615),
-      onColorContainer: Color(4280487750),
-    ),
-    dark: ColorFamily(
-      color: Color(4292066557),
-      onColor: Color(4281935452),
-      colorContainer: Color(4283448436),
-      onColorContainer: Color(4293647615),
-    ),
-    darkMediumContrast: ColorFamily(
-      color: Color(4292066557),
-      onColor: Color(4281935452),
-      colorContainer: Color(4283448436),
-      onColorContainer: Color(4293647615),
-    ),
-    darkHighContrast: ColorFamily(
-      color: Color(4292066557),
-      onColor: Color(4281935452),
-      colorContainer: Color(4283448436),
-      onColorContainer: Color(4293647615),
-    ),
-  );
-
-  /// Custom Color 6
-  static const customColor6 = ExtendedColor(
-    seed: Color(4294355325),
-    value: Color(4294355325),
-    light: ColorFamily(
-      color: Color(4287385128),
-      onColor: Color(4294967295),
-      colorContainer: Color(4294958025),
-      onColorContainer: Color(4281537024),
-    ),
-    lightMediumContrast: ColorFamily(
-      color: Color(4287385128),
-      onColor: Color(4294967295),
-      colorContainer: Color(4294958025),
-      onColorContainer: Color(4281537024),
-    ),
-    lightHighContrast: ColorFamily(
-      color: Color(4287385128),
-      onColor: Color(4294967295),
-      colorContainer: Color(4294958025),
-      onColorContainer: Color(4281537024),
-    ),
-    dark: ColorFamily(
-      color: Color(4294948493),
-      onColor: Color(4283638272),
-      colorContainer: Color(4285478931),
-      onColorContainer: Color(4294958025),
-    ),
-    darkMediumContrast: ColorFamily(
-      color: Color(4294948493),
-      onColor: Color(4283638272),
-      colorContainer: Color(4285478931),
-      onColorContainer: Color(4294958025),
-    ),
-    darkHighContrast: ColorFamily(
-      color: Color(4294948493),
-      onColor: Color(4283638272),
-      colorContainer: Color(4285478931),
-      onColorContainer: Color(4294958025),
-    ),
-  );
-
-  List<ExtendedColor> get extendedColors => [
-        customColor1,
-        customColor2,
-        customColor3,
-        customColor4,
-        customColor5,
-        customColor6,
-      ];
+  List<ExtendedColor> get extendedColors => [];
 }
 
 class ExtendedColor {

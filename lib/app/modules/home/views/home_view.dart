@@ -93,12 +93,80 @@ class _HomeViewState extends State<HomeView> {
                       return Positioned(
                         bottom: 16,
                         left: 16,
-                        child: IconButton.outlined(
-                          onPressed: controller.changeThemeMode,
-                          icon: Padding(
-                            padding: const EdgeInsets.all(4),
-                            child: Icon(controller.getThemeIcon()),
-                          ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            if (_navigationExtended) ...[
+                              Container(
+                                width: 160,
+                                child: Text(
+                                    'Log in to follow creators, like videos, and view comments.'),
+                              ),
+                              SizedBox(height: 16),
+                              ElevatedButton(
+                                onPressed: () {},
+                                child: Text('Ingresar'),
+                              ),
+                              SizedBox(height: 16),
+                              Container(
+                                decoration: BoxDecoration(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .tertiaryContainer,
+                                    borderRadius: BorderRadius.circular(16)),
+                                padding: EdgeInsets.all(16),
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.emoji_objects,
+                                      size: 22,
+                                    ),
+                                    SizedBox(width: 8),
+                                    Text(
+                                      'Creá un efecto Estrellas',
+                                      style: TypographyStyle.bodyRegularSmall
+                                          .copyWith(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .tertiary,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(height: 16),
+                              TextButton(
+                                onPressed: () {},
+                                child: Text('Company'),
+                              ),
+                              SizedBox(height: 16),
+                              TextButton(
+                                onPressed: () {},
+                                child: Text('Program'),
+                              ),
+                              SizedBox(height: 16),
+                              TextButton(
+                                onPressed: () {},
+                                child: Text('Terms & Policies'),
+                              ),
+                              SizedBox(height: 16),
+                              TextButton(
+                                onPressed: () {},
+                                child: Text(
+                                  '© 2024 Estrellas',
+                                  style: TypographyStyle.bodyBlackSmall,
+                                ),
+                              ),
+                              SizedBox(height: 26),
+                            ],
+                            IconButton.outlined(
+                              onPressed: controller.changeThemeMode,
+                              icon: Padding(
+                                padding: const EdgeInsets.all(4),
+                                child: Icon(controller.getThemeIcon()),
+                              ),
+                            ),
+                          ],
                         ),
                       );
                     },
