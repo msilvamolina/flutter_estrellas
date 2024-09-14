@@ -88,7 +88,8 @@ class _HomeViewState extends State<HomeView> {
                     width: double.infinity,
                     child: SelectableText(
                       'Whereas disregard and contempt for human rights have resulted',
-                      style: TypographyStyle.h1Mobile,
+                      style: TypographyStyle.h1Mobile.copyWith(
+                          color: Theme.of(context).textTheme.bodyLarge?.color),
                     ),
                   ),
                 ),
