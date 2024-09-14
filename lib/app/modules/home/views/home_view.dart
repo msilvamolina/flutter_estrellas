@@ -20,14 +20,39 @@ class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
     List<NavigationRailDestination> navigationDestinations = [
       NavigationRailDestination(
-        icon: Icon(Icons.home),
+        icon: const Icon(Icons.home),
         label: Text(
-          'For you',
+          'Home',
+          style: TypographyStyle.bodyBlackMedium,
         ),
       ),
       NavigationRailDestination(
-        icon: Icon(Icons.settings),
-        label: Text('Settings'),
+        icon: const Icon(Icons.wallet),
+        label: Text(
+          'Billetera',
+          style: TypographyStyle.bodyBlackMedium,
+        ),
+      ),
+      NavigationRailDestination(
+        icon: const Icon(Icons.search),
+        label: Text(
+          'Buscar',
+          style: TypographyStyle.bodyBlackMedium,
+        ),
+      ),
+      NavigationRailDestination(
+        icon: const Icon(Icons.dataset_rounded),
+        label: Text(
+          'Catálogo',
+          style: TypographyStyle.bodyBlackMedium,
+        ),
+      ),
+      NavigationRailDestination(
+        icon: const Icon(Icons.apps_rounded),
+        label: Text(
+          'Más',
+          style: TypographyStyle.bodyBlackMedium,
+        ),
       ),
       // Add more destinations as needed
     ];
@@ -86,10 +111,13 @@ class _HomeViewState extends State<HomeView> {
                     constraints: const BoxConstraints(maxWidth: 540),
                     height: double.infinity,
                     width: double.infinity,
-                    child: SelectableText(
-                      'Whereas disregard and contempt for human rights have resulted',
-                      style: TypographyStyle.h1Mobile.copyWith(
-                          color: Theme.of(context).textTheme.bodyLarge?.color),
+                    child: Column(
+                      children: [
+                        SelectableText(
+                          'Whereas disregard and contempt for human rights have resulted',
+                          style: TypographyStyle.h1Mobile,
+                        ),
+                      ],
                     ),
                   ),
                 ),
