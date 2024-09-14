@@ -1,9 +1,8 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_estrellas/app/services/theme_service.dart';
 import 'package:get/get.dart';
 
 class HomeController extends GetxController {
-  //TODO: Implement HomeController
-
-  final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
@@ -19,5 +18,12 @@ class HomeController extends GetxController {
     super.onClose();
   }
 
-  void increment() => count.value++;
+  void changeThemeMode() {
+    ThemeService.changeThemeMode();
+    update(['themeButton']);
+  }
+
+  IconData getThemeIcon() {
+    return ThemeService.isDark() ? Icons.light_mode : Icons.dark_mode;
+  }
 }

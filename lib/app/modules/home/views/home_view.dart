@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_estrellas/app/modules/home/controllers/home_controller.dart';
+import 'package:flutter_estrellas/app/services/theme_service.dart';
 import 'package:flutter_estrellas/app/themes/styles/colors.dart';
 import 'package:flutter_estrellas/app/themes/styles/typography.dart';
 import 'package:get/get.dart';
@@ -29,65 +31,72 @@ class _HomeViewState extends State<HomeView> {
       ),
       // Add more destinations as needed
     ];
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('HomeView'),
-        centerTitle: true,
-        leading: IconButton(
-          onPressed: () {
-            setState(() {
-              _navigationExtended = !_navigationExtended;
-            });
-          },
-          icon: const Icon(Icons.menu),
-        ),
-      ),
-      body: Row(
-        children: [
-          Stack(
+    return GetBuilder<HomeController>(
+      id: 'view',
+      builder: (controller) {
+        return Scaffold(
+          appBar: AppBar(
+            title: const Text('HomeView'),
+            centerTitle: true,
+            leading: IconButton(
+              onPressed: () {
+                setState(() {
+                  _navigationExtended = !_navigationExtended;
+                });
+              },
+              icon: const Icon(Icons.menu),
+            ),
+          ),
+          body: Row(
             children: [
-              NavigationRail(
-                useIndicator: true,
-                extended: _navigationExtended,
-                selectedIndex: _selectedIndex,
-                onDestinationSelected: (int index) {
-                  setState(() {
-                    _selectedIndex = index;
-                  });
-                },
-                destinations: navigationDestinations,
+              Stack(
+                children: [
+                  NavigationRail(
+                    useIndicator: true,
+                    extended: _navigationExtended,
+                    selectedIndex: _selectedIndex,
+                    onDestinationSelected: (int index) {
+                      setState(() {
+                        _selectedIndex = index;
+                      });
+                    },
+                    destinations: navigationDestinations,
+                  ),
+                  GetBuilder<HomeController>(
+                    id: 'themeButton',
+                    builder: (_) {
+                      return Positioned(
+                        bottom: 16,
+                        left: 16,
+                        child: IconButton.outlined(
+                          onPressed: controller.changeThemeMode,
+                          icon: Padding(
+                            padding: const EdgeInsets.all(4),
+                            child: Icon(controller.getThemeIcon()),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ],
               ),
-              Positioned(
-                bottom: 16,
-                left: 16,
-                child: IconButton.outlined(
-                  onPressed: () {},
-                  icon: Padding(
-                    padding: const EdgeInsets.all(4),
-                    child: Icon(Icons.light_mode),
+              Expanded(
+                child: Center(
+                  child: Container(
+                    constraints: const BoxConstraints(maxWidth: 540),
+                    height: double.infinity,
+                    width: double.infinity,
+                    child: SelectableText(
+                      'Whereas disregard and contempt for human rights have resulted',
+                      style: TypographyStyle.h1Mobile,
+                    ),
                   ),
                 ),
               ),
             ],
           ),
-          Expanded(
-            child: Center(
-              child: Container(
-                constraints: const BoxConstraints(maxWidth: 540),
-                height: double.infinity,
-                width: double.infinity,
-                child: SelectableText(
-                  'Whereas disregard and contempt for human rights have resulted',
-                  style: TypographyStyle.h1Mobile.copyWith(
-                    fontWeight: FontWeight.normal,
-                    color: secondaryLight,
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 }
