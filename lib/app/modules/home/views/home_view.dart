@@ -5,6 +5,8 @@ import 'package:flutter_estrellas/app/themes/styles/colors.dart';
 import 'package:flutter_estrellas/app/themes/styles/typography.dart';
 import 'package:get/get.dart';
 
+import 'views/initial_view.dart';
+
 class HomeView extends StatefulWidget {
   HomeView({super.key});
 
@@ -19,6 +21,7 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
+    bool isTinyPhone = screenWidth < 320;
     bool isMobile = screenWidth < 480;
     bool isTablet = screenWidth < 720;
     bool isDesktop = screenWidth > 720;
@@ -65,20 +68,49 @@ class _HomeViewState extends State<HomeView> {
       id: 'view',
       builder: (controller) {
         return Scaffold(
-          appBar: AppBar(
-            title: const Text('HomeView'),
-            centerTitle: true,
-            leading: isDesktop
-                ? IconButton(
-                    onPressed: () {
-                      setState(() {
-                        _navigationExtended = !_navigationExtended;
-                      });
-                    },
-                    icon: const Icon(Icons.menu),
-                  )
-                : null,
-          ),
+          appBar: !isMobile
+              ? AppBar(
+                  title: const Text('HomeView'),
+                  centerTitle: true,
+                  leading: isDesktop
+                      ? IconButton(
+                          onPressed: () {
+                            setState(() {
+                              _navigationExtended = !_navigationExtended;
+                            });
+                          },
+                          icon: const Icon(Icons.menu),
+                        )
+                      : null,
+                )
+              : null,
+          bottomNavigationBar: isMobile
+              ? NavigationBar(
+                  labelBehavior: !isTinyPhone
+                      ? NavigationDestinationLabelBehavior.alwaysShow
+                      : NavigationDestinationLabelBehavior.alwaysHide,
+                  selectedIndex: _selectedIndex,
+                  onDestinationSelected: (int index) {
+                    setState(() {
+                      _selectedIndex = index;
+                    });
+                  },
+                  destinations: const [
+                    NavigationDestination(
+                      icon: Icon(Icons.home),
+                      label: 'Home',
+                    ),
+                    NavigationDestination(
+                        icon: Icon(Icons.wallet), label: 'Billetera'),
+                    NavigationDestination(
+                        icon: Icon(Icons.search), label: 'Buscar'),
+                    NavigationDestination(
+                        icon: Icon(Icons.dataset_rounded), label: 'Catálogo'),
+                    NavigationDestination(
+                        icon: Icon(Icons.apps_rounded), label: 'Más'),
+                  ],
+                )
+              : null,
           body: Row(
             children: [
               if (!isMobile)
@@ -184,21 +216,7 @@ class _HomeViewState extends State<HomeView> {
                   ],
                 ),
               Expanded(
-                child: Center(
-                  child: Container(
-                    constraints: const BoxConstraints(maxWidth: 540),
-                    height: double.infinity,
-                    width: double.infinity,
-                    child: Column(
-                      children: [
-                        SelectableText(
-                          'Whereas disregard and contempt for human rights have resulted',
-                          style: TypographyStyle.h1Mobile,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+                child: InitialView(),
               ),
             ],
           ),
