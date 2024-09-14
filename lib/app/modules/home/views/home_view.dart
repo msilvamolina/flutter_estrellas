@@ -73,6 +73,21 @@ class _HomeViewState extends State<HomeView> {
       id: 'view',
       builder: (controller) {
         return Scaffold(
+          floatingActionButton: _selectedIndex == 3
+              ? Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    FloatingActionButton(
+                      onPressed: () {},
+                      child: Icon(Icons.add),
+                    ),
+                    if (isMobile)
+                      SizedBox(
+                        height: 84,
+                      )
+                  ],
+                )
+              : null,
           appBar: !isTablet
               ? AppBar(
                   title: const Text('HomeView'),

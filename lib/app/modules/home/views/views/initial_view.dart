@@ -12,20 +12,19 @@ class InitialView extends StatelessWidget {
 
     PageController pageController = PageController();
     return Center(
-      child: Card(
-        child: Container(
-          width: double.infinity,
-          height: double.infinity,
-          constraints: BoxConstraints(maxWidth: 480),
-          decoration: BoxDecoration(
-            image: const DecorationImage(
-              image: AssetImage('assets/images/mockup.png'),
-              fit: BoxFit.cover,
-            ),
-            borderRadius: BorderRadius.circular(isMobile ? 0 : 16),
+      child: Container(
+        margin: EdgeInsets.all(isMobile ? 0 : 16),
+        width: double.infinity,
+        height: double.infinity,
+        constraints: BoxConstraints(maxWidth: 480),
+        decoration: BoxDecoration(
+          image: const DecorationImage(
+            image: AssetImage('assets/images/mockup.png'),
+            fit: BoxFit.cover,
           ),
-          child: SizedBox.shrink(),
+          borderRadius: BorderRadius.circular(isMobile ? 0 : 16),
         ),
+        child: SizedBox.shrink(),
       ),
     );
   }
