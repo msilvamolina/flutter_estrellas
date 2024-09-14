@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../data/models/video_model.dart';
 import '../../../../themes/styles/typography.dart';
 import '../components/video.dart';
+import '../components/video_card.dart';
 
 class InitialView extends StatelessWidget {
   const InitialView({super.key});
@@ -104,7 +105,7 @@ class InitialView extends StatelessWidget {
           controller: PageController(initialPage: 0, viewportFraction: 1),
           scrollDirection: Axis.vertical,
           itemBuilder: (context, index) =>
-              VideoApp(videoModel: videoList[index]),
+              VideoCard(videoModel: videoList[index]),
         ),
       ),
     );
