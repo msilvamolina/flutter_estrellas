@@ -97,6 +97,11 @@ class _HomeViewState extends State<HomeView> {
                 Stack(
                   children: [
                     NavigationRail(
+                      indicatorColor:
+                          Theme.of(context).colorScheme.primaryContainer,
+                      // selectedIconTheme:
+                      //     IconThemeData(color: Theme.of(context).primaryColor),
+                      // unselectedIconTheme: IconThemeData(color: Colors.grey),
                       useIndicator: true,
                       extended: isTablet ? false : _navigationExtended,
                       selectedIndex: _selectedIndex,
@@ -221,9 +226,15 @@ class _HomeViewState extends State<HomeView> {
                           Container(
                             margin: const EdgeInsets.all(16),
                             decoration: BoxDecoration(
-                                color: Colors.white.withOpacity(0.5),
-                                borderRadius: BorderRadius.circular(16)),
+                              color: ThemeService.isDark()
+                                  ? Colors.black.withOpacity(0.5)
+                                  : Colors.white.withOpacity(0.75),
+                              borderRadius: BorderRadius.circular(16),
+                            ),
                             child: NavigationBar(
+                              indicatorColor: Theme.of(context)
+                                  .colorScheme
+                                  .primaryContainer,
                               backgroundColor: Colors.transparent,
                               labelBehavior: !isTinyPhone
                                   ? NavigationDestinationLabelBehavior
