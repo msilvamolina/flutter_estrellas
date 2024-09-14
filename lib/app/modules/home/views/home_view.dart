@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_estrellas/app/modules/home/controllers/home_controller.dart';
+import 'package:flutter_estrellas/app/modules/home/views/views/catalog_view.dart';
+import 'package:flutter_estrellas/app/modules/home/views/views/more_view.dart';
+import 'package:flutter_estrellas/app/modules/home/views/views/search_view.dart';
+import 'package:flutter_estrellas/app/modules/home/views/views/wallet_view.dart';
 import 'package:flutter_estrellas/app/services/theme_service.dart';
 import 'package:flutter_estrellas/app/themes/styles/colors.dart';
 import 'package:flutter_estrellas/app/themes/styles/typography.dart';
@@ -25,6 +29,7 @@ class _HomeViewState extends State<HomeView> {
     bool isMobile = screenWidth < 480;
     bool isTablet = screenWidth < 720;
     bool isDesktop = screenWidth > 720;
+    PageController pageController = PageController();
 
     List<NavigationRailDestination> navigationDestinations = [
       NavigationRailDestination(
@@ -68,7 +73,7 @@ class _HomeViewState extends State<HomeView> {
       id: 'view',
       builder: (controller) {
         return Scaffold(
-          appBar: !isMobile
+          appBar: !isTablet
               ? AppBar(
                   title: const Text('HomeView'),
                   centerTitle: true,
@@ -79,7 +84,9 @@ class _HomeViewState extends State<HomeView> {
                               _navigationExtended = !_navigationExtended;
                             });
                           },
-                          icon: const Icon(Icons.menu),
+                          icon: Icon(!_navigationExtended
+                              ? Icons.menu
+                              : Icons.menu_open),
                         )
                       : null,
                 )
@@ -93,6 +100,11 @@ class _HomeViewState extends State<HomeView> {
                   onDestinationSelected: (int index) {
                     setState(() {
                       _selectedIndex = index;
+                      pageController.animateToPage(
+                        index,
+                        duration: Duration(milliseconds: 500),
+                        curve: Curves.ease,
+                      );
                     });
                   },
                   destinations: const [
@@ -123,6 +135,11 @@ class _HomeViewState extends State<HomeView> {
                       onDestinationSelected: (int index) {
                         setState(() {
                           _selectedIndex = index;
+                          pageController.animateToPage(
+                            index,
+                            duration: Duration(milliseconds: 400),
+                            curve: Curves.ease,
+                          );
                         });
                       },
                       destinations: navigationDestinations,
@@ -216,7 +233,17 @@ class _HomeViewState extends State<HomeView> {
                   ],
                 ),
               Expanded(
-                child: InitialView(),
+                child: PageView(
+                  controller: pageController,
+                  physics: NeverScrollableScrollPhysics(),
+                  children: [
+                    InitialView(),
+                    WalletView(),
+                    SearchView(),
+                    CatalogView(),
+                    MoreView(),
+                  ],
+                ),
               ),
             ],
           ),

@@ -3,6 +3,8 @@ import 'package:flutter_estrellas/app/services/theme_service.dart';
 import 'package:get/get.dart';
 
 class HomeController extends GetxController {
+  PageController pageController = PageController();
+
   @override
   void onInit() {
     super.onInit();
