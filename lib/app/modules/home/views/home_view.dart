@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_estrellas/app/themes/styles/colors.dart';
 import 'package:flutter_estrellas/app/themes/styles/typography.dart';
 
 import 'package:get/get.dart';
@@ -42,7 +43,7 @@ class _HomeViewState extends State<HomeView> {
               _navigationExtended = !_navigationExtended;
             });
           },
-          icon: Icon(Icons.menu),
+          icon: const Icon(Icons.menu),
         ),
       ),
       body: Row(
@@ -64,13 +65,14 @@ class _HomeViewState extends State<HomeView> {
           Expanded(
             child: Center(
               child: Container(
-                constraints: BoxConstraints(maxWidth: 540),
+                constraints: const BoxConstraints(maxWidth: 540),
                 height: double.infinity,
                 width: double.infinity,
-                child: Text(
+                child: SelectableText(
                   'Whereas disregard and contempt for human rights have resulted',
-                  style: TypographyStyle.display1.copyWith(
+                  style: TypographyStyle.h1Mobile.copyWith(
                     fontWeight: FontWeight.normal,
+                    color: secondaryLight,
                   ),
                 ),
               ),
