@@ -7,29 +7,24 @@ class InitialView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    bool isMobile = screenWidth < 480;
+
+    PageController pageController = PageController();
     return Center(
-      child: Container(
-        padding: EdgeInsets.all(16),
-        constraints: const BoxConstraints(maxWidth: 540),
-        height: double.infinity,
-        width: double.infinity,
-        child: Column(
-          children: [
-            Card(
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  children: [
-                    SelectableText(
-                      'Whereas disregard and contempt for human rights have resulted',
-                      style: TypographyStyle.h1Mobile,
-                    ),
-                  ],
-                ),
-              ),
+      child: Card(
+        child: Container(
+          width: double.infinity,
+          height: double.infinity,
+          constraints: BoxConstraints(maxWidth: 480),
+          decoration: BoxDecoration(
+            image: const DecorationImage(
+              image: AssetImage('assets/images/mockup.png'),
+              fit: BoxFit.cover,
             ),
-            Text('holiz'),
-          ],
+            borderRadius: BorderRadius.circular(isMobile ? 0 : 16),
+          ),
+          child: SizedBox.shrink(),
         ),
       ),
     );

@@ -91,38 +91,6 @@ class _HomeViewState extends State<HomeView> {
                       : null,
                 )
               : null,
-          bottomNavigationBar: isMobile
-              ? NavigationBar(
-                  labelBehavior: !isTinyPhone
-                      ? NavigationDestinationLabelBehavior.alwaysShow
-                      : NavigationDestinationLabelBehavior.alwaysHide,
-                  selectedIndex: _selectedIndex,
-                  onDestinationSelected: (int index) {
-                    setState(() {
-                      _selectedIndex = index;
-                      pageController.animateToPage(
-                        index,
-                        duration: Duration(milliseconds: 500),
-                        curve: Curves.ease,
-                      );
-                    });
-                  },
-                  destinations: const [
-                    NavigationDestination(
-                      icon: Icon(Icons.home),
-                      label: 'Home',
-                    ),
-                    NavigationDestination(
-                        icon: Icon(Icons.wallet), label: 'Billetera'),
-                    NavigationDestination(
-                        icon: Icon(Icons.search), label: 'Buscar'),
-                    NavigationDestination(
-                        icon: Icon(Icons.dataset_rounded), label: 'Catálogo'),
-                    NavigationDestination(
-                        icon: Icon(Icons.apps_rounded), label: 'Más'),
-                  ],
-                )
-              : null,
           body: Row(
             children: [
               if (!isMobile)
@@ -233,15 +201,67 @@ class _HomeViewState extends State<HomeView> {
                   ],
                 ),
               Expanded(
-                child: PageView(
-                  controller: pageController,
-                  physics: NeverScrollableScrollPhysics(),
+                child: Stack(
                   children: [
-                    InitialView(),
-                    WalletView(),
-                    SearchView(),
-                    CatalogView(),
-                    MoreView(),
+                    PageView(
+                      controller: pageController,
+                      physics: NeverScrollableScrollPhysics(),
+                      children: [
+                        InitialView(),
+                        WalletView(),
+                        SearchView(),
+                        CatalogView(),
+                        MoreView(),
+                      ],
+                    ),
+                    if (isMobile)
+                      Column(
+                        children: [
+                          Spacer(),
+                          Container(
+                            margin: const EdgeInsets.all(16),
+                            decoration: BoxDecoration(
+                                color: Colors.white.withOpacity(0.5),
+                                borderRadius: BorderRadius.circular(16)),
+                            child: NavigationBar(
+                              backgroundColor: Colors.transparent,
+                              labelBehavior: !isTinyPhone
+                                  ? NavigationDestinationLabelBehavior
+                                      .alwaysShow
+                                  : NavigationDestinationLabelBehavior
+                                      .alwaysHide,
+                              selectedIndex: _selectedIndex,
+                              onDestinationSelected: (int index) {
+                                setState(() {
+                                  _selectedIndex = index;
+                                  pageController.animateToPage(
+                                    index,
+                                    duration: Duration(milliseconds: 500),
+                                    curve: Curves.ease,
+                                  );
+                                });
+                              },
+                              destinations: const [
+                                NavigationDestination(
+                                  icon: Icon(Icons.home),
+                                  label: 'Home',
+                                ),
+                                NavigationDestination(
+                                    icon: Icon(Icons.wallet),
+                                    label: 'Billetera'),
+                                NavigationDestination(
+                                    icon: Icon(Icons.search), label: 'Buscar'),
+                                NavigationDestination(
+                                    icon: Icon(Icons.dataset_rounded),
+                                    label: 'Catálogo'),
+                                NavigationDestination(
+                                    icon: Icon(Icons.apps_rounded),
+                                    label: 'Más'),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                   ],
                 ),
               ),
