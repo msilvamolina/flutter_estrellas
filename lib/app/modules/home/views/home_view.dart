@@ -18,6 +18,11 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    bool isMobile = screenWidth < 480;
+    bool isTablet = screenWidth < 720;
+    bool isDesktop = screenWidth > 720;
+
     List<NavigationRailDestination> navigationDestinations = [
       NavigationRailDestination(
         icon: const Icon(Icons.home),
@@ -63,14 +68,16 @@ class _HomeViewState extends State<HomeView> {
           appBar: AppBar(
             title: const Text('HomeView'),
             centerTitle: true,
-            leading: IconButton(
-              onPressed: () {
-                setState(() {
-                  _navigationExtended = !_navigationExtended;
-                });
-              },
-              icon: const Icon(Icons.menu),
-            ),
+            leading: isDesktop
+                ? IconButton(
+                    onPressed: () {
+                      setState(() {
+                        _navigationExtended = !_navigationExtended;
+                      });
+                    },
+                    icon: const Icon(Icons.menu),
+                  )
+                : null,
           ),
           body: Row(
             children: [
@@ -78,7 +85,7 @@ class _HomeViewState extends State<HomeView> {
                 children: [
                   NavigationRail(
                     useIndicator: true,
-                    extended: _navigationExtended,
+                    extended: isTablet ? false : _navigationExtended,
                     selectedIndex: _selectedIndex,
                     onDestinationSelected: (int index) {
                       setState(() {
@@ -96,11 +103,13 @@ class _HomeViewState extends State<HomeView> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            if (_navigationExtended) ...[
+                            if (isTablet ? false : _navigationExtended) ...[
                               Container(
                                 width: 160,
                                 child: Text(
-                                    'Log in to follow creators, like videos, and view comments.'),
+                                  'Log in to follow creators, like videos, and view comments.',
+                                  style: TypographyStyle.bodyRegularSmall,
+                                ),
                               ),
                               SizedBox(height: 16),
                               ElevatedButton(
