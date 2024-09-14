@@ -112,7 +112,6 @@ class _HomeViewState extends State<HomeView> {
                 Stack(
                   children: [
                     NavigationRail(
-                      elevation: 4,
                       labelType: !_navigationExtended || isTablet
                           ? NavigationRailLabelType.all
                           : null,
