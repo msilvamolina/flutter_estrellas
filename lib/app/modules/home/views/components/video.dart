@@ -26,6 +26,8 @@ class _VideoAppState extends State<VideoApp> {
               _controller.play();
             });
           });
+
+    _controller.setVolume(100);
   }
 
   @override
