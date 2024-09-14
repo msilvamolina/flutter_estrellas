@@ -112,11 +112,21 @@ class _HomeViewState extends State<HomeView> {
                 Stack(
                   children: [
                     NavigationRail(
+                      elevation: 4,
+                      labelType: !_navigationExtended || isTablet
+                          ? NavigationRailLabelType.all
+                          : null,
                       indicatorColor:
                           Theme.of(context).colorScheme.primaryContainer,
-                      // selectedIconTheme:
-                      //     IconThemeData(color: Theme.of(context).primaryColor),
-                      // unselectedIconTheme: IconThemeData(color: Colors.grey),
+                      selectedIconTheme: ThemeService.isDark()
+                          ? IconThemeData(
+                              color:
+                                  Theme.of(context).colorScheme.primaryFixedDim)
+                          : IconThemeData(
+                              color: Theme.of(context).primaryColor),
+                      unselectedIconTheme: IconThemeData(
+                        color: neutral500,
+                      ),
                       useIndicator: true,
                       extended: isTablet ? false : _navigationExtended,
                       selectedIndex: _selectedIndex,
@@ -142,45 +152,45 @@ class _HomeViewState extends State<HomeView> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               if (isTablet ? false : _navigationExtended) ...[
-                                Container(
-                                  width: 160,
-                                  child: Text(
-                                    'Log in to follow creators, like videos, and view comments.',
-                                    style: TypographyStyle.bodyRegularSmall,
-                                  ),
-                                ),
-                                SizedBox(height: 16),
-                                ElevatedButton(
-                                  onPressed: () {},
-                                  child: Text('Ingresar'),
-                                ),
-                                SizedBox(height: 16),
-                                Container(
-                                  decoration: BoxDecoration(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .tertiaryContainer,
-                                      borderRadius: BorderRadius.circular(16)),
-                                  padding: EdgeInsets.all(16),
-                                  child: Row(
-                                    children: [
-                                      Icon(
-                                        Icons.emoji_objects,
-                                        size: 22,
-                                      ),
-                                      SizedBox(width: 8),
-                                      Text(
-                                        'Creá un efecto Estrellas',
-                                        style: TypographyStyle.bodyRegularSmall
-                                            .copyWith(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .tertiary,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
+                                // Container(
+                                //   width: 160,
+                                //   child: Text(
+                                //     'Log in to follow creators, like videos, and view comments.',
+                                //     style: TypographyStyle.bodyRegularSmall,
+                                //   ),
+                                // ),
+                                // SizedBox(height: 16),
+                                // ElevatedButton(
+                                //   onPressed: () {},
+                                //   child: Text('Ingresar'),
+                                // ),
+                                // SizedBox(height: 16),
+                                // Container(
+                                //   decoration: BoxDecoration(
+                                //       color: Theme.of(context)
+                                //           .colorScheme
+                                //           .tertiaryContainer,
+                                //       borderRadius: BorderRadius.circular(16)),
+                                //   padding: EdgeInsets.all(16),
+                                //   child: Row(
+                                //     children: [
+                                //       Icon(
+                                //         Icons.emoji_objects,
+                                //         size: 22,
+                                //       ),
+                                //       SizedBox(width: 8),
+                                //       Text(
+                                //         'Creá un efecto Estrellas',
+                                //         style: TypographyStyle.bodyRegularSmall
+                                //             .copyWith(
+                                //           color: Theme.of(context)
+                                //               .colorScheme
+                                //               .tertiary,
+                                //         ),
+                                //       ),
+                                //     ],
+                                //   ),
+                                // ),
                                 SizedBox(height: 16),
                                 TextButton(
                                   onPressed: () {},
@@ -208,9 +218,23 @@ class _HomeViewState extends State<HomeView> {
                               ],
                               IconButton.outlined(
                                 onPressed: controller.changeThemeMode,
+                                style: ButtonStyle(
+                                  side: MaterialStateProperty.all(
+                                    BorderSide(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .primaryFixedDim,
+                                    ), // Aquí defines el color y grosor del borde
+                                  ),
+                                ),
                                 icon: Padding(
                                   padding: const EdgeInsets.all(4),
-                                  child: Icon(controller.getThemeIcon()),
+                                  child: Icon(
+                                    controller.getThemeIcon(),
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .primaryFixedDim,
+                                  ),
                                 ),
                               ),
                             ],
@@ -248,6 +272,31 @@ class _HomeViewState extends State<HomeView> {
                             ),
                             child: NavigationBarTheme(
                               data: NavigationBarThemeData(
+                                // iconTheme: WidgetStateProperty.all(
+
+                                // ),
+                                iconTheme: MaterialStateProperty.resolveWith<
+                                    IconThemeData?>(
+                                  (Set<MaterialState> states) {
+                                    // Si el botón está seleccionado, aplica un estilo diferente
+                                    if (states
+                                        .contains(MaterialState.selected)) {
+                                      return ThemeService.isDark()
+                                          ? IconThemeData(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .primaryFixedDim)
+                                          : IconThemeData(
+                                              color: Theme.of(context)
+                                                  .primaryColor);
+                                    }
+                                    return IconThemeData(
+                                      color: ThemeService.isDark()
+                                          ? neutral500
+                                          : neutral700,
+                                    );
+                                  },
+                                ),
                                 indicatorColor: Theme.of(context)
                                     .primaryColor, // Color del indicador
                                 labelTextStyle: MaterialStateProperty.all(
