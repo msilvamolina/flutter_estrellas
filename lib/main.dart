@@ -13,10 +13,10 @@ void main() {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.greenAccent,
-          brightness: Brightness.light,
+          brightness: Brightness.dark,
         ),
         useMaterial3: true,
-        textTheme: GoogleFonts.robotoTextTheme(),
+        textTheme: GoogleFonts.montserratTextTheme(),
       ),
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,

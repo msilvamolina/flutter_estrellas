@@ -13,12 +13,12 @@ class AppPages {
   AppPages._();
 
   // ignore: constant_identifier_names
-  static const INITIAL = Routes.SPLASH;
+  static const INITIAL = Routes.HOME;
 
   static final routes = [
     GetPage(
       name: _Paths.HOME,
-      page: () => const HomeView(),
+      page: () => HomeView(),
       binding: HomeBinding(),
       transition: Transition.fadeIn,
     ),
