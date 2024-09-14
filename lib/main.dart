@@ -4,7 +4,9 @@ import 'package:get_storage/get_storage.dart';
 import 'app/routes/app_pages.dart';
 import 'app/services/dependency_injection.dart';
 import 'app/services/theme_service.dart';
+import 'app/themes/text_theme.dart';
 import 'app/themes/theme.dart';
+import 'app/themes/theme2.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,13 +21,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = createTextTheme(context, "Montserrat", "Montserrat");
+    MaterialTheme theme = MaterialTheme(textTheme);
+
     return GetMaterialApp(
       title: "Estrellas",
       locale: const Locale('es'),
       fallbackLocale: const Locale('es'),
       debugShowCheckedModeBanner: false,
-      theme: Themes().lightTheme,
-      darkTheme: Themes().darkTheme,
+      theme: theme.light(),
+      darkTheme: theme.dark(),
       themeMode: ThemeService.getThemeMode(),
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
