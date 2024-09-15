@@ -29,6 +29,7 @@ class _HomeViewState extends State<HomeView> {
     bool isTinyPhone = screenWidth < 320;
     bool isMobile = screenWidth < 480;
     bool isTablet = screenWidth < 720;
+    bool isTablet2 = screenWidth < 890;
     bool isDesktop = screenWidth > 720;
     PageController pageController = PageController();
     bool _isSearching = false;
@@ -117,7 +118,7 @@ class _HomeViewState extends State<HomeView> {
                         ),
                         Spacer(),
                         Container(
-                          width: 500,
+                          width: isTablet2 ? 300 : 500,
                           child: SearchBar(
                             onChanged: (v) {
                               setState(() {
