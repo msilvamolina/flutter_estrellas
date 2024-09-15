@@ -6,10 +6,13 @@ import 'package:flutter_estrellas/app/themes/styles/typography.dart';
 class VideoCard extends StatelessWidget {
   const VideoCard({
     required this.videoModel,
+    required this.onCompleted,
     super.key,
   });
 
   final VideoModel videoModel;
+  final Function() onCompleted;
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -20,7 +23,10 @@ class VideoCard extends StatelessWidget {
         constraints: BoxConstraints(maxWidth: 480),
         child: Stack(
           children: [
-            VideoApp(videoModel: videoModel),
+            VideoApp(
+              videoModel: videoModel,
+              onCompleted: onCompleted,
+            ),
             Center(
               child: AspectRatio(
                 aspectRatio: 9 / 16,

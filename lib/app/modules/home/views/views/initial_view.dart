@@ -5,9 +5,14 @@ import '../../../../themes/styles/typography.dart';
 import '../components/video.dart';
 import '../components/video_card.dart';
 
-class InitialView extends StatelessWidget {
+class InitialView extends StatefulWidget {
   const InitialView({super.key});
 
+  @override
+  State<InitialView> createState() => _InitialViewState();
+}
+
+class _InitialViewState extends State<InitialView> {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -94,6 +99,8 @@ class InitialView extends StatelessWidget {
     ];
 
     PageController pageController = PageController();
+
+    int pageSelected = 0;
     return Center(
       child: Container(
         margin: EdgeInsets.all(isMobile ? 0 : 16),
@@ -102,10 +109,22 @@ class InitialView extends StatelessWidget {
         constraints: BoxConstraints(maxWidth: 480),
         child: PageView.builder(
           itemCount: videoList.length,
-          controller: PageController(initialPage: 0, viewportFraction: 1),
+          controller:
+              PageController(initialPage: pageSelected, viewportFraction: 1),
           scrollDirection: Axis.vertical,
-          itemBuilder: (context, index) =>
-              VideoCard(videoModel: videoList[index]),
+          onPageChanged: (value) {
+            setState(() {
+              pageSelected = value;
+            });
+          },
+          itemBuilder: (context, index) => VideoCard(
+              videoModel: videoList[index],
+              onCompleted: () {
+                pageController.animateToPage(pageSelected++,
+                    duration: Duration(milliseconds: 200),
+                    curve: Curves.linear);
+                // pageController.
+              }),
         ),
       ),
     );
