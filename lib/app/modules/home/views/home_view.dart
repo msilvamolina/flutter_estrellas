@@ -7,6 +7,7 @@ import 'package:flutter_estrellas/app/modules/home/views/views/wallet_view.dart'
 import 'package:flutter_estrellas/app/services/theme_service.dart';
 import 'package:flutter_estrellas/app/themes/styles/colors.dart';
 import 'package:flutter_estrellas/app/themes/styles/typography.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import 'views/initial_view.dart';
@@ -96,25 +97,71 @@ class _HomeViewState extends State<HomeView> {
                   centerTitle: true,
                   title: Padding(
                     padding: EdgeInsets.only(top: 10),
-                    child: Container(
-                      width: 500,
-                      child: SearchBar(
-                        onChanged: (v) {
-                          setState(() {
-                            _selectedIndex = 2;
-                            pageController.animateToPage(
-                              2,
-                              duration: Duration(milliseconds: 400),
-                              curve: Curves.ease,
-                            );
-                          });
-                        },
-                        hintText: 'Buscar...',
-                        elevation: MaterialStateProperty.all<double>(0),
-                        trailing: [
-                          IconButton(onPressed: () {}, icon: Icon(Icons.search))
-                        ],
-                      ),
+                    child: Row(
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            setState(() {
+                              _selectedIndex = 0;
+                              pageController.animateToPage(
+                                0,
+                                duration: Duration(milliseconds: 400),
+                                curve: Curves.ease,
+                              );
+                            });
+                          },
+                          child: SvgPicture.asset(
+                            'assets/svg/fulllogo.svg',
+                            height: 30,
+                          ),
+                        ),
+                        Spacer(),
+                        Container(
+                          width: 500,
+                          child: SearchBar(
+                            onChanged: (v) {
+                              setState(() {
+                                if (_selectedIndex != 2) {
+                                  _selectedIndex = 2;
+                                  pageController.animateToPage(
+                                    2,
+                                    duration: Duration(milliseconds: 400),
+                                    curve: Curves.ease,
+                                  );
+                                }
+                              });
+                            },
+                            hintText: 'Buscar...',
+                            elevation: MaterialStateProperty.all<double>(0),
+                            trailing: [
+                              IconButton(
+                                  onPressed: () {}, icon: Icon(Icons.search))
+                            ],
+                          ),
+                        ),
+                        Spacer(),
+                        ElevatedButton(
+                          onPressed: () {
+                            // Acción del botón
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Theme.of(context)
+                                .colorScheme
+                                .secondaryContainer, // Color secundario
+                            foregroundColor: ThemeService.isDark()
+                                ? Colors.white
+                                : neutral900,
+                          ),
+                          child: Text('Ingresar'),
+                        ),
+                        SizedBox(width: 8),
+                        IconButton(
+                          onPressed: () {},
+                          icon: Icon(
+                            Icons.more_vert,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 )
