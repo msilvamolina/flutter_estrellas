@@ -30,6 +30,8 @@ class _HomeViewState extends State<HomeView> {
     bool isTablet = screenWidth < 720;
     bool isDesktop = screenWidth > 720;
     PageController pageController = PageController();
+    bool _isSearching = false;
+    TextEditingController _searchController = TextEditingController();
 
     List<NavigationRailDestination> navigationDestinations = [
       NavigationRailDestination(
@@ -90,20 +92,31 @@ class _HomeViewState extends State<HomeView> {
               : null,
           appBar: !isTablet
               ? AppBar(
-                  title: const Text('HomeView'),
+                  toolbarHeight: 70,
                   centerTitle: true,
-                  leading: isDesktop
-                      ? IconButton(
-                          onPressed: () {
-                            setState(() {
-                              _navigationExtended = !_navigationExtended;
-                            });
-                          },
-                          icon: Icon(!_navigationExtended
-                              ? Icons.menu
-                              : Icons.menu_open),
-                        )
-                      : null,
+                  title: Padding(
+                    padding: EdgeInsets.only(top: 10),
+                    child: Container(
+                      width: 500,
+                      child: SearchBar(
+                        onChanged: (v) {
+                          setState(() {
+                            _selectedIndex = 2;
+                            pageController.animateToPage(
+                              2,
+                              duration: Duration(milliseconds: 400),
+                              curve: Curves.ease,
+                            );
+                          });
+                        },
+                        hintText: 'Buscar...',
+                        elevation: MaterialStateProperty.all<double>(0),
+                        trailing: [
+                          IconButton(onPressed: () {}, icon: Icon(Icons.search))
+                        ],
+                      ),
+                    ),
+                  ),
                 )
               : null,
           body: Row(
