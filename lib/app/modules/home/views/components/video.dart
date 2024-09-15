@@ -24,6 +24,9 @@ class _VideoAppState extends State<VideoApp> {
   bool _isPlaying = true;
   MainController mainController = Get.find();
 
+  bool _iconAnimationShowing = false;
+  IconData _iconAnimationIcon = Icons.pause;
+
   @override
   void initState() {
     super.initState();
@@ -54,6 +57,39 @@ class _VideoAppState extends State<VideoApp> {
     _controller.setVolume(mainController.withVolume ? 100 : 0);
   }
 
+  void onPause() {
+    setState(() {
+      _isPlaying = !_controller.value.isPlaying;
+      _isPlaying ? _controller.play() : _controller.pause();
+      _iconAnimationIcon = _isPlaying ? Icons.play_arrow : Icons.pause;
+
+      _iconAnimationShowing = true;
+    });
+
+    Future.delayed(Duration(milliseconds: 700), () {
+      setState(() {
+        _iconAnimationShowing = false;
+      });
+    });
+  }
+
+  void onVolume() {
+    mainController.changeVolume();
+    setState(() {
+      mainController.withVolume
+          ? _controller.setVolume(100)
+          : _controller.setVolume(0);
+      _iconAnimationIcon =
+          mainController.withVolume ? Icons.volume_up : Icons.volume_off;
+      _iconAnimationShowing = true;
+    });
+    Future.delayed(Duration(milliseconds: 700), () {
+      setState(() {
+        _iconAnimationShowing = false;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -68,39 +104,28 @@ class _VideoAppState extends State<VideoApp> {
               child: AspectRatio(
                 aspectRatio: 9 / 16,
                 child: GestureDetector(
-                  onDoubleTap: () {
-                    setState(() {
-                      _isPlaying = !_controller.value.isPlaying;
-
-                      _isPlaying ? _controller.play() : _controller.pause();
-                    });
-                  },
-                  onTap: () {
-                    mainController.changeVolume();
-
-                    setState(() {
-                      mainController.withVolume
-                          ? _controller.setVolume(100)
-                          : _controller.setVolume(0);
-                    });
-                  },
+                  onDoubleTap: onPause,
+                  onTap: onVolume,
                   child: Stack(
                     children: [
                       VideoPlayer(_controller),
+                      Center(
+                        child: AnimatedOpacity(
+                          opacity: _iconAnimationShowing ? 0.4 : 0,
+                          duration: Duration(milliseconds: 500),
+                          child: Icon(
+                            _iconAnimationIcon,
+                            size: 140,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
                       Column(
                         children: [
                           Row(
                             children: [
                               IconButton(
-                                onPressed: () {
-                                  setState(() {
-                                    _isPlaying = !_controller.value.isPlaying;
-
-                                    _isPlaying
-                                        ? _controller.play()
-                                        : _controller.pause();
-                                  });
-                                },
+                                onPressed: onPause,
                                 icon: Icon(
                                   _isPlaying ? Icons.pause : Icons.play_arrow,
                                   color: neutral500,
@@ -128,15 +153,7 @@ class _VideoAppState extends State<VideoApp> {
                                 ),
                               ),
                               IconButton(
-                                onPressed: () {
-                                  mainController.changeVolume();
-
-                                  setState(() {
-                                    mainController.withVolume
-                                        ? _controller.setVolume(100)
-                                        : _controller.setVolume(0);
-                                  });
-                                },
+                                onPressed: onVolume,
                                 icon: Icon(
                                   mainController.withVolume
                                       ? Icons.volume_off
