@@ -31,7 +31,7 @@ class VideoLabel extends StatelessWidget {
           children: [
             Container(
               width: double.infinity,
-              height: 36,
+              height: 16,
             ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,

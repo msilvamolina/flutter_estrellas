@@ -108,11 +108,11 @@ class _VideoAppState extends State<VideoApp> {
       mainAxisSize: MainAxisSize.min,
       children: [
         if (showExpandedVideo)
-          Expanded(child: videoContent())
+          Expanded(child: videoContent(showButtonsOutside))
         else
           AspectRatio(
             aspectRatio: 9 / 16,
-            child: videoContent(),
+            child: videoContent(showButtonsOutside),
           ),
         if (!showButtonsOutside)
           Padding(
@@ -123,22 +123,26 @@ class _VideoAppState extends State<VideoApp> {
     );
   }
 
-  Widget videoContent() => Container(
+  Widget videoContent(showButtonsOutside) => Container(
         child: _controller.value.isInitialized
             ? GestureDetector(
                 onTap: onPause,
                 onDoubleTap: onVolume,
                 child: Stack(
                   children: [
-                    Stack(
+                    VideoPlayer(_controller),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        VideoPlayer(_controller),
-                        Column(
-                          children: [
-                            Spacer(),
-                            VideoLabel(),
-                          ],
-                        ),
+                        if (showButtonsOutside)
+                          Expanded(
+                              child: Padding(
+                            padding: const EdgeInsets.only(right: 16),
+                            child: VideoButtons(buttonInsideVideo: true),
+                          ))
+                        else
+                          Spacer(),
+                        VideoLabel(),
                       ],
                     ),
                     Center(

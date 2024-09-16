@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_estrellas/app/services/theme_service.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../../../themes/styles/colors.dart';
 import '../../../../themes/styles/typography.dart';
 
 class VideoButtons extends StatelessWidget {
@@ -9,6 +11,13 @@ class VideoButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Color colorText = buttonInsideVideo
+        ? white
+        : (ThemeService.isDark() ? white : neutral800);
+
+    Color colorIcon = buttonInsideVideo
+        ? white
+        : (ThemeService.isDark() ? white : neutral500);
     double iconSize = 34;
     return Column(
       children: [
@@ -16,37 +25,58 @@ class VideoButtons extends StatelessWidget {
         SvgPicture.asset(
           'assets/svg/BookmarkSimple.svg',
           width: iconSize,
+          colorFilter: ColorFilter.mode(
+            colorIcon,
+            BlendMode.srcIn,
+          ),
         ),
         SizedBox(height: 4),
-        Text('Guardar', style: TypographyStyle.bodyRegularSmall),
+        Text('Guardar',
+            style: TypographyStyle.bodyRegularSmall.copyWith(color: colorText)),
         SizedBox(height: 22),
         SvgPicture.asset(
           'assets/svg/Info.svg',
           width: iconSize,
+          colorFilter: ColorFilter.mode(
+            colorIcon,
+            BlendMode.srcIn,
+          ),
         ),
         SizedBox(height: 4),
-        Text('Info', style: TypographyStyle.bodyRegularSmall),
+        Text('Info',
+            style: TypographyStyle.bodyRegularSmall.copyWith(color: colorText)),
         SizedBox(height: 22),
         SvgPicture.asset(
           'assets/svg/Heart.svg',
           width: iconSize,
+          colorFilter: ColorFilter.mode(
+            colorIcon,
+            BlendMode.srcIn,
+          ),
         ),
         SizedBox(height: 4),
-        Text('220', style: TypographyStyle.bodyRegularSmall),
+        Text('220',
+            style: TypographyStyle.bodyRegularSmall.copyWith(color: colorText)),
         SizedBox(height: 22),
         SvgPicture.asset(
           'assets/svg/ShoppingBag.svg',
           width: iconSize,
+          colorFilter: ColorFilter.mode(
+            colorIcon,
+            BlendMode.srcIn,
+          ),
         ),
         SizedBox(height: 4),
-        Text('Comprar', style: TypographyStyle.bodyRegularSmall),
+        Text('Comprar',
+            style: TypographyStyle.bodyRegularSmall.copyWith(color: colorText)),
         SizedBox(height: 22),
         SvgPicture.asset(
           'assets/svg/logo.svg',
           width: iconSize,
         ),
         SizedBox(height: 4),
-        Text('Vender', style: TypographyStyle.bodyRegularSmall),
+        Text('Vender',
+            style: TypographyStyle.bodyRegularSmall.copyWith(color: colorText)),
       ],
     );
   }
