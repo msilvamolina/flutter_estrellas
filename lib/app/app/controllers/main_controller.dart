@@ -63,7 +63,7 @@ class MainController extends GetxController {
         Get.offAllNamed(Routes.LOGIN);
       }
       if (_userStatus == UserStatus.needBasicData) {
-        Get.offAllNamed(Routes.LOGIN);
+        Get.offAllNamed(Routes.REGISTER_BASIC_DATA);
       }
       if (_userStatus == UserStatus.full) {
         Get.offAllNamed(Routes.HOME);
@@ -99,12 +99,15 @@ class MainController extends GetxController {
   }
 
   void signOut() {
+    bool isDark = ThemeService.isSavedDarkMode();
     _userStatus = UserStatus.loading;
     update(['login']);
     userRepository.signOut();
     Future.delayed(Duration(milliseconds: 500), () {
       _userStatus = UserStatus.notLogged;
       update(['login']);
+      ThemeService.changeThemeModeValue(isDark);
+      checkUser();
     });
   }
 

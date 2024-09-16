@@ -20,6 +20,9 @@ class LoginDialogController extends GetxController {
   final AuthRepository _authRepository = AuthRepository();
 
   MainController mainController = Get.find();
+  bool _buttonEnabled = true;
+  bool get buttonEnabled => _buttonEnabled;
+
   FormGroup buildForm() => fb.group(<String, Object>{
         Fields.email.name: FormControl<String>(
           validators: [
@@ -51,6 +54,8 @@ class LoginDialogController extends GetxController {
   }
 
   Future<void> sendForm(Map<String, Object?> data) async {
+    _buttonEnabled = false;
+    update(['loginButton']);
     mainController.showLoader(
       title: 'Iniciando sesión...',
       message: 'Por favor espere',
@@ -64,14 +69,15 @@ class LoginDialogController extends GetxController {
       password: password,
     );
 
-    Get.back();
-
     authFailureOrSuccessOption.fold(
-      (failure) => Snackbars.error(failure),
-      (_) {
+      (failure) {
         Get.back();
+        _buttonEnabled = true;
+        update(['loginButton']);
+        Snackbars.error(failure);
+      },
+      (_) {
         mainController.checkUser();
-        Snackbars.success('Bienvenido!');
       },
     );
   }

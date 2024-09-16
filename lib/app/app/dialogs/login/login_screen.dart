@@ -87,9 +87,10 @@ class LoginScreen extends StatelessWidget {
                             SizedBox(height: 26),
                             ReactiveFormConsumer(
                               builder: (context, form, child) => ElevatedButton(
-                                onPressed: form.valid
-                                    ? () => controller.sendForm(form.value)
-                                    : null,
+                                onPressed:
+                                    (form.valid && controller.buttonEnabled)
+                                        ? () => controller.sendForm(form.value)
+                                        : null,
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: ThemeService.isDark()
                                       ? primaryDark
