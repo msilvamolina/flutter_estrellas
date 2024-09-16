@@ -23,8 +23,8 @@ class MainController extends GetxController {
     super.onClose();
   }
 
-  Future<void> openLoginDialog() async {
-    final result = await showDialog<List>(
+  void openLoginDialog() {
+    showDialog(
       context: Get.context!,
       builder: (BuildContext context) {
         return LoginDialog();

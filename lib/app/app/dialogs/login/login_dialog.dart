@@ -25,6 +25,16 @@ class LoginDialog extends StatelessWidget {
                 builder: (context, form, child) {
                   return Column(
                     children: [
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          IconButton(
+                            onPressed: () {},
+                            icon: Icon(Icons.help_outline),
+                          ),
+                        ],
+                      ),
                       SvgPicture.asset(
                         'assets/svg/logo.svg',
                         width: 100,
