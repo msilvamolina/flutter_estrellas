@@ -99,15 +99,6 @@ class MainController extends GetxController {
     return isThemeModeDark ? Icons.light_mode : Icons.dark_mode;
   }
 
-  void openLoginDialog() {
-    showDialog(
-      context: Get.context!,
-      builder: (BuildContext context) {
-        return LoginDialog();
-      },
-    );
-  }
-
   void signOut() {
     _userStatus = UserStatus.loading;
     update(['login']);
@@ -120,13 +111,26 @@ class MainController extends GetxController {
     });
   }
 
-  void openRegisterDialog() {
+  void openLoginDialog() {
     showDialog(
       context: Get.context!,
       builder: (BuildContext context) {
-        return RegisterDialog();
+        return LoginDialog();
       },
     );
+  }
+
+  void openRegisterDialog() {
+    if (kIsWeb) {
+      showDialog(
+        context: Get.context!,
+        builder: (BuildContext context) {
+          return RegisterDialog();
+        },
+      );
+    } else {
+      Get.toNamed(Routes.REGISTER);
+    }
   }
 
   void openRegisterBasicDataDialog() {

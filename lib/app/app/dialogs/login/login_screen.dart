@@ -29,28 +29,17 @@ class LoginScreen extends StatelessWidget {
                         width: 400,
                         child: ListBody(
                           children: <Widget>[
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                if (!isDialog)
-                                  GetBuilder<MainController>(
-                                    id: 'themeButton',
-                                    builder: (_) {
-                                      return IconButton(
-                                        onPressed: controller
-                                            .mainController.changeThemeMode,
-                                        icon: Icon(controller.mainController
-                                            .getThemeIcon()),
-                                      );
-                                    },
+                            if (isDialog)
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  IconButton(
+                                    onPressed: () {},
+                                    icon: Icon(Icons.help_outline),
                                   ),
-                                IconButton(
-                                  onPressed: () {},
-                                  icon: Icon(Icons.help_outline),
-                                ),
-                              ],
-                            ),
+                                ],
+                              ),
                             Hero(
                               tag: 'logo',
                               child: SvgPicture.asset(

@@ -44,6 +44,7 @@ class AppPages {
       name: _Paths.REGISTER,
       page: () => const RegisterView(),
       binding: RegisterBinding(),
+      transition: Transition.downToUp,
     ),
     GetPage(
       name: _Paths.REGISTER_BASIC_DATA,
