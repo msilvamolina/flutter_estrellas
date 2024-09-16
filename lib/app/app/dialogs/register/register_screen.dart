@@ -6,7 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
-import '../login/login_controller.dart';
+import 'register_controller.dart';
 
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({super.key, this.isDialog = false});
@@ -14,14 +14,14 @@ class RegisterScreen extends StatelessWidget {
   final bool isDialog;
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<LoginDialogController>(
-        init: LoginDialogController(),
+    return GetBuilder<RegisterDialogController>(
+        init: RegisterDialogController(),
         builder: (controller) {
           return Stack(
             children: [
               SingleChildScrollView(
                 child: ReactiveFormBuilder(
-                    form: controller.buildFormRegister,
+                    form: controller.buildForm,
                     builder: (context, form, child) {
                       return Container(
                         width: 400,
@@ -54,7 +54,7 @@ class RegisterScreen extends StatelessWidget {
                             ),
                             SizedBox(height: 26),
                             ReactiveTextField(
-                              formControlName: FieldsRegister.email.name,
+                              formControlName: Fields.email.name,
                               keyboardType: TextInputType.emailAddress,
                               decoration: CustomInputDecoration.inputDecoration(
                                 isThemeModeDark:
@@ -66,7 +66,7 @@ class RegisterScreen extends StatelessWidget {
                             SizedBox(height: 16),
                             ReactiveTextField(
                               obscureText: true,
-                              formControlName: FieldsRegister.password.name,
+                              formControlName: Fields.password.name,
                               keyboardType: TextInputType.text,
                               decoration: CustomInputDecoration.inputDecoration(
                                 isThemeModeDark:
@@ -78,8 +78,7 @@ class RegisterScreen extends StatelessWidget {
                             SizedBox(height: 16),
                             ReactiveTextField(
                               obscureText: true,
-                              formControlName:
-                                  FieldsRegister.passwordConfirmation.name,
+                              formControlName: Fields.passwordConfirmation.name,
                               keyboardType: TextInputType.text,
                               decoration: CustomInputDecoration.inputDecoration(
                                 isThemeModeDark:
