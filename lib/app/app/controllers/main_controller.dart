@@ -134,13 +134,17 @@ class MainController extends GetxController {
   }
 
   void openRegisterBasicDataDialog() {
-    showDialog(
-      barrierDismissible: false,
-      context: Get.context!,
-      builder: (BuildContext context) {
-        return RegisterBasicDataDialog();
-      },
-    );
+    if (kIsWeb) {
+      showDialog(
+        barrierDismissible: false,
+        context: Get.context!,
+        builder: (BuildContext context) {
+          return RegisterBasicDataDialog();
+        },
+      );
+    } else {
+      Get.offAndToNamed(Routes.REGISTER_BASIC_DATA);
+    }
   }
 
   void changeVolume() {

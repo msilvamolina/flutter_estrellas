@@ -50,11 +50,13 @@ class AppPages {
       name: _Paths.REGISTER_BASIC_DATA,
       page: () => const RegisterBasicDataView(),
       binding: RegisterBasicDataBinding(),
+      transition: Transition.downToUp,
     ),
     GetPage(
       name: _Paths.FORGOT_PASSWORD,
       page: () => const ForgotPasswordView(),
       binding: ForgotPasswordBinding(),
+      transition: Transition.downToUp,
     ),
   ];
 }
