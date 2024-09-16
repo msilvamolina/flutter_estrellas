@@ -92,13 +92,40 @@ class LoginDialog extends StatelessWidget {
                         ThemeService.isDark() ? secondaryLight : secondaryBase),
               ),
             ),
+            SizedBox(height: 46),
+            Stack(
+              children: [
+                Center(
+                  child: Container(
+                    margin: EdgeInsets.only(top: 10),
+                    width: double.infinity,
+                    height: 1,
+                    color: ThemeService.isDark() ? neutral300 : neutral600,
+                  ),
+                ),
+                Center(
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 16),
+                    color: Theme.of(context).colorScheme.surface,
+                    child: Text(
+                      '¿Quieres ser una Estrella?',
+                      textAlign: TextAlign.center,
+                      style: TypographyStyle.bodyRegularMedium.copyWith(
+                        fontWeight: FontWeight.w400,
+                        color: ThemeService.isDark() ? neutral300 : neutral600,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
             SizedBox(height: 26),
             ElevatedButton(
               onPressed: () {},
               style: ElevatedButton.styleFrom(
                 shadowColor:
                     ThemeService.isDark() ? secondaryLight : secondaryBase,
-                backgroundColor: Theme.of(context).colorScheme.background,
+                backgroundColor: Theme.of(context).colorScheme.surface,
                 foregroundColor:
                     ThemeService.isDark() ? Colors.white : Colors.black,
                 side: BorderSide(
