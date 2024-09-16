@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
 
 import 'video_buttons.dart';
+import 'video_label.dart';
 
 /// Stateful widget to fetch and then display video content.
 class VideoApp extends StatefulWidget {
@@ -109,7 +110,17 @@ class _VideoAppState extends State<VideoApp> {
                     children: [
                       AspectRatio(
                         aspectRatio: 9 / 16,
-                        child: VideoPlayer(_controller),
+                        child: Stack(
+                          children: [
+                            VideoPlayer(_controller),
+                            Column(
+                              children: [
+                                Spacer(),
+                                VideoLabel(),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                       Center(
                         child: AnimatedOpacity(
