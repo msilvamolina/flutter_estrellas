@@ -81,6 +81,9 @@ class RegisterDialogController extends GetxController {
     authFailureOrSuccessOption.fold(
       (failure) => Snackbars.error(failure),
       (_) {
+        Get.back();
+        mainController.openRegisterBasicDataDialog();
+
         Snackbars.success('Bienvenido!');
       },
     );

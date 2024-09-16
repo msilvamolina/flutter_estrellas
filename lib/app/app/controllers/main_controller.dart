@@ -39,13 +39,12 @@ class MainController extends GetxController {
   }
 
   void openRegisterDialog() {
-    openRegisterBasicDataDialog();
-    // showDialog(
-    //   context: Get.context!,
-    //   builder: (BuildContext context) {
-    //     return RegisterDialog();
-    //   },
-    // );
+    showDialog(
+      context: Get.context!,
+      builder: (BuildContext context) {
+        return RegisterDialog();
+      },
+    );
   }
 
   void openRegisterBasicDataDialog() {
