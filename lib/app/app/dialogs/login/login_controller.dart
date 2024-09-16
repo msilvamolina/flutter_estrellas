@@ -1,4 +1,6 @@
 import 'package:dartz/dartz.dart';
+import 'package:flutter/src/widgets/basic.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
@@ -65,6 +67,16 @@ class LoginDialogController extends GetxController {
 
     authFailureOrSuccessOption.fold(
       (failure) {
+        Get.snackbar(
+          'Upps, ocurrió un error',
+          failure,
+          maxWidth: 600,
+          margin: const EdgeInsets.all(16),
+          icon: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 2),
+            child: SvgPicture.asset('assets/svg/logo.svg'),
+          ),
+        );
         print('failure $failure');
         // mainController.showErrorScreen(failure);
       },
