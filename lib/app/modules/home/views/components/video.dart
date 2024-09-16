@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_estrellas/app/app/controllers/main_controller.dart';
 import 'package:flutter_estrellas/app/data/models/video_model.dart';
 import 'package:flutter_estrellas/app/themes/styles/colors.dart';
+import 'package:flutter_estrellas/app/themes/styles/typography.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
@@ -103,7 +104,19 @@ class _VideoAppState extends State<VideoApp> {
                   Row(
                     children: [
                       Expanded(child: VideoPlayer(_controller)),
-                      SvgPicture.asset('assets/svg/logo.svg')
+                      SizedBox(width: 4),
+                      Column(
+                        children: [
+                          Spacer(),
+                          SvgPicture.asset(
+                            'assets/svg/logo.svg',
+                            width: 40,
+                          ),
+                          SizedBox(height: 4),
+                          Text('Vender',
+                              style: TypographyStyle.bodyRegularSmall),
+                        ],
+                      )
                     ],
                   ),
                   Center(
