@@ -92,7 +92,7 @@ class LoginDialog extends StatelessWidget {
                         ThemeService.isDark() ? secondaryLight : secondaryBase),
               ),
             ),
-            SizedBox(height: 46),
+            SizedBox(height: 64),
             Stack(
               children: [
                 Center(
