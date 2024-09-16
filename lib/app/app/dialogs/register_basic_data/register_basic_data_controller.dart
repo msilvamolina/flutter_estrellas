@@ -83,6 +83,8 @@ class RegisterBasicDataDialogController extends GetxController {
     saveUserData.fold(
       (failure) => Snackbars.error(failure),
       (_) {
+        Get.back();
+        mainController.checkUser();
         Snackbars.success('Bienvenido!');
       },
     );
