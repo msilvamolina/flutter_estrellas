@@ -48,12 +48,12 @@ class MainController extends GetxController {
     update();
   }
 
-  void openLoader() {
+  void showLoader({String? title, String? message}) {
     showDialog(
       barrierColor: Colors.transparent,
       context: Get.context!,
       builder: (BuildContext context) {
-        return const LoaderDialog();
+        return LoaderDialog(title: title, message: message);
       },
     );
   }

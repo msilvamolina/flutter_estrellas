@@ -8,7 +8,11 @@ import 'package:shimmer/shimmer.dart';
 import '../../themes/styles/colors.dart';
 
 class LoaderDialog extends StatelessWidget {
-  const LoaderDialog({super.key});
+  const LoaderDialog({super.key, this.title, this.message});
+
+  final String? title;
+  final String? message;
+
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -32,13 +36,26 @@ class LoaderDialog extends StatelessWidget {
                         width: 100,
                       ),
                     ),
-                    SizedBox(height: 8),
-                    Text(
-                      'Espere un momento por favor',
-                      textAlign: TextAlign.center,
-                      style: TypographyStyle.bodyRegularLarge
-                          .copyWith(fontWeight: FontWeight.w500),
-                    ),
+                    if (title != null)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8),
+                        child: Text(
+                          title!,
+                          textAlign: TextAlign.center,
+                          style: TypographyStyle.bodyBlackLarge
+                              .copyWith(fontWeight: FontWeight.w500),
+                        ),
+                      ),
+                    if (title != null && message != null)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 2),
+                        child: Text(
+                          message!,
+                          textAlign: TextAlign.center,
+                          style: TypographyStyle.bodyRegularSmall
+                              .copyWith(fontWeight: FontWeight.w500),
+                        ),
+                      ),
                   ],
                 ),
               ),

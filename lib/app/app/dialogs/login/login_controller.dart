@@ -1,6 +1,8 @@
+import 'package:dartz/dartz.dart';
 import 'package:get/get.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
+import '../../../data/providers/repositories/auth/auth_repository.dart';
 import '../../controllers/main_controller.dart';
 
 enum Fields {
@@ -12,6 +14,8 @@ enum Fields {
 }
 
 class LoginDialogController extends GetxController {
+  final AuthRepository _authRepository = AuthRepository();
+
   MainController mainController = Get.find();
   FormGroup buildForm() => fb.group(<String, Object>{
         Fields.email.name: FormControl<String>(
@@ -44,16 +48,32 @@ class LoginDialogController extends GetxController {
   }
 
   Future<void> sendForm(Map<String, Object?> data) async {
-    mainController.openLoader();
+    mainController.showLoader(
+      title: 'Registrando...',
+      message: 'Por favor espere',
+    );
+    String email = data[Fields.email.name].toString();
+    String password = data[Fields.password.name].toString();
 
-    Future.delayed(Duration(seconds: 2), () {
-      Get.back();
-    });
-    // Future.delayed(Duration(seconds: 2), () {
-    //   mainController.setIsLoading(false);
-    // });
-    // String email = data[Fields.email.name].toString();
-    // String password = data[Fields.password.name].toString();
+    Either<String, Unit> authFailureOrSuccessOption =
+        await _authRepository.signInWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
+
+    Get.back();
+
+    authFailureOrSuccessOption.fold(
+      (failure) {
+        print('failure $failure');
+        // mainController.showErrorScreen(failure);
+      },
+      (_) {
+        print('success');
+
+        // Get.offAllNamed(Routes.HOME);
+      },
+    );
   }
 
   void openRegisterDialog() {
