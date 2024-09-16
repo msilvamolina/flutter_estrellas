@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_estrellas/app/app/controllers/main_controller.dart';
 import 'package:flutter_estrellas/app/services/theme_service.dart';
 import 'package:get/get.dart';
 
 class HomeController extends GetxController {
   PageController pageController = PageController();
-
+  MainController mainController = Get.find();
   @override
   void onInit() {
     super.onInit();
@@ -18,14 +19,5 @@ class HomeController extends GetxController {
   @override
   void onClose() {
     super.onClose();
-  }
-
-  void changeThemeMode() {
-    ThemeService.changeThemeMode();
-    update(['themeButton']);
-  }
-
-  IconData getThemeIcon() {
-    return ThemeService.isDark() ? Icons.light_mode : Icons.dark_mode;
   }
 }

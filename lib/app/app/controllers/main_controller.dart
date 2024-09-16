@@ -8,6 +8,7 @@ import 'package:flutter_estrellas/app/routes/app_pages.dart';
 import 'package:get/get.dart';
 
 import '../../data/models/user_data/user_data.dart';
+import '../../services/theme_service.dart';
 import '../dialogs/login/login_dialog.dart';
 
 enum UserStatus {
@@ -77,6 +78,15 @@ class MainController extends GetxController {
   @override
   void onClose() {
     super.onClose();
+  }
+
+  void changeThemeMode() {
+    ThemeService.changeThemeMode();
+    update(['themeButton']);
+  }
+
+  IconData getThemeIcon() {
+    return ThemeService.isDark() ? Icons.light_mode : Icons.dark_mode;
   }
 
   void openLoginDialog() {

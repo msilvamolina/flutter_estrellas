@@ -22,7 +22,11 @@ class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     return AuthLayout(
-      child: Center(child: LoginScreen()),
+      child: Center(
+          child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: LoginScreen(),
+      )),
     );
   }
 }

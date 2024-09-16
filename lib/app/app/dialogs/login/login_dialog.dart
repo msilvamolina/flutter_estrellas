@@ -14,7 +14,7 @@ class LoginDialog extends StatelessWidget {
       child: AlertDialog(
         content: Container(
           width: 400,
-          child: LoginScreen(),
+          child: LoginScreen(isDialog: true),
         ),
       ),
     );

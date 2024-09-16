@@ -69,6 +69,8 @@ class _AuthLayoutState extends State<AuthLayout> {
     double screenHeight = MediaQuery.of(context).size.height;
     double verticalHalf = screenHeight * 0.7;
     bool isMobile = screenWidth < 480;
+
+    Color backgroundColor = Theme.of(context).colorScheme.surface;
     return Scaffold(
       body: Stack(
         children: [
@@ -76,8 +78,8 @@ class _AuthLayoutState extends State<AuthLayout> {
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  Colors.white,
-                  Colors.white,
+                  backgroundColor,
+                  backgroundColor,
                 ],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
@@ -108,13 +110,13 @@ class _AuthLayoutState extends State<AuthLayout> {
                     ImageFilter.blur(sigmaX: 5000, sigmaY: 5000), // Desenfoque
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Colors.white
+                    color: backgroundColor
                         .withOpacity(0.2), // Fondo semi-transparente
                     borderRadius: BorderRadius.circular(
                         isMobile ? 0 : 20), // Bordes redondeados
                     border: Border.all(
                       width: 2,
-                      color: Colors.white
+                      color: backgroundColor
                           .withOpacity(0.3), // Borde semi-transparente
                     ),
                   ),
@@ -122,9 +124,9 @@ class _AuthLayoutState extends State<AuthLayout> {
                       ? Center(
                           child: Container(
                             margin: EdgeInsets.all(isMobile ? 0 : 60),
-
                             width: double.infinity, // Escalar para pantalla
-                            height: double.infinity, // Escalar para pantalla
+                            height: double.infinity,
+                            // Escalar para pantalla
                             constraints: BoxConstraints(maxWidth: 480),
                             child: ClipRRect(
                               borderRadius:
@@ -134,13 +136,13 @@ class _AuthLayoutState extends State<AuthLayout> {
                                     sigmaX: 5000, sigmaY: 5000),
                                 child: Container(
                                   decoration: BoxDecoration(
-                                    color: Colors.white
+                                    color: backgroundColor
                                         .withOpacity(isMobile ? 1 : 0.2),
                                     borderRadius: BorderRadius.circular(
                                         isMobile ? 0 : 20),
                                     border: Border.all(
                                       width: 2,
-                                      color: Colors.white.withOpacity(
+                                      color: backgroundColor.withOpacity(
                                           0.3), // Borde semi-transparente
                                     ),
                                   ),

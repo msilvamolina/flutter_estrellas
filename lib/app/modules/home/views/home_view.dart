@@ -238,7 +238,7 @@ class _HomeViewState extends State<HomeView> {
                       },
                       destinations: navigationDestinations,
                     ),
-                    GetBuilder<HomeController>(
+                    GetBuilder<MainController>(
                       id: 'themeButton',
                       builder: (_) {
                         return Positioned(
@@ -313,7 +313,8 @@ class _HomeViewState extends State<HomeView> {
                                 SizedBox(height: 26),
                               ],
                               IconButton.outlined(
-                                onPressed: controller.changeThemeMode,
+                                onPressed:
+                                    controller.mainController.changeThemeMode,
                                 style: ButtonStyle(
                                   side: MaterialStateProperty.all(
                                     BorderSide(
@@ -326,7 +327,7 @@ class _HomeViewState extends State<HomeView> {
                                 icon: Padding(
                                   padding: const EdgeInsets.all(4),
                                   child: Icon(
-                                    controller.getThemeIcon(),
+                                    controller.mainController.getThemeIcon(),
                                     color: Theme.of(context)
                                         .colorScheme
                                         .primaryFixedDim,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_estrellas/app/app/controllers/main_controller.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:reactive_forms/reactive_forms.dart';
@@ -10,8 +11,9 @@ import '../../../themes/styles/typography.dart';
 import 'login_controller.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+  const LoginScreen({super.key, this.isDialog = false});
 
+  final bool isDialog;
   @override
   Widget build(BuildContext context) {
     return GetBuilder<LoginDialogController>(
@@ -31,6 +33,18 @@ class LoginScreen extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.end,
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
+                                if (!isDialog)
+                                  GetBuilder<MainController>(
+                                    id: 'themeButton',
+                                    builder: (_) {
+                                      return IconButton(
+                                        onPressed: controller
+                                            .mainController.changeThemeMode,
+                                        icon: Icon(controller.mainController
+                                            .getThemeIcon()),
+                                      );
+                                    },
+                                  ),
                                 IconButton(
                                   onPressed: () {},
                                   icon: Icon(Icons.help_outline),
