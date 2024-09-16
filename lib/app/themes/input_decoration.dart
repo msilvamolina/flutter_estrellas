@@ -6,8 +6,12 @@ import 'package:get/get.dart';
 import '../app/controllers/main_controller.dart';
 
 class CustomInputDecoration {
-  static InputDecoration inputDecoration(
-          {String? text, String? hintText, IconData? icon}) =>
+  static InputDecoration inputDecoration({
+    required bool isThemeModeDark,
+    String? text,
+    String? hintText,
+    IconData? icon,
+  }) =>
       InputDecoration(
         labelText: text,
         hintText: hintText,
@@ -18,10 +22,8 @@ class CustomInputDecoration {
               )
             : null,
         enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-              color: Get.find<MainController>().isThemeModeDark
-                  ? primaryBase
-                  : neutral950),
+          borderSide:
+              BorderSide(color: isThemeModeDark ? primaryBase : neutral950),
         ),
         border: OutlineInputBorder(
           borderSide: BorderSide(color: primaryBase),

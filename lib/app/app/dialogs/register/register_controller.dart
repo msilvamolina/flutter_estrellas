@@ -40,7 +40,8 @@ class RegisterDialogController extends GetxController {
       }, [
         Validators.mustMatch('password', 'passwordConfirmation')
       ]);
-
+  bool _buttonEnabled = true;
+  bool get buttonEnabled => _buttonEnabled;
   @override
   void onInit() {
     super.onInit();

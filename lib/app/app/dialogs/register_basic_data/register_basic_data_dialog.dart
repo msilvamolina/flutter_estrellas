@@ -52,6 +52,8 @@ class RegisterBasicDataDialog extends StatelessWidget {
                                 keyboardType: TextInputType.name,
                                 decoration:
                                     CustomInputDecoration.inputDecoration(
+                                  isThemeModeDark:
+                                      controller.mainController.isThemeModeDark,
                                   text: "Documento",
                                   hintText: "Ingresa tu número de documento",
                                   icon: Icons.person,
@@ -64,6 +66,8 @@ class RegisterBasicDataDialog extends StatelessWidget {
                                 textCapitalization: TextCapitalization.words,
                                 decoration:
                                     CustomInputDecoration.inputDecoration(
+                                  isThemeModeDark:
+                                      controller.mainController.isThemeModeDark,
                                   text: "Nombre",
                                   icon: Icons.person,
                                 ),
@@ -75,6 +79,8 @@ class RegisterBasicDataDialog extends StatelessWidget {
                                 textCapitalization: TextCapitalization.words,
                                 decoration:
                                     CustomInputDecoration.inputDecoration(
+                                  isThemeModeDark:
+                                      controller.mainController.isThemeModeDark,
                                   text: "Apellido",
                                   icon: Icons.person,
                                 ),

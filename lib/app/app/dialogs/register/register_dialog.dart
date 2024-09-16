@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_estrellas/app/app/dialogs/register/register_screen.dart';
 import 'package:flutter_estrellas/app/services/theme_service.dart';
 import 'package:flutter_estrellas/app/themes/styles/colors.dart';
 import 'package:flutter_estrellas/app/themes/styles/typography.dart';
@@ -11,6 +10,7 @@ import 'package:reactive_forms/reactive_forms.dart';
 
 import '../../../themes/input_decoration.dart';
 import 'register_controller.dart';
+import 'register_screen.dart';
 
 class RegisterDialog extends StatelessWidget {
   const RegisterDialog({super.key});

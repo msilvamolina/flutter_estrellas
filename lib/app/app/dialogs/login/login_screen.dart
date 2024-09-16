@@ -59,6 +59,8 @@ class LoginScreen extends StatelessWidget {
                               formControlName: Fields.email.name,
                               keyboardType: TextInputType.emailAddress,
                               decoration: CustomInputDecoration.inputDecoration(
+                                isThemeModeDark:
+                                    controller.mainController.isThemeModeDark,
                                 text: "E-mail",
                                 icon: Icons.email,
                               ),
@@ -69,6 +71,8 @@ class LoginScreen extends StatelessWidget {
                               formControlName: Fields.password.name,
                               keyboardType: TextInputType.text,
                               decoration: CustomInputDecoration.inputDecoration(
+                                isThemeModeDark:
+                                    controller.mainController.isThemeModeDark,
                                 text: "Contraseña",
                                 icon: Icons.security,
                               ),
