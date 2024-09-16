@@ -25,6 +25,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.11.0"
+  authentication_buttons:
+    dependency: "direct main"
+    description:
+      name: authentication_buttons
+      sha256: dd04b7d987be0f3ba91327e9c13a1e219a1809c89fa95e2af00a6459156dfe57
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.5"
   boolean_selector:
     dependency: transitive
     description:

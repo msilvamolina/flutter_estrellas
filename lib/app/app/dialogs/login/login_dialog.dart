@@ -1,3 +1,4 @@
+import 'package:authentication_buttons/authentication_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_estrellas/app/services/theme_service.dart';
 import 'package:flutter_estrellas/app/themes/styles/colors.dart';
@@ -112,7 +113,74 @@ class LoginDialog extends StatelessWidget {
                                   : secondaryBase),
                         ),
                       ),
-                      SizedBox(height: 64),
+                      SizedBox(height: 26),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          ColorFiltered(
+                            colorFilter: ColorFilter.mode(
+                              ThemeService.isDark()
+                                  ? white
+                                  : Colors
+                                      .black, // El color al que quieres convertir la imagen
+                              BlendMode.srcIn, // Aplica el color a la imagen
+                            ),
+                            child: Image.asset(
+                              'assets/images/google.png',
+                              width: 46,
+                            ),
+                          ),
+                          SizedBox(width: 16),
+
+                          ColorFiltered(
+                            colorFilter: ColorFilter.mode(
+                              ThemeService.isDark()
+                                  ? white
+                                  : Colors
+                                      .black, // El color al que quieres convertir la imagen
+                              BlendMode.srcIn, // Aplica el color a la imagen
+                            ),
+                            child: Image.asset(
+                              'assets/images/apple.png',
+                              width: 46,
+                            ),
+                          ),
+                          SizedBox(width: 16),
+
+                          ColorFiltered(
+                            colorFilter: ColorFilter.mode(
+                              ThemeService.isDark()
+                                  ? white
+                                  : Colors
+                                      .black, // El color al que quieres convertir la imagen
+                              BlendMode.srcIn, // Aplica el color a la imagen
+                            ),
+                            child: Image.asset(
+                              'assets/images/facebook.png',
+                              width: 46,
+                            ),
+                          ),
+                          // AuthenticationButton(
+                          //   buttonSize: ButtonSize.small,
+                          //   authenticationMethod: AuthenticationMethod.google,
+                          //   onPressed: () {},
+                          // ),
+                          // SizedBox(width: 16),
+                          // AuthenticationButton(
+                          //   buttonSize: ButtonSize.small,
+                          //   authenticationMethod: AuthenticationMethod.facebook,
+                          //   onPressed: () {},
+                          // ),
+                          // SizedBox(width: 16),
+                          // AuthenticationButton(
+                          //   buttonSize: ButtonSize.small,
+                          //   authenticationMethod: AuthenticationMethod.apple,
+                          //   onPressed: () {},
+                          // ),
+                        ],
+                      ),
+                      SizedBox(height: 26),
                       Stack(
                         children: [
                           Center(
