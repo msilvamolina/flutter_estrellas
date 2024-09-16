@@ -1,8 +1,10 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_estrellas/app/app/dialogs/register/register_dialog.dart';
 import 'package:flutter_estrellas/app/app/dialogs/register_basic_data/register_basic_data_dialog.dart';
 import 'package:flutter_estrellas/app/components/dialogs/loader_dialog.dart';
 import 'package:flutter_estrellas/app/data/providers/repositories/auth/user_repository.dart';
+import 'package:flutter_estrellas/app/routes/app_pages.dart';
 import 'package:get/get.dart';
 
 import '../../data/models/user_data/user_data.dart';
@@ -20,8 +22,8 @@ class MainController extends GetxController {
   bool _withVolume = false;
   bool get withVolume => _withVolume;
 
-  UserStatus? _userStatus = UserStatus.loading;
-  UserStatus? get userStatus => _userStatus;
+  UserStatus _userStatus = UserStatus.loading;
+  UserStatus get userStatus => _userStatus;
 
   UserData? _userData;
   UserData? get userData => _userData;
@@ -55,8 +57,20 @@ class MainController extends GetxController {
 
     update(['login']);
 
-    if (_userStatus == UserStatus.needBasicData) {
-      openRegisterBasicDataDialog();
+    if (!kIsWeb) {
+      if (_userStatus == UserStatus.notLogged) {
+        Get.offAllNamed(Routes.LOGIN);
+      }
+      if (_userStatus == UserStatus.needBasicData) {
+        Get.offAllNamed(Routes.LOGIN);
+      }
+      if (_userStatus == UserStatus.full) {
+        Get.offAllNamed(Routes.HOME);
+      }
+    } else {
+      if (_userStatus == UserStatus.needBasicData) {
+        openRegisterBasicDataDialog();
+      }
     }
   }
 

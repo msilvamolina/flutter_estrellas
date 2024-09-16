@@ -1,9 +1,8 @@
+import 'package:flutter_estrellas/app/app/controllers/main_controller.dart';
 import 'package:get/get.dart';
 
 class SplashController extends GetxController {
-  //TODO: Implement SplashController
-
-  final count = 0.obs;
+  MainController mainController = MainController();
   @override
   void onInit() {
     super.onInit();
@@ -18,6 +17,4 @@ class SplashController extends GetxController {
   void onClose() {
     super.onClose();
   }
-
-  void increment() => count.value++;
 }
