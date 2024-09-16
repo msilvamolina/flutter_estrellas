@@ -1,3 +1,7 @@
+import 'dart:async';
+
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -7,14 +11,30 @@ import 'app/services/dependency_injection.dart';
 import 'app/services/theme_service.dart';
 import 'app/themes/text_theme.dart';
 import 'app/themes/theme.dart';
-import 'app/themes/theme2.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init();
+  await initFirebase();
+
   DependecyInjection.init();
 
-  runApp(const MyApp());
+  runZonedGuarded(
+    () {
+      runApp(
+        const MyApp(),
+      );
+    },
+    (Object error, StackTrace stackTrace) {
+      FirebaseCrashlytics.instance.recordError(error, stackTrace);
+    },
+  );
+}
+
+Future<void> initFirebase() async {
+  FirebaseOptions? firebaseOptions;
+
+  await Firebase.initializeApp(options: firebaseOptions);
 }
 
 class MyApp extends StatelessWidget {
