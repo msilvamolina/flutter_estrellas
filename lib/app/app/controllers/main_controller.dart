@@ -29,8 +29,12 @@ class MainController extends GetxController {
   UserData? _userData;
   UserData? get userData => _userData;
 
+  bool _isThemeModeDark = false;
+  bool get isThemeModeDark => _isThemeModeDark;
+
   @override
   void onInit() {
+    _isThemeModeDark = ThemeService.isSavedDarkMode();
     super.onInit();
   }
 
@@ -99,14 +103,13 @@ class MainController extends GetxController {
   }
 
   void signOut() {
-    bool isDark = ThemeService.isSavedDarkMode();
     _userStatus = UserStatus.loading;
     update(['login']);
     userRepository.signOut();
     Future.delayed(Duration(milliseconds: 500), () {
       _userStatus = UserStatus.notLogged;
       update(['login']);
-      ThemeService.changeThemeModeValue(isDark);
+      ThemeService.saveThemeMode(_isThemeModeDark);
       checkUser();
     });
   }

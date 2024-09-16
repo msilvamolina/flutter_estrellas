@@ -12,9 +12,9 @@ class ThemeService {
     return isSavedDarkMode() ? ThemeMode.dark : ThemeMode.light;
   }
 
-  static bool isDark() {
-    return ThemeService.getThemeMode() == ThemeMode.dark;
-  }
+  // static bool isDark() {
+  //   return ThemeService.getThemeMode() == ThemeMode.dark;
+  // }
 
   static bool isSavedDarkMode() {
     return _getStorage.read(storageKey) ??
