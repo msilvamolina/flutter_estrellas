@@ -25,6 +25,9 @@ class MainController extends GetxController {
   UserStatus _userStatus = UserStatus.notLogged;
   UserStatus get userStatus => _userStatus;
 
+  UserData? _userData;
+  UserData? get userData => _userData;
+
   @override
   void onInit() {
     super.onInit();
@@ -32,10 +35,15 @@ class MainController extends GetxController {
 
   @override
   void onReady() async {
+    checkUser();
+    super.onReady();
+  }
+
+  Future<void> checkUser() async {
     bool isAuthenticated = userRepository.isUserLogged();
 
     if (isAuthenticated) {
-      UserData? userData = await userRepository.getUserDataFirebase();
+      _userData = await userRepository.getUserDataFirebase();
       if (userData != null) {
         _userStatus = UserStatus.full;
       } else {
@@ -43,10 +51,11 @@ class MainController extends GetxController {
       }
     }
 
+    update(['main']);
+
     if (_userStatus == UserStatus.needBasicData) {
       openRegisterBasicDataDialog();
     }
-    super.onReady();
   }
 
   @override
@@ -61,6 +70,10 @@ class MainController extends GetxController {
         return LoginDialog();
       },
     );
+  }
+
+  void signOut() {
+    userRepository.signOut();
   }
 
   void openRegisterDialog() {

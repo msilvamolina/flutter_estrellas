@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'app/app/bindings/main_binding.dart';
+import 'app/app/layout/main_layout.dart';
 import 'app/routes/app_pages.dart';
 import 'app/services/dependency_injection.dart';
 import 'app/services/theme_service.dart';

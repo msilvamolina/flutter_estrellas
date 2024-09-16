@@ -143,18 +143,32 @@ class _HomeViewState extends State<HomeView> {
                           ),
                         ),
                         Spacer(),
-                        ElevatedButton(
-                          onPressed: mainController.openLoginDialog,
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Theme.of(context)
-                                .colorScheme
-                                .secondaryContainer, // Color secundario
-                            foregroundColor: ThemeService.isDark()
-                                ? Colors.white
-                                : neutral900,
+                        if (mainController.userStatus == UserStatus.notLogged)
+                          ElevatedButton(
+                            onPressed: mainController.openLoginDialog,
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Theme.of(context)
+                                  .colorScheme
+                                  .primaryContainer, // Color secundario
+                              foregroundColor: ThemeService.isDark()
+                                  ? Colors.white
+                                  : neutral900,
+                            ),
+                            child: Text('Ingresar'),
                           ),
-                          child: Text('Ingresar'),
-                        ),
+                        if (mainController.userStatus == UserStatus.full)
+                          ElevatedButton(
+                            onPressed: mainController.openLoginDialog,
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Theme.of(context)
+                                  .colorScheme
+                                  .secondaryContainer, // Color secundario
+                              foregroundColor: ThemeService.isDark()
+                                  ? Colors.white
+                                  : neutral900,
+                            ),
+                            child: Text('Cerrar sesión'),
+                          ),
                         SizedBox(width: 8),
                         IconButton(
                           onPressed: () {},

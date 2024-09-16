@@ -52,7 +52,7 @@ class LoginDialogController extends GetxController {
 
   Future<void> sendForm(Map<String, Object?> data) async {
     mainController.showLoader(
-      title: 'Registrando...',
+      title: 'Iniciando sesión...',
       message: 'Por favor espere',
     );
     String email = data[Fields.email.name].toString();
@@ -68,7 +68,10 @@ class LoginDialogController extends GetxController {
 
     authFailureOrSuccessOption.fold(
       (failure) => Snackbars.error(failure),
-      (_) => Snackbars.success('Bienvenido!'),
+      (_) {
+        Get.back();
+        Snackbars.success('Bienvenido!');
+      },
     );
   }
 
