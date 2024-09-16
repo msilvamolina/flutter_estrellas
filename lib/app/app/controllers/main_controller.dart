@@ -1,11 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_estrellas/app/app/dialogs/register/register_dialog.dart';
 import 'package:flutter_estrellas/app/app/dialogs/register_basic_data/register_basic_data_dialog.dart';
-import 'package:flutter_estrellas/app/components/dialogs/confetti_dialog.dart';
 import 'package:flutter_estrellas/app/components/dialogs/loader_dialog.dart';
 import 'package:flutter_estrellas/app/data/providers/repositories/auth/user_repository.dart';
-import 'package:flutter_estrellas/app/services/theme_service.dart';
 import 'package:get/get.dart';
 
 import '../../data/models/user_data/user_data.dart';
@@ -29,7 +26,6 @@ class MainController extends GetxController {
   UserData? _userData;
   UserData? get userData => _userData;
 
-  FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   @override
   void onInit() {
     super.onInit();
