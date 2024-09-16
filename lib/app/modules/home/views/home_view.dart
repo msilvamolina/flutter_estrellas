@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_estrellas/app/app/controllers/main_controller.dart';
 import 'package:flutter_estrellas/app/modules/home/controllers/home_controller.dart';
 import 'package:flutter_estrellas/app/modules/home/views/views/catalog_view.dart';
 import 'package:flutter_estrellas/app/modules/home/views/views/more_view.dart';
@@ -25,6 +26,7 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   Widget build(BuildContext context) {
+    MainController mainController = Get.find();
     double screenWidth = MediaQuery.of(context).size.width;
     bool isTinyPhone = screenWidth < 320;
     bool isMobile = screenWidth < 480;
@@ -142,9 +144,7 @@ class _HomeViewState extends State<HomeView> {
                         ),
                         Spacer(),
                         ElevatedButton(
-                          onPressed: () {
-                            // Acción del botón
-                          },
+                          onPressed: mainController.openLoginDialog,
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Theme.of(context)
                                 .colorScheme

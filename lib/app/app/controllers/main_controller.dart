@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_estrellas/app/services/theme_service.dart';
 import 'package:get/get.dart';
 
+import '../dialogs/login/login_dialog.dart';
+
 class MainController extends GetxController {
   bool _withVolume = false;
   bool get withVolume => _withVolume;
@@ -19,6 +21,15 @@ class MainController extends GetxController {
   @override
   void onClose() {
     super.onClose();
+  }
+
+  Future<void> openLoginDialog() async {
+    final result = await showDialog<List>(
+      context: Get.context!,
+      builder: (BuildContext context) {
+        return LoginDialog();
+      },
+    );
   }
 
   void changeVolume() {
