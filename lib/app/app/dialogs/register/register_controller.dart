@@ -17,7 +17,6 @@ enum Fields {
 
 class RegisterDialogController extends GetxController {
   final AuthRepository _authRepository = AuthRepository();
-
   MainController mainController = Get.find();
   FormGroup buildForm() => fb.group(<String, Object>{
         Fields.email.name: FormControl<String>(

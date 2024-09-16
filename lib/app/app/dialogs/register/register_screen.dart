@@ -44,7 +44,7 @@ class RegisterScreen extends StatelessWidget {
                       ),
                       SizedBox(height: 16),
                       Text(
-                        'Ingresa a tu\ncuenta de Estrellas',
+                        'Crea una\ncuenta de Estrellas',
                         textAlign: TextAlign.center,
                         style: TypographyStyle.h2Mobile
                             .copyWith(fontWeight: FontWeight.w600),
@@ -161,69 +161,72 @@ class RegisterScreen extends StatelessWidget {
                         ],
                       ),
                       SizedBox(height: 26),
-                      Stack(
-                        children: [
-                          Center(
-                            child: Container(
-                              margin: EdgeInsets.only(top: 10),
-                              width: double.infinity,
-                              height: 1,
-                              color: controller.mainController.isThemeModeDark
-                                  ? neutral300
-                                  : neutral600,
-                            ),
-                          ),
-                          Center(
-                            child: Container(
-                              padding: EdgeInsets.symmetric(horizontal: 16),
-                              color: Theme.of(context).colorScheme.surface,
-                              child: Text(
-                                '¿Ya tienes una cuenta de Estrella?',
-                                textAlign: TextAlign.center,
-                                style:
-                                    TypographyStyle.bodyRegularMedium.copyWith(
-                                  fontWeight: FontWeight.w400,
-                                  color:
-                                      controller.mainController.isThemeModeDark
-                                          ? neutral300
-                                          : neutral600,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 26),
-                      ElevatedButton(
-                        onPressed: controller.openLoginDialog,
-                        style: ElevatedButton.styleFrom(
-                          shadowColor: controller.mainController.isThemeModeDark
-                              ? secondaryLight
-                              : secondaryBase,
-                          backgroundColor:
-                              Theme.of(context).colorScheme.surface,
-                          foregroundColor:
-                              controller.mainController.isThemeModeDark
-                                  ? Colors.white
-                                  : Colors.black,
-                          side: BorderSide(
-                            color: controller.mainController.isThemeModeDark
-                                ? neutral700
-                                : Colors.black, // Color del borde
-                            width: 1, // Ancho del borde
-                          ),
-                        ),
-                        child: Container(
-                          padding: EdgeInsets.all(8),
-                          width: double.infinity,
-                          child: Text(
-                            'Ingresar',
-                            textAlign: TextAlign.center,
-                            style: TypographyStyle.bodyRegularLarge
-                                .copyWith(fontWeight: FontWeight.w400),
-                          ),
-                        ),
-                      ),
+                      // if (isDialog) ...[
+                      //   Stack(
+                      //     children: [
+                      //       Center(
+                      //         child: Container(
+                      //           margin: EdgeInsets.only(top: 10),
+                      //           width: double.infinity,
+                      //           height: 1,
+                      //           color: controller.mainController.isThemeModeDark
+                      //               ? neutral300
+                      //               : neutral600,
+                      //         ),
+                      //       ),
+                      //       Center(
+                      //         child: Container(
+                      //           padding: EdgeInsets.symmetric(horizontal: 16),
+                      //           color: Theme.of(context).colorScheme.surface,
+                      //           child: Text(
+                      //             '¿Ya tienes una cuenta de Estrella?',
+                      //             textAlign: TextAlign.center,
+                      //             style: TypographyStyle.bodyRegularMedium
+                      //                 .copyWith(
+                      //               fontWeight: FontWeight.w400,
+                      //               color: controller
+                      //                       .mainController.isThemeModeDark
+                      //                   ? neutral300
+                      //                   : neutral600,
+                      //             ),
+                      //           ),
+                      //         ),
+                      //       ),
+                      //     ],
+                      //   ),
+                      //   SizedBox(height: 26),
+                      //   ElevatedButton(
+                      //     onPressed: controller.openLoginDialog,
+                      //     style: ElevatedButton.styleFrom(
+                      //       shadowColor:
+                      //           controller.mainController.isThemeModeDark
+                      //               ? secondaryLight
+                      //               : secondaryBase,
+                      //       backgroundColor:
+                      //           Theme.of(context).colorScheme.surface,
+                      //       foregroundColor:
+                      //           controller.mainController.isThemeModeDark
+                      //               ? Colors.white
+                      //               : Colors.black,
+                      //       side: BorderSide(
+                      //         color: controller.mainController.isThemeModeDark
+                      //             ? neutral700
+                      //             : Colors.black, // Color del borde
+                      //         width: 1, // Ancho del borde
+                      //       ),
+                      //     ),
+                      //     child: Container(
+                      //       padding: EdgeInsets.all(8),
+                      //       width: double.infinity,
+                      //       child: Text(
+                      //         'Ingresar',
+                      //         textAlign: TextAlign.center,
+                      //         style: TypographyStyle.bodyRegularLarge
+                      //             .copyWith(fontWeight: FontWeight.w400),
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ],
                     ],
                   ),
                 );
