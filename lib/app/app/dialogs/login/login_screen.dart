@@ -92,14 +92,17 @@ class LoginScreen extends StatelessWidget {
                                         ? () => controller.sendForm(form.value)
                                         : null,
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: ThemeService.isDark()
-                                      ? primaryDark
-                                      : primaryBase,
-                                  foregroundColor: ThemeService.isDark()
-                                      ? Colors.white
-                                      : Colors.black,
+                                  backgroundColor:
+                                      controller.mainController.isThemeModeDark
+                                          ? primaryDark
+                                          : primaryBase,
+                                  foregroundColor:
+                                      controller.mainController.isThemeModeDark
+                                          ? Colors.white
+                                          : Colors.black,
                                   side: BorderSide(
-                                    color: ThemeService.isDark()
+                                    color: controller
+                                            .mainController.isThemeModeDark
                                         ? primaryBase
                                         : Colors.black, // Color del borde
                                     width: 1, // Ancho del borde
@@ -125,10 +128,12 @@ class LoginScreen extends StatelessWidget {
                                 style: TypographyStyle.linkRegularLarge
                                     .copyWith(
                                         decoration: TextDecoration.underline,
-                                        decorationColor: ThemeService.isDark()
+                                        decorationColor: controller
+                                                .mainController.isThemeModeDark
                                             ? secondaryLight
                                             : secondaryBase,
-                                        color: ThemeService.isDark()
+                                        color: controller
+                                                .mainController.isThemeModeDark
                                             ? secondaryLight
                                             : secondaryBase),
                               ),
@@ -140,7 +145,7 @@ class LoginScreen extends StatelessWidget {
                               children: [
                                 ColorFiltered(
                                   colorFilter: ColorFilter.mode(
-                                    ThemeService.isDark()
+                                    controller.mainController.isThemeModeDark
                                         ? white
                                         : Colors
                                             .black, // El color al que quieres convertir la imagen
@@ -155,7 +160,7 @@ class LoginScreen extends StatelessWidget {
                                 SizedBox(width: 16),
                                 ColorFiltered(
                                   colorFilter: ColorFilter.mode(
-                                    ThemeService.isDark()
+                                    controller.mainController.isThemeModeDark
                                         ? white
                                         : Colors
                                             .black, // El color al que quieres convertir la imagen
@@ -170,7 +175,7 @@ class LoginScreen extends StatelessWidget {
                                 SizedBox(width: 16),
                                 ColorFiltered(
                                   colorFilter: ColorFilter.mode(
-                                    ThemeService.isDark()
+                                    controller.mainController.isThemeModeDark
                                         ? white
                                         : Colors
                                             .black, // El color al que quieres convertir la imagen
@@ -192,7 +197,8 @@ class LoginScreen extends StatelessWidget {
                                     margin: EdgeInsets.only(top: 10),
                                     width: double.infinity,
                                     height: 1,
-                                    color: ThemeService.isDark()
+                                    color: controller
+                                            .mainController.isThemeModeDark
                                         ? neutral300
                                         : neutral600,
                                   ),
@@ -209,7 +215,8 @@ class LoginScreen extends StatelessWidget {
                                       style: TypographyStyle.bodyRegularMedium
                                           .copyWith(
                                         fontWeight: FontWeight.w400,
-                                        color: ThemeService.isDark()
+                                        color: controller
+                                                .mainController.isThemeModeDark
                                             ? neutral300
                                             : neutral600,
                                       ),
@@ -222,18 +229,21 @@ class LoginScreen extends StatelessWidget {
                             ElevatedButton(
                               onPressed: controller.openRegisterDialog,
                               style: ElevatedButton.styleFrom(
-                                shadowColor: ThemeService.isDark()
-                                    ? secondaryLight
-                                    : secondaryBase,
+                                shadowColor:
+                                    controller.mainController.isThemeModeDark
+                                        ? secondaryLight
+                                        : secondaryBase,
                                 backgroundColor:
                                     Theme.of(context).colorScheme.surface,
-                                foregroundColor: ThemeService.isDark()
-                                    ? Colors.white
-                                    : Colors.black,
+                                foregroundColor:
+                                    controller.mainController.isThemeModeDark
+                                        ? Colors.white
+                                        : Colors.black,
                                 side: BorderSide(
-                                  color: ThemeService.isDark()
-                                      ? neutral700
-                                      : Colors.black, // Color del borde
+                                  color:
+                                      controller.mainController.isThemeModeDark
+                                          ? neutral700
+                                          : Colors.black, // Color del borde
                                   width: 1, // Ancho del borde
                                 ),
                               ),

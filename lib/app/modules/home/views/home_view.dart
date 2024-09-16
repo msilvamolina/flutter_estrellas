@@ -167,9 +167,10 @@ class _HomeViewState extends State<HomeView> {
                                       backgroundColor: Theme.of(context)
                                           .colorScheme
                                           .primaryContainer, // Color secundario
-                                      foregroundColor: ThemeService.isDark()
-                                          ? Colors.white
-                                          : neutral900,
+                                      foregroundColor:
+                                          mainController.isThemeModeDark
+                                              ? Colors.white
+                                              : neutral900,
                                     ),
                                     child: Text('Ingresar'),
                                   ),
@@ -181,9 +182,10 @@ class _HomeViewState extends State<HomeView> {
                                       backgroundColor: Theme.of(context)
                                           .colorScheme
                                           .secondaryContainer, // Color secundario
-                                      foregroundColor: ThemeService.isDark()
-                                          ? Colors.white
-                                          : neutral900,
+                                      foregroundColor:
+                                          mainController.isThemeModeDark
+                                              ? Colors.white
+                                              : neutral900,
                                     ),
                                     child: Text('Cerrar sesión'),
                                   ),
@@ -214,7 +216,7 @@ class _HomeViewState extends State<HomeView> {
                           : null,
                       indicatorColor:
                           Theme.of(context).colorScheme.primaryContainer,
-                      selectedIconTheme: ThemeService.isDark()
+                      selectedIconTheme: mainController.isThemeModeDark
                           ? IconThemeData(
                               color:
                                   Theme.of(context).colorScheme.primaryFixedDim)
@@ -362,7 +364,7 @@ class _HomeViewState extends State<HomeView> {
                           Container(
                             margin: const EdgeInsets.all(16),
                             decoration: BoxDecoration(
-                              color: ThemeService.isDark()
+                              color: mainController.isThemeModeDark
                                   ? Colors.black.withOpacity(0.5)
                                   : Colors.white.withOpacity(0.75),
                               borderRadius: BorderRadius.circular(16),
@@ -378,7 +380,7 @@ class _HomeViewState extends State<HomeView> {
                                     // Si el botón está seleccionado, aplica un estilo diferente
                                     if (states
                                         .contains(MaterialState.selected)) {
-                                      return ThemeService.isDark()
+                                      return mainController.isThemeModeDark
                                           ? IconThemeData(
                                               color: Theme.of(context)
                                                   .colorScheme
@@ -388,7 +390,7 @@ class _HomeViewState extends State<HomeView> {
                                                   .primaryColor);
                                     }
                                     return IconThemeData(
-                                      color: ThemeService.isDark()
+                                      color: mainController.isThemeModeDark
                                           ? neutral500
                                           : neutral700,
                                     );

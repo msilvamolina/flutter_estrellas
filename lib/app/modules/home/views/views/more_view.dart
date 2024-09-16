@@ -23,8 +23,9 @@ class MoreView extends StatelessWidget {
                     backgroundColor: Theme.of(context)
                         .colorScheme
                         .secondaryContainer, // Color secundario
-                    foregroundColor:
-                        ThemeService.isDark() ? Colors.white : neutral900,
+                    foregroundColor: mainController.isThemeModeDark
+                        ? Colors.white
+                        : neutral900,
                   ),
                   child: Text('Cerrar sesión'),
                 ),

@@ -97,14 +97,17 @@ class RegisterDialog extends StatelessWidget {
                                       ? () => controller.sendForm(form.value)
                                       : null,
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: ThemeService.isDark()
+                                    backgroundColor: controller
+                                            .mainController.isThemeModeDark
                                         ? primaryDark
                                         : primaryBase,
-                                    foregroundColor: ThemeService.isDark()
+                                    foregroundColor: controller
+                                            .mainController.isThemeModeDark
                                         ? Colors.white
                                         : Colors.black,
                                     side: BorderSide(
-                                      color: ThemeService.isDark()
+                                      color: controller
+                                              .mainController.isThemeModeDark
                                           ? primaryBase
                                           : Colors.black, // Color del borde
                                       width: 1, // Ancho del borde
@@ -130,7 +133,7 @@ class RegisterDialog extends StatelessWidget {
                                 children: [
                                   ColorFiltered(
                                     colorFilter: ColorFilter.mode(
-                                      ThemeService.isDark()
+                                      controller.mainController.isThemeModeDark
                                           ? white
                                           : Colors
                                               .black, // El color al que quieres convertir la imagen
@@ -145,7 +148,7 @@ class RegisterDialog extends StatelessWidget {
                                   SizedBox(width: 16),
                                   ColorFiltered(
                                     colorFilter: ColorFilter.mode(
-                                      ThemeService.isDark()
+                                      controller.mainController.isThemeModeDark
                                           ? white
                                           : Colors
                                               .black, // El color al que quieres convertir la imagen
@@ -160,7 +163,7 @@ class RegisterDialog extends StatelessWidget {
                                   SizedBox(width: 16),
                                   ColorFiltered(
                                     colorFilter: ColorFilter.mode(
-                                      ThemeService.isDark()
+                                      controller.mainController.isThemeModeDark
                                           ? white
                                           : Colors
                                               .black, // El color al que quieres convertir la imagen
@@ -182,7 +185,8 @@ class RegisterDialog extends StatelessWidget {
                                       margin: EdgeInsets.only(top: 10),
                                       width: double.infinity,
                                       height: 1,
-                                      color: ThemeService.isDark()
+                                      color: controller
+                                              .mainController.isThemeModeDark
                                           ? neutral300
                                           : neutral600,
                                     ),
@@ -199,7 +203,8 @@ class RegisterDialog extends StatelessWidget {
                                         style: TypographyStyle.bodyRegularMedium
                                             .copyWith(
                                           fontWeight: FontWeight.w400,
-                                          color: ThemeService.isDark()
+                                          color: controller.mainController
+                                                  .isThemeModeDark
                                               ? neutral300
                                               : neutral600,
                                         ),
@@ -212,16 +217,19 @@ class RegisterDialog extends StatelessWidget {
                               ElevatedButton(
                                 onPressed: controller.openLoginDialog,
                                 style: ElevatedButton.styleFrom(
-                                  shadowColor: ThemeService.isDark()
-                                      ? secondaryLight
-                                      : secondaryBase,
+                                  shadowColor:
+                                      controller.mainController.isThemeModeDark
+                                          ? secondaryLight
+                                          : secondaryBase,
                                   backgroundColor:
                                       Theme.of(context).colorScheme.surface,
-                                  foregroundColor: ThemeService.isDark()
-                                      ? Colors.white
-                                      : Colors.black,
+                                  foregroundColor:
+                                      controller.mainController.isThemeModeDark
+                                          ? Colors.white
+                                          : Colors.black,
                                   side: BorderSide(
-                                    color: ThemeService.isDark()
+                                    color: controller
+                                            .mainController.isThemeModeDark
                                         ? neutral700
                                         : Colors.black, // Color del borde
                                     width: 1, // Ancho del borde

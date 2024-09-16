@@ -34,8 +34,13 @@ class MainController extends GetxController {
 
   @override
   void onInit() {
-    _isThemeModeDark = ThemeService.isSavedDarkMode();
+    checkTheme();
     super.onInit();
+  }
+
+  void checkTheme() {
+    _isThemeModeDark = ThemeService.isSavedDarkMode();
+    update();
   }
 
   @override
@@ -86,11 +91,12 @@ class MainController extends GetxController {
 
   void changeThemeMode() {
     ThemeService.changeThemeMode();
+    checkTheme();
     update(['themeButton']);
   }
 
   IconData getThemeIcon() {
-    return ThemeService.isDark() ? Icons.light_mode : Icons.dark_mode;
+    return isThemeModeDark ? Icons.light_mode : Icons.dark_mode;
   }
 
   void openLoginDialog() {

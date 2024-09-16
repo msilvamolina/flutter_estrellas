@@ -87,14 +87,17 @@ class RegisterBasicDataDialog extends StatelessWidget {
                                       ? () => controller.sendForm(form.value)
                                       : null,
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: ThemeService.isDark()
+                                    backgroundColor: controller
+                                            .mainController.isThemeModeDark
                                         ? primaryDark
                                         : primaryBase,
-                                    foregroundColor: ThemeService.isDark()
+                                    foregroundColor: controller
+                                            .mainController.isThemeModeDark
                                         ? Colors.white
                                         : Colors.black,
                                     side: BorderSide(
-                                      color: ThemeService.isDark()
+                                      color: controller
+                                              .mainController.isThemeModeDark
                                           ? primaryBase
                                           : Colors.black, // Color del borde
                                       width: 1, // Ancho del borde

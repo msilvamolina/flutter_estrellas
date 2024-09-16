@@ -16,11 +16,11 @@ class VideoButtons extends StatelessWidget {
     MainController mainController = Get.find();
     Color colorText = buttonInsideVideo
         ? white
-        : (ThemeService.isDark() ? white : neutral800);
+        : (mainController.isThemeModeDark ? white : neutral800);
 
     Color colorIcon = buttonInsideVideo
         ? white
-        : (ThemeService.isDark() ? white : neutral500);
+        : (mainController.isThemeModeDark ? white : neutral500);
     double iconSize = 34;
     return Column(
       children: [

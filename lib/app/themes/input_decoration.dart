@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_estrellas/app/services/theme_service.dart';
 import 'package:flutter_estrellas/app/themes/styles/colors.dart';
+import 'package:get/get.dart';
+
+import '../app/controllers/main_controller.dart';
 
 class CustomInputDecoration {
   static InputDecoration inputDecoration(
@@ -16,7 +19,9 @@ class CustomInputDecoration {
             : null,
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(
-              color: ThemeService.isDark() ? primaryBase : neutral950),
+              color: Get.find<MainController>().isThemeModeDark
+                  ? primaryBase
+                  : neutral950),
         ),
         border: OutlineInputBorder(
           borderSide: BorderSide(color: primaryBase),
