@@ -30,10 +30,10 @@ class LoaderDialog extends StatelessWidget {
                   children: [
                     Shimmer.fromColors(
                       baseColor: primaryBase,
-                      highlightColor: Color.fromARGB(255, 197, 252, 176),
+                      highlightColor: primaryLight,
                       child: SvgPicture.asset(
                         'assets/svg/logo.svg',
-                        width: 100,
+                        width: 120,
                       ),
                     ),
                     if (title != null)
