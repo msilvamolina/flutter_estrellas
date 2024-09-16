@@ -53,6 +53,7 @@ class RegisterBasicDataDialog extends StatelessWidget {
                                 decoration:
                                     CustomInputDecoration.inputDecoration(
                                   text: "Documento",
+                                  hintText: "Ingresa tu número de documento",
                                   icon: Icons.person,
                                 ),
                               ),
