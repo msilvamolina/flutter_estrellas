@@ -85,6 +85,9 @@ class LoginDialog extends StatelessWidget {
               child: Text(
                 'Olvidé mi contraseña',
                 style: TypographyStyle.linkRegularLarge.copyWith(
+                    decoration: TextDecoration.underline,
+                    decorationColor:
+                        ThemeService.isDark() ? secondaryLight : secondaryBase,
                     color:
                         ThemeService.isDark() ? secondaryLight : secondaryBase),
               ),
@@ -100,7 +103,7 @@ class LoginDialog extends StatelessWidget {
                     ThemeService.isDark() ? Colors.white : Colors.black,
                 side: BorderSide(
                   color: ThemeService.isDark()
-                      ? primaryBase
+                      ? neutral700
                       : Colors.black, // Color del borde
                   width: 1, // Ancho del borde
                 ),

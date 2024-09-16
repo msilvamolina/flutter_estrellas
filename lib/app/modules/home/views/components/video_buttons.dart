@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_estrellas/app/app/controllers/main_controller.dart';
 import 'package:flutter_estrellas/app/services/theme_service.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 
 import '../../../../themes/styles/colors.dart';
 import '../../../../themes/styles/typography.dart';
@@ -11,6 +13,7 @@ class VideoButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    MainController mainController = Get.find();
     Color colorText = buttonInsideVideo
         ? white
         : (ThemeService.isDark() ? white : neutral800);
@@ -22,12 +25,15 @@ class VideoButtons extends StatelessWidget {
     return Column(
       children: [
         Spacer(),
-        SvgPicture.asset(
-          'assets/svg/BookmarkSimple.svg',
-          width: iconSize,
-          colorFilter: ColorFilter.mode(
-            colorIcon,
-            BlendMode.srcIn,
+        InkWell(
+          onTap: mainController.openLoginDialog,
+          child: SvgPicture.asset(
+            'assets/svg/BookmarkSimple.svg',
+            width: iconSize,
+            colorFilter: ColorFilter.mode(
+              colorIcon,
+              BlendMode.srcIn,
+            ),
           ),
         ),
         SizedBox(height: 4),
