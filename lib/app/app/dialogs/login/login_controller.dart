@@ -77,8 +77,6 @@ class LoginDialogController extends GetxController {
             child: SvgPicture.asset('assets/svg/logo.svg'),
           ),
         );
-        print('failure $failure');
-        // mainController.showErrorScreen(failure);
       },
       (_) {
         print('success');
