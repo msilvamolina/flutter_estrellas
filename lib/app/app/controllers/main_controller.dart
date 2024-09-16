@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_estrellas/app/app/dialogs/register/register_dialog.dart';
+import 'package:flutter_estrellas/app/components/dialogs/loader_dialog.dart';
 import 'package:flutter_estrellas/app/services/theme_service.dart';
 import 'package:get/get.dart';
 
@@ -45,5 +46,15 @@ class MainController extends GetxController {
   void changeVolume() {
     _withVolume = !_withVolume;
     update();
+  }
+
+  void openLoader() {
+    showDialog(
+      barrierColor: Colors.transparent,
+      context: Get.context!,
+      builder: (BuildContext context) {
+        return const LoaderDialog();
+      },
+    );
   }
 }

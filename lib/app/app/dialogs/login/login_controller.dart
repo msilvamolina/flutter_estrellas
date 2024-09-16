@@ -44,12 +44,16 @@ class LoginDialogController extends GetxController {
   }
 
   Future<void> sendForm(Map<String, Object?> data) async {
-    // mainController.showLoader(
-    //   title: 'Registrando...',
-    //   message: 'Por favor espere',
-    // );
-    String email = data[Fields.email.name].toString();
-    String password = data[Fields.password.name].toString();
+    mainController.openLoader();
+
+    Future.delayed(Duration(seconds: 2), () {
+      Get.back();
+    });
+    // Future.delayed(Duration(seconds: 2), () {
+    //   mainController.setIsLoading(false);
+    // });
+    // String email = data[Fields.email.name].toString();
+    // String password = data[Fields.password.name].toString();
   }
 
   void openRegisterDialog() {

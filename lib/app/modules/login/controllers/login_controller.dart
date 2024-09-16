@@ -1,9 +1,8 @@
+import 'package:flutter_estrellas/app/app/controllers/main_controller.dart';
 import 'package:get/get.dart';
 
 class LoginController extends GetxController {
-  //TODO: Implement LoginController
-
-  final count = 0.obs;
+  MainController mainController = Get.find();
   @override
   void onInit() {
     super.onInit();
@@ -18,6 +17,4 @@ class LoginController extends GetxController {
   void onClose() {
     super.onClose();
   }
-
-  void increment() => count.value++;
 }
