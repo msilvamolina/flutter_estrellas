@@ -4,43 +4,43 @@ import 'package:reactive_forms/reactive_forms.dart';
 
 import '../../../components/snackbars/snackbars.dart';
 import '../../../data/providers/repositories/auth/auth_repository.dart';
+import '../../../data/providers/repositories/auth/user_repository.dart';
 import '../../controllers/main_controller.dart';
 
 enum Fields {
-  email('email'),
-  password('password'),
-  passwordConfirmation('passwordConfirmation');
+  username('username'),
+  firstName('firstName'),
+  lastName('lastName');
 
   const Fields(this.name);
   final String name;
 }
 
-class RegisterDialogController extends GetxController {
+class RegisterBasicDataDialogController extends GetxController {
   final AuthRepository _authRepository = AuthRepository();
 
   MainController mainController = Get.find();
+
   FormGroup buildForm() => fb.group(<String, Object>{
-        Fields.email.name: FormControl<String>(
+        Fields.username.name: FormControl<String>(
           validators: [
             Validators.required,
-            Validators.email,
+            Validators.minLength(6),
           ],
         ),
-        Fields.password.name: FormControl<String>(
+        Fields.firstName.name: FormControl<String>(
           validators: [
             Validators.required,
-            Validators.minLength(8),
+            Validators.minLength(3),
           ],
         ),
-        Fields.passwordConfirmation.name: FormControl<String>(
+        Fields.lastName.name: FormControl<String>(
           validators: [
             Validators.required,
-            Validators.minLength(8),
+            Validators.minLength(3),
           ],
         ),
-      }, [
-        Validators.mustMatch('password', 'passwordConfirmation')
-      ]);
+      });
 
   @override
   void onInit() {
@@ -67,18 +67,20 @@ class RegisterDialogController extends GetxController {
       title: 'Registrando...',
       message: 'Por favor espere',
     );
-    String email = data[Fields.email.name].toString();
-    String password = data[Fields.password.name].toString();
+    String username = data[Fields.username.name].toString();
+    String firstName = data[Fields.firstName.name].toString();
+    String lastName = data[Fields.lastName.name].toString();
 
-    Either<String, Unit> authFailureOrSuccessOption =
-        await _authRepository.createUserWithEmailAndPassword(
-      email: email,
-      password: password,
+    Either<String, Unit> saveUserData =
+        await mainController.userRepository.saveUserData(
+      username: username,
+      firstName: firstName,
+      lastName: lastName,
     );
 
     Get.back();
 
-    authFailureOrSuccessOption.fold(
+    saveUserData.fold(
       (failure) => Snackbars.error(failure),
       (_) {
         Snackbars.success('Bienvenido!');
