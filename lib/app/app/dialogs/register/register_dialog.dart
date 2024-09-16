@@ -7,15 +7,15 @@ import 'package:get/get.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
 import '../../../themes/input_decoration.dart';
-import 'login_controller.dart';
+import 'register_controller.dart';
 
-class LoginDialog extends StatelessWidget {
-  const LoginDialog({super.key});
+class RegisterDialog extends StatelessWidget {
+  const RegisterDialog({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<LoginDialogController>(
-      init: LoginDialogController(),
+    return GetBuilder<RegisterDialogController>(
+      init: RegisterDialogController(),
       builder: (controller) {
         return AlertDialog(
           title: Container(
@@ -41,7 +41,7 @@ class LoginDialog extends StatelessWidget {
                       ),
                       SizedBox(height: 16),
                       Text(
-                        'Ingresa a tu\ncuenta de Estrellas',
+                        'Crea una\ncuenta de Estrellas',
                         textAlign: TextAlign.center,
                         style: TypographyStyle.h2Mobile
                             .copyWith(fontWeight: FontWeight.w600),
@@ -62,6 +62,16 @@ class LoginDialog extends StatelessWidget {
                         keyboardType: TextInputType.text,
                         decoration: CustomInputDecoration.inputDecoration(
                           text: "Contraseña",
+                          icon: Icons.security,
+                        ),
+                      ),
+                      SizedBox(height: 16),
+                      ReactiveTextField(
+                        obscureText: true,
+                        formControlName: Fields.passwordConfirmation.name,
+                        keyboardType: TextInputType.text,
+                        decoration: CustomInputDecoration.inputDecoration(
+                          text: "Confirmar Contraseña",
                           icon: Icons.security,
                         ),
                       ),
@@ -97,22 +107,7 @@ class LoginDialog extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(height: 16),
-                      TextButton(
-                        onPressed: () {},
-                        child: Text(
-                          'Olvidé mi contraseña',
-                          style: TypographyStyle.linkRegularLarge.copyWith(
-                              decoration: TextDecoration.underline,
-                              decorationColor: ThemeService.isDark()
-                                  ? secondaryLight
-                                  : secondaryBase,
-                              color: ThemeService.isDark()
-                                  ? secondaryLight
-                                  : secondaryBase),
-                        ),
-                      ),
-                      SizedBox(height: 26),
+                      SizedBox(height: 46),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -131,7 +126,6 @@ class LoginDialog extends StatelessWidget {
                             ),
                           ),
                           SizedBox(width: 16),
-
                           ColorFiltered(
                             colorFilter: ColorFilter.mode(
                               ThemeService.isDark()
@@ -146,7 +140,6 @@ class LoginDialog extends StatelessWidget {
                             ),
                           ),
                           SizedBox(width: 16),
-
                           ColorFiltered(
                             colorFilter: ColorFilter.mode(
                               ThemeService.isDark()
@@ -160,23 +153,6 @@ class LoginDialog extends StatelessWidget {
                               width: 46,
                             ),
                           ),
-                          // AuthenticationButton(
-                          //   buttonSize: ButtonSize.small,
-                          //   authenticationMethod: AuthenticationMethod.google,
-                          //   onPressed: () {},
-                          // ),
-                          // SizedBox(width: 16),
-                          // AuthenticationButton(
-                          //   buttonSize: ButtonSize.small,
-                          //   authenticationMethod: AuthenticationMethod.facebook,
-                          //   onPressed: () {},
-                          // ),
-                          // SizedBox(width: 16),
-                          // AuthenticationButton(
-                          //   buttonSize: ButtonSize.small,
-                          //   authenticationMethod: AuthenticationMethod.apple,
-                          //   onPressed: () {},
-                          // ),
                         ],
                       ),
                       SizedBox(height: 26),
@@ -197,7 +173,7 @@ class LoginDialog extends StatelessWidget {
                               padding: EdgeInsets.symmetric(horizontal: 16),
                               color: Theme.of(context).colorScheme.surface,
                               child: Text(
-                                '¿Quieres ser una Estrella?',
+                                'Ya tienes una cuenta de Estrella?',
                                 textAlign: TextAlign.center,
                                 style:
                                     TypographyStyle.bodyRegularMedium.copyWith(
@@ -213,7 +189,7 @@ class LoginDialog extends StatelessWidget {
                       ),
                       SizedBox(height: 26),
                       ElevatedButton(
-                        onPressed: controller.openRegisterDialog,
+                        onPressed: controller.openLoginDialog,
                         style: ElevatedButton.styleFrom(
                           shadowColor: ThemeService.isDark()
                               ? secondaryLight
@@ -234,7 +210,7 @@ class LoginDialog extends StatelessWidget {
                           padding: EdgeInsets.all(8),
                           width: double.infinity,
                           child: Text(
-                            'Regístrate',
+                            'Ingresar',
                             textAlign: TextAlign.center,
                             style: TypographyStyle.bodyRegularLarge
                                 .copyWith(fontWeight: FontWeight.w400),

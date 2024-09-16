@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_estrellas/app/app/dialogs/register/register_dialog.dart';
 import 'package:flutter_estrellas/app/services/theme_service.dart';
 import 'package:get/get.dart';
 
@@ -28,6 +29,15 @@ class MainController extends GetxController {
       context: Get.context!,
       builder: (BuildContext context) {
         return LoginDialog();
+      },
+    );
+  }
+
+  void openRegisterDialog() {
+    showDialog(
+      context: Get.context!,
+      builder: (BuildContext context) {
+        return RegisterDialog();
       },
     );
   }

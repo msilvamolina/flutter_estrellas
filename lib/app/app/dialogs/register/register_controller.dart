@@ -5,13 +5,14 @@ import '../../controllers/main_controller.dart';
 
 enum Fields {
   email('email'),
-  password('password');
+  password('password'),
+  passwordConfirmation('passwordConfirmation');
 
   const Fields(this.name);
   final String name;
 }
 
-class LoginDialogController extends GetxController {
+class RegisterDialogController extends GetxController {
   MainController mainController = Get.find();
   FormGroup buildForm() => fb.group(<String, Object>{
         Fields.email.name: FormControl<String>(
@@ -26,7 +27,15 @@ class LoginDialogController extends GetxController {
             Validators.minLength(8),
           ],
         ),
-      });
+        Fields.passwordConfirmation.name: FormControl<String>(
+          validators: [
+            Validators.required,
+            Validators.minLength(8),
+          ],
+        ),
+      }, [
+        Validators.mustMatch('password', 'passwordConfirmation')
+      ]);
 
   @override
   void onInit() {
@@ -43,6 +52,11 @@ class LoginDialogController extends GetxController {
     super.onClose();
   }
 
+  void openLoginDialog() {
+    Get.back();
+    mainController.openLoginDialog();
+  }
+
   Future<void> sendForm(Map<String, Object?> data) async {
     // mainController.showLoader(
     //   title: 'Registrando...',
@@ -50,10 +64,5 @@ class LoginDialogController extends GetxController {
     // );
     String email = data[Fields.email.name].toString();
     String password = data[Fields.password.name].toString();
-  }
-
-  void openRegisterDialog() {
-    Get.back();
-    mainController.openRegisterDialog();
   }
 }
