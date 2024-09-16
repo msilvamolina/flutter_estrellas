@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
+import '../../../components/snackbars/snackbars.dart';
 import '../../../data/providers/repositories/auth/auth_repository.dart';
 import '../../controllers/main_controller.dart';
 
@@ -66,23 +67,8 @@ class LoginDialogController extends GetxController {
     Get.back();
 
     authFailureOrSuccessOption.fold(
-      (failure) {
-        Get.snackbar(
-          'Upps, ocurrió un error',
-          failure,
-          maxWidth: 600,
-          margin: const EdgeInsets.all(16),
-          icon: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 2),
-            child: SvgPicture.asset('assets/svg/logo.svg'),
-          ),
-        );
-      },
-      (_) {
-        print('success');
-
-        // Get.offAllNamed(Routes.HOME);
-      },
+      (failure) => Snackbars.error(failure),
+      (_) => Snackbars.success('Bienvenido!'),
     );
   }
 

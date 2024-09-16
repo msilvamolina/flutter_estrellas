@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_estrellas/app/app/dialogs/register/register_dialog.dart';
+import 'package:flutter_estrellas/app/components/dialogs/confetti_dialog.dart';
 import 'package:flutter_estrellas/app/components/dialogs/loader_dialog.dart';
 import 'package:flutter_estrellas/app/services/theme_service.dart';
 import 'package:get/get.dart';
@@ -54,6 +55,16 @@ class MainController extends GetxController {
       context: Get.context!,
       builder: (BuildContext context) {
         return LoaderDialog(title: title, message: message);
+      },
+    );
+  }
+
+  void showConfetti({String? title, String? message}) {
+    showDialog(
+      barrierColor: Colors.transparent,
+      context: Get.context!,
+      builder: (BuildContext context) {
+        return ConfettiDialog(title: title, message: message);
       },
     );
   }

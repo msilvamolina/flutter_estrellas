@@ -1,6 +1,9 @@
+import 'package:dartz/dartz.dart';
 import 'package:get/get.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
+import '../../../components/snackbars/snackbars.dart';
+import '../../../data/providers/repositories/auth/auth_repository.dart';
 import '../../controllers/main_controller.dart';
 
 enum Fields {
@@ -13,6 +16,8 @@ enum Fields {
 }
 
 class RegisterDialogController extends GetxController {
+  final AuthRepository _authRepository = AuthRepository();
+
   MainController mainController = Get.find();
   FormGroup buildForm() => fb.group(<String, Object>{
         Fields.email.name: FormControl<String>(
@@ -58,11 +63,24 @@ class RegisterDialogController extends GetxController {
   }
 
   Future<void> sendForm(Map<String, Object?> data) async {
-    // mainController.showLoader(
-    //   title: 'Registrando...',
-    //   message: 'Por favor espere',
-    // );
+    mainController.showLoader(
+      title: 'Registrando...',
+      message: 'Por favor espere',
+    );
     String email = data[Fields.email.name].toString();
     String password = data[Fields.password.name].toString();
+
+    Either<String, Unit> authFailureOrSuccessOption =
+        await _authRepository.createUserWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
+
+    Get.back();
+
+    authFailureOrSuccessOption.fold(
+      (failure) => Snackbars.error(failure),
+      (_) => Snackbars.success('Bienvenido!'),
+    );
   }
 }
