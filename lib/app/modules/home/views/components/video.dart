@@ -8,6 +8,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
 
+import 'video_buttons.dart';
+
 /// Stateful widget to fetch and then display video content.
 class VideoApp extends StatefulWidget {
   const VideoApp(
@@ -94,95 +96,93 @@ class _VideoAppState extends State<VideoApp> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: _controller.value.isInitialized
-          ? GestureDetector(
-              onDoubleTap: onPause,
-              onTap: onVolume,
-              child: Stack(
-                children: [
-                  Row(
+    return Row(
+      children: [
+        Spacer(),
+        AspectRatio(
+          aspectRatio: 9 / 16,
+          child: _controller.value.isInitialized
+              ? GestureDetector(
+                  onTap: onPause,
+                  onDoubleTap: onVolume,
+                  child: Stack(
                     children: [
-                      Expanded(child: VideoPlayer(_controller)),
-                      SizedBox(width: 4),
+                      AspectRatio(
+                        aspectRatio: 9 / 16,
+                        child: VideoPlayer(_controller),
+                      ),
+                      Center(
+                        child: AnimatedOpacity(
+                          opacity: _iconAnimationShowing ? 0.4 : 0,
+                          duration: Duration(milliseconds: 500),
+                          child: Icon(
+                            _iconAnimationIcon,
+                            size: 140,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
                       Column(
                         children: [
-                          Spacer(),
-                          SvgPicture.asset(
-                            'assets/svg/logo.svg',
-                            width: 40,
-                          ),
-                          SizedBox(height: 4),
-                          Text('Vender',
-                              style: TypographyStyle.bodyRegularSmall),
-                        ],
-                      )
-                    ],
-                  ),
-                  Center(
-                    child: AnimatedOpacity(
-                      opacity: _iconAnimationShowing ? 0.4 : 0,
-                      duration: Duration(milliseconds: 500),
-                      child: Icon(
-                        _iconAnimationIcon,
-                        size: 140,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                  Column(
-                    children: [
-                      Row(
-                        children: [
-                          IconButton(
-                            onPressed: onPause,
-                            icon: Icon(
-                              _isPlaying ? Icons.pause : Icons.play_arrow,
-                              color: neutral500,
-                            ),
-                          ),
-                          Expanded(
-                            child: Slider(
-                              activeColor:
-                                  primaryBase, // Cambia el color del slider
-                              inactiveColor:
-                                  neutral400, // Color inactivo más claro
+                          Row(
+                            children: [
+                              IconButton(
+                                onPressed: onPause,
+                                icon: Icon(
+                                  _isPlaying ? Icons.pause : Icons.play_arrow,
+                                  color: neutral500,
+                                ),
+                              ),
+                              Expanded(
+                                child: Slider(
+                                  activeColor:
+                                      primaryBase, // Cambia el color del slider
+                                  inactiveColor:
+                                      neutral400, // Color inactivo más claro
 
-                              value: _currentSliderValue,
-                              min: 0.0,
-                              max: _controller.value.duration.inSeconds
-                                  .toDouble(),
-                              onChanged: (value) {
-                                setState(() {
-                                  _currentSliderValue = value;
-                                  // Saltar a la posición del slider
-                                  _controller
-                                      .seekTo(Duration(seconds: value.toInt()));
-                                });
-                              },
-                            ),
-                          ),
-                          IconButton(
-                            onPressed: onVolume,
-                            icon: Icon(
-                              mainController.withVolume
-                                  ? Icons.volume_off
-                                  : Icons.volume_up_rounded,
-                              color: neutral500,
-                            ),
+                                  value: _currentSliderValue,
+                                  min: 0.0,
+                                  max: _controller.value.duration.inSeconds
+                                      .toDouble(),
+                                  onChanged: (value) {
+                                    setState(() {
+                                      _currentSliderValue = value;
+                                      // Saltar a la posición del slider
+                                      _controller.seekTo(
+                                          Duration(seconds: value.toInt()));
+                                    });
+                                  },
+                                ),
+                              ),
+                              IconButton(
+                                onPressed: onVolume,
+                                icon: Icon(
+                                  mainController.withVolume
+                                      ? Icons.volume_off
+                                      : Icons.volume_up_rounded,
+                                  color: neutral500,
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
                     ],
                   ),
-                ],
-              ),
-            )
-          : CachedNetworkImage(
-              imageUrl: widget.videoModel.imageUrl,
-              placeholder: (context, url) => CircularProgressIndicator(),
-              errorWidget: (context, url, error) => Icon(Icons.error),
-            ),
+                )
+              : CachedNetworkImage(
+                  imageUrl: widget.videoModel.imageUrl,
+                  placeholder: (context, url) =>
+                      Center(child: CircularProgressIndicator()),
+                  errorWidget: (context, url, error) => Icon(Icons.error),
+                ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 16),
+          child: VideoButtons(),
+        ),
+        Spacer(),
+      ],
     );
   }
 

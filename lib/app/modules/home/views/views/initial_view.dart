@@ -106,7 +106,6 @@ class _InitialViewState extends State<InitialView> {
         margin: EdgeInsets.all(isMobile ? 0 : 16),
         width: double.infinity,
         height: double.infinity,
-        constraints: BoxConstraints(maxWidth: 480),
         child: PageView.builder(
           itemCount: videoList.length,
           controller:

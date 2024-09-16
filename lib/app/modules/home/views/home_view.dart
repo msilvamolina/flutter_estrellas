@@ -28,7 +28,7 @@ class _HomeViewState extends State<HomeView> {
     double screenWidth = MediaQuery.of(context).size.width;
     bool isTinyPhone = screenWidth < 320;
     bool isMobile = screenWidth < 480;
-    bool isTablet = screenWidth < 720;
+    bool isTablet = screenWidth < 740;
     bool isTablet2 = screenWidth < 890;
     bool isDesktop = screenWidth > 720;
     PageController pageController = PageController();

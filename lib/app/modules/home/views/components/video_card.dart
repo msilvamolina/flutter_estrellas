@@ -19,45 +19,42 @@ class VideoCard extends StatelessWidget {
     bool isMobile = screenWidth < 480;
 
     return Center(
-      child: Container(
-        constraints: BoxConstraints(maxWidth: 480),
-        child: Stack(
-          children: [
-            VideoApp(
-              videoModel: videoModel,
-              onCompleted: onCompleted,
-            ),
-            Center(
-              child: AspectRatio(
-                aspectRatio: 9 / 16,
-                child: Column(
-                  children: [
-                    Spacer(),
-                    IconButton.filled(
-                        onPressed: () {},
-                        icon: Icon(Icons.access_alarm_outlined)),
-                    Row(
-                      children: [
-                        Image.asset(
-                          'assets/images/avatar.png',
-                          width: 36,
-                        ),
-                        Text(
-                          'Bolso femenino cuero y tiras metálicas',
-                          style: TypographyStyle.bodyRegularMedium,
-                        ),
-                      ],
-                    ),
-                    if (isMobile)
-                      SizedBox(
-                        height: 80,
+      child: Stack(
+        children: [
+          VideoApp(
+            videoModel: videoModel,
+            onCompleted: onCompleted,
+          ),
+          Center(
+            child: AspectRatio(
+              aspectRatio: 9 / 16,
+              child: Column(
+                children: [
+                  Spacer(),
+                  IconButton.filled(
+                      onPressed: () {},
+                      icon: Icon(Icons.access_alarm_outlined)),
+                  Row(
+                    children: [
+                      Image.asset(
+                        'assets/images/avatar.png',
+                        width: 36,
                       ),
-                  ],
-                ),
+                      Text(
+                        'Bolso femenino cuero y tiras metálicas',
+                        style: TypographyStyle.bodyRegularMedium,
+                      ),
+                    ],
+                  ),
+                  if (isMobile)
+                    SizedBox(
+                      height: 80,
+                    ),
+                ],
               ),
-            )
-          ],
-        ),
+            ),
+          )
+        ],
       ),
     );
   }
