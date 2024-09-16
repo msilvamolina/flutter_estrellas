@@ -4,7 +4,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../../../themes/styles/typography.dart';
 
 class VideoButtons extends StatelessWidget {
-  VideoButtons({super.key});
+  VideoButtons({super.key, this.buttonInsideVideo = false});
+  final bool buttonInsideVideo;
 
   @override
   Widget build(BuildContext context) {
