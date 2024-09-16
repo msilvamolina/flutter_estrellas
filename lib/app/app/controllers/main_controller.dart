@@ -12,6 +12,7 @@ import '../../data/models/user_data/user_data.dart';
 import '../dialogs/login/login_dialog.dart';
 
 enum UserStatus {
+  loading,
   notLogged,
   needBasicData,
   full,
@@ -22,12 +23,13 @@ class MainController extends GetxController {
   bool _withVolume = false;
   bool get withVolume => _withVolume;
 
-  UserStatus _userStatus = UserStatus.notLogged;
-  UserStatus get userStatus => _userStatus;
+  UserStatus? _userStatus = UserStatus.loading;
+  UserStatus? get userStatus => _userStatus;
 
   UserData? _userData;
   UserData? get userData => _userData;
 
+  FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   @override
   void onInit() {
     super.onInit();
@@ -40,6 +42,8 @@ class MainController extends GetxController {
   }
 
   Future<void> checkUser() async {
+    _userStatus = UserStatus.loading;
+    update(['login']);
     bool isAuthenticated = userRepository.isUserLogged();
 
     if (isAuthenticated) {
@@ -49,9 +53,11 @@ class MainController extends GetxController {
       } else {
         _userStatus = UserStatus.needBasicData;
       }
+    } else {
+      _userStatus = UserStatus.notLogged;
     }
 
-    update(['main']);
+    update(['login']);
 
     if (_userStatus == UserStatus.needBasicData) {
       openRegisterBasicDataDialog();
@@ -73,7 +79,13 @@ class MainController extends GetxController {
   }
 
   void signOut() {
+    _userStatus = UserStatus.loading;
+    update(['login']);
     userRepository.signOut();
+    Future.delayed(Duration(milliseconds: 500), () {
+      _userStatus = UserStatus.notLogged;
+      update(['login']);
+    });
   }
 
   void openRegisterDialog() {

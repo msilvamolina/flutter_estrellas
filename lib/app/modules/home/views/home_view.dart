@@ -10,6 +10,7 @@ import 'package:flutter_estrellas/app/themes/styles/colors.dart';
 import 'package:flutter_estrellas/app/themes/styles/typography.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:shimmer/shimmer.dart';
 
 import 'views/initial_view.dart';
 
@@ -143,32 +144,53 @@ class _HomeViewState extends State<HomeView> {
                           ),
                         ),
                         Spacer(),
-                        if (mainController.userStatus == UserStatus.notLogged)
-                          ElevatedButton(
-                            onPressed: mainController.openLoginDialog,
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Theme.of(context)
-                                  .colorScheme
-                                  .primaryContainer, // Color secundario
-                              foregroundColor: ThemeService.isDark()
-                                  ? Colors.white
-                                  : neutral900,
-                            ),
-                            child: Text('Ingresar'),
-                          ),
-                        if (mainController.userStatus == UserStatus.full)
-                          ElevatedButton(
-                            onPressed: mainController.openLoginDialog,
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Theme.of(context)
-                                  .colorScheme
-                                  .secondaryContainer, // Color secundario
-                              foregroundColor: ThemeService.isDark()
-                                  ? Colors.white
-                                  : neutral900,
-                            ),
-                            child: Text('Cerrar sesión'),
-                          ),
+                        GetBuilder<MainController>(
+                          id: 'login',
+                          builder: (_) {
+                            return Row(
+                              children: [
+                                if (mainController.userStatus ==
+                                    UserStatus.loading)
+                                  Shimmer.fromColors(
+                                    baseColor: neutral500,
+                                    highlightColor: neutral200,
+                                    child: ElevatedButton(
+                                      onPressed: () {},
+                                      child: SizedBox(width: 60),
+                                    ),
+                                  ),
+                                if (mainController.userStatus ==
+                                    UserStatus.notLogged)
+                                  ElevatedButton(
+                                    onPressed: mainController.openLoginDialog,
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Theme.of(context)
+                                          .colorScheme
+                                          .primaryContainer, // Color secundario
+                                      foregroundColor: ThemeService.isDark()
+                                          ? Colors.white
+                                          : neutral900,
+                                    ),
+                                    child: Text('Ingresar'),
+                                  ),
+                                if (mainController.userStatus ==
+                                    UserStatus.full)
+                                  ElevatedButton(
+                                    onPressed: mainController.signOut,
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Theme.of(context)
+                                          .colorScheme
+                                          .secondaryContainer, // Color secundario
+                                      foregroundColor: ThemeService.isDark()
+                                          ? Colors.white
+                                          : neutral900,
+                                    ),
+                                    child: Text('Cerrar sesión'),
+                                  ),
+                              ],
+                            );
+                          },
+                        ),
                         SizedBox(width: 8),
                         IconButton(
                           onPressed: () {},
