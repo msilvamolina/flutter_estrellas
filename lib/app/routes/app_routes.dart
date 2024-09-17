@@ -9,14 +9,16 @@ abstract class Routes {
   static const REGISTER = _Paths.REGISTER;
   static const REGISTER_BASIC_DATA = _Paths.REGISTER_BASIC_DATA;
   static const FORGOT_PASSWORD = _Paths.FORGOT_PASSWORD;
+  static const WELCOME = _Paths.WELCOME;
 }
 
 abstract class _Paths {
   _Paths._();
-  static const HOME = '/home';
+  static const HOME = '/';
   static const LOGIN = '/login';
   static const SPLASH = '/splash';
   static const REGISTER = '/register';
   static const REGISTER_BASIC_DATA = '/register-basic-data';
   static const FORGOT_PASSWORD = '/forgot-password';
+  static const WELCOME = '/welcome';
 }
