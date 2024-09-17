@@ -101,29 +101,31 @@ class _InitialViewState extends State<InitialView> {
     PageController pageController = PageController();
 
     int pageSelected = 0;
-    return Center(
-      child: Container(
-        margin: EdgeInsets.all(isMobile ? 0 : 16),
-        width: double.infinity,
-        height: double.infinity,
-        child: PageView.builder(
-          itemCount: videoList.length,
-          controller:
-              PageController(initialPage: pageSelected, viewportFraction: 1),
-          scrollDirection: Axis.vertical,
-          onPageChanged: (value) {
-            setState(() {
-              pageSelected = value;
-            });
-          },
-          itemBuilder: (context, index) => VideoCard(
-              videoModel: videoList[index],
-              onCompleted: () {
-                pageController.animateToPage(pageSelected++,
-                    duration: Duration(milliseconds: 200),
-                    curve: Curves.linear);
-                // pageController.
-              }),
+    return SafeArea(
+      child: Center(
+        child: Container(
+          margin: EdgeInsets.all(isMobile ? 0 : 16),
+          width: double.infinity,
+          height: double.infinity,
+          child: PageView.builder(
+            itemCount: videoList.length,
+            controller:
+                PageController(initialPage: pageSelected, viewportFraction: 1),
+            scrollDirection: Axis.vertical,
+            onPageChanged: (value) {
+              setState(() {
+                pageSelected = value;
+              });
+            },
+            itemBuilder: (context, index) => VideoCard(
+                videoModel: videoList[index],
+                onCompleted: () {
+                  pageController.animateToPage(pageSelected++,
+                      duration: Duration(milliseconds: 200),
+                      curve: Curves.linear);
+                  // pageController.
+                }),
+          ),
         ),
       ),
     );

@@ -170,10 +170,6 @@ class VideoLabel extends StatelessWidget {
                 ),
               ],
             ),
-            if (isMobile)
-              SizedBox(
-                height: 78,
-              )
           ],
         ),
       ),

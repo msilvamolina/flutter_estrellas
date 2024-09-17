@@ -80,6 +80,76 @@ class _HomeViewState extends State<HomeView> {
       id: 'view',
       builder: (controller) {
         return Scaffold(
+          bottomNavigationBar: isMobile
+              ? NavigationBarTheme(
+                  data: NavigationBarThemeData(
+                    // iconTheme: WidgetStateProperty.all(
+
+                    // ),
+                    iconTheme:
+                        MaterialStateProperty.resolveWith<IconThemeData?>(
+                      (Set<MaterialState> states) {
+                        // Si el botón está seleccionado, aplica un estilo diferente
+                        if (states.contains(MaterialState.selected)) {
+                          return mainController.isThemeModeDark
+                              ? IconThemeData(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .primaryFixedDim)
+                              : IconThemeData(
+                                  color: Theme.of(context).primaryColor);
+                        }
+                        return IconThemeData(
+                          color: mainController.isThemeModeDark
+                              ? neutral500
+                              : neutral700,
+                        );
+                      },
+                    ),
+                    indicatorColor:
+                        Theme.of(context).primaryColor, // Color del indicador
+                    labelTextStyle: MaterialStateProperty.all(
+                      TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight
+                              .w600), // Color del texto de la etiqueta
+                    ),
+                  ),
+                  child: NavigationBar(
+                    indicatorColor:
+                        Theme.of(context).colorScheme.primaryContainer,
+                    backgroundColor: Colors.transparent,
+                    labelBehavior: !isTinyPhone
+                        ? NavigationDestinationLabelBehavior.alwaysShow
+                        : NavigationDestinationLabelBehavior.alwaysHide,
+                    selectedIndex: _selectedIndex,
+                    onDestinationSelected: (int index) {
+                      setState(() {
+                        _selectedIndex = index;
+                        pageController.animateToPage(
+                          index,
+                          duration: Duration(milliseconds: 500),
+                          curve: Curves.ease,
+                        );
+                      });
+                    },
+                    destinations: const [
+                      NavigationDestination(
+                        icon: Icon(Icons.home),
+                        label: 'Home',
+                      ),
+                      NavigationDestination(
+                          icon: Icon(Icons.wallet), label: 'Billetera'),
+                      NavigationDestination(
+                          icon: Icon(Icons.search), label: 'Buscar'),
+                      NavigationDestination(
+                          icon: Icon(Icons.dataset_rounded), label: 'Catálogo'),
+                      NavigationDestination(
+                          icon: Icon(Icons.apps_rounded), label: 'Más'),
+                    ],
+                  ),
+                )
+              : null,
           floatingActionButton: _selectedIndex == 3
               ? Column(
                   mainAxisSize: MainAxisSize.min,
@@ -357,99 +427,98 @@ class _HomeViewState extends State<HomeView> {
                         MoreView(),
                       ],
                     ),
-                    if (isMobile)
-                      Column(
-                        children: [
-                          Spacer(),
-                          Container(
-                            margin: const EdgeInsets.all(16),
-                            decoration: BoxDecoration(
-                              color: mainController.isThemeModeDark
-                                  ? Colors.black.withOpacity(0.5)
-                                  : Colors.white.withOpacity(0.75),
-                              borderRadius: BorderRadius.circular(16),
-                            ),
-                            child: NavigationBarTheme(
-                              data: NavigationBarThemeData(
-                                // iconTheme: WidgetStateProperty.all(
+                    // if (isMobile)
+                    //   Column(
+                    //     children: [
+                    //       Spacer(),
+                    //       Container(
+                    //         margin: const EdgeInsets.all(16),
+                    //         decoration: BoxDecoration(
+                    //           color: mainController.isThemeModeDark
+                    //               ? Colors.black.withOpacity(0.5)
+                    //               : Colors.white.withOpacity(0.75),
+                    //           borderRadius: BorderRadius.circular(16),
+                    //         ),
+                    //         child: NavigationBarTheme(
+                    //           data: NavigationBarThemeData(
+                    //             // iconTheme: WidgetStateProperty.all(
 
-                                // ),
-                                iconTheme: MaterialStateProperty.resolveWith<
-                                    IconThemeData?>(
-                                  (Set<MaterialState> states) {
-                                    // Si el botón está seleccionado, aplica un estilo diferente
-                                    if (states
-                                        .contains(MaterialState.selected)) {
-                                      return mainController.isThemeModeDark
-                                          ? IconThemeData(
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .primaryFixedDim)
-                                          : IconThemeData(
-                                              color: Theme.of(context)
-                                                  .primaryColor);
-                                    }
-                                    return IconThemeData(
-                                      color: mainController.isThemeModeDark
-                                          ? neutral500
-                                          : neutral700,
-                                    );
-                                  },
-                                ),
-                                indicatorColor: Theme.of(context)
-                                    .primaryColor, // Color del indicador
-                                labelTextStyle: MaterialStateProperty.all(
-                                  TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight
-                                          .w600), // Color del texto de la etiqueta
-                                ),
-                              ),
-                              child: NavigationBar(
-                                height: 64,
-                                indicatorColor: Theme.of(context)
-                                    .colorScheme
-                                    .primaryContainer,
-                                backgroundColor: Colors.transparent,
-                                labelBehavior: !isTinyPhone
-                                    ? NavigationDestinationLabelBehavior
-                                        .alwaysShow
-                                    : NavigationDestinationLabelBehavior
-                                        .alwaysHide,
-                                selectedIndex: _selectedIndex,
-                                onDestinationSelected: (int index) {
-                                  setState(() {
-                                    _selectedIndex = index;
-                                    pageController.animateToPage(
-                                      index,
-                                      duration: Duration(milliseconds: 500),
-                                      curve: Curves.ease,
-                                    );
-                                  });
-                                },
-                                destinations: const [
-                                  NavigationDestination(
-                                    icon: Icon(Icons.home),
-                                    label: 'Home',
-                                  ),
-                                  NavigationDestination(
-                                      icon: Icon(Icons.wallet),
-                                      label: 'Billetera'),
-                                  NavigationDestination(
-                                      icon: Icon(Icons.search),
-                                      label: 'Buscar'),
-                                  NavigationDestination(
-                                      icon: Icon(Icons.dataset_rounded),
-                                      label: 'Catálogo'),
-                                  NavigationDestination(
-                                      icon: Icon(Icons.apps_rounded),
-                                      label: 'Más'),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                    //             // ),
+                    //             iconTheme: MaterialStateProperty.resolveWith<
+                    //                 IconThemeData?>(
+                    //               (Set<MaterialState> states) {
+                    //                 // Si el botón está seleccionado, aplica un estilo diferente
+                    //                 if (states
+                    //                     .contains(MaterialState.selected)) {
+                    //                   return mainController.isThemeModeDark
+                    //                       ? IconThemeData(
+                    //                           color: Theme.of(context)
+                    //                               .colorScheme
+                    //                               .primaryFixedDim)
+                    //                       : IconThemeData(
+                    //                           color: Theme.of(context)
+                    //                               .primaryColor);
+                    //                 }
+                    //                 return IconThemeData(
+                    //                   color: mainController.isThemeModeDark
+                    //                       ? neutral500
+                    //                       : neutral700,
+                    //                 );
+                    //               },
+                    //             ),
+                    //             indicatorColor: Theme.of(context)
+                    //                 .primaryColor, // Color del indicador
+                    //             labelTextStyle: MaterialStateProperty.all(
+                    //               TextStyle(
+                    //                   fontSize: 12,
+                    //                   fontWeight: FontWeight
+                    //                       .w600), // Color del texto de la etiqueta
+                    //             ),
+                    //           ),
+                    //           child: NavigationBar(
+                    //             indicatorColor: Theme.of(context)
+                    //                 .colorScheme
+                    //                 .primaryContainer,
+                    //             backgroundColor: Colors.transparent,
+                    //             labelBehavior: !isTinyPhone
+                    //                 ? NavigationDestinationLabelBehavior
+                    //                     .alwaysShow
+                    //                 : NavigationDestinationLabelBehavior
+                    //                     .alwaysHide,
+                    //             selectedIndex: _selectedIndex,
+                    //             onDestinationSelected: (int index) {
+                    //               setState(() {
+                    //                 _selectedIndex = index;
+                    //                 pageController.animateToPage(
+                    //                   index,
+                    //                   duration: Duration(milliseconds: 500),
+                    //                   curve: Curves.ease,
+                    //                 );
+                    //               });
+                    //             },
+                    //             destinations: const [
+                    //               NavigationDestination(
+                    //                 icon: Icon(Icons.home),
+                    //                 label: 'Home',
+                    //               ),
+                    //               NavigationDestination(
+                    //                   icon: Icon(Icons.wallet),
+                    //                   label: 'Billetera'),
+                    //               NavigationDestination(
+                    //                   icon: Icon(Icons.search),
+                    //                   label: 'Buscar'),
+                    //               NavigationDestination(
+                    //                   icon: Icon(Icons.dataset_rounded),
+                    //                   label: 'Catálogo'),
+                    //               NavigationDestination(
+                    //                   icon: Icon(Icons.apps_rounded),
+                    //                   label: 'Más'),
+                    //             ],
+                    //           ),
+                    //         ),
+                    //       ),
+                    //     ],
+                    //   ),
                   ],
                 ),
               ),
