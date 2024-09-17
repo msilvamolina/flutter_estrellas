@@ -194,6 +194,10 @@ class ProductView extends GetView<ProductController> {
                 Container(
                   height: 60,
                   child: TabBar(
+                    indicatorColor: primaryBase,
+                    labelColor: controller.mainController.isThemeModeDark
+                        ? secondaryLight
+                        : secondaryBase,
                     tabs: [
                       Tab(text: "Descripción"),
                       Tab(text: "Contenido"),
