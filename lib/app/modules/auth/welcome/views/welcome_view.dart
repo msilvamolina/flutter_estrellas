@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_estrellas/app/themes/styles/colors.dart';
 
 import 'package:get/get.dart';
 
@@ -13,13 +14,7 @@ class WelcomeView extends GetView<WelcomeController> {
   @override
   Widget build(BuildContext context) {
     return AuthLayout(
-      child: Scaffold(
-        appBar: AppBar(),
-        body: Padding(
-          padding: const EdgeInsets.all(16),
-          child: WelcomeScreen(),
-        ),
-      ),
+      child: WelcomeScreen(),
     );
   }
 }
