@@ -56,8 +56,8 @@ class _SliderStepState extends State<SliderStep> {
                     Shimmer.fromColors(
                       period: const Duration(seconds: 2),
                       loop: 2,
-                      baseColor: Colors.transparent,
-                      highlightColor: white.withOpacity(0.2),
+                      baseColor: white.withOpacity(0.01),
+                      highlightColor: white.withOpacity(0.3),
                       child: Image.asset('assets/images/welcome.png'),
                     ),
                   ],
