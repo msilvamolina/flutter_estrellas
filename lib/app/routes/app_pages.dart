@@ -12,10 +12,12 @@ import '../modules/auth/register_basic_data/bindings/register_basic_data_binding
 import '../modules/auth/register_basic_data/views/register_basic_data_view.dart';
 import '../modules/auth/splash/bindings/splash_binding.dart';
 import '../modules/auth/splash/views/splash_view.dart';
-import '../modules/home/bindings/home_binding.dart';
-import '../modules/home/views/home_view.dart';
 import '../modules/auth/welcome/bindings/welcome_binding.dart';
 import '../modules/auth/welcome/views/welcome_view.dart';
+import '../modules/home/bindings/home_binding.dart';
+import '../modules/home/views/home_view.dart';
+import '../modules/product/bindings/product_binding.dart';
+import '../modules/product/views/product_view.dart';
 
 part 'app_routes.dart';
 
@@ -67,6 +69,11 @@ class AppPages {
       page: () => const WelcomeView(),
       binding: WelcomeBinding(),
       transition: Transition.downToUp,
+    ),
+    GetPage(
+      name: _Paths.PRODUCT,
+      page: () => const ProductView(),
+      binding: ProductBinding(),
     ),
   ];
 }
