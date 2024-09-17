@@ -47,21 +47,19 @@ Future<void> initFirebase() async {
       measurementId: firebaseConfig['measurementId'],
       trackingId: firebaseConfig['trackingId'],
     );
+  } else if (Platform.isAndroid) {
+    Map<String, dynamic>? firebaseConfig = firebaseConfigDevAndroid;
+
+    firebaseOptions = FirebaseOptions(
+      apiKey: firebaseConfig['apiKey']!,
+      appId: firebaseConfig['appId']!,
+      messagingSenderId: firebaseConfig['messagingSenderId']!,
+      projectId: firebaseConfig['projectId']!,
+      databaseURL: firebaseConfig['databaseURL'],
+      measurementId: firebaseConfig['measurementId'],
+      trackingId: firebaseConfig['trackingId'],
+    );
   }
-
-  // else if (Platform.isAndroid) {
-  //   Map<String, dynamic>? firebaseConfig = firebaseConfigDevAndroid;
-
-  //   firebaseOptions = FirebaseOptions(
-  //     apiKey: firebaseConfig['apiKey']!,
-  //     appId: firebaseConfig['appId']!,
-  //     messagingSenderId: firebaseConfig['messagingSenderId']!,
-  //     projectId: firebaseConfig['projectId']!,
-  //     databaseURL: firebaseConfig['databaseURL'],
-  //     measurementId: firebaseConfig['measurementId'],
-  //     trackingId: firebaseConfig['trackingId'],
-  //   );
-  // }
   await Firebase.initializeApp(options: firebaseOptions);
 }
 
