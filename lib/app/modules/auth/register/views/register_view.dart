@@ -18,7 +18,7 @@ class RegisterView extends GetView<RegisterController> {
             Hero(
               tag: 'helpButton',
               child: IconButton(
-                onPressed: () {},
+                onPressed: controller.mainController.openAlertHelpText,
                 icon: Icon(Icons.help_outline),
               ),
             ),

@@ -1,7 +1,8 @@
+import 'package:flutter_estrellas/app/app/controllers/main_controller.dart';
 import 'package:get/get.dart';
 
 class RegisterBasicDataController extends GetxController {
-  //TODO: Implement RegisterBasicDataController
+  MainController mainController = Get.find();
 
   final count = 0.obs;
   @override

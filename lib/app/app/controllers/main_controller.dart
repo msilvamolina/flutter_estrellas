@@ -40,7 +40,7 @@ class MainController extends GetxController {
 
   void checkTheme() {
     _isThemeModeDark = ThemeService.isSavedDarkMode();
-    update();
+    update(['main', 'input']);
   }
 
   @override
@@ -145,6 +145,32 @@ class MainController extends GetxController {
     } else {
       Get.offAndToNamed(Routes.REGISTER_BASIC_DATA);
     }
+  }
+
+  void openAlertHelpText() {
+    showDialog(
+        context: Get.context!,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('¿Necesitas ayuda?'),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: <Widget>[
+                  Text('¿Necesitas ayuda?'),
+                  Text('¿Necesitas ayuda?'),
+                  Text('¿Necesitas ayuda?'),
+                  Text('¿Necesitas ayuda?'),
+                ],
+              ),
+            ),
+            actions: [
+              TextButton(
+                child: Text("Aceptar"),
+                onPressed: () {},
+              )
+            ],
+          );
+        });
   }
 
   void changeVolume() {
