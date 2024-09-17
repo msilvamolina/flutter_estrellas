@@ -50,6 +50,23 @@ class RegisterBasicDataScreen extends StatelessWidget {
                             decoration: CustomInputDecoration.inputDecoration(
                               isThemeModeDark:
                                   controller.mainController.isThemeModeDark,
+                              text: "Usuario",
+                              // hintText: "Ingresa tu número de documento",
+                              icon: Icons.person,
+                            ),
+                          );
+                        },
+                      ),
+                      SizedBox(height: 16),
+                      GetBuilder<MainController>(
+                        id: 'input',
+                        builder: (mainController) {
+                          return ReactiveTextField(
+                            formControlName: Fields.document.name,
+                            keyboardType: TextInputType.number,
+                            decoration: CustomInputDecoration.inputDecoration(
+                              isThemeModeDark:
+                                  controller.mainController.isThemeModeDark,
                               text: "Documento",
                               hintText: "Ingresa tu número de documento",
                               icon: Icons.person,

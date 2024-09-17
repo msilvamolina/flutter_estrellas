@@ -25,6 +25,7 @@ class UserRepository {
   }
 
   Future<Either<String, Unit>> saveUserData({
+    required String document,
     required String username,
     required String firstName,
     required String lastName,
@@ -39,6 +40,7 @@ class UserRepository {
         'lastName': lastName,
         'email': email,
         'username': username.toLowerCase(),
+        'document': document,
         'uid': uid,
         'isAnonymous': false,
         'createdBy': email,

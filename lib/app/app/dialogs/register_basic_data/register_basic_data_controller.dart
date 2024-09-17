@@ -8,6 +8,7 @@ import '../../../data/providers/repositories/auth/user_repository.dart';
 import '../../controllers/main_controller.dart';
 
 enum Fields {
+  document('document'),
   username('username'),
   firstName('firstName'),
   lastName('lastName');
@@ -22,6 +23,13 @@ class RegisterBasicDataDialogController extends GetxController {
   MainController mainController = Get.find();
 
   FormGroup buildForm() => fb.group(<String, Object>{
+        Fields.document.name: FormControl<String>(
+          validators: [
+            Validators.required,
+            Validators.minLength(6),
+            Validators.number()
+          ],
+        ),
         Fields.username.name: FormControl<String>(
           validators: [
             Validators.required,
@@ -67,12 +75,14 @@ class RegisterBasicDataDialogController extends GetxController {
       title: 'Registrando...',
       message: 'Por favor espere',
     );
+    String document = data[Fields.document.name].toString();
     String username = data[Fields.username.name].toString();
     String firstName = data[Fields.firstName.name].toString();
     String lastName = data[Fields.lastName.name].toString();
 
     Either<String, Unit> saveUserData =
         await mainController.userRepository.saveUserData(
+      document: document,
       username: username,
       firstName: firstName,
       lastName: lastName,
