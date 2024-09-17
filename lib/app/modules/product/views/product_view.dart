@@ -17,12 +17,13 @@ class ProductView extends GetView<ProductController> {
   Widget build(BuildContext context) {
     double tmbSize = 90;
     bool isIos = Platform.isIOS;
+    bool isAndroid = Platform.isAndroid;
     return DialogLayout(
       child: Scaffold(
         bottomNavigationBar: SafeArea(
           child: Padding(
-            padding:
-                EdgeInsets.symmetric(horizontal: 16, vertical: isIos ? 0 : 16),
+            padding: EdgeInsets.symmetric(
+                horizontal: 16, vertical: isIos ? 0 : (isAndroid ? 8 : 16)),
             child: Row(
               children: [
                 Expanded(
@@ -262,7 +263,7 @@ class ProductView extends GetView<ProductController> {
 
             body: Column(
               children: [
-                SizedBox(height: (isIos) ? 116 : 56),
+                SizedBox(height: (isIos) ? 116 : (isAndroid ? 78 : 56)),
                 Container(
                   height: 60,
                   child: TabBar(
