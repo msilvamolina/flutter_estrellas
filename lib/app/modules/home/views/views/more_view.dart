@@ -29,6 +29,18 @@ class MoreView extends StatelessWidget {
                   ),
                   child: Text('Cerrar sesión'),
                 ),
+              ElevatedButton(
+                onPressed: mainController.changeThemeMode,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Theme.of(context)
+                      .colorScheme
+                      .secondaryContainer, // Color secundario
+                  foregroundColor: mainController.isThemeModeDark
+                      ? Colors.white
+                      : neutral900,
+                ),
+                child: Text('Cambiar tema'),
+              ),
             ],
           ),
         );

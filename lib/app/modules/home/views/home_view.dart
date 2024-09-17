@@ -151,18 +151,9 @@ class _HomeViewState extends State<HomeView> {
                 )
               : null,
           floatingActionButton: _selectedIndex == 3
-              ? Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    FloatingActionButton(
-                      onPressed: () {},
-                      child: Icon(Icons.add),
-                    ),
-                    if (isMobile)
-                      SizedBox(
-                        height: 84,
-                      )
-                  ],
+              ? FloatingActionButton(
+                  onPressed: () {},
+                  child: Icon(Icons.add),
                 )
               : null,
           appBar: !isTablet
