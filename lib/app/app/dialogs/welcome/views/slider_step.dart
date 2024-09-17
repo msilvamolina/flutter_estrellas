@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 
+import '../../../../themes/styles/colors.dart';
 import '../../../../themes/styles/typography.dart';
 
 class SliderStep extends StatefulWidget {
@@ -47,7 +49,20 @@ class _SliderStepState extends State<SliderStep> {
             child: AnimatedOpacity(
               duration: Duration(milliseconds: 800),
               opacity: imageAnimation ? 1 : 0,
-              child: Center(child: Image.asset('assets/images/welcome.png')),
+              child: Center(
+                child: Stack(
+                  children: [
+                    Image.asset('assets/images/welcome.png'),
+                    Shimmer.fromColors(
+                      period: const Duration(seconds: 2),
+                      loop: 2,
+                      baseColor: Colors.transparent,
+                      highlightColor: white.withOpacity(0.2),
+                      child: Image.asset('assets/images/welcome.png'),
+                    ),
+                  ],
+                ),
+              ),
             ),
           ),
         ),
