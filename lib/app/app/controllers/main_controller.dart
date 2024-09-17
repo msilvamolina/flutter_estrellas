@@ -5,6 +5,7 @@ import 'package:flutter_estrellas/app/app/dialogs/register_basic_data/register_b
 import 'package:flutter_estrellas/app/components/dialogs/loader_dialog.dart';
 import 'package:flutter_estrellas/app/data/providers/repositories/auth/user_repository.dart';
 import 'package:flutter_estrellas/app/routes/app_pages.dart';
+import 'package:flutter_estrellas/app/themes/styles/typography.dart';
 import 'package:get/get.dart';
 
 import '../../data/models/user_data/user_data.dart';
@@ -152,7 +153,10 @@ class MainController extends GetxController {
         context: Get.context!,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('¿Necesitas ayuda?'),
+            title: Text(
+              '¿Necesitas ayuda?',
+              style: TypographyStyle.h3Mobile,
+            ),
             content: SingleChildScrollView(
               child: ListBody(
                 children: <Widget>[
