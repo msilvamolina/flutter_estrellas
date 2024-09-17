@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_estrellas/app/app/controllers/main_controller.dart';
 import 'package:get/get.dart';
 

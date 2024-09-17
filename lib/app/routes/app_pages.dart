@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 
 import '../modules/auth/forgot_password/bindings/forgot_password_binding.dart';
@@ -19,7 +20,7 @@ class AppPages {
   AppPages._();
 
   // ignore: constant_identifier_names
-  static const INITIAL = Routes.SPLASH;
+  static const INITIAL = kIsWeb ? Routes.HOME : Routes.SPLASH;
 
   static final routes = [
     GetPage(
