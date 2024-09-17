@@ -1,4 +1,4 @@
-package com.example.flutter_estrellas
+package app.estrellas
 
 import io.flutter.embedding.android.FlutterActivity
 
