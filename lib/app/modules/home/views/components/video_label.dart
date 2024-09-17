@@ -26,10 +26,10 @@ class VideoLabel extends StatelessWidget {
           ],
         ),
       ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        child: GestureDetector(
-          onTap: () => Get.toNamed(Routes.PRODUCT),
+      child: GestureDetector(
+        onTap: () => Get.toNamed(Routes.PRODUCT),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

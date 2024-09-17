@@ -1,23 +1,19 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
+import '../../../components/layouts/dialog_layout.dart';
 import '../controllers/product_controller.dart';
 
 class ProductView extends GetView<ProductController> {
   const ProductView({super.key});
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('ProductView'),
-        centerTitle: true,
-      ),
-      body: const Center(
-        child: Text(
-          'ProductView is working',
-          style: TextStyle(fontSize: 20),
-        ),
+    return DialogLayout(
+      child: Scaffold(
+        body: Text('peps'),
       ),
     );
   }

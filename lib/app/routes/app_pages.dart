@@ -74,6 +74,8 @@ class AppPages {
       name: _Paths.PRODUCT,
       page: () => const ProductView(),
       binding: ProductBinding(),
+      transition: Transition.downToUp,
+      opaque: false,
     ),
   ];
 }
