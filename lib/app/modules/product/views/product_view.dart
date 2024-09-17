@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:ui';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_estrellas/app/modules/product/views/description_view.dart';
 import 'package:flutter_estrellas/app/themes/styles/typography.dart';
@@ -16,8 +17,13 @@ class ProductView extends GetView<ProductController> {
   @override
   Widget build(BuildContext context) {
     double tmbSize = 90;
-    bool isIos = Platform.isIOS;
-    bool isAndroid = Platform.isAndroid;
+    bool isIos = false;
+    bool isAndroid = false;
+
+    if (!kIsWeb) {
+      isIos = Platform.isIOS;
+      isAndroid = Platform.isAndroid;
+    }
     return DialogLayout(
       child: Scaffold(
         bottomNavigationBar: SafeArea(
