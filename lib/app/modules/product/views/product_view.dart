@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -15,10 +16,77 @@ class ProductView extends GetView<ProductController> {
   @override
   Widget build(BuildContext context) {
     double tmbSize = 90;
+    bool isIos = Platform.isIOS;
     return DialogLayout(
       child: Scaffold(
-        bottomNavigationBar: Container(
-          child: Text('sadasd'),
+        bottomNavigationBar: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Row(
+              children: [
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      shadowColor: controller.mainController.isThemeModeDark
+                          ? secondaryLight
+                          : secondaryBase,
+                      backgroundColor: Theme.of(context).colorScheme.surface,
+                      foregroundColor: controller.mainController.isThemeModeDark
+                          ? Colors.white
+                          : Colors.black,
+                      side: BorderSide(
+                        color: controller.mainController.isThemeModeDark
+                            ? neutral700
+                            : Colors.black, // Color del borde
+                        width: 1, // Ancho del borde
+                      ),
+                    ),
+                    child: Container(
+                      padding: EdgeInsets.all(8),
+                      width: double.infinity,
+                      child: Text(
+                        'Vender',
+                        textAlign: TextAlign.center,
+                        style: TypographyStyle.bodyRegularLarge
+                            .copyWith(fontWeight: FontWeight.w400),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(width: 16),
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: controller.mainController.isThemeModeDark
+                          ? primaryDark
+                          : primaryBase,
+                      foregroundColor: controller.mainController.isThemeModeDark
+                          ? Colors.white
+                          : Colors.black,
+                      side: BorderSide(
+                        color: controller.mainController.isThemeModeDark
+                            ? primaryBase
+                            : Colors.black, // Color del borde
+                        width: 1, // Ancho del borde
+                      ),
+                    ),
+                    child: Container(
+                      padding: EdgeInsets.all(8),
+                      width: double.infinity,
+                      child: Text(
+                        'Comprar',
+                        textAlign: TextAlign.center,
+                        style: TypographyStyle.bodyRegularLarge
+                            .copyWith(fontWeight: FontWeight.w400),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
         body: DefaultTabController(
           length: 3,
@@ -193,7 +261,7 @@ class ProductView extends GetView<ProductController> {
 
             body: Column(
               children: [
-                SizedBox(height: 56),
+                SizedBox(height: (isIos) ? 116 : 56),
                 Container(
                   height: 60,
                   child: TabBar(
