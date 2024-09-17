@@ -13,6 +13,7 @@ class ProductView extends GetView<ProductController> {
   const ProductView({super.key});
   @override
   Widget build(BuildContext context) {
+    double tmbSize = 90;
     return DialogLayout(
       child: Scaffold(
         body: NestedScrollView(
@@ -90,7 +91,7 @@ class ProductView extends GetView<ProductController> {
                                   borderRadius: BorderRadius.circular(
                                       16), // Bordes redondeados
                                 ),
-                                height: 140,
+                                height: tmbSize + 16,
                                 child: ListView(
                                   shrinkWrap: true,
                                   scrollDirection: Axis.horizontal,
@@ -100,63 +101,63 @@ class ProductView extends GetView<ProductController> {
                                       padding: const EdgeInsets.only(right: 16),
                                       child: Image.asset(
                                         'assets/images/product_tmb1.png',
-                                        width: 120,
+                                        width: tmbSize,
                                       ),
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.only(right: 16),
                                       child: Image.asset(
                                         'assets/images/product_tmb2.png',
-                                        width: 120,
+                                        width: tmbSize,
                                       ),
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.only(right: 16),
                                       child: Image.asset(
                                         'assets/images/product_tmb3.png',
-                                        width: 120,
+                                        width: tmbSize,
                                       ),
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.only(right: 16),
                                       child: Image.asset(
                                         'assets/images/product_tmb1.png',
-                                        width: 120,
+                                        width: tmbSize,
                                       ),
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.only(right: 16),
                                       child: Image.asset(
                                         'assets/images/product_tmb2.png',
-                                        width: 120,
+                                        width: tmbSize,
                                       ),
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.only(right: 16),
                                       child: Image.asset(
                                         'assets/images/product_tmb3.png',
-                                        width: 120,
+                                        width: tmbSize,
                                       ),
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.only(right: 16),
                                       child: Image.asset(
                                         'assets/images/product_tmb1.png',
-                                        width: 120,
+                                        width: tmbSize,
                                       ),
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.only(right: 16),
                                       child: Image.asset(
                                         'assets/images/product_tmb2.png',
-                                        width: 120,
+                                        width: tmbSize,
                                       ),
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.only(right: 16),
                                       child: Image.asset(
                                         'assets/images/product_tmb3.png',
-                                        width: 120,
+                                        width: tmbSize,
                                       ),
                                     ),
                                   ],
