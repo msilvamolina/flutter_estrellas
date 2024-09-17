@@ -1,8 +1,10 @@
 plugins {
     id "com.android.application"
     id "kotlin-android"
+    // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id "dev.flutter.flutter-gradle-plugin"
 }
+
 
 def localProperties = new Properties()
 def localPropertiesFile = rootProject.file('local.properties')
@@ -27,6 +29,7 @@ def keystorePropertiesFile = rootProject.file('key.properties')
 if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 }
+
 
 android {
     namespace = "app.estrellas"
@@ -60,14 +63,12 @@ android {
     }
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
             signingConfig signingConfigs.release
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 
-    flavorDimensions "app"
 }
 
 flutter {
