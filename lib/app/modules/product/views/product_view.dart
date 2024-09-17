@@ -51,9 +51,13 @@ class ProductView extends GetView<ProductController> {
                               ),
                             )
                           : null, // Solo mostrar título cuando esté colapsado
-                      background: Image.asset(
-                        'assets/images/product.png',
-                        fit: BoxFit.cover,
+                      background: Stack(
+                        children: [
+                          Image.asset(
+                            'assets/images/product.png',
+                            fit: BoxFit.cover,
+                          ),
+                        ],
                       ),
                     );
                   },
@@ -66,7 +70,7 @@ class ProductView extends GetView<ProductController> {
               padding: const EdgeInsets.all(16),
               child: Column(
                 children: [
-                  SizedBox(height: 50),
+                  SizedBox(height: 36),
                   Text('asdad'),
                   Text('asdad'),
                   Text('asdad'),
