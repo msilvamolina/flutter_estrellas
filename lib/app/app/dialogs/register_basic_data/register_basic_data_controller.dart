@@ -94,8 +94,8 @@ class RegisterBasicDataDialogController extends GetxController {
       (failure) => Snackbars.error(failure),
       (_) {
         Get.back();
-        mainController.checkUser();
-        Snackbars.success('Bienvenido!');
+        Get.back();
+        mainController.checkUser(login: true);
       },
     );
   }

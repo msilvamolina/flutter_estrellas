@@ -75,7 +75,10 @@ class LoginDialogController extends GetxController {
         Snackbars.error(failure);
       },
       (_) {
-        mainController.checkUser();
+        Get.back();
+        Get.back();
+
+        mainController.checkUser(login: true);
       },
     );
   }

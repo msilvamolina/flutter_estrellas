@@ -8,6 +8,7 @@ import 'package:flutter_estrellas/app/routes/app_pages.dart';
 import 'package:flutter_estrellas/app/themes/styles/typography.dart';
 import 'package:get/get.dart';
 
+import '../../components/snackbars/snackbars.dart';
 import '../../data/models/user_data/user_data.dart';
 import '../../services/theme_service.dart';
 import '../dialogs/login/login_dialog.dart';
@@ -50,7 +51,7 @@ class MainController extends GetxController {
     super.onReady();
   }
 
-  Future<void> checkUser() async {
+  Future<void> checkUser({bool login = false}) async {
     _userStatus = UserStatus.loading;
     update(['login']);
     bool isAuthenticated = userRepository.isUserLogged();
@@ -81,6 +82,12 @@ class MainController extends GetxController {
     } else {
       if (_userStatus == UserStatus.needBasicData) {
         openRegisterBasicDataDialog();
+      }
+      if (_userStatus == UserStatus.full) {
+        if (login) {
+          String name = userData!.firstName;
+          Snackbars.success('Hola $name!');
+        }
       }
     }
   }
