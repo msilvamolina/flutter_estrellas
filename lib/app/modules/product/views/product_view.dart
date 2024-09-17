@@ -21,7 +21,8 @@ class ProductView extends GetView<ProductController> {
       child: Scaffold(
         bottomNavigationBar: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
+            padding:
+                EdgeInsets.symmetric(horizontal: 16, vertical: isIos ? 0 : 16),
             child: Row(
               children: [
                 Expanded(
