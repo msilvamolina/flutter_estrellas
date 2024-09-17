@@ -109,38 +109,44 @@ class RegisterBasicDataScreen extends StatelessWidget {
                         },
                       ),
                       SizedBox(height: 26),
-                      ReactiveFormConsumer(
-                        builder: (context, form, child) => ElevatedButton(
-                          onPressed: form.valid
-                              ? () => controller.sendForm(form.value)
-                              : null,
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor:
-                                controller.mainController.isThemeModeDark
-                                    ? primaryDark
-                                    : primaryBase,
-                            foregroundColor:
-                                controller.mainController.isThemeModeDark
-                                    ? Colors.white
-                                    : Colors.black,
-                            side: BorderSide(
-                              color: controller.mainController.isThemeModeDark
-                                  ? primaryBase
-                                  : Colors.black, // Color del borde
-                              width: 1, // Ancho del borde
+                      GetBuilder<MainController>(
+                        id: 'input',
+                        builder: (_) {
+                          return ReactiveFormConsumer(
+                            builder: (context, form, child) => ElevatedButton(
+                              onPressed: form.valid
+                                  ? () => controller.sendForm(form.value)
+                                  : null,
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor:
+                                    controller.mainController.isThemeModeDark
+                                        ? primaryDark
+                                        : primaryBase,
+                                foregroundColor:
+                                    controller.mainController.isThemeModeDark
+                                        ? Colors.white
+                                        : Colors.black,
+                                side: BorderSide(
+                                  color:
+                                      controller.mainController.isThemeModeDark
+                                          ? primaryBase
+                                          : Colors.black, // Color del borde
+                                  width: 1, // Ancho del borde
+                                ),
+                              ),
+                              child: Container(
+                                padding: EdgeInsets.all(8),
+                                width: double.infinity,
+                                child: Text(
+                                  'Guardar',
+                                  textAlign: TextAlign.center,
+                                  style: TypographyStyle.bodyRegularLarge
+                                      .copyWith(fontWeight: FontWeight.w400),
+                                ),
+                              ),
                             ),
-                          ),
-                          child: Container(
-                            padding: EdgeInsets.all(8),
-                            width: double.infinity,
-                            child: Text(
-                              'Guardar',
-                              textAlign: TextAlign.center,
-                              style: TypographyStyle.bodyRegularLarge
-                                  .copyWith(fontWeight: FontWeight.w400),
-                            ),
-                          ),
-                        ),
+                          );
+                        },
                       ),
                     ],
                   ),

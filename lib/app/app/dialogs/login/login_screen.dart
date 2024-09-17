@@ -90,42 +90,49 @@ class LoginScreen extends StatelessWidget {
                               },
                             ),
                             SizedBox(height: 26),
-                            ReactiveFormConsumer(
-                              builder: (context, form, child) => ElevatedButton(
-                                onPressed:
-                                    (form.valid && controller.buttonEnabled)
+                            GetBuilder<MainController>(
+                              id: 'input',
+                              builder: (_) {
+                                return ReactiveFormConsumer(
+                                  builder: (context, form, child) =>
+                                      ElevatedButton(
+                                    onPressed: (form.valid &&
+                                            controller.buttonEnabled)
                                         ? () => controller.sendForm(form.value)
                                         : null,
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor:
-                                      controller.mainController.isThemeModeDark
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: controller
+                                              .mainController.isThemeModeDark
                                           ? primaryDark
                                           : primaryBase,
-                                  foregroundColor:
-                                      controller.mainController.isThemeModeDark
+                                      foregroundColor: controller
+                                              .mainController.isThemeModeDark
                                           ? Colors.white
                                           : Colors.black,
-                                  side: BorderSide(
-                                    color: controller
-                                            .mainController.isThemeModeDark
-                                        ? primaryBase
-                                        : Colors.black, // Color del borde
-                                    width: 1, // Ancho del borde
+                                      side: BorderSide(
+                                        color: controller
+                                                .mainController.isThemeModeDark
+                                            ? primaryBase
+                                            : Colors.black, // Color del borde
+                                        width: 1, // Ancho del borde
+                                      ),
+                                    ),
+                                    child: Container(
+                                      padding: EdgeInsets.all(8),
+                                      width: double.infinity,
+                                      child: Text(
+                                        'Iniciar sesión',
+                                        textAlign: TextAlign.center,
+                                        style: TypographyStyle.bodyRegularLarge
+                                            .copyWith(
+                                                fontWeight: FontWeight.w400),
+                                      ),
+                                    ),
                                   ),
-                                ),
-                                child: Container(
-                                  padding: EdgeInsets.all(8),
-                                  width: double.infinity,
-                                  child: Text(
-                                    'Iniciar sesión',
-                                    textAlign: TextAlign.center,
-                                    style: TypographyStyle.bodyRegularLarge
-                                        .copyWith(fontWeight: FontWeight.w400),
-                                  ),
-                                ),
-                              ),
+                                );
+                              },
                             ),
-                            SizedBox(height: 16),
+                            SizedBox(height: 8),
                             TextButton(
                               onPressed: () {},
                               child: Text(
@@ -144,55 +151,72 @@ class LoginScreen extends StatelessWidget {
                               ),
                             ),
                             SizedBox(height: 26),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                ColorFiltered(
-                                  colorFilter: ColorFilter.mode(
-                                    controller.mainController.isThemeModeDark
-                                        ? white
-                                        : Colors
-                                            .black, // El color al que quieres convertir la imagen
-                                    BlendMode
-                                        .srcIn, // Aplica el color a la imagen
-                                  ),
-                                  child: Image.asset(
-                                    'assets/images/google.png',
-                                    width: 46,
-                                  ),
-                                ),
-                                SizedBox(width: 16),
-                                ColorFiltered(
-                                  colorFilter: ColorFilter.mode(
-                                    controller.mainController.isThemeModeDark
-                                        ? white
-                                        : Colors
-                                            .black, // El color al que quieres convertir la imagen
-                                    BlendMode
-                                        .srcIn, // Aplica el color a la imagen
-                                  ),
-                                  child: Image.asset(
-                                    'assets/images/apple.png',
-                                    width: 46,
-                                  ),
-                                ),
-                                SizedBox(width: 16),
-                                ColorFiltered(
-                                  colorFilter: ColorFilter.mode(
-                                    controller.mainController.isThemeModeDark
-                                        ? white
-                                        : Colors
-                                            .black, // El color al que quieres convertir la imagen
-                                    BlendMode
-                                        .srcIn, // Aplica el color a la imagen
-                                  ),
-                                  child: Image.asset(
-                                    'assets/images/facebook.png',
-                                    width: 46,
-                                  ),
-                                ),
-                              ],
+                            GetBuilder<MainController>(
+                              id: 'input',
+                              builder: (_) {
+                                return Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Hero(
+                                      tag: 'buttonGoogle',
+                                      child: ColorFiltered(
+                                        colorFilter: ColorFilter.mode(
+                                          controller.mainController
+                                                  .isThemeModeDark
+                                              ? white
+                                              : Colors
+                                                  .black, // El color al que quieres convertir la imagen
+                                          BlendMode
+                                              .srcIn, // Aplica el color a la imagen
+                                        ),
+                                        child: Image.asset(
+                                          'assets/images/google.png',
+                                          width: 46,
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(width: 16),
+                                    Hero(
+                                      tag: 'buttonApple',
+                                      child: ColorFiltered(
+                                        colorFilter: ColorFilter.mode(
+                                          controller.mainController
+                                                  .isThemeModeDark
+                                              ? white
+                                              : Colors
+                                                  .black, // El color al que quieres convertir la imagen
+                                          BlendMode
+                                              .srcIn, // Aplica el color a la imagen
+                                        ),
+                                        child: Image.asset(
+                                          'assets/images/apple.png',
+                                          width: 46,
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(width: 16),
+                                    Hero(
+                                      tag: 'buttonFacebook',
+                                      child: ColorFiltered(
+                                        colorFilter: ColorFilter.mode(
+                                          controller.mainController
+                                                  .isThemeModeDark
+                                              ? white
+                                              : Colors
+                                                  .black, // El color al que quieres convertir la imagen
+                                          BlendMode
+                                              .srcIn, // Aplica el color a la imagen
+                                        ),
+                                        child: Image.asset(
+                                          'assets/images/facebook.png',
+                                          width: 46,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              },
                             ),
                             SizedBox(height: 26),
                             Stack(
