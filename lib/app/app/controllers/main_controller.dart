@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_estrellas/app/app/dialogs/register/register_dialog.dart';
 import 'package:flutter_estrellas/app/app/dialogs/register_basic_data/register_basic_data_dialog.dart';
 import 'package:flutter_estrellas/app/components/dialogs/loader_dialog.dart';
+import 'package:flutter_estrellas/app/data/providers/local/local_storage.dart';
 import 'package:flutter_estrellas/app/data/providers/repositories/auth/user_repository.dart';
 import 'package:flutter_estrellas/app/routes/app_pages.dart';
 import 'package:flutter_estrellas/app/themes/styles/typography.dart';
@@ -21,8 +22,9 @@ enum UserStatus {
 }
 
 class MainController extends GetxController {
+  LocalStorage localStorage = Get.find();
   UserRepository userRepository = UserRepository();
-  bool _withVolume = false;
+  bool _withVolume = true;
   bool get withVolume => _withVolume;
 
   UserStatus _userStatus = UserStatus.loading;
@@ -31,11 +33,14 @@ class MainController extends GetxController {
   UserData? _userData;
   UserData? get userData => _userData;
 
+  bool _isWelcome = false;
   bool _isThemeModeDark = false;
+
   bool get isThemeModeDark => _isThemeModeDark;
 
   @override
-  void onInit() {
+  Future<void> onInit() async {
+    _isWelcome = await localStorage.getWelcome();
     checkTheme();
     super.onInit();
   }
@@ -71,7 +76,11 @@ class MainController extends GetxController {
 
     if (!kIsWeb) {
       if (_userStatus == UserStatus.notLogged) {
-        Get.offAllNamed(Routes.LOGIN);
+        if (!_isWelcome) {
+          Get.offAllNamed(Routes.WELCOME);
+        } else {
+          Get.offAllNamed(Routes.LOGIN);
+        }
       }
       if (_userStatus == UserStatus.needBasicData) {
         Get.offAllNamed(Routes.REGISTER_BASIC_DATA);

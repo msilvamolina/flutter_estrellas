@@ -15,7 +15,7 @@ class MoreView extends StatelessWidget {
         return SafeArea(
           child: Column(
             children: [
-              Text('Hola'),
+              SizedBox(height: 16),
               if (mainController.userStatus == UserStatus.full)
                 ElevatedButton(
                   onPressed: mainController.signOut,
@@ -29,12 +29,13 @@ class MoreView extends StatelessWidget {
                   ),
                   child: Text('Cerrar sesión'),
                 ),
+              SizedBox(height: 16),
               ElevatedButton(
                 onPressed: mainController.changeThemeMode,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Theme.of(context)
                       .colorScheme
-                      .secondaryContainer, // Color secundario
+                      .primaryContainer, // Color secundario
                   foregroundColor: mainController.isThemeModeDark
                       ? Colors.white
                       : neutral900,
