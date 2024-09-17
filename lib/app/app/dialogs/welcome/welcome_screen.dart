@@ -5,18 +5,40 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import '../../../modules/auth/welcome/controllers/welcome_controller.dart';
+import '../../../routes/app_pages.dart';
 import '../../../themes/styles/colors.dart';
 import 'views/slider_step.dart';
 
-class WelcomeScreen extends StatelessWidget {
+class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({super.key, this.isDialog = false});
 
   final bool isDialog;
+
+  @override
+  State<WelcomeScreen> createState() => _WelcomeScreenState();
+}
+
+class _WelcomeScreenState extends State<WelcomeScreen> {
+  int pagesLenght = 3;
+  int currentPage = 1;
+
+  void nextStep() {
+    if (currentPage == 3) {
+      Get.offAllNamed(Routes.LOGIN);
+    } else {
+      setState(() {
+        currentPage++;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<WelcomeController>(
       init: WelcomeController(),
       builder: (controller) {
+        Color colorStep =
+            controller.mainController.isThemeModeDark ? neutral900 : neutral300;
         return Scaffold(
           appBar: AppBar(
             title: Row(
@@ -34,7 +56,7 @@ class WelcomeScreen extends StatelessWidget {
                 Expanded(
                   child: Container(
                     decoration: BoxDecoration(
-                        color: neutral900,
+                        color: currentPage > 1 ? secondaryBase : colorStep,
                         borderRadius: BorderRadius.circular(16)),
                     width: double.infinity,
                     height: 4,
@@ -44,7 +66,7 @@ class WelcomeScreen extends StatelessWidget {
                 Expanded(
                   child: Container(
                     decoration: BoxDecoration(
-                        color: neutral900,
+                        color: currentPage > 2 ? secondaryBase : colorStep,
                         borderRadius: BorderRadius.circular(16)),
                     width: double.infinity,
                     height: 4,
@@ -76,8 +98,10 @@ class WelcomeScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       FloatingActionButton(
-                        onPressed: () {},
-                        child: Icon(Icons.arrow_right_alt_outlined),
+                        onPressed: nextStep,
+                        child: Icon(currentPage == 3
+                            ? Icons.check
+                            : Icons.arrow_right_alt_outlined),
                       ),
                     ],
                   ),
