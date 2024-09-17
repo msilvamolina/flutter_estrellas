@@ -17,6 +17,9 @@ class ProductView extends GetView<ProductController> {
     double tmbSize = 90;
     return DialogLayout(
       child: Scaffold(
+        bottomNavigationBar: Container(
+          child: Text('sadasd'),
+        ),
         body: DefaultTabController(
           length: 3,
           child: NestedScrollView(
