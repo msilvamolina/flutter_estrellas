@@ -138,7 +138,9 @@ class _VideoAppState extends State<VideoApp> {
                           Expanded(
                               child: Padding(
                             padding: const EdgeInsets.only(right: 16),
-                            child: VideoButtons(buttonInsideVideo: true),
+                            child: VideoButtons(
+                              buttonInsideVideo: true,
+                            ),
                           ))
                         else
                           Spacer(),

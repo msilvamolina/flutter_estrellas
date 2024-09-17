@@ -7,18 +7,24 @@ import 'package:get/get.dart';
 import '../../../../themes/styles/colors.dart';
 import '../../../../themes/styles/typography.dart';
 
-class VideoButtons extends StatelessWidget {
-  VideoButtons({super.key, this.buttonInsideVideo = false});
+class VideoButtons extends StatefulWidget {
+  VideoButtons({this.imageIsDark, super.key, this.buttonInsideVideo = false});
   final bool buttonInsideVideo;
+  final bool? imageIsDark;
 
+  @override
+  State<VideoButtons> createState() => _VideoButtonsState();
+}
+
+class _VideoButtonsState extends State<VideoButtons> {
   @override
   Widget build(BuildContext context) {
     MainController mainController = Get.find();
-    Color colorText = buttonInsideVideo
+    Color colorText = widget.buttonInsideVideo
         ? white
         : (mainController.isThemeModeDark ? white : neutral800);
 
-    Color colorIcon = buttonInsideVideo
+    Color colorIcon = widget.buttonInsideVideo
         ? white
         : (mainController.isThemeModeDark ? white : neutral500);
     double iconSize = 34;
