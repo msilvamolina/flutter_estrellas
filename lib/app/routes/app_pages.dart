@@ -66,6 +66,7 @@ class AppPages {
       name: _Paths.WELCOME,
       page: () => const WelcomeView(),
       binding: WelcomeBinding(),
+      transition: Transition.downToUp,
     ),
   ];
 }
