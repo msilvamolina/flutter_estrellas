@@ -24,7 +24,7 @@ enum UserStatus {
 class MainController extends GetxController {
   LocalStorage localStorage = Get.find();
   UserRepository userRepository = UserRepository();
-  bool _withVolume = false;
+  bool _withVolume = true;
   bool get withVolume => _withVolume;
 
   UserStatus _userStatus = UserStatus.loading;
