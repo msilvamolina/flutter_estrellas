@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_estrellas/app/app/controllers/main_controller.dart';
 import 'package:flutter_estrellas/app/themes/input_decoration.dart';
 import 'package:flutter_estrellas/app/themes/styles/colors.dart';
 import 'package:flutter_estrellas/app/themes/styles/typography.dart';
@@ -53,39 +54,58 @@ class RegisterScreen extends StatelessWidget {
                                   .copyWith(fontWeight: FontWeight.w600),
                             ),
                             SizedBox(height: 26),
-                            ReactiveTextField(
-                              formControlName: Fields.email.name,
-                              keyboardType: TextInputType.emailAddress,
-                              decoration: CustomInputDecoration.inputDecoration(
-                                isThemeModeDark:
-                                    controller.mainController.isThemeModeDark,
-                                text: "E-mail",
-                                icon: Icons.email,
-                              ),
+                            GetBuilder<MainController>(
+                              id: 'input',
+                              builder: (_) {
+                                return ReactiveTextField(
+                                  formControlName: Fields.email.name,
+                                  keyboardType: TextInputType.emailAddress,
+                                  decoration:
+                                      CustomInputDecoration.inputDecoration(
+                                    isThemeModeDark: controller
+                                        .mainController.isThemeModeDark,
+                                    text: "E-mail",
+                                    icon: Icons.email,
+                                  ),
+                                );
+                              },
                             ),
                             SizedBox(height: 16),
-                            ReactiveTextField(
-                              obscureText: true,
-                              formControlName: Fields.password.name,
-                              keyboardType: TextInputType.text,
-                              decoration: CustomInputDecoration.inputDecoration(
-                                isThemeModeDark:
-                                    controller.mainController.isThemeModeDark,
-                                text: "Contraseña",
-                                icon: Icons.security,
-                              ),
+                            GetBuilder<MainController>(
+                              id: 'input',
+                              builder: (_) {
+                                return ReactiveTextField(
+                                  obscureText: true,
+                                  formControlName: Fields.password.name,
+                                  keyboardType: TextInputType.text,
+                                  decoration:
+                                      CustomInputDecoration.inputDecoration(
+                                    isThemeModeDark: controller
+                                        .mainController.isThemeModeDark,
+                                    text: "Contraseña",
+                                    icon: Icons.security,
+                                  ),
+                                );
+                              },
                             ),
                             SizedBox(height: 16),
-                            ReactiveTextField(
-                              obscureText: true,
-                              formControlName: Fields.passwordConfirmation.name,
-                              keyboardType: TextInputType.text,
-                              decoration: CustomInputDecoration.inputDecoration(
-                                isThemeModeDark:
-                                    controller.mainController.isThemeModeDark,
-                                text: "Confirmar Contraseña",
-                                icon: Icons.security,
-                              ),
+                            GetBuilder<MainController>(
+                              id: 'input',
+                              builder: (_) {
+                                return ReactiveTextField(
+                                  obscureText: true,
+                                  formControlName:
+                                      Fields.passwordConfirmation.name,
+                                  keyboardType: TextInputType.text,
+                                  decoration:
+                                      CustomInputDecoration.inputDecoration(
+                                    isThemeModeDark: controller
+                                        .mainController.isThemeModeDark,
+                                    text: "Confirmar Contraseña",
+                                    icon: Icons.security,
+                                  ),
+                                );
+                              },
                             ),
                             SizedBox(height: 26),
                             ReactiveFormConsumer(

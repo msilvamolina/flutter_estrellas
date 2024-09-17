@@ -15,6 +15,15 @@ class RegisterView extends GetView<RegisterController> {
       child: Scaffold(
         appBar: AppBar(
           actions: [
+            GetBuilder<MainController>(
+              id: 'themeButton',
+              builder: (mainController) {
+                return IconButton(
+                  onPressed: mainController.changeThemeMode,
+                  icon: Icon(mainController.getThemeIcon()),
+                );
+              },
+            ),
             Hero(
               tag: 'helpButton',
               child: IconButton(
