@@ -53,9 +53,116 @@ class ProductView extends GetView<ProductController> {
                           : null, // Solo mostrar título cuando esté colapsado
                       background: Stack(
                         children: [
-                          Image.asset(
-                            'assets/images/product.png',
-                            fit: BoxFit.cover,
+                          Container(
+                            width: double.infinity,
+                            height: double.infinity,
+                            decoration: const BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage('assets/images/product.png'),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                          // Image.asset(
+                          //   'assets/images/product.png',
+                          //   fit: BoxFit.cover,
+                          // ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Container(
+                                margin: EdgeInsets.all(16),
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: (controller
+                                                .mainController.isThemeModeDark
+                                            ? neutral700
+                                            : neutral300)
+                                        .withOpacity(0.7), // Borde blanco
+                                    width: 1, // Grosor del borde
+                                  ),
+                                  color:
+                                      (controller.mainController.isThemeModeDark
+                                              ? neutral900
+                                              : neutral100)
+                                          .withOpacity(0.5),
+                                  borderRadius: BorderRadius.circular(
+                                      16), // Bordes redondeados
+                                ),
+                                height: 140,
+                                child: ListView(
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis.horizontal,
+                                  children: [
+                                    SizedBox(width: 16),
+                                    Padding(
+                                      padding: const EdgeInsets.only(right: 16),
+                                      child: Image.asset(
+                                        'assets/images/product_tmb1.png',
+                                        width: 120,
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(right: 16),
+                                      child: Image.asset(
+                                        'assets/images/product_tmb2.png',
+                                        width: 120,
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(right: 16),
+                                      child: Image.asset(
+                                        'assets/images/product_tmb3.png',
+                                        width: 120,
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(right: 16),
+                                      child: Image.asset(
+                                        'assets/images/product_tmb1.png',
+                                        width: 120,
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(right: 16),
+                                      child: Image.asset(
+                                        'assets/images/product_tmb2.png',
+                                        width: 120,
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(right: 16),
+                                      child: Image.asset(
+                                        'assets/images/product_tmb3.png',
+                                        width: 120,
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(right: 16),
+                                      child: Image.asset(
+                                        'assets/images/product_tmb1.png',
+                                        width: 120,
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(right: 16),
+                                      child: Image.asset(
+                                        'assets/images/product_tmb2.png',
+                                        width: 120,
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(right: 16),
+                                      child: Image.asset(
+                                        'assets/images/product_tmb3.png',
+                                        width: 120,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
@@ -70,7 +177,7 @@ class ProductView extends GetView<ProductController> {
               padding: const EdgeInsets.all(16),
               child: Column(
                 children: [
-                  SizedBox(height: 36),
+                  SizedBox(height: 50),
                   Text('asdad'),
                   Text('asdad'),
                   Text('asdad'),
