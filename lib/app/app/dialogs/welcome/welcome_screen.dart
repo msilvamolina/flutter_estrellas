@@ -21,6 +21,7 @@ class WelcomeScreen extends StatefulWidget {
 class _WelcomeScreenState extends State<WelcomeScreen> {
   int pagesLenght = 3;
   int currentPage = 1;
+  PageController pageController = PageController();
 
   void nextStep() {
     if (currentPage == 3) {
@@ -28,6 +29,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     } else {
       setState(() {
         currentPage++;
+        pageController.animateToPage(currentPage,
+            duration: Duration(milliseconds: 200), curve: Curves.linear);
       });
     }
   }
@@ -89,7 +92,14 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 ),
                 SizedBox(height: 16),
                 Expanded(
-                  child: SliderStep(),
+                  child: PageView(
+                    controller: pageController,
+                    children: [
+                      SliderStep(),
+                      SliderStep(),
+                      SliderStep(),
+                    ],
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 16),
