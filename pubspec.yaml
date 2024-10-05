@@ -85,6 +85,9 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
+    - family: EstrellasIcons
+      fonts:
+        - asset: assets/fonts/icons/estrellas_font.otf
     - family: Montserrat
       fonts:
         - asset: assets/fonts/Montserrat/Montserrat-Thin.ttf
