@@ -9,6 +9,7 @@ import 'package:flutter_estrellas/app/routes/app_pages.dart';
 import 'package:flutter_estrellas/app/themes/styles/typography.dart';
 import 'package:get/get.dart';
 
+import '../../components/dialogs/loader_dropi_dialog.dart';
 import '../../components/snackbars/snackbars.dart';
 import '../../data/models/user_data/user_data.dart';
 import '../../services/theme_service.dart';
@@ -37,6 +38,31 @@ class MainController extends GetxController {
   bool _isThemeModeDark = false;
 
   bool get isThemeModeDark => _isThemeModeDark;
+  RxString dropiMessage = ''.obs;
+  RxBool dropiDialog = true.obs;
+
+  RxString dropiDialogError = ''.obs;
+  RxBool dropiDialogIsError = false.obs;
+
+  String? _token;
+  String? get token => _token;
+
+  void setToken(String value) {
+    _token = value;
+  }
+
+  void setDropiMessage(String message) {
+    dropiMessage.value = message;
+  }
+
+  void setDropiDialog(bool value) {
+    dropiDialog.value = value;
+  }
+
+  void setDropiDialogError(bool value, String message) {
+    dropiDialogIsError.value = value;
+    dropiDialogError.value = message;
+  }
 
   @override
   Future<void> onInit() async {
@@ -204,6 +230,18 @@ class MainController extends GetxController {
       context: Get.context!,
       builder: (BuildContext context) {
         return LoaderDialog(title: title, message: message);
+      },
+    );
+  }
+
+  void showDropiLoader() {
+    setDropiDialogError(false, '');
+    setDropiMessage('Espero un momento por favor');
+    showDialog(
+      barrierColor: Colors.transparent,
+      context: Get.context!,
+      builder: (BuildContext context) {
+        return const LoaderDropiDialog();
       },
     );
   }
