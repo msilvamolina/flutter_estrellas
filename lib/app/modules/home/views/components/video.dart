@@ -8,15 +8,16 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
 
+import '../../../../data/models/videos/video_post_model.dart';
 import 'video_buttons.dart';
 import 'video_label.dart';
 
 /// Stateful widget to fetch and then display video content.
 class VideoApp extends StatefulWidget {
   const VideoApp(
-      {super.key, required this.videoModel, required this.onCompleted});
+      {super.key, required this.videoPostModel, required this.onCompleted});
 
-  final VideoModel videoModel;
+  final VideoPostModel videoPostModel;
   final Function() onCompleted;
 
   @override
@@ -35,29 +36,28 @@ class _VideoAppState extends State<VideoApp> {
   @override
   void initState() {
     super.initState();
-    _controller =
-        VideoPlayerController.networkUrl(Uri.parse(widget.videoModel.videoUrl))
-          ..initialize().then((_) {
-            // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
-            setState(() {
-              _controller.setLooping(true);
-              _controller.play();
-              _controller.addListener(() {
-                if (_controller.value.isInitialized &&
-                    _controller.value.isPlaying) {
-                  setState(() {
-                    // Actualizar el slider según el tiempo actual de reproducción
-                    _currentSliderValue =
-                        _controller.value.position.inSeconds.toDouble();
-                  });
-                  if (_controller.value.position >=
-                      _controller.value.duration) {
-                    widget.onCompleted();
-                  }
-                }
+    _controller = VideoPlayerController.networkUrl(
+        Uri.parse(widget.videoPostModel.videoUrl))
+      ..initialize().then((_) {
+        // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
+        setState(() {
+          _controller.setLooping(true);
+          _controller.play();
+          _controller.addListener(() {
+            if (_controller.value.isInitialized &&
+                _controller.value.isPlaying) {
+              setState(() {
+                // Actualizar el slider según el tiempo actual de reproducción
+                _currentSliderValue =
+                    _controller.value.position.inSeconds.toDouble();
               });
-            });
+              if (_controller.value.position >= _controller.value.duration) {
+                widget.onCompleted();
+              }
+            }
           });
+        });
+      });
 
     _controller.setVolume(mainController.withVolume ? 100 : 0);
   }
@@ -207,7 +207,7 @@ class _VideoAppState extends State<VideoApp> {
                 ),
               )
             : CachedNetworkImage(
-                imageUrl: widget.videoModel.imageUrl,
+                imageUrl: widget.videoPostModel.thumbnail,
                 placeholder: (context, url) =>
                     Center(child: CircularProgressIndicator()),
                 errorWidget: (context, url, error) => Icon(Icons.error),
