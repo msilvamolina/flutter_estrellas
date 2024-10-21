@@ -6,6 +6,9 @@ import 'package:get/get.dart';
 class HomeController extends GetxController {
   PageController pageController = PageController();
   MainController mainController = Get.find();
+
+
+  
   @override
   void onInit() {
     super.onInit();
