@@ -63,7 +63,8 @@ class NewAddressController extends GetxController {
     String name = data[Fields.name.name].toString();
     String address = data[Fields.address.name].toString();
     String phone = data[Fields.phone.name].toString();
-
+    String notes = data[Fields.notes.name].toString();
+    
     // _mainController.setDropiDialog(true);
     // _mainController.showDropiLoader();
     // _mainController.setDropiMessage('Iniciando conexión');
