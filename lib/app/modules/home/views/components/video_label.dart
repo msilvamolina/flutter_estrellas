@@ -18,6 +18,7 @@ class VideoLabel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ProductFirebaseLiteModel? product = videoPostModel.product;
+    String providerName = product?.provider['name'] ?? 'Estrellas';
     double screenWidth = MediaQuery.of(context).size.width;
     bool isMobile = screenWidth < 480;
     return Container(
@@ -50,7 +51,7 @@ class VideoLabel extends StatelessWidget {
                     child: Hero(
                       tag: 'productHeroTag-${product!.id}',
                       child: Image.network(
-                        product!.thumbnail ?? '',
+                        product.thumbnail ?? '',
                         width: 40,
                         height: 40,
                         fit: BoxFit.cover,
@@ -74,20 +75,20 @@ class VideoLabel extends StatelessWidget {
                         Row(
                           children: [
                             Text(
-                              'Shopi',
+                              providerName,
                               style: TypographyStyle.bodyBlackSmall
                                   .copyWith(color: white),
                             ),
-                            Text(
-                              ' • ',
-                              style: TypographyStyle.bodyBlackSmall
-                                  .copyWith(color: white),
-                            ),
-                            Text(
-                              '619 puntos',
-                              style: TypographyStyle.bodyRegularSmall
-                                  .copyWith(color: white),
-                            ),
+                            // Text(
+                            //   ' • ',
+                            //   style: TypographyStyle.bodyBlackSmall
+                            //       .copyWith(color: white),
+                            // ),
+                            // Text(
+                            //   '619 puntos',
+                            //   style: TypographyStyle.bodyRegularSmall
+                            //       .copyWith(color: white),
+                            // ),
                           ],
                         ),
                       ],
