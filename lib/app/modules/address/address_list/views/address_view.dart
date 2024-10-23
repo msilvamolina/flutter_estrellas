@@ -60,8 +60,11 @@ class AddressView extends GetView<AddressController> {
             ? ListView.separated(
                 itemCount: controller.list.length,
                 itemBuilder: (context, index) {
-                  return AddressCard(
-                    address: controller.list[index],
+                  return Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: AddressCard(
+                      address: controller.list[index],
+                    ),
                   );
                 },
                 separatorBuilder: (context, index) =>

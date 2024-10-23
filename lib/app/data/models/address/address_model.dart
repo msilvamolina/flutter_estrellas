@@ -17,7 +17,7 @@ abstract class AddressModel implements _$AddressModel {
     dynamic city,
     String? address,
     String? notes,
-    double? phone,
+    String? phone,
   }) = _AddressModel;
 
   factory AddressModel.fromJson(Map<String, dynamic> json) =>

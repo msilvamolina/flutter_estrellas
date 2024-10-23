@@ -13,7 +13,7 @@ _$AddressModelImpl _$$AddressModelImplFromJson(Map<String, dynamic> json) =>
       city: json['city'],
       address: json['address'] as String?,
       notes: json['notes'] as String?,
-      phone: (json['phone'] as num?)?.toDouble(),
+      phone: json['phone'] as String?,
     );
 
 Map<String, dynamic> _$$AddressModelImplToJson(_$AddressModelImpl instance) =>

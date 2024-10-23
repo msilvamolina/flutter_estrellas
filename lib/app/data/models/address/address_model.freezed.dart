@@ -25,7 +25,7 @@ mixin _$AddressModel {
   dynamic get city => throw _privateConstructorUsedError;
   String? get address => throw _privateConstructorUsedError;
   String? get notes => throw _privateConstructorUsedError;
-  double? get phone => throw _privateConstructorUsedError;
+  String? get phone => throw _privateConstructorUsedError;
 
   /// Serializes this AddressModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -49,7 +49,7 @@ abstract class $AddressModelCopyWith<$Res> {
       dynamic city,
       String? address,
       String? notes,
-      double? phone});
+      String? phone});
 }
 
 /// @nodoc
@@ -98,7 +98,7 @@ class _$AddressModelCopyWithImpl<$Res, $Val extends AddressModel>
       phone: freezed == phone
           ? _value.phone
           : phone // ignore: cast_nullable_to_non_nullable
-              as double?,
+              as String?,
     ) as $Val);
   }
 }
@@ -117,7 +117,7 @@ abstract class _$$AddressModelImplCopyWith<$Res>
       dynamic city,
       String? address,
       String? notes,
-      double? phone});
+      String? phone});
 }
 
 /// @nodoc
@@ -164,7 +164,7 @@ class __$$AddressModelImplCopyWithImpl<$Res>
       phone: freezed == phone
           ? _value.phone
           : phone // ignore: cast_nullable_to_non_nullable
-              as double?,
+              as String?,
     ));
   }
 }
@@ -195,7 +195,7 @@ class _$AddressModelImpl extends _AddressModel {
   @override
   final String? notes;
   @override
-  final double? phone;
+  final String? phone;
 
   @override
   String toString() {
@@ -244,7 +244,7 @@ abstract class _AddressModel extends AddressModel {
       final dynamic city,
       final String? address,
       final String? notes,
-      final double? phone}) = _$AddressModelImpl;
+      final String? phone}) = _$AddressModelImpl;
   const _AddressModel._() : super._();
 
   factory _AddressModel.fromJson(Map<String, dynamic> json) =
@@ -261,7 +261,7 @@ abstract class _AddressModel extends AddressModel {
   @override
   String? get notes;
   @override
-  double? get phone;
+  String? get phone;
 
   /// Create a copy of AddressModel
   /// with the given fields replaced by the non-null parameter values.
