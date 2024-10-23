@@ -6,6 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 import '../../../../data/models/videos/video_post_model.dart';
+import '../../../../routes/app_pages.dart';
 import '../../../../themes/styles/colors.dart';
 import '../../../../themes/styles/typography.dart';
 
@@ -55,17 +56,28 @@ class _VideoButtonsState extends State<VideoButtons> {
         Text('Guardar',
             style: TypographyStyle.bodyRegularSmall.copyWith(color: colorText)),
         SizedBox(height: 22),
-        SvgPicture.asset(
-          'assets/svg/Info.svg',
-          width: iconSize,
-          colorFilter: ColorFilter.mode(
-            colorIcon,
-            BlendMode.srcIn,
+        InkWell(
+          onTap: () => Get.toNamed(Routes.PRODUCT,
+              arguments: widget.videoPostModel.product),
+          child: Column(
+            children: [
+              SvgPicture.asset(
+                'assets/svg/Info.svg',
+                width: iconSize,
+                colorFilter: ColorFilter.mode(
+                  colorIcon,
+                  BlendMode.srcIn,
+                ),
+              ),
+              SizedBox(height: 4),
+              Text(
+                'Info',
+                style:
+                    TypographyStyle.bodyRegularSmall.copyWith(color: colorText),
+              ),
+            ],
           ),
         ),
-        SizedBox(height: 4),
-        Text('Info',
-            style: TypographyStyle.bodyRegularSmall.copyWith(color: colorText)),
         SizedBox(height: 22),
         InkWell(
           onTap: () => userProductController
