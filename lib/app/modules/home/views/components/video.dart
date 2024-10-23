@@ -163,47 +163,47 @@ class _VideoAppState extends State<VideoApp> {
                     ),
                     Column(
                       children: [
-                        Row(
-                          children: [
-                            IconButton(
-                              onPressed: onPause,
-                              icon: Icon(
-                                _isPlaying ? Icons.pause : Icons.play_arrow,
-                                color: neutral500,
-                              ),
-                            ),
-                            Expanded(
-                              child: Slider(
-                                activeColor:
-                                    primaryBase, // Cambia el color del slider
-                                inactiveColor:
-                                    neutral400, // Color inactivo más claro
+                        // Row(
+                        //   children: [
+                        //     IconButton(
+                        //       onPressed: onPause,
+                        //       icon: Icon(
+                        //         _isPlaying ? Icons.pause : Icons.play_arrow,
+                        //         color: neutral500,
+                        //       ),
+                        //     ),
+                        //     Expanded(
+                        //       child: Slider(
+                        //         activeColor:
+                        //             primaryBase, // Cambia el color del slider
+                        //         inactiveColor:
+                        //             neutral400, // Color inactivo más claro
 
-                                value: _currentSliderValue,
-                                min: 0.0,
-                                max: _controller.value.duration.inSeconds
-                                    .toDouble(),
-                                onChanged: (value) {
-                                  setState(() {
-                                    _currentSliderValue = value;
-                                    // Saltar a la posición del slider
-                                    _controller.seekTo(
-                                        Duration(seconds: value.toInt()));
-                                  });
-                                },
-                              ),
-                            ),
-                            IconButton(
-                              onPressed: onVolume,
-                              icon: Icon(
-                                mainController.withVolume
-                                    ? Icons.volume_off
-                                    : Icons.volume_up_rounded,
-                                color: neutral500,
-                              ),
-                            ),
-                          ],
-                        ),
+                        //         value: _currentSliderValue,
+                        //         min: 0.0,
+                        //         max: _controller.value.duration.inSeconds
+                        //             .toDouble(),
+                        //         onChanged: (value) {
+                        //           setState(() {
+                        //             _currentSliderValue = value;
+                        //             // Saltar a la posición del slider
+                        //             _controller.seekTo(
+                        //                 Duration(seconds: value.toInt()));
+                        //           });
+                        //         },
+                        //       ),
+                        //     ),
+                        //     IconButton(
+                        //       onPressed: onVolume,
+                        //       icon: Icon(
+                        //         mainController.withVolume
+                        //             ? Icons.volume_off
+                        //             : Icons.volume_up_rounded,
+                        //         color: neutral500,
+                        //       ),
+                        //     ),
+                        //   ],
+                        // ),
                       ],
                     ),
                   ],
