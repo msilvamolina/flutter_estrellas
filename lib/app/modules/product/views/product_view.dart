@@ -65,7 +65,11 @@ class ProductView extends GetView<ProductController> {
                 SizedBox(width: 16),
                 Expanded(
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      controller.userProductController
+                          .addToCart(controller.productLite);
+                      Get.back();
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: controller.mainController.isThemeModeDark
                           ? primaryDark

@@ -17,10 +17,10 @@ class UserProductController extends GetxController {
       _listProductFavorites.toList();
 
   @override
-  void onInit() {
+  void onReady() {
     _listProductCart.bindStream(userProductRepository.getUserCart());
     _listProductFavorites.bindStream(userProductRepository.getUserFavorites());
-    super.onInit();
+    super.onReady();
   }
 
   Future<void> addToCart(ProductFirebaseLiteModel? productLite) async {

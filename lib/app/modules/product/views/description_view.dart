@@ -1,14 +1,9 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:get/get.dart';
 
 import '../../../libraries/icons/icons_font.dart';
-import '../../../themes/styles/colors.dart';
-import '../../../themes/styles/typography.dart';
-import '../controllers/product_controller.dart';
 
-class DescriptionView extends GetView<ProductController> {
+class DescriptionView extends StatelessWidget {
   const DescriptionView({super.key});
 
   @override
@@ -18,37 +13,6 @@ class DescriptionView extends GetView<ProductController> {
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            Expanded(
-              child: ElevatedButton(
-                onPressed: () => controller.userProductController
-                    .addToCart(controller.productLite),
-                style: ElevatedButton.styleFrom(
-                  shadowColor: controller.mainController.isThemeModeDark
-                      ? secondaryLight
-                      : secondaryBase,
-                  backgroundColor: Theme.of(context).colorScheme.surface,
-                  foregroundColor: controller.mainController.isThemeModeDark
-                      ? Colors.white
-                      : Colors.black,
-                  side: BorderSide(
-                    color: controller.mainController.isThemeModeDark
-                        ? neutral700
-                        : Colors.black, // Color del borde
-                    width: 1, // Ancho del borde
-                  ),
-                ),
-                child: Container(
-                  padding: EdgeInsets.all(8),
-                  width: double.infinity,
-                  child: Text(
-                    'Add to cart',
-                    textAlign: TextAlign.center,
-                    style: TypographyStyle.bodyRegularLarge
-                        .copyWith(fontWeight: FontWeight.w400),
-                  ),
-                ),
-              ),
-            ),
             Text('asdad'),
             Text('asdad'),
             Text('asdad'),
