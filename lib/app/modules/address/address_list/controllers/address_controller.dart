@@ -1,23 +1,10 @@
 import 'package:get/get.dart';
 
+import '../../../../app/controllers/main_controller.dart';
+import '../../../../app/controllers/user_product_controller.dart';
+
 class AddressController extends GetxController {
-  //TODO: Implement AddressController
-
-  final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
-  void increment() => count.value++;
+  MainController mainController = Get.find();
+  UserProductController userProductController =
+      Get.find<UserProductController>();
 }

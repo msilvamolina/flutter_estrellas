@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_estrellas/app/routes/app_pages.dart';
 
 import 'package:get/get.dart';
 
@@ -21,7 +22,7 @@ class CartView extends GetView<CartController> {
           padding: const EdgeInsets.all(16),
           child: ElevatedButton(
             onPressed: () {
-              Get.back();
+              Get.toNamed(Routes.ADDRESS);
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: controller.mainController.isThemeModeDark
