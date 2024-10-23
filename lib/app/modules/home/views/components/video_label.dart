@@ -1,18 +1,23 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_estrellas/app/data/models/product_firebase_lite/product_firebase_lite.dart';
+import 'package:flutter_estrellas/app/data/models/product_lite/product_lite.dart';
 import 'package:flutter_estrellas/app/themes/styles/colors.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
+import '../../../../data/models/videos/video_post_model.dart';
 import '../../../../routes/app_pages.dart';
 import '../../../../themes/styles/typography.dart';
 
 class VideoLabel extends StatelessWidget {
-  const VideoLabel({super.key});
+  const VideoLabel({required this.videoPostModel, super.key});
+  final VideoPostModel videoPostModel;
 
   @override
   Widget build(BuildContext context) {
+    ProductFirebaseLiteModel? product = videoPostModel.product;
     double screenWidth = MediaQuery.of(context).size.width;
     bool isMobile = screenWidth < 480;
     return Container(
@@ -27,7 +32,7 @@ class VideoLabel extends StatelessWidget {
         ),
       ),
       child: GestureDetector(
-        onTap: () => Get.toNamed(Routes.PRODUCT),
+        onTap: () => Get.toNamed(Routes.PRODUCT, arguments: product),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           child: Column(
@@ -41,9 +46,16 @@ class VideoLabel extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Image.asset(
-                    'assets/images/avatar.png',
-                    width: 40,
+                  ClipOval(
+                    child: Hero(
+                      tag: 'productHeroTag-${product!.id}',
+                      child: Image.network(
+                        product!.thumbnail ?? '',
+                        width: 40,
+                        height: 40,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                   ),
                   SizedBox(width: 8),
                   Expanded(
@@ -52,7 +64,7 @@ class VideoLabel extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text(
-                          'Bolso femenino cuero y tiras metálicas',
+                          product.name ?? '',
                           style: TypographyStyle.bodyRegularMedium
                               .copyWith(color: white),
                           maxLines: 1,
@@ -120,7 +132,7 @@ class VideoLabel extends StatelessWidget {
                                   width:
                                       4), // Espacio entre el icono y el texto
                               Text(
-                                'Puntos: 600', // Texto que muestra los puntos
+                                'Puntos: ${product.points}', // Texto que muestra los puntos
                                 style: TypographyStyle.bodyRegularSmall
                                     .copyWith(color: white),
                               ),
@@ -164,7 +176,7 @@ class VideoLabel extends StatelessWidget {
                                   width:
                                       4), // Espacio entre el icono y el texto
                               Text(
-                                'Precio: \$40.000', // Texto que muestra los puntos
+                                'Precio: ${product.suggestedPrice}', // Texto que muestra los puntos
                                 style: TypographyStyle.bodyRegularSmall
                                     .copyWith(color: white),
                               ),

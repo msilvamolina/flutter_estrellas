@@ -145,7 +145,9 @@ class _VideoAppState extends State<VideoApp> {
                           ))
                         else
                           Spacer(),
-                        VideoLabel(),
+                        VideoLabel(
+                          videoPostModel: widget.videoPostModel,
+                        ),
                       ],
                     ),
                     Center(
