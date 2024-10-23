@@ -20,4 +20,18 @@ class UserProductController extends GetxController {
       },
     );
   }
+
+  Future<void> addToFavorites(ProductFirebaseLiteModel productLite) async {
+    Either<String, Unit> response =
+        await userProductRepository.addToFavorites(productLite: productLite);
+
+    response.fold(
+      (failure) {
+        Snackbars.error(failure);
+      },
+      (_) {
+        Snackbars.success('${productLite.name} agregado a favoritos');
+      },
+    );
+  }
 }
