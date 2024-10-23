@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
+import '../../../themes/styles/colors.dart';
+import '../../../themes/styles/typography.dart';
 import '../controllers/cart_controller.dart';
 import '../widget/cart_card.dart';
 
@@ -13,6 +15,40 @@ class CartView extends GetView<CartController> {
       appBar: AppBar(
         title: const Text('Carrito'),
         centerTitle: true,
+      ),
+      bottomNavigationBar: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: ElevatedButton(
+            onPressed: () {
+              Get.back();
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: controller.mainController.isThemeModeDark
+                  ? primaryDark
+                  : primaryBase,
+              foregroundColor: controller.mainController.isThemeModeDark
+                  ? Colors.white
+                  : Colors.black,
+              side: BorderSide(
+                color: controller.mainController.isThemeModeDark
+                    ? primaryBase
+                    : Colors.black, // Color del borde
+                width: 1, // Ancho del borde
+              ),
+            ),
+            child: Container(
+              padding: EdgeInsets.all(8),
+              width: double.infinity,
+              child: Text(
+                'Continuar compra',
+                textAlign: TextAlign.center,
+                style: TypographyStyle.bodyRegularLarge
+                    .copyWith(fontWeight: FontWeight.w400),
+              ),
+            ),
+          ),
+        ),
       ),
       body: Obx(
         () => controller.userProductController.listProductCart.isNotEmpty
