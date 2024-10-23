@@ -1,5 +1,8 @@
 buildscript {
-    ext.kotlin_version = '1.8.21'
+    ext.kotlin_version = '1.9.10' 
+    dependencies {
+    }
+
     repositories {
         google()
         mavenCentral()
@@ -17,6 +20,14 @@ allprojects {
     repositories {
         google()
         mavenCentral()
+    }
+
+    configurations.all {
+        resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+            if (details.requested.group == 'org.jetbrains.kotlin') {
+                details.useVersion '1.9.10'
+            }
+        }
     }
 }
 
