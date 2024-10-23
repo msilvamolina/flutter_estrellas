@@ -67,6 +67,7 @@ class AddressRepository {
           .collection('address')
           .doc(addressId)
           .set({
+        'id': addressId,
         'fullname': fullname,
         'phone': phone,
         'notes': notes,
