@@ -12,6 +12,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../../routes/app_pages.dart';
 import 'views/initial_view.dart';
 
 class HomeView extends StatefulWidget {
@@ -431,7 +432,9 @@ class _HomeViewState extends State<HomeView> {
                                       Icons.shopping_cart,
                                       color: Colors.white,
                                     ),
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      Get.toNamed(Routes.CART);
+                                    },
                                   ),
                                   Obx(
                                     () => Positioned(
