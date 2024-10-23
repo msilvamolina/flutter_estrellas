@@ -50,6 +50,25 @@ class UserProductsRepository {
     }
   }
 
+  Future<Either<String, Unit>> removeFromFavorites({
+    required ProductFirebaseLiteModel productLite,
+  }) async {
+    Map<String, String> userData = getUidAndEmail();
+    String uid = userData['uid'] ?? '';
+    String productId = productLite.id;
+    try {
+      await _firebaseFirestore
+          .collection('users')
+          .doc(uid)
+          .collection('favorites')
+          .doc(productId)
+          .delete();
+      return right(unit);
+    } on FirebaseException catch (e) {
+      return left(e.code);
+    }
+  }
+
   Future<Either<String, Unit>> addToCart({
     required ProductFirebaseLiteModel productLite,
   }) async {
@@ -70,6 +89,25 @@ class UserProductsRepository {
         'createdByUserId': uid,
         'createdAt': DateTime.now(),
       });
+      return right(unit);
+    } on FirebaseException catch (e) {
+      return left(e.code);
+    }
+  }
+
+  Future<Either<String, Unit>> removeFromCart({
+    required ProductFirebaseLiteModel productLite,
+  }) async {
+    Map<String, String> userData = getUidAndEmail();
+    String uid = userData['uid'] ?? '';
+    String productId = productLite.id;
+    try {
+      await _firebaseFirestore
+          .collection('users')
+          .doc(uid)
+          .collection('cart')
+          .doc(productId)
+          .delete();
       return right(unit);
     } on FirebaseException catch (e) {
       return left(e.code);

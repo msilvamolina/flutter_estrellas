@@ -34,4 +34,32 @@ class UserProductController extends GetxController {
       },
     );
   }
+
+  Future<void> removeFromFavorites(ProductFirebaseLiteModel productLite) async {
+    Either<String, Unit> response = await userProductRepository
+        .removeFromFavorites(productLite: productLite);
+
+    response.fold(
+      (failure) {
+        Snackbars.error(failure);
+      },
+      (_) {
+        Snackbars.success('${productLite.name} removido de favoritos');
+      },
+    );
+  }
+
+  Future<void> removeFromCart(ProductFirebaseLiteModel productLite) async {
+    Either<String, Unit> response =
+        await userProductRepository.removeFromCart(productLite: productLite);
+
+    response.fold(
+      (failure) {
+        Snackbars.error(failure);
+      },
+      (_) {
+        Snackbars.success('${productLite.name} removido de tu carrito');
+      },
+    );
+  }
 }
