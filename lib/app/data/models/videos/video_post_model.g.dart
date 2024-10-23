@@ -15,6 +15,9 @@ _$VideoPostModelImpl _$$VideoPostModelImplFromJson(Map<String, dynamic> json) =>
       videoUrl: json['videoUrl'] as String,
       createdByEmail: json['createdByEmail'] as String,
       createdById: json['createdById'] as String,
+      product: json['product'] == null
+          ? null
+          : ProductLiteModel.fromJson(json['product'] as Map<String, dynamic>),
       searchField: json['searchField'] as String?,
       reference: json['reference'],
       updatedAt: json['updatedAt'] as String?,
@@ -30,6 +33,7 @@ Map<String, dynamic> _$$VideoPostModelImplToJson(
       'videoUrl': instance.videoUrl,
       'createdByEmail': instance.createdByEmail,
       'createdById': instance.createdById,
+      'product': instance.product,
       'searchField': instance.searchField,
       'reference': instance.reference,
       'updatedAt': instance.updatedAt,

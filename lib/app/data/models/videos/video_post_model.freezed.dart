@@ -27,6 +27,7 @@ mixin _$VideoPostModel {
   String get videoUrl => throw _privateConstructorUsedError;
   String get createdByEmail => throw _privateConstructorUsedError;
   String get createdById => throw _privateConstructorUsedError;
+  ProductLiteModel? get product => throw _privateConstructorUsedError;
   String? get searchField => throw _privateConstructorUsedError;
   dynamic get reference => throw _privateConstructorUsedError;
   String? get updatedAt => throw _privateConstructorUsedError;
@@ -55,9 +56,12 @@ abstract class $VideoPostModelCopyWith<$Res> {
       String videoUrl,
       String createdByEmail,
       String createdById,
+      ProductLiteModel? product,
       String? searchField,
       dynamic reference,
       String? updatedAt});
+
+  $ProductLiteModelCopyWith<$Res>? get product;
 }
 
 /// @nodoc
@@ -82,6 +86,7 @@ class _$VideoPostModelCopyWithImpl<$Res, $Val extends VideoPostModel>
     Object? videoUrl = null,
     Object? createdByEmail = null,
     Object? createdById = null,
+    Object? product = freezed,
     Object? searchField = freezed,
     Object? reference = freezed,
     Object? updatedAt = freezed,
@@ -115,6 +120,10 @@ class _$VideoPostModelCopyWithImpl<$Res, $Val extends VideoPostModel>
           ? _value.createdById
           : createdById // ignore: cast_nullable_to_non_nullable
               as String,
+      product: freezed == product
+          ? _value.product
+          : product // ignore: cast_nullable_to_non_nullable
+              as ProductLiteModel?,
       searchField: freezed == searchField
           ? _value.searchField
           : searchField // ignore: cast_nullable_to_non_nullable
@@ -128,6 +137,20 @@ class _$VideoPostModelCopyWithImpl<$Res, $Val extends VideoPostModel>
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
+  }
+
+  /// Create a copy of VideoPostModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $ProductLiteModelCopyWith<$Res>? get product {
+    if (_value.product == null) {
+      return null;
+    }
+
+    return $ProductLiteModelCopyWith<$Res>(_value.product!, (value) {
+      return _then(_value.copyWith(product: value) as $Val);
+    });
   }
 }
 
@@ -147,9 +170,13 @@ abstract class _$$VideoPostModelImplCopyWith<$Res>
       String videoUrl,
       String createdByEmail,
       String createdById,
+      ProductLiteModel? product,
       String? searchField,
       dynamic reference,
       String? updatedAt});
+
+  @override
+  $ProductLiteModelCopyWith<$Res>? get product;
 }
 
 /// @nodoc
@@ -172,6 +199,7 @@ class __$$VideoPostModelImplCopyWithImpl<$Res>
     Object? videoUrl = null,
     Object? createdByEmail = null,
     Object? createdById = null,
+    Object? product = freezed,
     Object? searchField = freezed,
     Object? reference = freezed,
     Object? updatedAt = freezed,
@@ -205,6 +233,10 @@ class __$$VideoPostModelImplCopyWithImpl<$Res>
           ? _value.createdById
           : createdById // ignore: cast_nullable_to_non_nullable
               as String,
+      product: freezed == product
+          ? _value.product
+          : product // ignore: cast_nullable_to_non_nullable
+              as ProductLiteModel?,
       searchField: freezed == searchField
           ? _value.searchField
           : searchField // ignore: cast_nullable_to_non_nullable
@@ -232,6 +264,7 @@ class _$VideoPostModelImpl extends _VideoPostModel {
       required this.videoUrl,
       required this.createdByEmail,
       required this.createdById,
+      this.product,
       this.searchField,
       this.reference,
       this.updatedAt})
@@ -255,6 +288,8 @@ class _$VideoPostModelImpl extends _VideoPostModel {
   @override
   final String createdById;
   @override
+  final ProductLiteModel? product;
+  @override
   final String? searchField;
   @override
   final dynamic reference;
@@ -263,7 +298,7 @@ class _$VideoPostModelImpl extends _VideoPostModel {
 
   @override
   String toString() {
-    return 'VideoPostModel(name: $name, id: $id, createdAt: $createdAt, thumbnail: $thumbnail, videoUrl: $videoUrl, createdByEmail: $createdByEmail, createdById: $createdById, searchField: $searchField, reference: $reference, updatedAt: $updatedAt)';
+    return 'VideoPostModel(name: $name, id: $id, createdAt: $createdAt, thumbnail: $thumbnail, videoUrl: $videoUrl, createdByEmail: $createdByEmail, createdById: $createdById, product: $product, searchField: $searchField, reference: $reference, updatedAt: $updatedAt)';
   }
 
   @override
@@ -283,6 +318,7 @@ class _$VideoPostModelImpl extends _VideoPostModel {
                 other.createdByEmail == createdByEmail) &&
             (identical(other.createdById, createdById) ||
                 other.createdById == createdById) &&
+            (identical(other.product, product) || other.product == product) &&
             (identical(other.searchField, searchField) ||
                 other.searchField == searchField) &&
             const DeepCollectionEquality().equals(other.reference, reference) &&
@@ -301,6 +337,7 @@ class _$VideoPostModelImpl extends _VideoPostModel {
       videoUrl,
       createdByEmail,
       createdById,
+      product,
       searchField,
       const DeepCollectionEquality().hash(reference),
       updatedAt);
@@ -331,6 +368,7 @@ abstract class _VideoPostModel extends VideoPostModel {
       required final String videoUrl,
       required final String createdByEmail,
       required final String createdById,
+      final ProductLiteModel? product,
       final String? searchField,
       final dynamic reference,
       final String? updatedAt}) = _$VideoPostModelImpl;
@@ -353,6 +391,8 @@ abstract class _VideoPostModel extends VideoPostModel {
   String get createdByEmail;
   @override
   String get createdById;
+  @override
+  ProductLiteModel? get product;
   @override
   String? get searchField;
   @override
