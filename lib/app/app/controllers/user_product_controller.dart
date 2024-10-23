@@ -6,6 +6,15 @@ import 'package:get/get.dart';
 
 class UserProductController extends GetxController {
   UserProductsRepository userProductRepository = UserProductsRepository();
+  final RxList<ProductFirebaseLiteModel> _listProductCart =
+      <ProductFirebaseLiteModel>[].obs;
+  List<ProductFirebaseLiteModel> get listProductCart =>
+      _listProductCart.toList();
+
+  final RxList<ProductFirebaseLiteModel> _listProductFavorite =
+      <ProductFirebaseLiteModel>[].obs;
+  List<ProductFirebaseLiteModel> get listProductFavorite =>
+      _listProductFavorite.toList();
 
   Future<void> addToCart(ProductFirebaseLiteModel? productLite) async {
     if (productLite == null) {

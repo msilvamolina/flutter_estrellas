@@ -24,6 +24,48 @@ class UserProductsRepository {
     }
   }
 
+  Stream<List<ProductFirebaseLiteModel>> getUserFavorites() async* {
+    Map<String, String> userData = getUidAndEmail();
+    String uid = userData['uid'] ?? '';
+    try {
+      Stream<QuerySnapshot> snapshots = _firebaseFirestore
+          .collection('users')
+          .doc(uid)
+          .collection('favorites')
+          .orderBy('createdAt', descending: true)
+          .snapshots();
+
+      yield* snapshots.map((snapshot) {
+        return snapshot.docs
+            .map((doc) => ProductFirebaseLiteModel.fromDocument(doc))
+            .toList();
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Stream<List<ProductFirebaseLiteModel>> getUserCart() async* {
+    Map<String, String> userData = getUidAndEmail();
+    String uid = userData['uid'] ?? '';
+    try {
+      Stream<QuerySnapshot> snapshots = _firebaseFirestore
+          .collection('users')
+          .doc(uid)
+          .collection('cart')
+          .orderBy('createdAt', descending: true)
+          .snapshots();
+
+      yield* snapshots.map((snapshot) {
+        return snapshot.docs
+            .map((doc) => ProductFirebaseLiteModel.fromDocument(doc))
+            .toList();
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
   Future<Either<String, Unit>> addToFavorites({
     required ProductFirebaseLiteModel productLite,
   }) async {
