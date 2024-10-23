@@ -7,7 +7,7 @@ import '../app/controllers/main_controller.dart';
 
 class CustomInputDecoration {
   static InputDecoration inputDecoration({
-    required bool isThemeModeDark,
+    bool isThemeModeDark = false,
     String? text,
     String? hintText,
     IconData? icon,

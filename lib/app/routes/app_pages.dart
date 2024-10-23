@@ -24,6 +24,10 @@ import '../modules/address/new_address/bindings/new_address_binding.dart';
 import '../modules/address/new_address/views/new_address_view.dart';
 import '../modules/product/bindings/product_binding.dart';
 import '../modules/product/views/product_view.dart';
+import '../modules/selects/select_city/bindings/select_city_binding.dart';
+import '../modules/selects/select_city/views/select_city_view.dart';
+import '../modules/selects/select_department/bindings/select_department_binding.dart';
+import '../modules/selects/select_department/views/select_department_view.dart';
 
 part 'app_routes.dart';
 
@@ -97,6 +101,16 @@ class AppPages {
       name: _Paths.NEW_ADDRESS,
       page: () => const NewAddressView(),
       binding: NewAddressBinding(),
+    ),
+    GetPage(
+      name: _Paths.SELECT_DEPARTMENT,
+      page: () => const SelectDepartmentView(),
+      binding: SelectDepartmentBinding(),
+    ),
+    GetPage(
+      name: _Paths.SELECT_CITY,
+      page: () => const SelectCityView(),
+      binding: SelectCityBinding(),
     ),
   ];
 }
