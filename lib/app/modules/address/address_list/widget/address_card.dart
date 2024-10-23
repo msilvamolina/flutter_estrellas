@@ -13,7 +13,7 @@ class AddressCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: InkWell(
-        onTap: () => Get.toNamed(Routes.SELECT_PAYMENT),
+        onTap: () => Get.toNamed(Routes.SELECT_PAYMENT, arguments: address),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Text(address.toString()),
