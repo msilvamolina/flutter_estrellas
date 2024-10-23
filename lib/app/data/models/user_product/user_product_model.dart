@@ -12,9 +12,9 @@ abstract class UserProductModel implements _$UserProductModel {
   const UserProductModel._();
 
   const factory UserProductModel({
-    required String createdAt,
-    required String createdByEmail,
+    required String createdBy,
     required String createdByUserId,
+    int? quantity,
     ProductFirebaseLiteModel? product,
   }) = _UserProductModel;
 

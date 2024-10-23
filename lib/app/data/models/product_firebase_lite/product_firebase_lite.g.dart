@@ -19,7 +19,6 @@ _$ProductFirebaseLiteModelImpl _$$ProductFirebaseLiteModelImplFromJson(
       points: (json['points'] as num?)?.toInt(),
       suggestedPrice: (json['suggestedPrice'] as num?)?.toDouble(),
       thumbnail: json['thumbnail'] as String?,
-      createdAt: json['createdAt'] as String?,
     );
 
 Map<String, dynamic> _$$ProductFirebaseLiteModelImplToJson(
@@ -35,5 +34,4 @@ Map<String, dynamic> _$$ProductFirebaseLiteModelImplToJson(
       'points': instance.points,
       'suggestedPrice': instance.suggestedPrice,
       'thumbnail': instance.thumbnail,
-      'createdAt': instance.createdAt,
     };

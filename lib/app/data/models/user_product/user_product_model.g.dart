@@ -9,9 +9,9 @@ part of 'user_product_model.dart';
 _$UserProductModelImpl _$$UserProductModelImplFromJson(
         Map<String, dynamic> json) =>
     _$UserProductModelImpl(
-      createdAt: json['createdAt'] as String,
-      createdByEmail: json['createdByEmail'] as String,
+      createdBy: json['createdBy'] as String,
       createdByUserId: json['createdByUserId'] as String,
+      quantity: (json['quantity'] as num?)?.toInt(),
       product: json['product'] == null
           ? null
           : ProductFirebaseLiteModel.fromJson(
@@ -21,8 +21,8 @@ _$UserProductModelImpl _$$UserProductModelImplFromJson(
 Map<String, dynamic> _$$UserProductModelImplToJson(
         _$UserProductModelImpl instance) =>
     <String, dynamic>{
-      'createdAt': instance.createdAt,
-      'createdByEmail': instance.createdByEmail,
+      'createdBy': instance.createdBy,
       'createdByUserId': instance.createdByUserId,
+      'quantity': instance.quantity,
       'product': instance.product,
     };

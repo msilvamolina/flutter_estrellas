@@ -22,7 +22,7 @@ abstract class ProductFirebaseLiteModel implements _$ProductFirebaseLiteModel {
     int? points,
     double? suggestedPrice,
     String? thumbnail,
-    String? createdAt,
+    // String? createdAt,
   }) = _ProductFirebaseLiteModel;
 
   factory ProductFirebaseLiteModel.fromJson(Map<String, dynamic> json) =>

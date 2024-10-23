@@ -19,7 +19,6 @@ class ModelHelpers {
   }
 
   static Map<String, dynamic> toDocument(Map<String, dynamic> json) {
-    json = json..remove('warehouses');
     json['createdAt'] = dateToDocument(json['createdAt']);
     json['updatedAt'] = dateToDocument(json['updatedAt']);
     return json;

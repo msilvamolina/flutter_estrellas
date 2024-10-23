@@ -32,7 +32,6 @@ mixin _$ProductFirebaseLiteModel {
   int? get points => throw _privateConstructorUsedError;
   double? get suggestedPrice => throw _privateConstructorUsedError;
   String? get thumbnail => throw _privateConstructorUsedError;
-  String? get createdAt => throw _privateConstructorUsedError;
 
   /// Serializes this ProductFirebaseLiteModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -60,8 +59,7 @@ abstract class $ProductFirebaseLiteModelCopyWith<$Res> {
       bool? active,
       int? points,
       double? suggestedPrice,
-      String? thumbnail,
-      String? createdAt});
+      String? thumbnail});
 }
 
 /// @nodoc
@@ -90,7 +88,6 @@ class _$ProductFirebaseLiteModelCopyWithImpl<$Res,
     Object? points = freezed,
     Object? suggestedPrice = freezed,
     Object? thumbnail = freezed,
-    Object? createdAt = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -133,10 +130,6 @@ class _$ProductFirebaseLiteModelCopyWithImpl<$Res,
           ? _value.thumbnail
           : thumbnail // ignore: cast_nullable_to_non_nullable
               as String?,
-      createdAt: freezed == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as String?,
     ) as $Val);
   }
 }
@@ -160,8 +153,7 @@ abstract class _$$ProductFirebaseLiteModelImplCopyWith<$Res>
       bool? active,
       int? points,
       double? suggestedPrice,
-      String? thumbnail,
-      String? createdAt});
+      String? thumbnail});
 }
 
 /// @nodoc
@@ -189,7 +181,6 @@ class __$$ProductFirebaseLiteModelImplCopyWithImpl<$Res>
     Object? points = freezed,
     Object? suggestedPrice = freezed,
     Object? thumbnail = freezed,
-    Object? createdAt = freezed,
   }) {
     return _then(_$ProductFirebaseLiteModelImpl(
       id: null == id
@@ -232,10 +223,6 @@ class __$$ProductFirebaseLiteModelImplCopyWithImpl<$Res>
           ? _value.thumbnail
           : thumbnail // ignore: cast_nullable_to_non_nullable
               as String?,
-      createdAt: freezed == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as String?,
     ));
   }
 }
@@ -253,8 +240,7 @@ class _$ProductFirebaseLiteModelImpl extends _ProductFirebaseLiteModel {
       this.active,
       this.points,
       this.suggestedPrice,
-      this.thumbnail,
-      this.createdAt})
+      this.thumbnail})
       : super._();
 
   factory _$ProductFirebaseLiteModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -281,12 +267,10 @@ class _$ProductFirebaseLiteModelImpl extends _ProductFirebaseLiteModel {
   final double? suggestedPrice;
   @override
   final String? thumbnail;
-  @override
-  final String? createdAt;
 
   @override
   String toString() {
-    return 'ProductFirebaseLiteModel(id: $id, name: $name, provider: $provider, externalId: $externalId, type: $type, price: $price, active: $active, points: $points, suggestedPrice: $suggestedPrice, thumbnail: $thumbnail, createdAt: $createdAt)';
+    return 'ProductFirebaseLiteModel(id: $id, name: $name, provider: $provider, externalId: $externalId, type: $type, price: $price, active: $active, points: $points, suggestedPrice: $suggestedPrice, thumbnail: $thumbnail)';
   }
 
   @override
@@ -306,9 +290,7 @@ class _$ProductFirebaseLiteModelImpl extends _ProductFirebaseLiteModel {
             (identical(other.suggestedPrice, suggestedPrice) ||
                 other.suggestedPrice == suggestedPrice) &&
             (identical(other.thumbnail, thumbnail) ||
-                other.thumbnail == thumbnail) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt));
+                other.thumbnail == thumbnail));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -324,8 +306,7 @@ class _$ProductFirebaseLiteModelImpl extends _ProductFirebaseLiteModel {
       active,
       points,
       suggestedPrice,
-      thumbnail,
-      createdAt);
+      thumbnail);
 
   /// Create a copy of ProductFirebaseLiteModel
   /// with the given fields replaced by the non-null parameter values.
@@ -355,8 +336,7 @@ abstract class _ProductFirebaseLiteModel extends ProductFirebaseLiteModel {
       final bool? active,
       final int? points,
       final double? suggestedPrice,
-      final String? thumbnail,
-      final String? createdAt}) = _$ProductFirebaseLiteModelImpl;
+      final String? thumbnail}) = _$ProductFirebaseLiteModelImpl;
   const _ProductFirebaseLiteModel._() : super._();
 
   factory _ProductFirebaseLiteModel.fromJson(Map<String, dynamic> json) =
@@ -383,8 +363,6 @@ abstract class _ProductFirebaseLiteModel extends ProductFirebaseLiteModel {
   double? get suggestedPrice;
   @override
   String? get thumbnail;
-  @override
-  String? get createdAt;
 
   /// Create a copy of ProductFirebaseLiteModel
   /// with the given fields replaced by the non-null parameter values.

@@ -20,9 +20,9 @@ UserProductModel _$UserProductModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$UserProductModel {
-  String get createdAt => throw _privateConstructorUsedError;
-  String get createdByEmail => throw _privateConstructorUsedError;
+  String get createdBy => throw _privateConstructorUsedError;
   String get createdByUserId => throw _privateConstructorUsedError;
+  int? get quantity => throw _privateConstructorUsedError;
   ProductFirebaseLiteModel? get product => throw _privateConstructorUsedError;
 
   /// Serializes this UserProductModel to a JSON map.
@@ -42,9 +42,9 @@ abstract class $UserProductModelCopyWith<$Res> {
       _$UserProductModelCopyWithImpl<$Res, UserProductModel>;
   @useResult
   $Res call(
-      {String createdAt,
-      String createdByEmail,
+      {String createdBy,
       String createdByUserId,
+      int? quantity,
       ProductFirebaseLiteModel? product});
 
   $ProductFirebaseLiteModelCopyWith<$Res>? get product;
@@ -65,24 +65,24 @@ class _$UserProductModelCopyWithImpl<$Res, $Val extends UserProductModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? createdAt = null,
-    Object? createdByEmail = null,
+    Object? createdBy = null,
     Object? createdByUserId = null,
+    Object? quantity = freezed,
     Object? product = freezed,
   }) {
     return _then(_value.copyWith(
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as String,
-      createdByEmail: null == createdByEmail
-          ? _value.createdByEmail
-          : createdByEmail // ignore: cast_nullable_to_non_nullable
+      createdBy: null == createdBy
+          ? _value.createdBy
+          : createdBy // ignore: cast_nullable_to_non_nullable
               as String,
       createdByUserId: null == createdByUserId
           ? _value.createdByUserId
           : createdByUserId // ignore: cast_nullable_to_non_nullable
               as String,
+      quantity: freezed == quantity
+          ? _value.quantity
+          : quantity // ignore: cast_nullable_to_non_nullable
+              as int?,
       product: freezed == product
           ? _value.product
           : product // ignore: cast_nullable_to_non_nullable
@@ -114,9 +114,9 @@ abstract class _$$UserProductModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String createdAt,
-      String createdByEmail,
+      {String createdBy,
       String createdByUserId,
+      int? quantity,
       ProductFirebaseLiteModel? product});
 
   @override
@@ -136,24 +136,24 @@ class __$$UserProductModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? createdAt = null,
-    Object? createdByEmail = null,
+    Object? createdBy = null,
     Object? createdByUserId = null,
+    Object? quantity = freezed,
     Object? product = freezed,
   }) {
     return _then(_$UserProductModelImpl(
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as String,
-      createdByEmail: null == createdByEmail
-          ? _value.createdByEmail
-          : createdByEmail // ignore: cast_nullable_to_non_nullable
+      createdBy: null == createdBy
+          ? _value.createdBy
+          : createdBy // ignore: cast_nullable_to_non_nullable
               as String,
       createdByUserId: null == createdByUserId
           ? _value.createdByUserId
           : createdByUserId // ignore: cast_nullable_to_non_nullable
               as String,
+      quantity: freezed == quantity
+          ? _value.quantity
+          : quantity // ignore: cast_nullable_to_non_nullable
+              as int?,
       product: freezed == product
           ? _value.product
           : product // ignore: cast_nullable_to_non_nullable
@@ -166,9 +166,9 @@ class __$$UserProductModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$UserProductModelImpl extends _UserProductModel {
   const _$UserProductModelImpl(
-      {required this.createdAt,
-      required this.createdByEmail,
+      {required this.createdBy,
       required this.createdByUserId,
+      this.quantity,
       this.product})
       : super._();
 
@@ -176,17 +176,17 @@ class _$UserProductModelImpl extends _UserProductModel {
       _$$UserProductModelImplFromJson(json);
 
   @override
-  final String createdAt;
-  @override
-  final String createdByEmail;
+  final String createdBy;
   @override
   final String createdByUserId;
+  @override
+  final int? quantity;
   @override
   final ProductFirebaseLiteModel? product;
 
   @override
   String toString() {
-    return 'UserProductModel(createdAt: $createdAt, createdByEmail: $createdByEmail, createdByUserId: $createdByUserId, product: $product)';
+    return 'UserProductModel(createdBy: $createdBy, createdByUserId: $createdByUserId, quantity: $quantity, product: $product)';
   }
 
   @override
@@ -194,19 +194,19 @@ class _$UserProductModelImpl extends _UserProductModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$UserProductModelImpl &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt) &&
-            (identical(other.createdByEmail, createdByEmail) ||
-                other.createdByEmail == createdByEmail) &&
+            (identical(other.createdBy, createdBy) ||
+                other.createdBy == createdBy) &&
             (identical(other.createdByUserId, createdByUserId) ||
                 other.createdByUserId == createdByUserId) &&
+            (identical(other.quantity, quantity) ||
+                other.quantity == quantity) &&
             (identical(other.product, product) || other.product == product));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, createdAt, createdByEmail, createdByUserId, product);
+  int get hashCode =>
+      Object.hash(runtimeType, createdBy, createdByUserId, quantity, product);
 
   /// Create a copy of UserProductModel
   /// with the given fields replaced by the non-null parameter values.
@@ -227,9 +227,9 @@ class _$UserProductModelImpl extends _UserProductModel {
 
 abstract class _UserProductModel extends UserProductModel {
   const factory _UserProductModel(
-      {required final String createdAt,
-      required final String createdByEmail,
+      {required final String createdBy,
       required final String createdByUserId,
+      final int? quantity,
       final ProductFirebaseLiteModel? product}) = _$UserProductModelImpl;
   const _UserProductModel._() : super._();
 
@@ -237,11 +237,11 @@ abstract class _UserProductModel extends UserProductModel {
       _$UserProductModelImpl.fromJson;
 
   @override
-  String get createdAt;
-  @override
-  String get createdByEmail;
+  String get createdBy;
   @override
   String get createdByUserId;
+  @override
+  int? get quantity;
   @override
   ProductFirebaseLiteModel? get product;
 
