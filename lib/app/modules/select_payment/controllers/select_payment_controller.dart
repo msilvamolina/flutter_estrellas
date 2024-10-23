@@ -23,7 +23,28 @@ class SelectPaymentController extends GetxController {
   }
 
   void confirmBuy() {
-    buyMultipleProducts();
+    if (userProductController.uniqueProduct != null) {
+      buyUniqueProducts(userProductController.uniqueProduct!);
+    } else {
+      buyMultipleProducts();
+    }
+  }
+
+  void buyUniqueProducts(UserProductModel product) async {
+    mainController.showLoader(
+      title: 'Procesando...',
+      message: 'Por favor espere',
+    );
+
+    Either<String, Unit> response =
+        await ordersRepository.createOrder(product: product, address: address);
+
+    Get.back();
+    response.fold((failure) {
+      Snackbars.error(failure);
+    }, (_) {
+      Get.offAndToNamed(Routes.ORDER_SUCCESS);
+    });
   }
 
   void buyMultipleProducts() async {

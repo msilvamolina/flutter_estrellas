@@ -95,17 +95,26 @@ class _VideoButtonsState extends State<VideoButtons> {
         Text('220',
             style: TypographyStyle.bodyRegularSmall.copyWith(color: colorText)),
         SizedBox(height: 22),
-        SvgPicture.asset(
-          'assets/svg/ShoppingBag.svg',
-          width: iconSize,
-          colorFilter: ColorFilter.mode(
-            colorIcon,
-            BlendMode.srcIn,
+        InkWell(
+          onTap: () => userProductController
+              .goToBuyUniqueProduct(widget.videoPostModel.product),
+          child: Column(
+            children: [
+              SvgPicture.asset(
+                'assets/svg/ShoppingBag.svg',
+                width: iconSize,
+                colorFilter: ColorFilter.mode(
+                  colorIcon,
+                  BlendMode.srcIn,
+                ),
+              ),
+              SizedBox(height: 4),
+              Text('Comprar',
+                  style: TypographyStyle.bodyRegularSmall
+                      .copyWith(color: colorText)),
+            ],
           ),
         ),
-        SizedBox(height: 4),
-        Text('Comprar',
-            style: TypographyStyle.bodyRegularSmall.copyWith(color: colorText)),
         SizedBox(height: 22),
         SvgPicture.asset(
           'assets/svg/logo.svg',

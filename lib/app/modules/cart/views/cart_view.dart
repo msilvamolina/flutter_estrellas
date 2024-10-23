@@ -22,6 +22,7 @@ class CartView extends GetView<CartController> {
           padding: const EdgeInsets.all(16),
           child: ElevatedButton(
             onPressed: () {
+              controller.userProductController.setUniqueProduct(null);
               Get.toNamed(Routes.ADDRESS);
             },
             style: ElevatedButton.styleFrom(

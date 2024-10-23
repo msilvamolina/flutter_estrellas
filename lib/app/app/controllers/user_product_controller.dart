@@ -5,6 +5,7 @@ import 'package:flutter_estrellas/app/data/providers/repositories/user_products/
 import 'package:get/get.dart';
 
 import '../../data/models/user_product/user_product_model.dart';
+import '../../routes/app_pages.dart';
 
 class UserProductController extends GetxController {
   UserProductsRepository userProductRepository = UserProductsRepository();
@@ -16,11 +17,32 @@ class UserProductController extends GetxController {
   List<UserProductModel> get listProductFavorite =>
       _listProductFavorites.toList();
 
+  UserProductModel? _uniqueProduct;
+  UserProductModel? get uniqueProduct => _uniqueProduct;
   @override
   void onReady() {
     _listProductCart.bindStream(userProductRepository.getUserCart());
     _listProductFavorites.bindStream(userProductRepository.getUserFavorites());
     super.onReady();
+  }
+
+  void goToBuyUniqueProduct(ProductFirebaseLiteModel? productLite) {
+    setUniqueProduct(productLite);
+    Get.toNamed(Routes.ADDRESS);
+  }
+
+  void setUniqueProduct(ProductFirebaseLiteModel? productLite) {
+    if (productLite != null) {
+      UserProductModel unique = UserProductModel(
+        quantity: 1,
+        createdBy: 'martin@gmail.com',
+        createdByUserId: 'asdasd',
+        product: productLite,
+      );
+      _uniqueProduct = unique;
+    } else {
+      _uniqueProduct = null;
+    }
   }
 
   Future<void> addToCart(ProductFirebaseLiteModel? productLite) async {
