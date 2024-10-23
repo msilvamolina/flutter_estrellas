@@ -4,17 +4,24 @@ import 'package:flutter_estrellas/app/data/models/product_firebase_lite/product_
 import 'package:flutter_estrellas/app/data/providers/repositories/user_products/user_products_repository.dart';
 import 'package:get/get.dart';
 
+import '../../data/models/user_product/user_product_model.dart';
+
 class UserProductController extends GetxController {
   UserProductsRepository userProductRepository = UserProductsRepository();
-  final RxList<ProductFirebaseLiteModel> _listProductCart =
-      <ProductFirebaseLiteModel>[].obs;
-  List<ProductFirebaseLiteModel> get listProductCart =>
-      _listProductCart.toList();
+  final RxList<UserProductModel> _listProductCart = <UserProductModel>[].obs;
+  List<UserProductModel> get listProductCart => _listProductCart.toList();
 
-  final RxList<ProductFirebaseLiteModel> _listProductFavorite =
-      <ProductFirebaseLiteModel>[].obs;
-  List<ProductFirebaseLiteModel> get listProductFavorite =>
-      _listProductFavorite.toList();
+  final RxList<UserProductModel> _listProductFavorites =
+      <UserProductModel>[].obs;
+  List<UserProductModel> get listProductFavorite =>
+      _listProductFavorites.toList();
+
+  @override
+  void onInit() {
+    _listProductCart.bindStream(userProductRepository.getUserCart());
+    _listProductFavorites.bindStream(userProductRepository.getUserFavorites());
+    super.onInit();
+  }
 
   Future<void> addToCart(ProductFirebaseLiteModel? productLite) async {
     if (productLite == null) {

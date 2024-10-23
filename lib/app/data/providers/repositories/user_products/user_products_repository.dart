@@ -4,6 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_estrellas/app/data/models/product_firebase_lite/product_firebase_lite.dart';
 import 'package:get/get.dart';
 
+import '../../../models/user_product/user_product_model.dart';
+
 class UserProductsRepository {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final FirebaseFirestore _firebaseFirestore = Get.find<FirebaseFirestore>();
@@ -24,7 +26,7 @@ class UserProductsRepository {
     }
   }
 
-  Stream<List<ProductFirebaseLiteModel>> getUserFavorites() async* {
+  Stream<List<UserProductModel>> getUserFavorites() async* {
     Map<String, String> userData = getUidAndEmail();
     String uid = userData['uid'] ?? '';
     try {
@@ -37,7 +39,7 @@ class UserProductsRepository {
 
       yield* snapshots.map((snapshot) {
         return snapshot.docs
-            .map((doc) => ProductFirebaseLiteModel.fromDocument(doc))
+            .map((doc) => UserProductModel.fromDocument(doc))
             .toList();
       });
     } catch (e) {
@@ -45,7 +47,7 @@ class UserProductsRepository {
     }
   }
 
-  Stream<List<ProductFirebaseLiteModel>> getUserCart() async* {
+  Stream<List<UserProductModel>> getUserCart() async* {
     Map<String, String> userData = getUidAndEmail();
     String uid = userData['uid'] ?? '';
     try {
@@ -58,7 +60,7 @@ class UserProductsRepository {
 
       yield* snapshots.map((snapshot) {
         return snapshot.docs
-            .map((doc) => ProductFirebaseLiteModel.fromDocument(doc))
+            .map((doc) => UserProductModel.fromDocument(doc))
             .toList();
       });
     } catch (e) {
