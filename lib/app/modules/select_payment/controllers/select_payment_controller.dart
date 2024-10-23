@@ -16,4 +16,8 @@ class SelectPaymentController extends GetxController {
     address = Get.arguments as AddressModel;
     super.onInit();
   }
+
+  void confirmBuy() {
+    print('${userProductController.listProductCart.toList().toString()}');
+  }
 }

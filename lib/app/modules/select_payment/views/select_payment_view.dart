@@ -20,7 +20,7 @@ class SelectPaymentView extends GetView<SelectPaymentController> {
           padding: const EdgeInsets.all(16),
           child: ElevatedButton(
             onPressed: () {
-              // Get.toNamed(Routes.ADDRESS);
+              controller.confirmBuy();
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: controller.mainController.isThemeModeDark
