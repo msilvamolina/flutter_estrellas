@@ -19,7 +19,7 @@ class NewAddressView extends GetView<NewAddressController> {
         builder: (context, form, child) {
           return Scaffold(
             appBar: AppBar(
-              title: const Text('NewAddressView'),
+              title: const Text('Domicilio'),
               centerTitle: true,
             ),
             body: GetBuilder<NewAddressController>(
@@ -31,20 +31,16 @@ class NewAddressView extends GetView<NewAddressController> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        Text(
+                          'Datos de la persona que recibe',
+                          style: TypographyStyle.bodyBlackLarge,
+                        ),
                         const SizedBox(height: 16),
                         ReactiveTextField(
                           formControlName: Fields.name.name,
                           keyboardType: TextInputType.text,
                           decoration: CustomInputDecoration.inputDecoration(
-                            text: "Name",
-                          ),
-                        ),
-                        const SizedBox(height: 16),
-                        ReactiveTextField(
-                          formControlName: Fields.address.name,
-                          keyboardType: TextInputType.text,
-                          decoration: CustomInputDecoration.inputDecoration(
-                            text: "Address",
+                            text: "Nombre completo",
                           ),
                         ),
                         const SizedBox(height: 16),
@@ -52,8 +48,13 @@ class NewAddressView extends GetView<NewAddressController> {
                           formControlName: Fields.phone.name,
                           keyboardType: TextInputType.phone,
                           decoration: CustomInputDecoration.inputDecoration(
-                            text: "Phone",
+                            text: "Celular",
                           ),
+                        ),
+                        const SizedBox(height: 16),
+                        Text(
+                          'Datos de la persona que recibe',
+                          style: TypographyStyle.bodyBlackLarge,
                         ),
                         const SizedBox(height: 16),
                         Card(
@@ -107,10 +108,29 @@ class NewAddressView extends GetView<NewAddressController> {
                             ),
                           ),
                         ),
+                        const SizedBox(height: 16),
+                        ReactiveTextField(
+                          formControlName: Fields.address.name,
+                          keyboardType: TextInputType.text,
+                          decoration: CustomInputDecoration.inputDecoration(
+                            text: "Direccion",
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        ReactiveTextField(
+                          formControlName: Fields.notes.name,
+                          keyboardType: TextInputType.text,
+                          decoration: CustomInputDecoration.inputDecoration(
+                            text: "Referencias adicionales",
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        Text(
+                            'Al Continuar, aceptas los Términos y condiciones y la Política de privacidad de Estrellas.'),
                         const SizedBox(height: 26),
                         ReactiveFormConsumer(
                           builder: (context, form, child) => LoadingButton(
-                            label: 'Crear',
+                            label: 'Continuar',
                             // isLoading: controller.loading,
                             isLoading: false,
                             onPressed: (form.valid)

@@ -7,7 +7,7 @@ import '../../../../routes/app_pages.dart';
 
 enum Fields {
   name('name'),
-  city('city'),
+  notes('notes'),
   address('address'),
   phone('phone');
 
@@ -35,6 +35,7 @@ class NewAddressController extends GetxController {
             Validators.minLength(4),
           ],
         ),
+        Fields.notes.name: FormControl<String>(),
         Fields.phone.name: FormControl<String>(
           validators: [
             Validators.required,
