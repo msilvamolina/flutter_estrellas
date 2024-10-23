@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_estrellas/app/data/models/address/address_model.dart';
 import 'package:flutter_estrellas/app/data/models/product_firebase_lite/product_firebase_lite.dart';
 import 'package:get/get.dart';
 import 'package:uuid/uuid.dart';
@@ -28,20 +29,20 @@ class AddressRepository {
     }
   }
 
-  Stream<List<UserProductModel>> getUserFavorites() async* {
+  Stream<List<AddressModel>> getUserAddress() async* {
     Map<String, String> userData = getUidAndEmail();
     String uid = userData['uid'] ?? '';
     try {
       Stream<QuerySnapshot> snapshots = _firebaseFirestore
           .collection('users')
           .doc(uid)
-          .collection('favorites')
+          .collection('address')
           .orderBy('createdAt', descending: true)
           .snapshots();
 
       yield* snapshots.map((snapshot) {
         return snapshot.docs
-            .map((doc) => UserProductModel.fromDocument(doc))
+            .map((doc) => AddressModel.fromDocument(doc))
             .toList();
       });
     } catch (e) {
@@ -78,70 +79,6 @@ class AddressRepository {
         'createdByUserId': uid,
         'createdAt': DateTime.now(),
       });
-      return right(unit);
-    } on FirebaseException catch (e) {
-      return left(e.code);
-    }
-  }
-
-  Future<Either<String, Unit>> removeFromFavorites({
-    required ProductFirebaseLiteModel productLite,
-  }) async {
-    Map<String, String> userData = getUidAndEmail();
-    String uid = userData['uid'] ?? '';
-    String productId = productLite.id;
-    try {
-      await _firebaseFirestore
-          .collection('users')
-          .doc(uid)
-          .collection('favorites')
-          .doc(productId)
-          .delete();
-      return right(unit);
-    } on FirebaseException catch (e) {
-      return left(e.code);
-    }
-  }
-
-  Future<Either<String, Unit>> addToCart({
-    required ProductFirebaseLiteModel productLite,
-  }) async {
-    Map<String, String> userData = getUidAndEmail();
-    String uid = userData['uid'] ?? '';
-    String email = userData['email'] ?? '';
-    String productId = productLite.id;
-    try {
-      await _firebaseFirestore
-          .collection('users')
-          .doc(uid)
-          .collection('cart')
-          .doc(productId)
-          .set({
-        'product': productLite.toDocument(),
-        'isAnonymous': false,
-        'createdBy': email,
-        'createdByUserId': uid,
-        'createdAt': DateTime.now(),
-      });
-      return right(unit);
-    } on FirebaseException catch (e) {
-      return left(e.code);
-    }
-  }
-
-  Future<Either<String, Unit>> removeFromCart({
-    required ProductFirebaseLiteModel productLite,
-  }) async {
-    Map<String, String> userData = getUidAndEmail();
-    String uid = userData['uid'] ?? '';
-    String productId = productLite.id;
-    try {
-      await _firebaseFirestore
-          .collection('users')
-          .doc(uid)
-          .collection('cart')
-          .doc(productId)
-          .delete();
       return right(unit);
     } on FirebaseException catch (e) {
       return left(e.code);

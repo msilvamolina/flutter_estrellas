@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_estrellas/app/modules/address/address_list/widget/address_card.dart';
 
 import 'package:get/get.dart';
 
@@ -54,11 +55,19 @@ class AddressView extends GetView<AddressController> {
           ),
         ),
       ),
-      body: const Center(
-        child: Text(
-          'AddressView is working',
-          style: TextStyle(fontSize: 20),
-        ),
+      body: Obx(
+        () => controller.list.isNotEmpty
+            ? ListView.separated(
+                itemCount: controller.list.length,
+                itemBuilder: (context, index) {
+                  return AddressCard(
+                    address: controller.list[index],
+                  );
+                },
+                separatorBuilder: (context, index) =>
+                    const SizedBox(height: 10),
+              )
+            : Center(child: const Text('no data')),
       ),
     );
   }

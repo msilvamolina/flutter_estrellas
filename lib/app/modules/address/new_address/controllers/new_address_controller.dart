@@ -22,7 +22,7 @@ enum Fields {
 
 class NewAddressController extends GetxController {
   MainController mainController = Get.find();
-  AddressRepository _repository = AddressRepository();
+  final AddressRepository _repository = AddressRepository();
   DepartmentModel? _departmentModel;
   DepartmentModel? get departmentModel => _departmentModel;
 
