@@ -66,7 +66,7 @@ class CartView extends GetView<CartController> {
                 separatorBuilder: (context, index) =>
                     const SizedBox(height: 10),
               )
-            : const Text('no data'),
+            : Center(child: const Text('no data')),
       ),
     );
   }

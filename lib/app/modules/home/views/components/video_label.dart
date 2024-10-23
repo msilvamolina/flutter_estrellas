@@ -18,7 +18,13 @@ class VideoLabel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ProductFirebaseLiteModel? product = videoPostModel.product;
-    String providerName = product?.provider['name'] ?? 'Estrellas';
+    String providerName = 'Estrellas';
+    if (product?.provider != null) {
+      if (product?.provider['name'] != null) {
+        providerName = product?.provider['name'];
+      }
+    }
+    // String providerName = (product?.provider['name']) ?? 'Estrellas';
     double screenWidth = MediaQuery.of(context).size.width;
     bool isMobile = screenWidth < 480;
     return Container(
