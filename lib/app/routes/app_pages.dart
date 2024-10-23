@@ -2,6 +2,8 @@ import 'package:flutter/foundation.dart';
 
 import 'package:get/get.dart';
 
+import '../modules/address/address_list/bindings/address_binding.dart';
+import '../modules/address/address_list/views/address_view.dart';
 import '../modules/auth/forgot_password/bindings/forgot_password_binding.dart';
 import '../modules/auth/forgot_password/views/forgot_password_view.dart';
 import '../modules/auth/login/bindings/login_binding.dart';
@@ -18,6 +20,8 @@ import '../modules/cart/bindings/cart_binding.dart';
 import '../modules/cart/views/cart_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
+import '../modules/address/new_address/bindings/new_address_binding.dart';
+import '../modules/address/new_address/views/new_address_view.dart';
 import '../modules/product/bindings/product_binding.dart';
 import '../modules/product/views/product_view.dart';
 
@@ -83,6 +87,16 @@ class AppPages {
       name: _Paths.CART,
       page: () => const CartView(),
       binding: CartBinding(),
+    ),
+    GetPage(
+      name: _Paths.ADDRESS,
+      page: () => const AddressView(),
+      binding: AddressBinding(),
+    ),
+    GetPage(
+      name: _Paths.NEW_ADDRESS,
+      page: () => const NewAddressView(),
+      binding: NewAddressBinding(),
     ),
   ];
 }
