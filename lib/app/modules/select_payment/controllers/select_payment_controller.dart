@@ -8,6 +8,7 @@ import '../../../app/controllers/main_controller.dart';
 import '../../../app/controllers/user_product_controller.dart';
 import '../../../data/models/user_product/user_product_model.dart';
 import '../../../data/providers/repositories/address/address_repository.dart';
+import '../../../routes/app_pages.dart';
 
 class SelectPaymentController extends GetxController {
   MainController mainController = Get.find();
@@ -51,6 +52,8 @@ class SelectPaymentController extends GetxController {
     Get.back();
     response.fold((failure) {
       Snackbars.error(failure);
-    }, (_) {});
+    }, (_) {
+      Get.offAndToNamed(Routes.ORDER_SUCCESS);
+    });
   }
 }

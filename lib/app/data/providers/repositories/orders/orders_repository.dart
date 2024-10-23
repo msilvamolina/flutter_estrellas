@@ -116,8 +116,8 @@ class OrdersRepository {
 
       dynamic json = jsonDecode(response.body);
 
-      if (!json.ok) {
-        return left(json.data);
+      if (!json['ok']) {
+        return left(json['data']);
       }
 
       return right(unit);

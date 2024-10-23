@@ -22,6 +22,8 @@ import '../modules/cart/bindings/cart_binding.dart';
 import '../modules/cart/views/cart_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
+import '../modules/order/order_success/bindings/order_success_binding.dart';
+import '../modules/order/order_success/views/order_success_view.dart';
 import '../modules/product/bindings/product_binding.dart';
 import '../modules/product/views/product_view.dart';
 import '../modules/select_payment/bindings/select_payment_binding.dart';
@@ -118,6 +120,11 @@ class AppPages {
       name: _Paths.SELECT_PAYMENT,
       page: () => const SelectPaymentView(),
       binding: SelectPaymentBinding(),
+    ),
+    GetPage(
+      name: _Paths.ORDER_SUCCESS,
+      page: () => const OrderSuccessView(),
+      binding: OrderSuccessBinding(),
     ),
   ];
 }
