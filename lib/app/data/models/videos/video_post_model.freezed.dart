@@ -27,7 +27,7 @@ mixin _$VideoPostModel {
   String get videoUrl => throw _privateConstructorUsedError;
   String get createdByEmail => throw _privateConstructorUsedError;
   String get createdById => throw _privateConstructorUsedError;
-  ProductLiteModel? get product => throw _privateConstructorUsedError;
+  ProductFirebaseLiteModel? get product => throw _privateConstructorUsedError;
   String? get searchField => throw _privateConstructorUsedError;
   dynamic get reference => throw _privateConstructorUsedError;
   String? get updatedAt => throw _privateConstructorUsedError;
@@ -56,12 +56,12 @@ abstract class $VideoPostModelCopyWith<$Res> {
       String videoUrl,
       String createdByEmail,
       String createdById,
-      ProductLiteModel? product,
+      ProductFirebaseLiteModel? product,
       String? searchField,
       dynamic reference,
       String? updatedAt});
 
-  $ProductLiteModelCopyWith<$Res>? get product;
+  $ProductFirebaseLiteModelCopyWith<$Res>? get product;
 }
 
 /// @nodoc
@@ -123,7 +123,7 @@ class _$VideoPostModelCopyWithImpl<$Res, $Val extends VideoPostModel>
       product: freezed == product
           ? _value.product
           : product // ignore: cast_nullable_to_non_nullable
-              as ProductLiteModel?,
+              as ProductFirebaseLiteModel?,
       searchField: freezed == searchField
           ? _value.searchField
           : searchField // ignore: cast_nullable_to_non_nullable
@@ -143,12 +143,12 @@ class _$VideoPostModelCopyWithImpl<$Res, $Val extends VideoPostModel>
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $ProductLiteModelCopyWith<$Res>? get product {
+  $ProductFirebaseLiteModelCopyWith<$Res>? get product {
     if (_value.product == null) {
       return null;
     }
 
-    return $ProductLiteModelCopyWith<$Res>(_value.product!, (value) {
+    return $ProductFirebaseLiteModelCopyWith<$Res>(_value.product!, (value) {
       return _then(_value.copyWith(product: value) as $Val);
     });
   }
@@ -170,13 +170,13 @@ abstract class _$$VideoPostModelImplCopyWith<$Res>
       String videoUrl,
       String createdByEmail,
       String createdById,
-      ProductLiteModel? product,
+      ProductFirebaseLiteModel? product,
       String? searchField,
       dynamic reference,
       String? updatedAt});
 
   @override
-  $ProductLiteModelCopyWith<$Res>? get product;
+  $ProductFirebaseLiteModelCopyWith<$Res>? get product;
 }
 
 /// @nodoc
@@ -236,7 +236,7 @@ class __$$VideoPostModelImplCopyWithImpl<$Res>
       product: freezed == product
           ? _value.product
           : product // ignore: cast_nullable_to_non_nullable
-              as ProductLiteModel?,
+              as ProductFirebaseLiteModel?,
       searchField: freezed == searchField
           ? _value.searchField
           : searchField // ignore: cast_nullable_to_non_nullable
@@ -288,7 +288,7 @@ class _$VideoPostModelImpl extends _VideoPostModel {
   @override
   final String createdById;
   @override
-  final ProductLiteModel? product;
+  final ProductFirebaseLiteModel? product;
   @override
   final String? searchField;
   @override
@@ -368,7 +368,7 @@ abstract class _VideoPostModel extends VideoPostModel {
       required final String videoUrl,
       required final String createdByEmail,
       required final String createdById,
-      final ProductLiteModel? product,
+      final ProductFirebaseLiteModel? product,
       final String? searchField,
       final dynamic reference,
       final String? updatedAt}) = _$VideoPostModelImpl;
@@ -392,7 +392,7 @@ abstract class _VideoPostModel extends VideoPostModel {
   @override
   String get createdById;
   @override
-  ProductLiteModel? get product;
+  ProductFirebaseLiteModel? get product;
   @override
   String? get searchField;
   @override

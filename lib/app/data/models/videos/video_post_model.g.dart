@@ -17,7 +17,8 @@ _$VideoPostModelImpl _$$VideoPostModelImplFromJson(Map<String, dynamic> json) =>
       createdById: json['createdById'] as String,
       product: json['product'] == null
           ? null
-          : ProductLiteModel.fromJson(json['product'] as Map<String, dynamic>),
+          : ProductFirebaseLiteModel.fromJson(
+              json['product'] as Map<String, dynamic>),
       searchField: json['searchField'] as String?,
       reference: json['reference'],
       updatedAt: json['updatedAt'] as String?,

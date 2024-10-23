@@ -117,7 +117,7 @@ class _VideoAppState extends State<VideoApp> {
         if (!showButtonsOutside)
           Padding(
             padding: const EdgeInsets.only(left: 16),
-            child: VideoButtons(),
+            child: VideoButtons(videoPostModel: widget.videoPostModel),
           )
       ],
     );
@@ -140,6 +140,7 @@ class _VideoAppState extends State<VideoApp> {
                             padding: const EdgeInsets.only(right: 16),
                             child: VideoButtons(
                               buttonInsideVideo: true,
+                              videoPostModel: widget.videoPostModel,
                             ),
                           ))
                         else

@@ -7,7 +7,10 @@ import 'package:get/get.dart';
 class UserProductController extends GetxController {
   UserProductsRepository userProductRepository = UserProductsRepository();
 
-  Future<void> addToCart(ProductFirebaseLiteModel productLite) async {
+  Future<void> addToCart(ProductFirebaseLiteModel? productLite) async {
+    if (productLite == null) {
+      return;
+    }
     Either<String, Unit> response =
         await userProductRepository.addToCart(productLite: productLite);
 
@@ -21,7 +24,10 @@ class UserProductController extends GetxController {
     );
   }
 
-  Future<void> addToFavorites(ProductFirebaseLiteModel productLite) async {
+  Future<void> addToFavorites(ProductFirebaseLiteModel? productLite) async {
+    if (productLite == null) {
+      return;
+    }
     Either<String, Unit> response =
         await userProductRepository.addToFavorites(productLite: productLite);
 
@@ -35,7 +41,11 @@ class UserProductController extends GetxController {
     );
   }
 
-  Future<void> removeFromFavorites(ProductFirebaseLiteModel productLite) async {
+  Future<void> removeFromFavorites(
+      ProductFirebaseLiteModel? productLite) async {
+    if (productLite == null) {
+      return;
+    }
     Either<String, Unit> response = await userProductRepository
         .removeFromFavorites(productLite: productLite);
 
@@ -49,7 +59,10 @@ class UserProductController extends GetxController {
     );
   }
 
-  Future<void> removeFromCart(ProductFirebaseLiteModel productLite) async {
+  Future<void> removeFromCart(ProductFirebaseLiteModel? productLite) async {
+    if (productLite == null) {
+      return;
+    }
     Either<String, Unit> response =
         await userProductRepository.removeFromCart(productLite: productLite);
 

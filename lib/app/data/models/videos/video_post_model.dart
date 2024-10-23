@@ -3,6 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../helpers/friendly_helpers.dart';
 import '../../helpers/model_helpers.dart';
+import '../product_firebase_lite/product_firebase_lite.dart';
 import '../product_lite/product_lite.dart';
 
 part 'video_post_model.freezed.dart';
@@ -20,7 +21,7 @@ abstract class VideoPostModel implements _$VideoPostModel {
     required String videoUrl,
     required String createdByEmail,
     required String createdById,
-    ProductLiteModel? product,
+    ProductFirebaseLiteModel? product,
     String? searchField,
     dynamic reference,
     String? updatedAt,
