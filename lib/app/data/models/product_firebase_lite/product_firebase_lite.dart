@@ -14,6 +14,7 @@ abstract class ProductFirebaseLiteModel implements _$ProductFirebaseLiteModel {
   const factory ProductFirebaseLiteModel({
     @JsonKey(name: '_id') required String id,
     String? name,
+    dynamic provider,
     String? externalId,
     String? type,
     double? price,

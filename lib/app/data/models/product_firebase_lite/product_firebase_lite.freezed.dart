@@ -24,6 +24,7 @@ mixin _$ProductFirebaseLiteModel {
   @JsonKey(name: '_id')
   String get id => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
+  dynamic get provider => throw _privateConstructorUsedError;
   String? get externalId => throw _privateConstructorUsedError;
   String? get type => throw _privateConstructorUsedError;
   double? get price => throw _privateConstructorUsedError;
@@ -52,6 +53,7 @@ abstract class $ProductFirebaseLiteModelCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: '_id') String id,
       String? name,
+      dynamic provider,
       String? externalId,
       String? type,
       double? price,
@@ -80,6 +82,7 @@ class _$ProductFirebaseLiteModelCopyWithImpl<$Res,
   $Res call({
     Object? id = null,
     Object? name = freezed,
+    Object? provider = freezed,
     Object? externalId = freezed,
     Object? type = freezed,
     Object? price = freezed,
@@ -98,6 +101,10 @@ class _$ProductFirebaseLiteModelCopyWithImpl<$Res,
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
+      provider: freezed == provider
+          ? _value.provider
+          : provider // ignore: cast_nullable_to_non_nullable
+              as dynamic,
       externalId: freezed == externalId
           ? _value.externalId
           : externalId // ignore: cast_nullable_to_non_nullable
@@ -146,6 +153,7 @@ abstract class _$$ProductFirebaseLiteModelImplCopyWith<$Res>
   $Res call(
       {@JsonKey(name: '_id') String id,
       String? name,
+      dynamic provider,
       String? externalId,
       String? type,
       double? price,
@@ -173,6 +181,7 @@ class __$$ProductFirebaseLiteModelImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? name = freezed,
+    Object? provider = freezed,
     Object? externalId = freezed,
     Object? type = freezed,
     Object? price = freezed,
@@ -191,6 +200,10 @@ class __$$ProductFirebaseLiteModelImplCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
+      provider: freezed == provider
+          ? _value.provider
+          : provider // ignore: cast_nullable_to_non_nullable
+              as dynamic,
       externalId: freezed == externalId
           ? _value.externalId
           : externalId // ignore: cast_nullable_to_non_nullable
@@ -233,6 +246,7 @@ class _$ProductFirebaseLiteModelImpl extends _ProductFirebaseLiteModel {
   const _$ProductFirebaseLiteModelImpl(
       {@JsonKey(name: '_id') required this.id,
       this.name,
+      this.provider,
       this.externalId,
       this.type,
       this.price,
@@ -252,6 +266,8 @@ class _$ProductFirebaseLiteModelImpl extends _ProductFirebaseLiteModel {
   @override
   final String? name;
   @override
+  final dynamic provider;
+  @override
   final String? externalId;
   @override
   final String? type;
@@ -270,7 +286,7 @@ class _$ProductFirebaseLiteModelImpl extends _ProductFirebaseLiteModel {
 
   @override
   String toString() {
-    return 'ProductFirebaseLiteModel(id: $id, name: $name, externalId: $externalId, type: $type, price: $price, active: $active, points: $points, suggestedPrice: $suggestedPrice, thumbnail: $thumbnail, createdAt: $createdAt)';
+    return 'ProductFirebaseLiteModel(id: $id, name: $name, provider: $provider, externalId: $externalId, type: $type, price: $price, active: $active, points: $points, suggestedPrice: $suggestedPrice, thumbnail: $thumbnail, createdAt: $createdAt)';
   }
 
   @override
@@ -280,6 +296,7 @@ class _$ProductFirebaseLiteModelImpl extends _ProductFirebaseLiteModel {
             other is _$ProductFirebaseLiteModelImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
+            const DeepCollectionEquality().equals(other.provider, provider) &&
             (identical(other.externalId, externalId) ||
                 other.externalId == externalId) &&
             (identical(other.type, type) || other.type == type) &&
@@ -296,8 +313,19 @@ class _$ProductFirebaseLiteModelImpl extends _ProductFirebaseLiteModel {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, externalId, type,
-      price, active, points, suggestedPrice, thumbnail, createdAt);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      name,
+      const DeepCollectionEquality().hash(provider),
+      externalId,
+      type,
+      price,
+      active,
+      points,
+      suggestedPrice,
+      thumbnail,
+      createdAt);
 
   /// Create a copy of ProductFirebaseLiteModel
   /// with the given fields replaced by the non-null parameter values.
@@ -320,6 +348,7 @@ abstract class _ProductFirebaseLiteModel extends ProductFirebaseLiteModel {
   const factory _ProductFirebaseLiteModel(
       {@JsonKey(name: '_id') required final String id,
       final String? name,
+      final dynamic provider,
       final String? externalId,
       final String? type,
       final double? price,
@@ -338,6 +367,8 @@ abstract class _ProductFirebaseLiteModel extends ProductFirebaseLiteModel {
   String get id;
   @override
   String? get name;
+  @override
+  dynamic get provider;
   @override
   String? get externalId;
   @override

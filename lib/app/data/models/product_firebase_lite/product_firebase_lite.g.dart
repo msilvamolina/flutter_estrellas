@@ -11,6 +11,7 @@ _$ProductFirebaseLiteModelImpl _$$ProductFirebaseLiteModelImplFromJson(
     _$ProductFirebaseLiteModelImpl(
       id: json['_id'] as String,
       name: json['name'] as String?,
+      provider: json['provider'],
       externalId: json['externalId'] as String?,
       type: json['type'] as String?,
       price: (json['price'] as num?)?.toDouble(),
@@ -26,6 +27,7 @@ Map<String, dynamic> _$$ProductFirebaseLiteModelImplToJson(
     <String, dynamic>{
       '_id': instance.id,
       'name': instance.name,
+      'provider': instance.provider,
       'externalId': instance.externalId,
       'type': instance.type,
       'price': instance.price,
