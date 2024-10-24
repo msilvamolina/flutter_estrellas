@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_estrellas/app/components/bottom_sheets/bottomsheets.dart';
 import 'package:flutter_estrellas/app/components/snackbars/snackbars.dart';
 import 'package:flutter_estrellas/app/data/models/product_firebase_lite/product_firebase_lite.dart';
 import 'package:flutter_estrellas/app/data/providers/repositories/user_products/user_products_repository.dart';
@@ -8,10 +9,7 @@ import 'package:get/get.dart';
 
 import '../../data/models/user_product/user_product_model.dart';
 import '../../routes/app_pages.dart';
-import '../bottom_sheets/add_to_catalog_bottom_sheet.dart';
-import '../bottom_sheets/bottom_sheet_example.dart';
-import '../bottom_sheets/chatgpt_bottomsheet.dart';
-import '../bottom_sheets/modal_bottom_sheet_example.dart';
+import '../../components/bottom_sheets/dragabble_bottom_sheet.dart';
 
 class UserProductController extends GetxController {
   UserProductsRepository userProductRepository = UserProductsRepository();
@@ -122,13 +120,6 @@ class UserProductController extends GetxController {
 
   Future<void> showBottomSeetCatalog(
       ProductFirebaseLiteModel? productLite) async {
-    Navigator.push(
-      Get.context!,
-      MaterialPageRoute(builder: (context) => ChatgptBottomsheet()),
-    );
-    // showCupertinoModalSheet(
-    //   context: Get.context!,
-    //   builder: (context) => AddToCatalogBottomSheet(),
-    // );
+    Bottomsheets.draggableBottomSheet(BottomSheetTypes.catalog);
   }
 }
