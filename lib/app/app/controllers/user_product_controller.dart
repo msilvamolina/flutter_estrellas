@@ -23,6 +23,11 @@ class UserProductController extends GetxController {
 
   UserProductModel? _uniqueProduct;
   UserProductModel? get uniqueProduct => _uniqueProduct;
+
+  ProductFirebaseLiteModel? _productCatalogBottomSheet;
+  ProductFirebaseLiteModel? get productCatalogBottomSheet =>
+      _productCatalogBottomSheet;
+
   @override
   void onReady() {
     _listProductCart.bindStream(userProductRepository.getUserCart());
@@ -120,6 +125,7 @@ class UserProductController extends GetxController {
 
   Future<void> showBottomSeetCatalog(
       ProductFirebaseLiteModel? productLite) async {
+    _productCatalogBottomSheet = productLite;
     Bottomsheets.draggableBottomSheet(BottomSheetTypes.catalog);
   }
 }
