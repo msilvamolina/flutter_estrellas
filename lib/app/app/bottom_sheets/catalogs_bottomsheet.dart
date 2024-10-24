@@ -31,6 +31,9 @@ class CatalogsBottomsheet extends StatelessWidget {
                     itemCount: 4,
                     itemBuilder: (context, index) {
                       return ListTile(
+                        onTap: () {
+                          print('ho;a');
+                        },
                         title: Text('Elemento ${index + 1}'),
                       );
                     },
