@@ -10,7 +10,7 @@
 	<true/>
 	<key>keychain-access-groups</key>
 	<array>
-		<string>$(AppIdentifierPrefix)app.estrellas</string>
+		<string>$(AppIdentifierPrefix)app.estrellas.dev</string>
 	</array>
 </dict>
 </plist>
