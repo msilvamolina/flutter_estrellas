@@ -7,7 +7,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'app/app/bindings/main_binding.dart';
 import 'app/config/firebase_config.dart';
 import 'app/routes/app_pages.dart';
 import 'app/services/dependency_injection.dart';
@@ -72,7 +71,6 @@ class MyApp extends StatelessWidget {
     MaterialTheme theme = MaterialTheme(textTheme);
 
     return GetMaterialApp(
-      initialBinding: MainBinding(),
       title: "Estrellas",
       locale: const Locale('es'),
       fallbackLocale: const Locale('es'),
