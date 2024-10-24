@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 
+import '../../../libraries/icons/icons_font.dart';
+
 class DescriptionView extends StatelessWidget {
   const DescriptionView({super.key});
 

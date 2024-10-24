@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 
-const TextStyle textStyle = TextStyle(
-  fontFamily: 'Montserrat',
-);
-
 const double _h1DesktopSize = 61;
 const double _h2DesktopSize = 49;
 const double _h3DesktopSize = 39;
 const double _h1MobileSize = 32;
 const double _h2MobileSize = 26;
 const double _h3MobileSize = 20;
+const double _h4MobileSize = 18;
 const double _bodyLargeSize = 16;
 const double _bodyMediumSize = 14;
 const double _bodySmallSize = 12;
+
+const TextStyle textStyle = TextStyle(
+  fontFamily: 'Montserrat',
+);
 
 abstract class TypographyStyle {
   TypographyStyle._();
@@ -37,7 +38,7 @@ abstract class TypographyStyle {
   );
   static TextStyle h1Mobile = textStyle.copyWith(
     fontSize: _h1MobileSize,
-    height: 1.36,
+    height: 1.16,
     letterSpacing: 0,
     fontWeight: FontWeight.w600,
   );
@@ -49,6 +50,12 @@ abstract class TypographyStyle {
   );
   static TextStyle h3Mobile = textStyle.copyWith(
     fontSize: _h3MobileSize,
+    height: 1.36,
+    letterSpacing: 0,
+    fontWeight: FontWeight.w600,
+  );
+  static TextStyle h4Mobile = textStyle.copyWith(
+    fontSize: _h4MobileSize,
     height: 1.36,
     letterSpacing: 0,
     fontWeight: FontWeight.w600,

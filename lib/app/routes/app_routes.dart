@@ -11,6 +11,13 @@ abstract class Routes {
   static const FORGOT_PASSWORD = _Paths.FORGOT_PASSWORD;
   static const WELCOME = _Paths.WELCOME;
   static const PRODUCT = _Paths.PRODUCT;
+  static const CART = _Paths.CART;
+  static const ADDRESS = _Paths.ADDRESS;
+  static const NEW_ADDRESS = _Paths.NEW_ADDRESS;
+  static const SELECT_DEPARTMENT = _Paths.SELECT_DEPARTMENT;
+  static const SELECT_CITY = _Paths.SELECT_CITY;
+  static const SELECT_PAYMENT = _Paths.SELECT_PAYMENT;
+  static const ORDER_SUCCESS = _Paths.ORDER_SUCCESS;
 }
 
 abstract class _Paths {
@@ -23,4 +30,11 @@ abstract class _Paths {
   static const FORGOT_PASSWORD = '/forgot-password';
   static const WELCOME = '/welcome';
   static const PRODUCT = '/product';
+  static const CART = '/cart';
+  static const ADDRESS = '/address';
+  static const NEW_ADDRESS = '/new-address';
+  static const SELECT_DEPARTMENT = '/select-department';
+  static const SELECT_CITY = '/select-city';
+  static const SELECT_PAYMENT = '/select-payment';
+  static const ORDER_SUCCESS = '/order-success';
 }

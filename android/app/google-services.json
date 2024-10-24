@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "802823199567",
+    "project_id": "estrellas-dev-ecd61",
+    "storage_bucket": "estrellas-dev-ecd61.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:802823199567:android:b0e84ca7b5cafb4f5e033a",
+        "android_client_info": {
+          "package_name": "app.estrellas.dev"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBAZAsBDxgIDbxa57os5XVi_q8qIDFpkXY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -31,7 +31,7 @@ abstract class UserData implements _$UserData {
       _$UserDataFromJson(json);
 
   factory UserData.fromDocument(DocumentSnapshot doc) {
-    UserData data = UserData.fromJson(ModelHelpers().fromDocument(doc.data()!));
+    UserData data = UserData.fromJson(ModelHelpers.fromDocument(doc.data()!));
     String searchField = '${data.firstName} ${data.lastName} ${data.username}';
 
     return data.copyWith(
@@ -40,5 +40,5 @@ abstract class UserData implements _$UserData {
     );
   }
 
-  Map<String, dynamic> toDocument() => ModelHelpers().toDocument(toJson());
+  Map<String, dynamic> toDocument() => ModelHelpers.toDocument(toJson());
 }

@@ -8,15 +8,16 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
 
+import '../../../../data/models/videos/video_post_model.dart';
 import 'video_buttons.dart';
 import 'video_label.dart';
 
 /// Stateful widget to fetch and then display video content.
 class VideoApp extends StatefulWidget {
   const VideoApp(
-      {super.key, required this.videoModel, required this.onCompleted});
+      {super.key, required this.videoPostModel, required this.onCompleted});
 
-  final VideoModel videoModel;
+  final VideoPostModel videoPostModel;
   final Function() onCompleted;
 
   @override
@@ -35,29 +36,28 @@ class _VideoAppState extends State<VideoApp> {
   @override
   void initState() {
     super.initState();
-    _controller =
-        VideoPlayerController.networkUrl(Uri.parse(widget.videoModel.videoUrl))
-          ..initialize().then((_) {
-            // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
-            setState(() {
-              _controller.setLooping(true);
-              _controller.play();
-              _controller.addListener(() {
-                if (_controller.value.isInitialized &&
-                    _controller.value.isPlaying) {
-                  setState(() {
-                    // Actualizar el slider según el tiempo actual de reproducción
-                    _currentSliderValue =
-                        _controller.value.position.inSeconds.toDouble();
-                  });
-                  if (_controller.value.position >=
-                      _controller.value.duration) {
-                    widget.onCompleted();
-                  }
-                }
+    _controller = VideoPlayerController.networkUrl(
+        Uri.parse(widget.videoPostModel.videoUrl))
+      ..initialize().then((_) {
+        // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
+        setState(() {
+          _controller.setLooping(true);
+          _controller.play();
+          _controller.addListener(() {
+            if (_controller.value.isInitialized &&
+                _controller.value.isPlaying) {
+              setState(() {
+                // Actualizar el slider según el tiempo actual de reproducción
+                _currentSliderValue =
+                    _controller.value.position.inSeconds.toDouble();
               });
-            });
+              if (_controller.value.position >= _controller.value.duration) {
+                widget.onCompleted();
+              }
+            }
           });
+        });
+      });
 
     _controller.setVolume(mainController.withVolume ? 100 : 0);
   }
@@ -117,7 +117,7 @@ class _VideoAppState extends State<VideoApp> {
         if (!showButtonsOutside)
           Padding(
             padding: const EdgeInsets.only(left: 16),
-            child: VideoButtons(),
+            child: VideoButtons(videoPostModel: widget.videoPostModel),
           )
       ],
     );
@@ -140,11 +140,14 @@ class _VideoAppState extends State<VideoApp> {
                             padding: const EdgeInsets.only(right: 16),
                             child: VideoButtons(
                               buttonInsideVideo: true,
+                              videoPostModel: widget.videoPostModel,
                             ),
                           ))
                         else
                           Spacer(),
-                        VideoLabel(),
+                        VideoLabel(
+                          videoPostModel: widget.videoPostModel,
+                        ),
                       ],
                     ),
                     Center(
@@ -160,54 +163,54 @@ class _VideoAppState extends State<VideoApp> {
                     ),
                     Column(
                       children: [
-                        Row(
-                          children: [
-                            IconButton(
-                              onPressed: onPause,
-                              icon: Icon(
-                                _isPlaying ? Icons.pause : Icons.play_arrow,
-                                color: neutral500,
-                              ),
-                            ),
-                            Expanded(
-                              child: Slider(
-                                activeColor:
-                                    primaryBase, // Cambia el color del slider
-                                inactiveColor:
-                                    neutral400, // Color inactivo más claro
+                        // Row(
+                        //   children: [
+                        //     IconButton(
+                        //       onPressed: onPause,
+                        //       icon: Icon(
+                        //         _isPlaying ? Icons.pause : Icons.play_arrow,
+                        //         color: neutral500,
+                        //       ),
+                        //     ),
+                        //     Expanded(
+                        //       child: Slider(
+                        //         activeColor:
+                        //             primaryBase, // Cambia el color del slider
+                        //         inactiveColor:
+                        //             neutral400, // Color inactivo más claro
 
-                                value: _currentSliderValue,
-                                min: 0.0,
-                                max: _controller.value.duration.inSeconds
-                                    .toDouble(),
-                                onChanged: (value) {
-                                  setState(() {
-                                    _currentSliderValue = value;
-                                    // Saltar a la posición del slider
-                                    _controller.seekTo(
-                                        Duration(seconds: value.toInt()));
-                                  });
-                                },
-                              ),
-                            ),
-                            IconButton(
-                              onPressed: onVolume,
-                              icon: Icon(
-                                mainController.withVolume
-                                    ? Icons.volume_off
-                                    : Icons.volume_up_rounded,
-                                color: neutral500,
-                              ),
-                            ),
-                          ],
-                        ),
+                        //         value: _currentSliderValue,
+                        //         min: 0.0,
+                        //         max: _controller.value.duration.inSeconds
+                        //             .toDouble(),
+                        //         onChanged: (value) {
+                        //           setState(() {
+                        //             _currentSliderValue = value;
+                        //             // Saltar a la posición del slider
+                        //             _controller.seekTo(
+                        //                 Duration(seconds: value.toInt()));
+                        //           });
+                        //         },
+                        //       ),
+                        //     ),
+                        //     IconButton(
+                        //       onPressed: onVolume,
+                        //       icon: Icon(
+                        //         mainController.withVolume
+                        //             ? Icons.volume_off
+                        //             : Icons.volume_up_rounded,
+                        //         color: neutral500,
+                        //       ),
+                        //     ),
+                        //   ],
+                        // ),
                       ],
                     ),
                   ],
                 ),
               )
             : CachedNetworkImage(
-                imageUrl: widget.videoModel.imageUrl,
+                imageUrl: widget.videoPostModel.thumbnail,
                 placeholder: (context, url) =>
                     Center(child: CircularProgressIndicator()),
                 errorWidget: (context, url, error) => Icon(Icons.error),

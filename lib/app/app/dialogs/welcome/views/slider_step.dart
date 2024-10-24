@@ -13,6 +13,7 @@ class SliderStep extends StatefulWidget {
 }
 
 class _SliderStepState extends State<SliderStep> {
+  bool imageGeneralAnimation = false;
   bool imageAnimation = false;
   bool titleAnimation = false;
   bool contentAnimation = false;
@@ -21,6 +22,8 @@ class _SliderStepState extends State<SliderStep> {
   void initState() {
     Future.delayed(Duration(milliseconds: 200), () {
       setState(() {
+        imageGeneralAnimation = true;
+
         imageAnimation = true;
       });
     });

@@ -12,6 +12,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../../routes/app_pages.dart';
 import 'views/initial_view.dart';
 
 class HomeView extends StatefulWidget {
@@ -156,116 +157,116 @@ class _HomeViewState extends State<HomeView> {
                   child: Icon(Icons.add),
                 )
               : null,
-          appBar: !isTablet
-              ? AppBar(
-                  toolbarHeight: 70,
-                  centerTitle: true,
-                  title: Padding(
-                    padding: EdgeInsets.only(top: 10),
-                    child: Row(
-                      children: [
-                        InkWell(
-                          onTap: () {
-                            setState(() {
-                              _selectedIndex = 0;
-                              pageController.animateToPage(
-                                0,
-                                duration: Duration(milliseconds: 400),
-                                curve: Curves.ease,
-                              );
-                            });
-                          },
-                          child: SvgPicture.asset(
-                            'assets/svg/fulllogo.svg',
-                            height: 30,
-                          ),
-                        ),
-                        Spacer(),
-                        Container(
-                          width: isTablet2 ? 300 : 500,
-                          child: SearchBar(
-                            onChanged: (v) {
-                              setState(() {
-                                if (_selectedIndex != 2) {
-                                  _selectedIndex = 2;
-                                  pageController.animateToPage(
-                                    2,
-                                    duration: Duration(milliseconds: 400),
-                                    curve: Curves.ease,
-                                  );
-                                }
-                              });
-                            },
-                            hintText: 'Buscar...',
-                            elevation: MaterialStateProperty.all<double>(0),
-                            trailing: [
-                              IconButton(
-                                  onPressed: () {}, icon: Icon(Icons.search))
-                            ],
-                          ),
-                        ),
-                        Spacer(),
-                        GetBuilder<MainController>(
-                          id: 'login',
-                          builder: (_) {
-                            return Row(
-                              children: [
-                                if (mainController.userStatus ==
-                                    UserStatus.loading)
-                                  Shimmer.fromColors(
-                                    baseColor: neutral500,
-                                    highlightColor: neutral200,
-                                    child: ElevatedButton(
-                                      onPressed: () {},
-                                      child: SizedBox(width: 60),
-                                    ),
-                                  ),
-                                if (mainController.userStatus ==
-                                    UserStatus.notLogged)
-                                  ElevatedButton(
-                                    onPressed: mainController.openLoginDialog,
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: Theme.of(context)
-                                          .colorScheme
-                                          .primaryContainer, // Color secundario
-                                      foregroundColor:
-                                          mainController.isThemeModeDark
-                                              ? Colors.white
-                                              : neutral900,
-                                    ),
-                                    child: Text('Ingresar'),
-                                  ),
-                                if (mainController.userStatus ==
-                                    UserStatus.full)
-                                  ElevatedButton(
-                                    onPressed: mainController.signOut,
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: Theme.of(context)
-                                          .colorScheme
-                                          .secondaryContainer, // Color secundario
-                                      foregroundColor:
-                                          mainController.isThemeModeDark
-                                              ? Colors.white
-                                              : neutral900,
-                                    ),
-                                    child: Text('Cerrar sesión'),
-                                  ),
-                              ],
-                            );
-                          },
-                        ),
-                        SizedBox(width: 8),
-                        IconButton(
-                          onPressed: () {},
-                          icon: Icon(
-                            Icons.more_vert,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                )
-              : null,
+          // appBar: !isTablet
+          //     ? AppBar(
+          //         toolbarHeight: 70,
+          //         centerTitle: true,
+          //         title: Padding(
+          //           padding: EdgeInsets.only(top: 10),
+          //           child: Row(
+          //             children: [
+          //               InkWell(
+          //                 onTap: () {
+          //                   setState(() {
+          //                     _selectedIndex = 0;
+          //                     pageController.animateToPage(
+          //                       0,
+          //                       duration: Duration(milliseconds: 400),
+          //                       curve: Curves.ease,
+          //                     );
+          //                   });
+          //                 },
+          //                 child: SvgPicture.asset(
+          //                   'assets/svg/fulllogo.svg',
+          //                   height: 30,
+          //                 ),
+          //               ),
+          //               Spacer(),
+          //               Container(
+          //                 width: isTablet2 ? 300 : 500,
+          //                 child: SearchBar(
+          //                   onChanged: (v) {
+          //                     setState(() {
+          //                       if (_selectedIndex != 2) {
+          //                         _selectedIndex = 2;
+          //                         pageController.animateToPage(
+          //                           2,
+          //                           duration: Duration(milliseconds: 400),
+          //                           curve: Curves.ease,
+          //                         );
+          //                       }
+          //                     });
+          //                   },
+          //                   hintText: 'Buscar...',
+          //                   elevation: MaterialStateProperty.all<double>(0),
+          //                   trailing: [
+          //                     IconButton(
+          //                         onPressed: () {}, icon: Icon(Icons.search))
+          //                   ],
+          //                 ),
+          //               ),
+          //               Spacer(),
+          //               GetBuilder<MainController>(
+          //                 id: 'login',
+          //                 builder: (_) {
+          //                   return Row(
+          //                     children: [
+          //                       if (mainController.userStatus ==
+          //                           UserStatus.loading)
+          //                         Shimmer.fromColors(
+          //                           baseColor: neutral500,
+          //                           highlightColor: neutral200,
+          //                           child: ElevatedButton(
+          //                             onPressed: () {},
+          //                             child: SizedBox(width: 60),
+          //                           ),
+          //                         ),
+          //                       if (mainController.userStatus ==
+          //                           UserStatus.notLogged)
+          //                         ElevatedButton(
+          //                           onPressed: mainController.openLoginDialog,
+          //                           style: ElevatedButton.styleFrom(
+          //                             backgroundColor: Theme.of(context)
+          //                                 .colorScheme
+          //                                 .primaryContainer, // Color secundario
+          //                             foregroundColor:
+          //                                 mainController.isThemeModeDark
+          //                                     ? Colors.white
+          //                                     : neutral900,
+          //                           ),
+          //                           child: Text('Ingresar'),
+          //                         ),
+          //                       if (mainController.userStatus ==
+          //                           UserStatus.full)
+          //                         ElevatedButton(
+          //                           onPressed: mainController.signOut,
+          //                           style: ElevatedButton.styleFrom(
+          //                             backgroundColor: Theme.of(context)
+          //                                 .colorScheme
+          //                                 .secondaryContainer, // Color secundario
+          //                             foregroundColor:
+          //                                 mainController.isThemeModeDark
+          //                                     ? Colors.white
+          //                                     : neutral900,
+          //                           ),
+          //                           child: Text('Cerrar sesión'),
+          //                         ),
+          //                     ],
+          //                   );
+          //                 },
+          //               ),
+          //               SizedBox(width: 8),
+          //               IconButton(
+          //                 onPressed: () {},
+          //                 icon: Icon(
+          //                   Icons.more_vert,
+          //                 ),
+          //               ),
+          //             ],
+          //           ),
+          //         ),
+          //       )
+          //     : null,
           body: Row(
             children: [
               if (!isMobile)
@@ -417,6 +418,49 @@ class _HomeViewState extends State<HomeView> {
                         CatalogView(),
                         MoreView(),
                       ],
+                    ),
+                    SafeArea(
+                      child: SizedBox(
+                          height: kToolbarHeight,
+                          child: AppBar(
+                            backgroundColor: Colors.transparent,
+                            actions: [
+                              Stack(
+                                children: [
+                                  IconButton(
+                                    icon: Icon(
+                                      Icons.shopping_cart,
+                                      color: Colors.white,
+                                    ),
+                                    onPressed: () {
+                                      Get.toNamed(Routes.CART);
+                                    },
+                                  ),
+                                  Obx(
+                                    () => Positioned(
+                                      right: 6,
+                                      top: 6,
+                                      child: CircleAvatar(
+                                        radius: 8,
+                                        backgroundColor: Colors.red,
+                                        child: Text(
+                                          (controller.userProductController
+                                                  .listProductCart.length)
+                                              .toString(),
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 8,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ],
+                          )),
                     ),
                     // if (isMobile)
                     //   Column(

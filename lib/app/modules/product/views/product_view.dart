@@ -65,7 +65,11 @@ class ProductView extends GetView<ProductController> {
                 SizedBox(width: 16),
                 Expanded(
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      controller.userProductController
+                          .addToCart(controller.productLite);
+                      Get.back();
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: controller.mainController.isThemeModeDark
                           ? primaryDark
@@ -137,21 +141,21 @@ class ProductView extends GetView<ProductController> {
                             : null, // Solo mostrar título cuando esté colapsado
                         background: Stack(
                           children: [
-                            Container(
-                              width: double.infinity,
-                              height: double.infinity,
-                              decoration: const BoxDecoration(
-                                image: DecorationImage(
-                                  image:
-                                      AssetImage('assets/images/product.png'),
-                                  fit: BoxFit.cover,
+                            Hero(
+                              tag:
+                                  'productHeroTag-${controller.productLite.id}',
+                              child: Container(
+                                width: double.infinity,
+                                height: double.infinity,
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    image: NetworkImage(
+                                        controller.productLite.thumbnail ?? ''),
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
                             ),
-                            // Image.asset(
-                            //   'assets/images/product.png',
-                            //   fit: BoxFit.cover,
-                            // ),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.end,
                               mainAxisAlignment: MainAxisAlignment.end,

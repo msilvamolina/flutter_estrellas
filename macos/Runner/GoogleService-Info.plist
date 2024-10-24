@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>API_KEY</key>
-	<string>AIzaSyBPfky7vz2t_fl3sOVTJc2OM6hgWBh7J9g</string>
+	<string>AIzaSyDHHht_6tXufxbq0C_Puji6XstH3Y4NEv4</string>
 	<key>GCM_SENDER_ID</key>
-	<string>783982879638</string>
+	<string>802823199567</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>app.estrellas</string>
+	<string>app.estrellas.dev</string>
 	<key>PROJECT_ID</key>
-	<string>estrellas-stg</string>
+	<string>estrellas-dev-ecd61</string>
 	<key>STORAGE_BUCKET</key>
-	<string>estrellas-stg.appspot.com</string>
+	<string>estrellas-dev-ecd61.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:783982879638:ios:e458a96dad28e2c413b3b7</string>
+	<string>1:802823199567:ios:dc8680d7821d8a785e033a</string>
 </dict>
 </plist>

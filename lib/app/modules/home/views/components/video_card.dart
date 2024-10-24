@@ -4,14 +4,16 @@ import 'package:flutter_estrellas/app/modules/home/views/components/video.dart';
 import 'package:flutter_estrellas/app/modules/home/views/components/video_label.dart';
 import 'package:flutter_estrellas/app/themes/styles/typography.dart';
 
+import '../../../../data/models/videos/video_post_model.dart';
+
 class VideoCard extends StatelessWidget {
   const VideoCard({
-    required this.videoModel,
+    required this.videoPostModel,
     required this.onCompleted,
     super.key,
   });
 
-  final VideoModel videoModel;
+  final VideoPostModel videoPostModel;
   final Function() onCompleted;
 
   @override
@@ -20,7 +22,7 @@ class VideoCard extends StatelessWidget {
     bool isMobile = screenWidth < 480;
 
     return VideoApp(
-      videoModel: videoModel,
+      videoPostModel: videoPostModel,
       onCompleted: onCompleted,
     );
   }

@@ -19,22 +19,23 @@ const Map<String, dynamic> firebaseConfigProdWeb = <String, dynamic>{
 };
 
 const Map<String, dynamic> firebaseConfigDevAndroid = <String, dynamic>{
-  'apiKey': 'AIzaSyD997XcnKb2uv5T5OhigAa6MfuehlMHKu4', // Clave API actualizada
-  'appId': '1:783982879638:android:1b15ab91ff6ce5ad13b3b7', // App ID
-  'messagingSenderId': '783982879638', // Project number
-  'projectId': 'estrellas-stg', // Project ID
-  'databaseURL':
-      '', // No se proporcionó una URL de base de datos en el archivo JSON
-  'measurementId': '', // Vacío, ya que no hay un measurementId en el archivo
-  'trackingId': '', // Vacío, ya que no hay un trackingId en el archivo
-};
-
-const Map<String, dynamic> firebaseConfigProdAndroid = <String, dynamic>{
-  'apiKey': 'AIzaSyAKPnLSfaatepQ0sTfOzfiw3q4yNIhEyps',
-  'appId': '1:884162383516:android:956f9eb666b0ffd1f86759',
-  'messagingSenderId': '884162383516',
-  'projectId': 'compa-prod-4cb39',
+  'apiKey': 'AIzaSyBAZAsBDxgIDbxa57os5XVi_q8qIDFpkXY',
+  'appId': '1:802823199567:android:b0e84ca7b5cafb4f5e033a',
+  'messagingSenderId': '802823199567',
+  'projectId': 'estrellas-dev-ecd61',
   'databaseURL': '',
   'measurementId': '',
   'trackingId': '',
+  'storageBucket': 'estrellas-dev-ecd61.appspot.com',
+};
+
+const Map<String, dynamic> firebaseConfigProdAndroid = <String, dynamic>{
+  'apiKey': 'AIzaSyCTuK3quSjQbtYsj0HKlQ94h17MAeJ6c4g',
+  'appId': '1:345787762684:android:8affe83949138e37711479',
+  'messagingSenderId': '345787762684',
+  'projectId': 'estrellas-176d3',
+  'databaseURL': '',
+  'measurementId': '',
+  'trackingId': '',
+  'storageBucket': 'estrellas-176d3.appspot.com',
 };
