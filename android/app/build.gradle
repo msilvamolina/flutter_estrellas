@@ -46,7 +46,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "app.estrellas"
+        applicationId = "app.estrellas.dev"
         minSdkVersion 23
         targetSdk = flutter.targetSdkVersion
         versionCode = flutterVersionCode.toInteger()
