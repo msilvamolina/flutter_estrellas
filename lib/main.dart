@@ -45,6 +45,7 @@ Future<void> initFirebase() async {
       databaseURL: firebaseConfig['databaseURL'],
       measurementId: firebaseConfig['measurementId'],
       trackingId: firebaseConfig['trackingId'],
+      storageBucket: firebaseConfig['storageBucket'],
     );
   } else if (Platform.isAndroid) {
     Map<String, dynamic>? firebaseConfig = firebaseConfigDevAndroid;
@@ -57,6 +58,7 @@ Future<void> initFirebase() async {
       databaseURL: firebaseConfig['databaseURL'],
       measurementId: firebaseConfig['measurementId'],
       trackingId: firebaseConfig['trackingId'],
+      storageBucket: firebaseConfig['storageBucket'],
     );
   }
   await Firebase.initializeApp(options: firebaseOptions);
