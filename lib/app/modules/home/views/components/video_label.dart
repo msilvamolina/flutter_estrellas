@@ -24,17 +24,17 @@ class VideoLabel extends StatelessWidget {
         providerName = product?.provider['name'];
       }
     }
-    // String providerName = (product?.provider['name']) ?? 'Estrellas';
+
     double screenWidth = MediaQuery.of(context).size.width;
     bool isMobile = screenWidth < 480;
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          begin: Alignment.bottomCenter, // Comienza desde abajo
-          end: Alignment.topCenter, // Termina arriba
+          begin: Alignment.bottomCenter,
+          end: Alignment.topCenter,
           colors: [
             Colors.black,
-            Colors.transparent, // Transparente en la parte superior
+            Colors.transparent,
           ],
         ),
       ),
@@ -85,16 +85,6 @@ class VideoLabel extends StatelessWidget {
                               style: TypographyStyle.bodyBlackSmall
                                   .copyWith(color: white),
                             ),
-                            // Text(
-                            //   ' • ',
-                            //   style: TypographyStyle.bodyBlackSmall
-                            //       .copyWith(color: white),
-                            // ),
-                            // Text(
-                            //   '619 puntos',
-                            //   style: TypographyStyle.bodyRegularSmall
-                            //       .copyWith(color: white),
-                            // ),
                           ],
                         ),
                       ],
@@ -109,25 +99,20 @@ class VideoLabel extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(bottom: 8),
                     child: ClipRRect(
-                      borderRadius:
-                          BorderRadius.circular(10), // Bordes redondeados
+                      borderRadius: BorderRadius.circular(10),
                       child: BackdropFilter(
-                        filter: ImageFilter.blur(
-                            sigmaX: 5.0, sigmaY: 5.0), // Aplicar el desenfoque
+                        filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
                         child: Container(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 8, vertical: 4), // Padding interno
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                           decoration: BoxDecoration(
                             border: Border.all(
-                              color: neutral500, // Borde blanco
-                              width: 1, // Grosor del borde
+                              color: neutral500,
+                              width: 1,
                             ),
-                            color: neutral600
-                                .withOpacity(0.6), // Fondo con transparencia
-                            borderRadius: BorderRadius.circular(
-                                20.0), // Bordes redondeados
+                            color: neutral600.withOpacity(0.6),
+                            borderRadius: BorderRadius.circular(20.0),
                           ),
-
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
@@ -135,11 +120,9 @@ class VideoLabel extends StatelessWidget {
                                 'assets/svg/medal.svg',
                                 width: 10,
                               ),
-                              SizedBox(
-                                  width:
-                                      4), // Espacio entre el icono y el texto
+                              SizedBox(width: 4),
                               Text(
-                                'Puntos: ${product.points}', // Texto que muestra los puntos
+                                'Puntos: ${product.points}',
                                 style: TypographyStyle.bodyRegularSmall
                                     .copyWith(color: white),
                               ),
@@ -153,25 +136,20 @@ class VideoLabel extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(bottom: 8),
                     child: ClipRRect(
-                      borderRadius:
-                          BorderRadius.circular(10), // Bordes redondeados
+                      borderRadius: BorderRadius.circular(10),
                       child: BackdropFilter(
-                        filter: ImageFilter.blur(
-                            sigmaX: 5.0, sigmaY: 5.0), // Aplicar el desenfoque
+                        filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
                         child: Container(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 8, vertical: 4), // Padding interno
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                           decoration: BoxDecoration(
                             border: Border.all(
-                              color: neutral500, // Borde blanco
-                              width: 1, // Grosor del borde
+                              color: neutral500,
+                              width: 1,
                             ),
-                            color: neutral600
-                                .withOpacity(0.6), // Fondo con transparencia
-                            borderRadius: BorderRadius.circular(
-                                20.0), // Bordes redondeados
+                            color: neutral600.withOpacity(0.6),
+                            borderRadius: BorderRadius.circular(20.0),
                           ),
-
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
@@ -179,11 +157,9 @@ class VideoLabel extends StatelessWidget {
                                 'assets/svg/coins.svg',
                                 width: 10,
                               ),
-                              SizedBox(
-                                  width:
-                                      4), // Espacio entre el icono y el texto
+                              SizedBox(width: 4),
                               Text(
-                                'Precio: ${product.suggestedPrice}', // Texto que muestra los puntos
+                                'Precio: ${product.suggestedPrice}',
                                 style: TypographyStyle.bodyRegularSmall
                                     .copyWith(color: white),
                               ),
