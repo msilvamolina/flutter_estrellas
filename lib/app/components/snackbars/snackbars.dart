@@ -60,9 +60,9 @@ class Snackbars {
 
     Get.rawSnackbar(
       messageText: SizedBox(
-        height: 100, // Ajusta la altura según sea necesario
+        height: 90, // Ajusta la altura según sea necesario
         child: Padding(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(8),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
@@ -71,7 +71,7 @@ class Snackbars {
               Padding(
                 padding: const EdgeInsets.only(left: 4),
                 child: ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(12),
                   child: Image.network(
                     product.thumbnail ?? '',
                     width: 64,
@@ -105,9 +105,12 @@ class Snackbars {
                   ],
                 ),
               ),
-              SvgPicture.asset(
-                'assets/svg/catalog.svg',
-                width: 20,
+              Padding(
+                padding: const EdgeInsets.only(right: 16),
+                child: SvgPicture.asset(
+                  'assets/svg/catalog.svg',
+                  width: 20,
+                ),
               ),
             ],
           ),
@@ -116,7 +119,7 @@ class Snackbars {
       maxWidth: 600,
       margin: EdgeInsets.all(16),
       backgroundColor: background,
-      borderRadius: 12,
+      borderRadius: 16,
       borderColor: Colors.black,
       borderWidth: 1.2,
       padding: EdgeInsets.zero,
