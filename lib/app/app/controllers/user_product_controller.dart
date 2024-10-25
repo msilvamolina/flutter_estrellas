@@ -5,6 +5,7 @@ import 'package:flutter_estrellas/app/app/bottom_sheets/modal_bottom_sheet/examp
 import 'package:flutter_estrellas/app/components/bottom_sheets/bottomsheets.dart';
 import 'package:flutter_estrellas/app/components/snackbars/snackbars.dart';
 import 'package:flutter_estrellas/app/data/models/product_firebase_lite/product_firebase_lite.dart';
+import 'package:flutter_estrellas/app/data/models/user_catalog/user_catalog_model.dart';
 import 'package:flutter_estrellas/app/data/providers/repositories/user_products/user_products_repository.dart';
 import 'package:get/get.dart';
 import 'package:reactive_forms/reactive_forms.dart';
@@ -31,6 +32,9 @@ class UserProductController extends GetxController {
   List<UserProductModel> get listProductFavorite =>
       _listProductFavorites.toList();
 
+  final RxList<UserCatalogModel> _listUserCatalogs = <UserCatalogModel>[].obs;
+  List<UserCatalogModel> get listUserCatalogs => _listUserCatalogs.toList();
+
   UserProductModel? _uniqueProduct;
   UserProductModel? get uniqueProduct => _uniqueProduct;
   bool _addCatalogIsLoading = false;
@@ -53,6 +57,7 @@ class UserProductController extends GetxController {
   void onReady() {
     _listProductCart.bindStream(userProductRepository.getUserCart());
     _listProductFavorites.bindStream(userProductRepository.getUserFavorites());
+    _listUserCatalogs.bindStream(userProductRepository.getUserCatalogs());
     super.onReady();
   }
 
@@ -148,6 +153,7 @@ class UserProductController extends GetxController {
       ProductFirebaseLiteModel? productLite) async {
     _productCatalogBottomSheet = productLite;
 
+    print('_listUserCatalogs $_listUserCatalogs');
     Bottomsheets.staticBottomSheet(BottomSheetTypes.newCatalog);
     // Bottomsheets.draggableBottomSheet(BottomSheetTypes.catalog);
   }
