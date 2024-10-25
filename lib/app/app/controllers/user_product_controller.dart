@@ -7,6 +7,7 @@ import 'package:flutter_estrellas/app/data/models/product_firebase_lite/product_
 import 'package:flutter_estrellas/app/data/providers/repositories/user_products/user_products_repository.dart';
 import 'package:get/get.dart';
 
+import '../../components/bottom_sheets/types.dart';
 import '../../data/models/user_product/user_product_model.dart';
 import '../../routes/app_pages.dart';
 import '../../components/bottom_sheets/dragabble_bottom_sheet.dart';
@@ -126,6 +127,8 @@ class UserProductController extends GetxController {
   Future<void> showBottomSeetCatalog(
       ProductFirebaseLiteModel? productLite) async {
     _productCatalogBottomSheet = productLite;
-    Bottomsheets.draggableBottomSheet(BottomSheetTypes.catalog);
+
+    Bottomsheets.staticBottomSheet(BottomSheetTypes.newCatalog);
+    // Bottomsheets.draggableBottomSheet(BottomSheetTypes.catalog);
   }
 }

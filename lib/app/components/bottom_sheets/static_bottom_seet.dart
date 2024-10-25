@@ -3,10 +3,11 @@ import 'package:flutter_estrellas/app/app/controllers/main_controller.dart';
 import 'package:get/get.dart';
 
 import '../../app/bottom_sheets/catalogs_bottomsheet.dart';
+import '../../app/bottom_sheets/new_catalog_bottomsheet.dart';
 import 'types.dart';
 
-class DraggableBottomSheet extends StatelessWidget {
-  const DraggableBottomSheet({required this.type, super.key});
+class StaticBottomSeet extends StatelessWidget {
+  const StaticBottomSeet({required this.type, super.key});
   final BottomSheetTypes type;
 
   @override
@@ -38,8 +39,8 @@ class DraggableBottomSheet extends StatelessWidget {
   Widget getBottomSheet(
       BottomSheetTypes type, ScrollController scrollController) {
     switch (type) {
-      case BottomSheetTypes.catalog:
-        return CatalogsBottomsheet(scrollController: scrollController);
+      case BottomSheetTypes.newCatalog:
+        return NewCatalogBottomsheet(scrollController: scrollController);
       default:
         return SizedBox.shrink();
     }

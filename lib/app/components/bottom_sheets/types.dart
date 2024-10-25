@@ -1,0 +1,4 @@
+enum BottomSheetTypes {
+  newCatalog,
+  catalog,
+}
