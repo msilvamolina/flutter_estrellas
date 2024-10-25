@@ -7,11 +7,19 @@ import 'package:flutter_estrellas/app/components/snackbars/snackbars.dart';
 import 'package:flutter_estrellas/app/data/models/product_firebase_lite/product_firebase_lite.dart';
 import 'package:flutter_estrellas/app/data/providers/repositories/user_products/user_products_repository.dart';
 import 'package:get/get.dart';
+import 'package:reactive_forms/reactive_forms.dart';
 
 import '../../components/bottom_sheets/types.dart';
 import '../../data/models/user_product/user_product_model.dart';
 import '../../routes/app_pages.dart';
 import '../../components/bottom_sheets/dragabble_bottom_sheet.dart';
+
+enum Fields {
+  addCatalog('addCatalog');
+
+  const Fields(this.name);
+  final String name;
+}
 
 class UserProductController extends GetxController {
   UserProductsRepository userProductRepository = UserProductsRepository();
@@ -29,6 +37,15 @@ class UserProductController extends GetxController {
   ProductFirebaseLiteModel? _productCatalogBottomSheet;
   ProductFirebaseLiteModel? get productCatalogBottomSheet =>
       _productCatalogBottomSheet;
+
+  FormGroup addCatalogForm() => fb.group(<String, Object>{
+        Fields.addCatalog.name: FormControl<String>(
+          validators: [
+            Validators.required,
+            Validators.minLength(6),
+          ],
+        ),
+      });
 
   @override
   void onReady() {
