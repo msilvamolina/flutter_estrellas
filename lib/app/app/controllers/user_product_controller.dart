@@ -159,7 +159,7 @@ class UserProductController extends GetxController {
     update(['new_catalog_bottom_sheet']);
 
     Future<void>.delayed(Duration(seconds: 1), () {
-      Snackbars.addToCatalog('pepis');
+      Snackbars.addToCatalog(_productCatalogBottomSheet!, name);
 
       _addCatalogIsLoading = false;
       update(['new_catalog_bottom_sheet']);
