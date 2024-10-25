@@ -11,11 +11,18 @@ class StaticBottomSeet extends StatelessWidget {
   final BottomSheetTypes type;
   @override
   Widget build(BuildContext context) {
-    return Material(
+    return ClipRRect(
+      borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(16),
+        topRight: Radius.circular(16),
+      ),
+      child: Material(
         child: SafeArea(
-      top: false,
-      child: getBottomSheet(type),
-    ));
+          top: false,
+          child: getBottomSheet(type),
+        ),
+      ),
+    );
   }
 
   Widget getBottomSheet(BottomSheetTypes type) {

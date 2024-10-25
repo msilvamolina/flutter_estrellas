@@ -27,12 +27,14 @@ class CustomInputDecoration {
         padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
         decoration: BoxDecoration(
           color: labelBackgroundColor,
-          borderRadius: BorderRadius.circular(4),
+          borderRadius: BorderRadius.circular(8),
         ),
         child: Text(
           text ?? '',
-          style: TypographyStyle.bodyRegularLarge
-              .copyWith(color: labelForegroundColor, fontSize: 18),
+          style: TypographyStyle.bodyRegularLarge.copyWith(
+              color: labelForegroundColor,
+              fontSize: 20,
+              fontWeight: FontWeight.w400),
         ),
       ),
       floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -45,15 +47,15 @@ class CustomInputDecoration {
           : null,
       enabledBorder: OutlineInputBorder(
         borderSide: BorderSide(color: border, width: 2.0),
-        borderRadius: BorderRadius.circular(8.0),
+        borderRadius: BorderRadius.circular(12),
       ),
       focusedBorder: OutlineInputBorder(
         borderSide: BorderSide(color: border, width: 2.0),
-        borderRadius: BorderRadius.circular(8.0),
+        borderRadius: BorderRadius.circular(12),
       ),
       border: OutlineInputBorder(
         borderSide: BorderSide(color: border, width: 2.0),
-        borderRadius: BorderRadius.circular(8.0),
+        borderRadius: BorderRadius.circular(12),
       ),
     );
   }

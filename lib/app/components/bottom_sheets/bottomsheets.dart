@@ -23,6 +23,12 @@ class Bottomsheets {
 
   static void staticBottomSheet(BottomSheetTypes type) {
     showMaterialModalBottomSheet(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(16),
+          topRight: Radius.circular(16),
+        ),
+      ),
       expand: false,
       context: Get.context!,
       backgroundColor: Colors.transparent,
