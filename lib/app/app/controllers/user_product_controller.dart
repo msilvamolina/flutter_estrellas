@@ -157,6 +157,12 @@ class UserProductController extends GetxController {
 
     _addCatalogIsLoading = true;
     update(['new_catalog_bottom_sheet']);
-    print('addCatalogName $name');
+
+    Future<void>.delayed(Duration(seconds: 1), () {
+      Snackbars.addToCatalog('pepis');
+
+      _addCatalogIsLoading = false;
+      update(['new_catalog_bottom_sheet']);
+    });
   }
 }

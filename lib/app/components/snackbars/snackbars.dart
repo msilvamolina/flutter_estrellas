@@ -48,4 +48,25 @@ class Snackbars {
       ),
     );
   }
+
+  static void addToCatalog(String message) {
+    Get.snackbar(
+      'holis!',
+      message,
+      maxWidth: 600,
+      margin: const EdgeInsets.all(16),
+      colorText: white,
+      backgroundColor: Colors.green.withOpacity(0.5),
+      icon: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 2),
+        child: SvgPicture.asset(
+          'assets/svg/logo.svg',
+          colorFilter: ColorFilter.mode(
+            white,
+            BlendMode.srcIn,
+          ),
+        ),
+      ),
+    );
+  }
 }
