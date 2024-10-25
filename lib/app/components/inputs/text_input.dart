@@ -13,6 +13,7 @@ class CustomTextInput extends StatelessWidget {
     required this.label,
     this.keyboardType = TextInputType.text,
     this.autofocus = false,
+    this.validationMessages,
     super.key,
   });
 
@@ -20,6 +21,7 @@ class CustomTextInput extends StatelessWidget {
   final bool autofocus;
   final String label;
   final TextInputType keyboardType;
+  final Map<String, String Function(Object)>? validationMessages;
   @override
   Widget build(BuildContext context) {
     MainController mainController = Get.find<MainController>();
@@ -34,6 +36,14 @@ class CustomTextInput extends StatelessWidget {
       decoration: CustomInputDecoration.inputDecoration(
         text: label,
       ),
+      validationMessages: validationMessages ??
+          {
+            ValidationMessage.required: (error) => 'Este campo es obligatorio.',
+            ValidationMessage.minLength: (error) =>
+                'Debe tener al menos ${(error as Map)['requiredLength']} caracteres.',
+            ValidationMessage.email: (error) =>
+                'Ingrese un correo electrónico válido.',
+          },
     );
   }
 }
