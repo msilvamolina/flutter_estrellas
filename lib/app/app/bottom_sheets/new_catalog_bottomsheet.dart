@@ -32,6 +32,7 @@ class NewCatalogBottomsheet extends StatelessWidget {
                   ContentBottomsheet(
                     children: [
                       CustomTextInput(
+                        autofocus: true,
                         formControlName: Fields.addCatalogName.name,
                         keyboardType: TextInputType.text,
                         label: "Nombre de nuevo catálogo",
@@ -47,6 +48,7 @@ class NewCatalogBottomsheet extends StatelessWidget {
                           label: 'Guardar',
                         ),
                       ),
+                      SizedBox(height: 16),
                     ],
                   ),
                 ],

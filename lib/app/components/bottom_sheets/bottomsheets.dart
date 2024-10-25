@@ -22,17 +22,22 @@ class Bottomsheets {
   }
 
   static void staticBottomSheet(BottomSheetTypes type) {
-    showMaterialModalBottomSheet(
+    showModalBottomSheet(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(16),
           topRight: Radius.circular(16),
         ),
       ),
-      expand: false,
+      isScrollControlled: true,
       context: Get.context!,
       backgroundColor: Colors.transparent,
-      builder: (context) => StaticBottomSeet(type: type),
+      builder: (context) => Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+        ),
+        child: StaticBottomSeet(type: type),
+      ),
     );
   }
 }

@@ -12,10 +12,12 @@ class CustomTextInput extends StatelessWidget {
     required this.formControlName,
     required this.label,
     this.keyboardType = TextInputType.text,
+    this.autofocus = false,
     super.key,
   });
 
   final String formControlName;
+  final bool autofocus;
   final String label;
   final TextInputType keyboardType;
   @override
@@ -25,6 +27,7 @@ class CustomTextInput extends StatelessWidget {
         !mainController.isThemeModeDark ? secondaryDark : secondaryLight;
 
     return ReactiveTextField(
+      autofocus: autofocus,
       formControlName: formControlName,
       keyboardType: keyboardType,
       cursorColor: labelBackgroundColor,
