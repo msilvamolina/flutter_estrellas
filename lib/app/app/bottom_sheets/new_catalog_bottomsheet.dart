@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
 import '../../components/buttons/buttons.dart';
+import '../../components/inputs/text_input.dart';
 import '../../themes/input_decoration.dart';
 import '../../themes/styles/colors.dart';
 import '../../themes/styles/typography.dart';
@@ -39,14 +40,10 @@ class NewCatalogBottomsheet extends StatelessWidget {
                         style: TypographyStyle.bodyBlackLarge,
                       ),
                       SizedBox(height: 20),
-                      ReactiveTextField(
-                        cursorColor: secondaryBase,
+                      CustomTextInput(
                         formControlName: Fields.addCatalogName.name,
                         keyboardType: TextInputType.text,
-                        decoration: CustomInputDecoration.inputDecoration(
-                          isThemeModeDark: mainController.isThemeModeDark,
-                          text: "Nombre de nuevo catálogo",
-                        ),
+                        label: "Nombre de nuevo catálogo",
                       ),
                       SizedBox(height: 16),
                       ReactiveFormConsumer(
