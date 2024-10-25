@@ -7,9 +7,8 @@ import '../../themes/styles/colors.dart';
 import '../../themes/styles/typography.dart';
 
 class NewCatalogBottomsheet extends StatelessWidget {
-  const NewCatalogBottomsheet({required this.scrollController, super.key});
+  const NewCatalogBottomsheet({super.key});
 
-  final ScrollController scrollController;
   @override
   Widget build(BuildContext context) {
     return GetBuilder<UserProductController>(
@@ -17,22 +16,16 @@ class NewCatalogBottomsheet extends StatelessWidget {
       builder: (controller) {
         ProductFirebaseLiteModel product =
             controller.productCatalogBottomSheet!;
-        return ListView(
-          controller: scrollController,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text('Crear catálogo'),
-                  Text('Input'),
-                  Text('Guardar'),
-                ],
-              ),
+        return Material(
+          child: SafeArea(
+            top: false,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Text('holis'),
+              ],
             ),
-          ],
+          ),
         );
       },
     );

@@ -14,21 +14,16 @@ class StaticBottomSeet extends StatelessWidget {
     return Material(
         child: SafeArea(
       top: false,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          ListTile(
-            title: Text('Edit'),
-            leading: Icon(Icons.edit),
-            onTap: () => Navigator.of(context).pop(),
-          ),
-          ListTile(
-            title: Text('Copy'),
-            leading: Icon(Icons.content_copy),
-            onTap: () => Navigator.of(context).pop(),
-          ),
-        ],
-      ),
+      child: getBottomSheet(type),
     ));
+  }
+
+  Widget getBottomSheet(BottomSheetTypes type) {
+    switch (type) {
+      case BottomSheetTypes.newCatalog:
+        return NewCatalogBottomsheet();
+      default:
+        return SizedBox.shrink();
+    }
   }
 }
