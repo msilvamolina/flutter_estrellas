@@ -23,23 +23,34 @@ class NewCatalogBottomsheet extends StatelessWidget {
         return Material(
           child: SafeArea(
             top: false,
-            child: ReactiveFormBuilder(
-              form: controller.addCatalogForm,
-              builder: (context, form, child) {
-                return Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    ReactiveTextField(
-                      formControlName: Fields.addCatalog.name,
-                      keyboardType: TextInputType.emailAddress,
-                      decoration: CustomInputDecoration.inputDecoration(
-                        isThemeModeDark: mainController.isThemeModeDark,
-                        text: "Nombre de nuevo catalogo",
+            child: Padding(
+              padding: const EdgeInsets.all(26),
+              child: ReactiveFormBuilder(
+                form: controller.addCatalogForm,
+                builder: (context, form, child) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Text(
+                        'Crear catálogo',
+                        style: TypographyStyle.bodyBlackLarge,
                       ),
-                    ),
-                  ],
-                );
-              },
+                      SizedBox(height: 20),
+                      ReactiveTextField(
+                        cursorColor: secondaryBase,
+                        formControlName: Fields.addCatalog.name,
+                        keyboardType: TextInputType.emailAddress,
+                        decoration: CustomInputDecoration.inputDecoration(
+                          isThemeModeDark: mainController.isThemeModeDark,
+                          text: "Nombre de nuevo catálogo",
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              ),
             ),
           ),
         );
