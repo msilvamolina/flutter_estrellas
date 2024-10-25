@@ -9,40 +9,26 @@ import 'types.dart';
 class StaticBottomSeet extends StatelessWidget {
   const StaticBottomSeet({required this.type, super.key});
   final BottomSheetTypes type;
-
   @override
   Widget build(BuildContext context) {
-    MainController mainController = Get.find<MainController>();
-    return GestureDetector(
-      behavior: HitTestBehavior.opaque,
-      onTap: () {
-        Navigator.of(context).pop();
-      },
-      child: DraggableScrollableSheet(
-        initialChildSize: 0.5,
-        minChildSize: 0.3,
-        maxChildSize: 1.0,
-        builder: (context, scrollController) {
-          return Material(
-            color: Colors.transparent,
-            child: Container(
-              color:
-                  mainController.isThemeModeDark ? Colors.black : Colors.white,
-              child: getBottomSheet(type, scrollController),
-            ),
-          );
-        },
+    return Material(
+        child: SafeArea(
+      top: false,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          ListTile(
+            title: Text('Edit'),
+            leading: Icon(Icons.edit),
+            onTap: () => Navigator.of(context).pop(),
+          ),
+          ListTile(
+            title: Text('Copy'),
+            leading: Icon(Icons.content_copy),
+            onTap: () => Navigator.of(context).pop(),
+          ),
+        ],
       ),
-    );
-  }
-
-  Widget getBottomSheet(
-      BottomSheetTypes type, ScrollController scrollController) {
-    switch (type) {
-      case BottomSheetTypes.newCatalog:
-        return NewCatalogBottomsheet(scrollController: scrollController);
-      default:
-        return SizedBox.shrink();
-    }
+    ));
   }
 }

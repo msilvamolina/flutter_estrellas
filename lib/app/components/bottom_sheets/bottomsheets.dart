@@ -22,12 +22,9 @@ class Bottomsheets {
   }
 
   static void staticBottomSheet(BottomSheetTypes type) {
-    showCupertinoModalBottomSheet(
+    showMaterialModalBottomSheet(
+      expand: false,
       context: Get.context!,
-      isDismissible: true,
-      enableDrag: false,
-      shadow: BoxShadow(color: Colors.transparent),
-      barrierColor: Colors.black.withOpacity(0.5),
       backgroundColor: Colors.transparent,
       builder: (context) => StaticBottomSeet(type: type),
     );

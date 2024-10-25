@@ -129,12 +129,7 @@ class UserProductController extends GetxController {
       ProductFirebaseLiteModel? productLite) async {
     _productCatalogBottomSheet = productLite;
 
-    Navigator.push(
-      Get.context!,
-      MaterialPageRoute(builder: (context) => ExampleBottomsheet()),
-    );
-
-    // Bottomsheets.staticBottomSheet(BottomSheetTypes.newCatalog);
+    Bottomsheets.staticBottomSheet(BottomSheetTypes.newCatalog);
     // Bottomsheets.draggableBottomSheet(BottomSheetTypes.catalog);
   }
 }
