@@ -3,6 +3,7 @@ import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_estrellas/app/data/models/product_firebase_lite/product_firebase_lite.dart';
 import 'package:get/get.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../../models/user_product/user_product_model.dart';
 
@@ -107,6 +108,38 @@ class UserProductsRepository {
           .collection('favorites')
           .doc(productId)
           .delete();
+      return right(unit);
+    } on FirebaseException catch (e) {
+      return left(e.code);
+    }
+  }
+
+  Future<Either<String, Unit>> createCatalog({
+    required ProductFirebaseLiteModel productLite,
+    required String catalogName,
+  }) async {
+    Map<String, String> userData = getUidAndEmail();
+    String uid = userData['uid'] ?? '';
+    String email = userData['email'] ?? '';
+
+    String id = Uuid().v4();
+    try {
+      await _firebaseFirestore
+          .collection('users')
+          .doc(uid)
+          .collection('catalogs')
+          .doc(id)
+          .set({
+        'id': id,
+        'name': catalogName,
+        'products': [
+          productLite.toJson(),
+        ],
+        'createdBy': email,
+        'createdByUserId': uid,
+        'createdAt': DateTime.now(),
+      });
+
       return right(unit);
     } on FirebaseException catch (e) {
       return left(e.code);

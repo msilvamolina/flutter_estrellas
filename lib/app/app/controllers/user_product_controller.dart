@@ -158,11 +158,18 @@ class UserProductController extends GetxController {
     _addCatalogIsLoading = true;
     update(['new_catalog_bottom_sheet']);
 
-    Future<void>.delayed(Duration(seconds: 1), () {
-      Snackbars.addToCatalog(_productCatalogBottomSheet!, name);
+    Either<String, Unit> response = await userProductRepository.createCatalog(
+        productLite: _productCatalogBottomSheet!, catalogName: name);
 
-      _addCatalogIsLoading = false;
-      update(['new_catalog_bottom_sheet']);
-    });
+    _addCatalogIsLoading = false;
+    Get.back();
+    response.fold(
+      (failure) {
+        Snackbars.error(failure);
+      },
+      (_) {
+        Snackbars.addToCatalog(_productCatalogBottomSheet!, name);
+      },
+    );
   }
 }
