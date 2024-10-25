@@ -58,46 +58,74 @@ class Snackbars {
     Color background = mainController.isThemeModeDark ? neutral950 : white;
     Color colorText = !mainController.isThemeModeDark ? neutral950 : white;
 
-    Get.snackbar(
-      product.name ?? '',
-      'Guardado en $catalogName',
-      titleText: Text(
-        product.name ?? '',
-        style: TypographyStyle.bodyBlackLarge,
-      ),
-      messageText: Text(
-        'Guardado en $catalogName',
-        style: TypographyStyle.bodyRegularMedium
-            .copyWith(color: colorText.withOpacity(0.7)),
+    Get.rawSnackbar(
+      messageText: SizedBox(
+        height: 100, // Ajusta la altura según sea necesario
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 4),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: Image.network(
+                    product.thumbnail ?? '',
+                    width: 64,
+                    height: 64,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+              SizedBox(width: 8),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      product.name ?? '',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: colorText,
+                      ),
+                    ),
+                    Text(
+                      'Guardado en $catalogName',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: colorText.withOpacity(0.8),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SvgPicture.asset(
+                'assets/svg/catalog.svg',
+                width: 20,
+              ),
+            ],
+          ),
+        ),
       ),
       maxWidth: 600,
-      margin: const EdgeInsets.all(16),
-      colorText: colorText,
+      margin: EdgeInsets.all(16),
       backgroundColor: background,
       borderRadius: 12,
       borderColor: Colors.black,
       borderWidth: 1.2,
-      padding: const EdgeInsets.all(16),
+      padding: EdgeInsets.zero,
       boxShadows: [
         BoxShadow(
           color: Color(0xFFF6A97D),
           offset: Offset(-3, 4),
         ),
       ],
-      icon: Padding(
-        padding: const EdgeInsets.only(left: 4),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(8),
-          child: Image.network(
-            product.thumbnail ?? '',
-            fit: BoxFit.cover,
-          ),
-        ),
-      ),
-      mainButton: TextButton(
-        onPressed: () {},
-        child: SvgPicture.asset('assets/svg/catalog.svg'),
-      ),
       snackPosition: SnackPosition.TOP,
     );
   }
