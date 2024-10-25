@@ -22,7 +22,7 @@ class Button extends StatelessWidget {
   Widget build(BuildContext context) {
     switch (style) {
       case ButtonStyles.primary:
-        return Primarybutton(
+        return PrimaryButton(
           onPressed: onPressed,
           label: label,
           isLoaderButton: false,
@@ -51,7 +51,7 @@ class LoadingButton extends StatelessWidget {
   Widget build(BuildContext context) {
     switch (style) {
       case ButtonStyles.primary:
-        return Primarybutton(
+        return PrimaryButton(
           onPressed: onPressed,
           label: label,
           isLoaderButton: true,
