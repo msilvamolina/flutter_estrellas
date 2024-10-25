@@ -15,7 +15,7 @@ import '../../routes/app_pages.dart';
 import '../../components/bottom_sheets/dragabble_bottom_sheet.dart';
 
 enum Fields {
-  addCatalog('addCatalog');
+  addCatalogName('addCatalogName');
 
   const Fields(this.name);
   final String name;
@@ -33,13 +33,15 @@ class UserProductController extends GetxController {
 
   UserProductModel? _uniqueProduct;
   UserProductModel? get uniqueProduct => _uniqueProduct;
+  bool _addCatalogIsLoading = false;
+  bool get addCatalogIsLoading => _addCatalogIsLoading;
 
   ProductFirebaseLiteModel? _productCatalogBottomSheet;
   ProductFirebaseLiteModel? get productCatalogBottomSheet =>
       _productCatalogBottomSheet;
 
   FormGroup addCatalogForm() => fb.group(<String, Object>{
-        Fields.addCatalog.name: FormControl<String>(
+        Fields.addCatalogName.name: FormControl<String>(
           validators: [
             Validators.required,
             Validators.minLength(6),
@@ -148,5 +150,13 @@ class UserProductController extends GetxController {
 
     Bottomsheets.staticBottomSheet(BottomSheetTypes.newCatalog);
     // Bottomsheets.draggableBottomSheet(BottomSheetTypes.catalog);
+  }
+
+  Future<void> sendFormAddCatalog(Map<String, Object?> data) async {
+    String name = data[Fields.addCatalogName.name].toString();
+
+    _addCatalogIsLoading = true;
+    update(['new_catalog_bottom_sheet']);
+    print('addCatalogName $name');
   }
 }
