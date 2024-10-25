@@ -153,9 +153,16 @@ class UserProductController extends GetxController {
       ProductFirebaseLiteModel? productLite) async {
     _productCatalogBottomSheet = productLite;
 
-    print('_listUserCatalogs $_listUserCatalogs');
+    if (_listUserCatalogs.isEmpty) {
+      Bottomsheets.staticBottomSheet(BottomSheetTypes.newCatalog);
+    } else {
+      Bottomsheets.draggableBottomSheet(BottomSheetTypes.catalog);
+    }
+  }
+
+  Future<void> closeAndOpenCreateCatalog() async {
+    Get.back();
     Bottomsheets.staticBottomSheet(BottomSheetTypes.newCatalog);
-    // Bottomsheets.draggableBottomSheet(BottomSheetTypes.catalog);
   }
 
   Future<void> sendFormAddCatalog(Map<String, Object?> data) async {

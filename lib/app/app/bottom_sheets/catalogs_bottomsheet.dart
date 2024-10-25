@@ -70,7 +70,7 @@ class CatalogsBottomsheet extends StatelessWidget {
                       ),
                       Spacer(),
                       TextButton(
-                        onPressed: () {},
+                        onPressed: controller.closeAndOpenCreateCatalog,
                         child: Text('Nuevo catálogo'),
                       )
                     ],
