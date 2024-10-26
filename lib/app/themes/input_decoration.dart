@@ -103,7 +103,7 @@ class CustomInputDecoration {
     Color borderColor =
         mainController.isThemeModeDark ? secondaryLight : secondaryBase;
 
-    Color errorColor = error900;
+    Color errorColor = mainController.isThemeModeDark ? error500 : error900;
 
     bool showErrors = isSubmited && control.invalid && control.hasErrors;
     return InputDecoration(
