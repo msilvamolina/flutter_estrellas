@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 
 import '../../themes/styles/colors.dart';
 import '../../themes/styles/typography.dart';
+import 'widgets/title_with_close_button.dart';
 
 class CatalogsBottomsheet extends StatelessWidget {
   const CatalogsBottomsheet({required this.scrollController, super.key});
@@ -28,8 +29,11 @@ class CatalogsBottomsheet extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
+                  TitleWithCloseButton(title: ''),
+
                   Padding(
-                    padding: const EdgeInsets.all(16),
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 0, horizontal: 16),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -40,8 +44,8 @@ class CatalogsBottomsheet extends StatelessWidget {
 
                           child: Image.network(
                             product.thumbnail ?? '',
-                            width: 50,
-                            height: 50,
+                            width: 54,
+                            height: 54,
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -62,7 +66,7 @@ class CatalogsBottomsheet extends StatelessWidget {
                         ),
                         Spacer(),
                         Padding(
-                          padding: const EdgeInsets.only(right: 0),
+                          padding: const EdgeInsets.only(right: 8),
                           child: SvgPicture.asset(
                             'assets/svg/catalog.svg',
                             width: 16,
@@ -71,26 +75,33 @@ class CatalogsBottomsheet extends StatelessWidget {
                       ],
                     ),
                   ),
-                  SizedBox(height: 8),
+                  SizedBox(height: 26),
                   DottedLine(
                     dashLength: 7,
                     dashColor: neutral400,
                   ),
-                  SizedBox(height: 26),
-                  Row(
-                    children: [
-                      Text(
-                        'Catálogos',
-                        style: TypographyStyle.h4Mobile.copyWith(
-                          fontWeight: FontWeight.w500,
+                  SizedBox(height: 16),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            Text(
+                              'Catálogos',
+                              style: TypographyStyle.h4Mobile.copyWith(
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            Spacer(),
+                            TextButton(
+                              onPressed: controller.closeAndOpenCreateCatalog,
+                              child: Text('Nuevo catálogo'),
+                            )
+                          ],
                         ),
-                      ),
-                      Spacer(),
-                      TextButton(
-                        onPressed: controller.closeAndOpenCreateCatalog,
-                        child: Text('Nuevo catálogo'),
-                      )
-                    ],
+                      ],
+                    ),
                   ),
                   // TextField(
                   //   decoration: InputDecoration(

@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import '../../../themes/styles/typography.dart';
@@ -22,13 +23,11 @@ class TitleWithCloseButton extends StatelessWidget {
           ),
         ),
         Spacer(),
-        IconButton(
-          onPressed: () {
-            Get.back();
-          },
-          icon: Icon(
-            Icons.close,
-            size: 26,
+        Padding(
+          padding: const EdgeInsets.only(right: 22),
+          child: SvgPicture.asset(
+            'assets/svg/close.svg',
+            width: 18,
           ),
         ),
       ],
