@@ -85,6 +85,7 @@ class CustomInputDecoration {
     String? hintText,
     IconData? icon,
     bool? isThemeModeDark,
+    bool isSubmited = false,
     required FormControl control,
   }) {
     MainController mainController = Get.find<MainController>();
@@ -123,10 +124,7 @@ class CustomInputDecoration {
               color: borderColor,
             )
           : null,
-      suffixIcon: (control.invalid &&
-              control.dirty &&
-              control.hasErrors &&
-              control.errors.isNotEmpty)
+      suffixIcon: (isSubmited && control.invalid && control.hasErrors)
           ? Icon(
               Icons.error,
               color: errorColor,

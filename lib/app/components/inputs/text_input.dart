@@ -13,12 +13,14 @@ class CustomTextInput extends StatelessWidget {
     required this.label,
     this.keyboardType = TextInputType.text,
     this.autofocus = false,
+    this.isSubmited = false,
     this.validationMessages,
     super.key,
   });
 
   final String formControlName;
   final bool autofocus;
+  final bool isSubmited;
   final String label;
   final TextInputType keyboardType;
   final Map<String, String Function(Object)>? validationMessages;
@@ -39,6 +41,7 @@ class CustomTextInput extends StatelessWidget {
       decoration: CustomInputDecoration.inputDecorationControl(
         text: label,
         control: control!,
+        isSubmited: isSubmited,
       ),
       validationMessages: validationMessages ??
           {

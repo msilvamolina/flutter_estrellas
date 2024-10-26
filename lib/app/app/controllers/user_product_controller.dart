@@ -44,6 +44,8 @@ class UserProductController extends GetxController {
   ProductFirebaseLiteModel? get productCatalogBottomSheet =>
       _productCatalogBottomSheet;
 
+  bool addCatalogFormIsSubmitted = false;
+
   FormGroup addCatalogForm() => fb.group(<String, Object>{
         Fields.addCatalogName.name: FormControl<String>(
           validators: [
@@ -154,7 +156,7 @@ class UserProductController extends GetxController {
     _productCatalogBottomSheet = productLite;
 
     if (_listUserCatalogs.isEmpty) {
-      Bottomsheets.staticBottomSheet(BottomSheetTypes.newCatalog);
+      openAddCatalogBottomSheet();
     } else {
       Bottomsheets.draggableBottomSheet(BottomSheetTypes.catalog);
     }
@@ -162,7 +164,23 @@ class UserProductController extends GetxController {
 
   Future<void> closeAndOpenCreateCatalog() async {
     Get.back();
+    openAddCatalogBottomSheet();
+  }
+
+  Future<void> openAddCatalogBottomSheet() async {
+    addCatalogFormIsSubmitted = false;
+    update(['add_catalog_inputs']);
     Bottomsheets.staticBottomSheet(BottomSheetTypes.newCatalog);
+  }
+
+  Future<void> onPressedAddCatalog(form) async {
+    if (form.valid) {
+      return sendFormAddCatalog(form.value);
+    } else {
+      addCatalogFormIsSubmitted = true;
+      form.markAllAsTouched();
+      update(['add_catalog_inputs']);
+    }
   }
 
   Future<void> sendFormAddCatalog(Map<String, Object?> data) async {

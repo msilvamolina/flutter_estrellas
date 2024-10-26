@@ -31,24 +31,24 @@ class NewCatalogBottomsheet extends StatelessWidget {
                   TitleWithCloseButton(title: 'Crear catálogo'),
                   ContentBottomsheet(
                     children: [
-                      CustomTextInput(
-                        autofocus: true,
-                        formControlName: Fields.addCatalogName.name,
-                        keyboardType: TextInputType.text,
-                        label: "Nombre de nuevo catálogo",
+                      GetBuilder<UserProductController>(
+                        id: 'add_catalog_inputs',
+                        builder: (_) {
+                          return CustomTextInput(
+                            autofocus: true,
+                            formControlName: Fields.addCatalogName.name,
+                            keyboardType: TextInputType.text,
+                            label: "Nombre de nuevo catálogo",
+                            isSubmited: controller.addCatalogFormIsSubmitted,
+                          );
+                        },
                       ),
                       SizedBox(height: 16),
                       ReactiveFormConsumer(
                         builder: (context, form, child) => LoadingButton(
                           isLoading: controller.addCatalogIsLoading,
                           style: ButtonStyles.primary,
-                          onPressed: () {
-                            if (form.valid) {
-                              return controller.sendFormAddCatalog(form.value);
-                            } else {
-                              form.markAllAsTouched();
-                            }
-                          },
+                          onPressed: () => controller.onPressedAddCatalog(form),
                           label: 'Guardar',
                         ),
                       ),
