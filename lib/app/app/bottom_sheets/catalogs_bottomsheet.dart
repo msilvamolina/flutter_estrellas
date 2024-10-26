@@ -74,18 +74,20 @@ class CatalogsBottomsheet extends StatelessWidget {
                   ),
                   SizedBox(height: 16),
                   for (int i = 1; i < 10; i++)
-                    InkWell(
-                      onTap: () {},
-                      child: productCard(
-                        image: product.thumbnail ?? '',
-                        title: 'Catálogo $i',
-                        message: '8 Productos',
-                        icon: Padding(
-                          padding: const EdgeInsets.only(right: 8),
-                          child: SvgPicture.asset(
-                            'assets/svg/PlusCircle.svg',
-                            width: 26,
-                          ),
+                    productCard(
+                      image: product.thumbnail ?? '',
+                      title: 'Catálogo $i',
+                      message: '8 Productos',
+                      icon: Padding(
+                        padding: const EdgeInsets.only(right: 0),
+                        child: TextButton(
+                          onPressed: () {},
+                          style: TextButton.styleFrom(
+                              shape: CircleBorder(),
+                              padding: EdgeInsets.all(8),
+                              overlayColor: secondaryBase),
+                          child: SvgPicture.asset('assets/svg/PlusCircle.svg',
+                              width: 26, color: secondaryBase),
                         ),
                       ),
                     ),
@@ -111,8 +113,7 @@ class CatalogsBottomsheet extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           ClipRRect(
-            borderRadius: BorderRadius.circular(8), // Borde redondeado de 8
-
+            borderRadius: BorderRadius.circular(8),
             child: Image.network(
               image,
               width: 54,
