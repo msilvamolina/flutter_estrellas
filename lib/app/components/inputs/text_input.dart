@@ -28,13 +28,17 @@ class CustomTextInput extends StatelessWidget {
     Color labelBackgroundColor =
         !mainController.isThemeModeDark ? secondaryDark : secondaryLight;
 
+    final control =
+        ReactiveForm.of(context)!.findControl(formControlName) as FormControl?;
+
     return ReactiveTextField(
       autofocus: autofocus,
       formControlName: formControlName,
       keyboardType: keyboardType,
       cursorColor: labelBackgroundColor,
-      decoration: CustomInputDecoration.inputDecoration(
+      decoration: CustomInputDecoration.inputDecorationControl(
         text: label,
+        control: control!,
       ),
       validationMessages: validationMessages ??
           {

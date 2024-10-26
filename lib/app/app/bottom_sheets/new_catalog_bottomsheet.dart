@@ -42,9 +42,13 @@ class NewCatalogBottomsheet extends StatelessWidget {
                         builder: (context, form, child) => LoadingButton(
                           isLoading: controller.addCatalogIsLoading,
                           style: ButtonStyles.primary,
-                          onPressed: (form.valid)
-                              ? () => controller.sendFormAddCatalog(form.value)
-                              : null,
+                          onPressed: () {
+                            if (form.valid) {
+                              return controller.sendFormAddCatalog(form.value);
+                            } else {
+                              form.markAllAsTouched();
+                            }
+                          },
                           label: 'Guardar',
                         ),
                       ),
