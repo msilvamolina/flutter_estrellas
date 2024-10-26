@@ -5,6 +5,7 @@ import 'package:flutter_estrellas/app/data/models/product_firebase_lite/product_
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
+import '../../components/buttons/buttons.dart';
 import '../../themes/styles/colors.dart';
 import '../../themes/styles/typography.dart';
 import 'widgets/title_with_close_button.dart';
@@ -30,8 +31,19 @@ class CatalogsBottomsheet extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   TitleWithCloseButton(title: ''),
-                  productCard(product),
-                  SizedBox(height: 26),
+                  productCard(
+                    image: product.thumbnail ?? '',
+                    title: product.name ?? '',
+                    message: 'Guardado en privado',
+                    icon: Padding(
+                      padding: const EdgeInsets.only(right: 8),
+                      child: SvgPicture.asset(
+                        'assets/svg/catalog.svg',
+                        width: 16,
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 6),
                   DottedLine(
                     dashLength: 7,
                     dashColor: neutral400,
@@ -50,34 +62,33 @@ class CatalogsBottomsheet extends StatelessWidget {
                               ),
                             ),
                             Spacer(),
-                            TextButton(
+                            Button(
+                              style: ButtonStyles.secondaryText,
+                              label: 'Nuevo catálogo',
                               onPressed: controller.closeAndOpenCreateCatalog,
-                              child: Text('Nuevo catálogo'),
-                            )
+                            ),
                           ],
                         ),
                       ],
                     ),
                   ),
-                  productCard(product),
                   SizedBox(height: 16),
-                  productCard(product),
-                  SizedBox(height: 16),
-                  productCard(product),
-                  SizedBox(height: 16),
-                  productCard(product),
-                  SizedBox(height: 16),
-                  productCard(product),
-                  SizedBox(height: 16),
-                  productCard(product),
-                  SizedBox(height: 16),
-                  productCard(product),
-                  SizedBox(height: 16),
-                  productCard(product),
-                  SizedBox(height: 16),
-                  productCard(product),
-                  SizedBox(height: 16),
-                  productCard(product),
+                  for (int i = 1; i < 10; i++)
+                    InkWell(
+                      onTap: () {},
+                      child: productCard(
+                        image: product.thumbnail ?? '',
+                        title: 'Catálogo $i',
+                        message: '8 Productos',
+                        icon: Padding(
+                          padding: const EdgeInsets.only(right: 8),
+                          child: SvgPicture.asset(
+                            'assets/svg/PlusCircle.svg',
+                            width: 26,
+                          ),
+                        ),
+                      ),
+                    ),
                 ],
               ),
             ),
@@ -87,9 +98,14 @@ class CatalogsBottomsheet extends StatelessWidget {
     );
   }
 
-  Widget productCard(product) {
+  Widget productCard({
+    required String image,
+    required String title,
+    required String message,
+    required Widget icon,
+  }) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 16),
+      padding: const EdgeInsets.only(top: 0, bottom: 24, left: 16, right: 16),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -98,7 +114,7 @@ class CatalogsBottomsheet extends StatelessWidget {
             borderRadius: BorderRadius.circular(8), // Borde redondeado de 8
 
             child: Image.network(
-              product.thumbnail ?? '',
+              image,
               width: 54,
               height: 54,
               fit: BoxFit.cover,
@@ -109,24 +125,18 @@ class CatalogsBottomsheet extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                product.name ?? '',
+                title,
                 style: TypographyStyle.bodyBlackLarge,
               ),
               Text(
-                'Guardado en privado',
+                message,
                 style: TypographyStyle.bodyRegularMedium
                     .copyWith(color: neutral700),
               ),
             ],
           ),
           Spacer(),
-          Padding(
-            padding: const EdgeInsets.only(right: 8),
-            child: SvgPicture.asset(
-              'assets/svg/catalog.svg',
-              width: 16,
-            ),
-          ),
+          icon,
         ],
       ),
     );

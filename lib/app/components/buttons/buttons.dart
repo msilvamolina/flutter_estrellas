@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_estrellas/app/components/buttons/widgets/secondary_textbutton.dart';
 
 import 'widgets/primary_button.dart';
 
 enum ButtonStyles {
   primary,
+  secondaryText,
 }
 
 class Button extends StatelessWidget {
@@ -26,6 +28,11 @@ class Button extends StatelessWidget {
           onPressed: onPressed,
           label: label,
           isLoaderButton: false,
+        );
+      case ButtonStyles.secondaryText:
+        return SecondaryTextbutton(
+          onPressed: onPressed,
+          label: label,
         );
       default:
         return SizedBox.shrink();

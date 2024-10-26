@@ -25,9 +25,14 @@ class TitleWithCloseButton extends StatelessWidget {
         Spacer(),
         Padding(
           padding: const EdgeInsets.only(right: 22),
-          child: SvgPicture.asset(
-            'assets/svg/close.svg',
-            width: 18,
+          child: GestureDetector(
+            onTap: () {
+              Get.back();
+            },
+            child: SvgPicture.asset(
+              'assets/svg/close.svg',
+              width: 18,
+            ),
           ),
         ),
       ],
