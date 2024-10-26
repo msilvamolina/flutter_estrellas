@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import '../../components/buttons/buttons.dart';
 import '../../themes/styles/colors.dart';
 import '../../themes/styles/typography.dart';
+import 'widgets/product_card.dart';
 import 'widgets/title_with_close_button.dart';
 
 class CatalogsBottomsheet extends StatelessWidget {
@@ -32,17 +33,13 @@ class CatalogsBottomsheet extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   TitleWithCloseButton(title: ''),
-                  productCard(
-                    image: product.thumbnail ?? '',
+                  ProductCard(
+                    imageUrl: product.thumbnail ?? '',
                     title: product.name ?? '',
                     message: 'Guardado en privado',
-                    icon: Padding(
-                      padding: const EdgeInsets.only(right: 8),
-                      child: SvgPicture.asset(
-                        'assets/svg/catalog.svg',
-                        width: 16,
-                      ),
-                    ),
+                    isProductoInCatalog: true,
+                    addFunction: null,
+                    removeFunction: null,
                   ),
                   SizedBox(height: 6),
                   DottedLine(
@@ -75,36 +72,23 @@ class CatalogsBottomsheet extends StatelessWidget {
                   ),
                   SizedBox(height: 16),
                   for (UserCatalogModel element in controller.listUserCatalogs)
-                    productCard(
-                      image: element.imageUrl,
+                    ProductCard(
+                      imageUrl: element.imageUrl,
                       title: element.name,
                       message:
                           '${element.products?.length ?? 0} ${(element.products?.length ?? 0) == 1 ? 'Producto' : 'Productos'}',
-                      icon: controller.isProductoInCatalog(element, product)
-                          ? Button(
-                              style: ButtonStyles.secondaryCirlce,
-                              child: SvgPicture.asset(
-                                'assets/svg/catalog.svg',
-                                width: 16,
-                              ),
-                              onPressed: () => controller.addProductToCatalog(
-                                element,
-                                product,
-                                false,
-                              ),
-                            )
-                          : Button(
-                              style: ButtonStyles.secondaryCirlce,
-                              child: SvgPicture.asset(
-                                  'assets/svg/PlusCircle.svg',
-                                  width: 26,
-                                  color: secondaryBase),
-                              onPressed: () => controller.addProductToCatalog(
-                                element,
-                                product,
-                                true,
-                              ),
-                            ),
+                      isProductoInCatalog:
+                          controller.isProductoInCatalog(element, product),
+                      addFunction: () => controller.addProductToCatalog(
+                        element,
+                        product,
+                        true,
+                      ),
+                      removeFunction: () => controller.addProductToCatalog(
+                        element,
+                        product,
+                        false,
+                      ),
                     ),
                 ],
               ),
@@ -112,49 +96,6 @@ class CatalogsBottomsheet extends StatelessWidget {
           ],
         );
       },
-    );
-  }
-
-  Widget productCard({
-    required String image,
-    required String title,
-    required String message,
-    required Widget icon,
-  }) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 0, bottom: 24, left: 16, right: 16),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(8),
-            child: Image.network(
-              image,
-              width: 54,
-              height: 54,
-              fit: BoxFit.cover,
-            ),
-          ),
-          SizedBox(width: 16),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                style: TypographyStyle.bodyBlackLarge,
-              ),
-              Text(
-                message,
-                style: TypographyStyle.bodyRegularMedium
-                    .copyWith(color: neutral700),
-              ),
-            ],
-          ),
-          Spacer(),
-          icon,
-        ],
-      ),
     );
   }
 }
