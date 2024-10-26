@@ -89,6 +89,11 @@ class CustomInputDecoration {
     required FormControl control,
   }) {
     MainController mainController = Get.find<MainController>();
+    Color errorLabelBackgroundColor =
+        mainController.isThemeModeDark ? error500 : error50;
+    Color errorLabelForegroundColor =
+        !mainController.isThemeModeDark ? error500 : error50;
+
     Color labelBackgroundColor =
         mainController.isThemeModeDark ? secondaryDark : secondaryLight;
 
@@ -100,17 +105,19 @@ class CustomInputDecoration {
 
     Color errorColor = error900;
 
+    bool showErrors = isSubmited && control.invalid && control.hasErrors;
     return InputDecoration(
       label: Container(
         padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
         decoration: BoxDecoration(
-          color: labelBackgroundColor,
+          color: showErrors ? errorLabelBackgroundColor : labelBackgroundColor,
           borderRadius: BorderRadius.circular(8),
         ),
         child: Text(
           text ?? '',
           style: TypographyStyle.bodyRegularLarge.copyWith(
-            color: labelForegroundColor,
+            color:
+                showErrors ? errorLabelForegroundColor : labelForegroundColor,
             fontSize: 20,
             fontWeight: FontWeight.w400,
           ),
@@ -124,7 +131,7 @@ class CustomInputDecoration {
               color: borderColor,
             )
           : null,
-      suffixIcon: (isSubmited && control.invalid && control.hasErrors)
+      suffixIcon: (showErrors)
           ? Icon(
               Icons.error,
               color: errorColor,
