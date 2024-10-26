@@ -21,8 +21,8 @@ class Bottomsheets {
         ),
       ),
       builder: (context) => DraggableScrollableSheet(
-        initialChildSize: 0.5, // Ocupa la mitad de la pantalla al inicio
-        minChildSize: 0.3, // Tamaño mínimo cuando está contraído
+        initialChildSize: 0.4, // Ocupa la mitad de la pantalla al inicio
+        minChildSize: 0.4, // Tamaño mínimo cuando está contraído
         maxChildSize: 0.9, // Tamaño máximo al arrastrar hacia arriba
         expand:
             false, // Esto evita que se expanda automáticamente al tamaño máximo
@@ -32,35 +32,8 @@ class Bottomsheets {
               topLeft: Radius.circular(16),
               topRight: Radius.circular(16),
             ),
-            child: Container(
-              color: Colors.white, // Fondo del modal
-              child: Column(
-                children: [
-                  // Header o contenido superior del BottomSheet
-                  Container(
-                    padding: EdgeInsets.all(16),
-                    child: Text(
-                      'Header',
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  Divider(height: 1),
-                  // Lista de elementos o contenido principal
-                  Expanded(
-                    child: ListView.builder(
-                      controller: scrollController,
-                      itemCount: 10,
-                      itemBuilder: (context, index) {
-                        return ListTile(
-                          title: Text('Elemento $index'),
-                        );
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            child: DraggableBottomSheet(
+                type: type, scrollController: scrollController),
           );
         },
       ),
