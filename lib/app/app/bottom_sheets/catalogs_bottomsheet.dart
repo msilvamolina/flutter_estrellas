@@ -80,14 +80,11 @@ class CatalogsBottomsheet extends StatelessWidget {
                       message: '8 Productos',
                       icon: Padding(
                         padding: const EdgeInsets.only(right: 0),
-                        child: TextButton(
-                          onPressed: () {},
-                          style: TextButton.styleFrom(
-                              shape: CircleBorder(),
-                              padding: EdgeInsets.all(8),
-                              overlayColor: secondaryBase),
+                        child: Button(
+                          style: ButtonStyles.secondaryCirlce,
                           child: SvgPicture.asset('assets/svg/PlusCircle.svg',
                               width: 26, color: secondaryBase),
+                          onPressed: () {},
                         ),
                       ),
                     ),
