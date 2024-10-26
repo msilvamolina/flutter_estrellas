@@ -10,14 +10,28 @@ class Bottomsheets {
   Bottomsheets._();
 
   static void draggableBottomSheet(BottomSheetTypes type) {
-    showCupertinoModalBottomSheet(
+    // showCupertinoModalBottomSheet(
+    //   context: Get.context!,
+    //   isDismissible: true,
+    //   enableDrag: true,
+    //   shadow: BoxShadow(color: Colors.transparent),
+    //   barrierColor: Colors.black.withOpacity(0.5),
+    //   backgroundColor: Colors.transparent,
+    //   builder: (context) => DraggableBottomSheet(type: type),
+    // );
+    showModalBottomSheet(
       context: Get.context!,
-      isDismissible: true,
-      enableDrag: true,
-      shadow: BoxShadow(color: Colors.transparent),
-      barrierColor: Colors.black.withOpacity(0.5),
+      isScrollControlled: true,
       backgroundColor: Colors.transparent,
-      builder: (context) => DraggableBottomSheet(type: type),
+      builder: (context) => DraggableScrollableSheet(
+        initialChildSize: 0.5, // Toma la mitad de la pantalla inicialmente
+        minChildSize: 0.5, // Tamaño mínimo (mitad de pantalla)
+        maxChildSize: 0.9, // Tamaño máximo (casi toda la pantalla)
+        builder: (context, scrollController) {
+          return DraggableBottomSheet(
+              type: type, scrollController: scrollController);
+        },
+      ),
     );
   }
 
