@@ -101,7 +101,7 @@ class CustomInputDecoration {
         mainController.isThemeModeDark ? neutral300 : neutral900;
 
     Color borderColor =
-        mainController.isThemeModeDark ? secondaryLight : secondaryBase;
+        mainController.isThemeModeDark ? secondaryBase : secondaryBase;
 
     Color errorColor = mainController.isThemeModeDark ? error500 : error900;
 

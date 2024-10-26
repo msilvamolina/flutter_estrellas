@@ -28,11 +28,8 @@ class PrimaryButton extends StatelessWidget {
         mainController.isThemeModeDark ? Colors.white : neutral950;
     Color loaderColor =
         mainController.isThemeModeDark ? primaryLight : primaryDark;
-    Color border = mainController.isThemeModeDark
-        ? primaryBase
-        : mainController.isThemeModeDark
-            ? Colors.white
-            : neutral950;
+    Color border =
+        mainController.isThemeModeDark ? backgroundColor : neutral950;
 
     return ElevatedButton(
       onPressed: !(isLoaderButton && isLoading != null && isLoading!)
