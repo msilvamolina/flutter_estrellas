@@ -203,4 +203,14 @@ class UserProductController extends GetxController {
       },
     );
   }
+
+  bool isProductoInCatalog(
+      UserCatalogModel catalog, ProductFirebaseLiteModel product) {
+    List<ProductFirebaseLiteModel> listProducts = catalog.products ?? [];
+
+    ProductFirebaseLiteModel? option =
+        listProducts.firstWhereOrNull((element) => element.id == product.id);
+
+    return option != null;
+  }
 }

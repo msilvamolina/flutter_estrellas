@@ -11,6 +11,7 @@ _$UserCatalogModelImpl _$$UserCatalogModelImplFromJson(
     _$UserCatalogModelImpl(
       id: json['id'] as String,
       name: json['name'] as String,
+      imageUrl: json['imageUrl'] as String,
       createdBy: json['createdBy'] as String,
       createdByUserId: json['createdByUserId'] as String,
       products: (json['products'] as List<dynamic>?)
@@ -24,6 +25,7 @@ Map<String, dynamic> _$$UserCatalogModelImplToJson(
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
+      'imageUrl': instance.imageUrl,
       'createdBy': instance.createdBy,
       'createdByUserId': instance.createdByUserId,
       'products': instance.products,

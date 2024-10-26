@@ -2,6 +2,7 @@ import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_estrellas/app/app/controllers/user_product_controller.dart';
 import 'package:flutter_estrellas/app/data/models/product_firebase_lite/product_firebase_lite.dart';
+import 'package:flutter_estrellas/app/data/models/user_catalog/user_catalog_model.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
@@ -73,20 +74,31 @@ class CatalogsBottomsheet extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 16),
-                  for (int i = 1; i < 10; i++)
+                  for (UserCatalogModel element in controller.listUserCatalogs)
                     productCard(
-                      image: product.thumbnail ?? '',
-                      title: 'Catálogo $i',
-                      message: '8 Productos',
-                      icon: Padding(
-                        padding: const EdgeInsets.only(right: 0),
-                        child: Button(
-                          style: ButtonStyles.secondaryCirlce,
-                          child: SvgPicture.asset('assets/svg/PlusCircle.svg',
-                              width: 26, color: secondaryBase),
-                          onPressed: () {},
-                        ),
-                      ),
+                      image: element.imageUrl,
+                      title: element.name,
+                      message:
+                          '${element.products?.length ?? 0} ${(element.products?.length ?? 0) == 1 ? 'Producto' : 'Productos'}',
+                      icon: controller.isProductoInCatalog(element, product)
+                          ? Padding(
+                              padding: const EdgeInsets.only(right: 8),
+                              child: SvgPicture.asset(
+                                'assets/svg/catalog.svg',
+                                width: 16,
+                              ),
+                            )
+                          : Padding(
+                              padding: const EdgeInsets.only(right: 0),
+                              child: Button(
+                                style: ButtonStyles.secondaryCirlce,
+                                child: SvgPicture.asset(
+                                    'assets/svg/PlusCircle.svg',
+                                    width: 26,
+                                    color: secondaryBase),
+                                onPressed: () {},
+                              ),
+                            ),
                     ),
                 ],
               ),

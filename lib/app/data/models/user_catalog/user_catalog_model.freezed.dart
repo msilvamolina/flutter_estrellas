@@ -22,6 +22,7 @@ UserCatalogModel _$UserCatalogModelFromJson(Map<String, dynamic> json) {
 mixin _$UserCatalogModel {
   String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
+  String get imageUrl => throw _privateConstructorUsedError;
   String get createdBy => throw _privateConstructorUsedError;
   String get createdByUserId => throw _privateConstructorUsedError;
   List<ProductFirebaseLiteModel>? get products =>
@@ -46,6 +47,7 @@ abstract class $UserCatalogModelCopyWith<$Res> {
   $Res call(
       {String id,
       String name,
+      String imageUrl,
       String createdBy,
       String createdByUserId,
       List<ProductFirebaseLiteModel>? products});
@@ -68,6 +70,7 @@ class _$UserCatalogModelCopyWithImpl<$Res, $Val extends UserCatalogModel>
   $Res call({
     Object? id = null,
     Object? name = null,
+    Object? imageUrl = null,
     Object? createdBy = null,
     Object? createdByUserId = null,
     Object? products = freezed,
@@ -80,6 +83,10 @@ class _$UserCatalogModelCopyWithImpl<$Res, $Val extends UserCatalogModel>
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      imageUrl: null == imageUrl
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
               as String,
       createdBy: null == createdBy
           ? _value.createdBy
@@ -108,6 +115,7 @@ abstract class _$$UserCatalogModelImplCopyWith<$Res>
   $Res call(
       {String id,
       String name,
+      String imageUrl,
       String createdBy,
       String createdByUserId,
       List<ProductFirebaseLiteModel>? products});
@@ -128,6 +136,7 @@ class __$$UserCatalogModelImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? name = null,
+    Object? imageUrl = null,
     Object? createdBy = null,
     Object? createdByUserId = null,
     Object? products = freezed,
@@ -140,6 +149,10 @@ class __$$UserCatalogModelImplCopyWithImpl<$Res>
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      imageUrl: null == imageUrl
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
               as String,
       createdBy: null == createdBy
           ? _value.createdBy
@@ -163,6 +176,7 @@ class _$UserCatalogModelImpl extends _UserCatalogModel {
   const _$UserCatalogModelImpl(
       {required this.id,
       required this.name,
+      required this.imageUrl,
       required this.createdBy,
       required this.createdByUserId,
       final List<ProductFirebaseLiteModel>? products})
@@ -176,6 +190,8 @@ class _$UserCatalogModelImpl extends _UserCatalogModel {
   final String id;
   @override
   final String name;
+  @override
+  final String imageUrl;
   @override
   final String createdBy;
   @override
@@ -192,7 +208,7 @@ class _$UserCatalogModelImpl extends _UserCatalogModel {
 
   @override
   String toString() {
-    return 'UserCatalogModel(id: $id, name: $name, createdBy: $createdBy, createdByUserId: $createdByUserId, products: $products)';
+    return 'UserCatalogModel(id: $id, name: $name, imageUrl: $imageUrl, createdBy: $createdBy, createdByUserId: $createdByUserId, products: $products)';
   }
 
   @override
@@ -202,6 +218,8 @@ class _$UserCatalogModelImpl extends _UserCatalogModel {
             other is _$UserCatalogModelImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
+            (identical(other.imageUrl, imageUrl) ||
+                other.imageUrl == imageUrl) &&
             (identical(other.createdBy, createdBy) ||
                 other.createdBy == createdBy) &&
             (identical(other.createdByUserId, createdByUserId) ||
@@ -211,7 +229,7 @@ class _$UserCatalogModelImpl extends _UserCatalogModel {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, createdBy,
+  int get hashCode => Object.hash(runtimeType, id, name, imageUrl, createdBy,
       createdByUserId, const DeepCollectionEquality().hash(_products));
 
   /// Create a copy of UserCatalogModel
@@ -235,6 +253,7 @@ abstract class _UserCatalogModel extends UserCatalogModel {
   const factory _UserCatalogModel(
       {required final String id,
       required final String name,
+      required final String imageUrl,
       required final String createdBy,
       required final String createdByUserId,
       final List<ProductFirebaseLiteModel>? products}) = _$UserCatalogModelImpl;
@@ -247,6 +266,8 @@ abstract class _UserCatalogModel extends UserCatalogModel {
   String get id;
   @override
   String get name;
+  @override
+  String get imageUrl;
   @override
   String get createdBy;
   @override

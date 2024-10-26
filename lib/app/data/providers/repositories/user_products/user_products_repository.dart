@@ -154,6 +154,7 @@ class UserProductsRepository {
           .set({
         'id': id,
         'name': catalogName,
+        'imageUrl': productLite.thumbnail,
         'products': [
           productLite.toJson(),
         ],

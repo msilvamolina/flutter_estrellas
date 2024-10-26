@@ -14,6 +14,7 @@ abstract class UserCatalogModel implements _$UserCatalogModel {
   const factory UserCatalogModel({
     required String id,
     required String name,
+    required String imageUrl,
     required String createdBy,
     required String createdByUserId,
     List<ProductFirebaseLiteModel>? products,
