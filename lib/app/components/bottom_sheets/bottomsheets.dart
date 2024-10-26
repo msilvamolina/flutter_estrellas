@@ -14,16 +14,98 @@ class Bottomsheets {
       context: Get.context!,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(16),
+          topRight: Radius.circular(16),
+        ),
+      ),
       builder: (context) => DraggableScrollableSheet(
-        initialChildSize: 0.5,
-        minChildSize: 0.5,
-        maxChildSize: 0.9,
+        initialChildSize: 0.5, // Ocupa la mitad de la pantalla al inicio
+        minChildSize: 0.3, // Tamaño mínimo cuando está contraído
+        maxChildSize: 0.9, // Tamaño máximo al arrastrar hacia arriba
+        expand:
+            false, // Esto evita que se expanda automáticamente al tamaño máximo
         builder: (context, scrollController) {
-          return DraggableBottomSheet(
-              type: type, scrollController: scrollController);
+          return ClipRRect(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(16),
+              topRight: Radius.circular(16),
+            ),
+            child: Container(
+              color: Colors.white, // Fondo del modal
+              child: Column(
+                children: [
+                  // Header o contenido superior del BottomSheet
+                  Container(
+                    padding: EdgeInsets.all(16),
+                    child: Text(
+                      'Header',
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  Divider(height: 1),
+                  // Lista de elementos o contenido principal
+                  Expanded(
+                    child: ListView.builder(
+                      controller: scrollController,
+                      itemCount: 10,
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          title: Text('Elemento $index'),
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
         },
       ),
     );
+
+    // showCupertinoModalBottomSheet(
+    //   context: Get.context!,
+    //   isDismissible: true,
+    //   enableDrag: true,
+    //   shadow: BoxShadow(color: Colors.transparent),
+    //   barrierColor: Colors.black.withOpacity(0.5),
+    //   backgroundColor: Colors.transparent,
+    //   builder: (context) => DraggableScrollableSheet(
+    //     initialChildSize: 0.5, // Toma la mitad de la pantalla inicialmente
+    //     minChildSize: 0.5, // Tamaño mínimo (mitad de pantalla)
+    //     maxChildSize: 0.9, // Tamaño máximo (casi toda la pantalla)
+    //     builder: (context, scrollController) {
+    //       return ClipRRect(
+    //         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+    //         child: DraggableBottomSheet(
+    //             type: type, scrollController: scrollController),
+    //       );
+    //     },
+    //   ),
+    // );
+    // showModalBottomSheet(
+    //   context: Get.context!,
+    //   isScrollControlled: true,
+    //   // shadow: BoxShadow(color: Colors.transparent),
+    //   isDismissible: true,
+
+    //   backgroundColor: Colors.transparent,
+    //   builder: (context) => DraggableScrollableSheet(
+    //     initialChildSize: 0.5, // Toma la mitad de la pantalla inicialmente
+    //     minChildSize: 0.5, // Tamaño mínimo (mitad de pantalla)
+    //     maxChildSize: 0.9, // Tamaño máximo (casi toda la pantalla)
+    //     builder: (context, scrollController) {
+    //       return ClipRRect(
+    //         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+    //         child: DraggableBottomSheet(
+    //             type: type, scrollController: scrollController),
+    //       );
+    //     },
+    //   ),
+    // );
   }
 
   static void staticBottomSheet(BottomSheetTypes type) {
