@@ -169,6 +169,27 @@ class UserProductsRepository {
     }
   }
 
+  Future<Either<String, Unit>> updateCatalogListProducts({
+    required String catalogId,
+    required List<dynamic> products,
+  }) async {
+    Map<String, String> userData = getUidAndEmail();
+    String uid = userData['uid'] ?? '';
+
+    try {
+      await _firebaseFirestore
+          .collection('users')
+          .doc(uid)
+          .collection('catalogs')
+          .doc(catalogId)
+          .update({'products': products});
+
+      return right(unit);
+    } on FirebaseException catch (e) {
+      return left(e.code);
+    }
+  }
+
   Future<Either<String, Unit>> addToCart({
     required ProductFirebaseLiteModel productLite,
   }) async {

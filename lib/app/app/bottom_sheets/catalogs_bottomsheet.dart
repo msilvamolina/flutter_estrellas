@@ -96,7 +96,10 @@ class CatalogsBottomsheet extends StatelessWidget {
                                     'assets/svg/PlusCircle.svg',
                                     width: 26,
                                     color: secondaryBase),
-                                onPressed: () {},
+                                onPressed: () => controller.addProductToCatalog(
+                                  element,
+                                  product,
+                                ),
                               ),
                             ),
                     ),

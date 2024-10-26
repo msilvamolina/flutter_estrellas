@@ -15,7 +15,7 @@ class SecondaryCircleButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      onPressed: () {},
+      onPressed: onPressed,
       style: TextButton.styleFrom(
         shape: CircleBorder(),
         padding: EdgeInsets.all(8),

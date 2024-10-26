@@ -213,4 +213,33 @@ class UserProductController extends GetxController {
 
     return option != null;
   }
+
+  Future<void> addProductToCatalog(
+      UserCatalogModel catalog, ProductFirebaseLiteModel product) async {
+    print('addProductToCatalog');
+
+    List<ProductFirebaseLiteModel> listProducts = catalog.products ?? [];
+
+    List<dynamic> newlistProducts = [];
+
+    for (ProductFirebaseLiteModel element in listProducts) {
+      newlistProducts.add(element.toJson());
+    }
+    newlistProducts.add(product.toJson());
+
+    Either<String, Unit> response =
+        await userProductRepository.updateCatalogListProducts(
+            catalogId: catalog.id, products: newlistProducts);
+
+    _addCatalogIsLoading = false;
+    Get.back();
+    response.fold(
+      (failure) {
+        Snackbars.error(failure);
+      },
+      (_) {
+        Snackbars.addToCatalog(_productCatalogBottomSheet!, catalog.name);
+      },
+    );
+  }
 }
