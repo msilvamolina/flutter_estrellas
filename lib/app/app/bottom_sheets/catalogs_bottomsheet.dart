@@ -1,6 +1,8 @@
+import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_estrellas/app/app/controllers/user_product_controller.dart';
 import 'package:flutter_estrellas/app/data/models/product_firebase_lite/product_firebase_lite.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import '../../themes/styles/colors.dart';
@@ -21,43 +23,58 @@ class CatalogsBottomsheet extends StatelessWidget {
           controller: scrollController,
           children: [
             Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      ClipRRect(
-                        borderRadius:
-                            BorderRadius.circular(8), // Borde redondeado de 8
+                  Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ClipRRect(
+                          borderRadius:
+                              BorderRadius.circular(8), // Borde redondeado de 8
 
-                        child: Image.network(
-                          product.thumbnail ?? '',
-                          width: 50,
-                          height: 50,
-                          fit: BoxFit.cover,
+                          child: Image.network(
+                            product.thumbnail ?? '',
+                            width: 50,
+                            height: 50,
+                            fit: BoxFit.cover,
+                          ),
                         ),
-                      ),
-                      SizedBox(width: 16),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            product.name ?? '',
-                            style: TypographyStyle.bodyBlackLarge,
+                        SizedBox(width: 16),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              product.name ?? '',
+                              style: TypographyStyle.bodyBlackLarge,
+                            ),
+                            Text(
+                              'Guardado en privado',
+                              style: TypographyStyle.bodyRegularMedium
+                                  .copyWith(color: neutral700),
+                            ),
+                          ],
+                        ),
+                        Spacer(),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 0),
+                          child: SvgPicture.asset(
+                            'assets/svg/catalog.svg',
+                            width: 16,
                           ),
-                          Text(
-                            'Guardado en privado',
-                            style: TypographyStyle.bodyRegularMedium,
-                          ),
-                        ],
-                      ),
-                      Spacer(),
-                      Icon(Icons.bookmark)
-                    ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  DottedLine(
+                    dashLength: 7,
+                    dashColor: neutral400,
                   ),
                   SizedBox(height: 26),
                   Row(
@@ -74,7 +91,7 @@ class CatalogsBottomsheet extends StatelessWidget {
                         child: Text('Nuevo catálogo'),
                       )
                     ],
-                  )
+                  ),
                   // TextField(
                   //   decoration: InputDecoration(
                   //     labelText: 'Buscar',
