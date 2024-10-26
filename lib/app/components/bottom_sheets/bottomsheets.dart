@@ -21,7 +21,7 @@ class Bottomsheets {
         ),
       ),
       builder: (context) => DraggableScrollableSheet(
-        initialChildSize: 0.4, // Ocupa la mitad de la pantalla al inicio
+        initialChildSize: 0.57, // Ocupa la mitad de la pantalla al inicio
         minChildSize: 0.4, // Tamaño mínimo cuando está contraído
         maxChildSize: 0.9, // Tamaño máximo al arrastrar hacia arriba
         expand:

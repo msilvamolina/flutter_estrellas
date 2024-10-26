@@ -30,51 +30,7 @@ class CatalogsBottomsheet extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   TitleWithCloseButton(title: ''),
-
-                  Padding(
-                    padding:
-                        const EdgeInsets.symmetric(vertical: 0, horizontal: 16),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        ClipRRect(
-                          borderRadius:
-                              BorderRadius.circular(8), // Borde redondeado de 8
-
-                          child: Image.network(
-                            product.thumbnail ?? '',
-                            width: 54,
-                            height: 54,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                        SizedBox(width: 16),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              product.name ?? '',
-                              style: TypographyStyle.bodyBlackLarge,
-                            ),
-                            Text(
-                              'Guardado en privado',
-                              style: TypographyStyle.bodyRegularMedium
-                                  .copyWith(color: neutral700),
-                            ),
-                          ],
-                        ),
-                        Spacer(),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 8),
-                          child: SvgPicture.asset(
-                            'assets/svg/catalog.svg',
-                            width: 16,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                  productCard(product),
                   SizedBox(height: 26),
                   DottedLine(
                     dashLength: 7,
@@ -103,32 +59,76 @@ class CatalogsBottomsheet extends StatelessWidget {
                       ],
                     ),
                   ),
-                  // TextField(
-                  //   decoration: InputDecoration(
-                  //     labelText: 'Buscar',
-                  //     border: OutlineInputBorder(),
-                  //   ),
-                  // ),
-                  // SizedBox(height: 16),
-                  // ListView.builder(
-                  //   shrinkWrap: true,
-                  //   physics: NeverScrollableScrollPhysics(),
-                  //   itemCount: 4,
-                  //   itemBuilder: (context, index) {
-                  //     return ListTile(
-                  //       onTap: () {
-                  //         print('ho;a');
-                  //       },
-                  //       title: Text('Elemento ${index + 1}'),
-                  //     );
-                  //   },
-                  // ),
+                  productCard(product),
+                  SizedBox(height: 16),
+                  productCard(product),
+                  SizedBox(height: 16),
+                  productCard(product),
+                  SizedBox(height: 16),
+                  productCard(product),
+                  SizedBox(height: 16),
+                  productCard(product),
+                  SizedBox(height: 16),
+                  productCard(product),
+                  SizedBox(height: 16),
+                  productCard(product),
+                  SizedBox(height: 16),
+                  productCard(product),
+                  SizedBox(height: 16),
+                  productCard(product),
+                  SizedBox(height: 16),
+                  productCard(product),
                 ],
               ),
             ),
           ],
         );
       },
+    );
+  }
+
+  Widget productCard(product) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 16),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(8), // Borde redondeado de 8
+
+            child: Image.network(
+              product.thumbnail ?? '',
+              width: 54,
+              height: 54,
+              fit: BoxFit.cover,
+            ),
+          ),
+          SizedBox(width: 16),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                product.name ?? '',
+                style: TypographyStyle.bodyBlackLarge,
+              ),
+              Text(
+                'Guardado en privado',
+                style: TypographyStyle.bodyRegularMedium
+                    .copyWith(color: neutral700),
+              ),
+            ],
+          ),
+          Spacer(),
+          Padding(
+            padding: const EdgeInsets.only(right: 8),
+            child: SvgPicture.asset(
+              'assets/svg/catalog.svg',
+              width: 16,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
