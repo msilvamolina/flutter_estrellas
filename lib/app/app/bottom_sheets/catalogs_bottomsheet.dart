@@ -81,25 +81,28 @@ class CatalogsBottomsheet extends StatelessWidget {
                       message:
                           '${element.products?.length ?? 0} ${(element.products?.length ?? 0) == 1 ? 'Producto' : 'Productos'}',
                       icon: controller.isProductoInCatalog(element, product)
-                          ? Padding(
-                              padding: const EdgeInsets.only(right: 8),
+                          ? Button(
+                              style: ButtonStyles.secondaryCirlce,
                               child: SvgPicture.asset(
                                 'assets/svg/catalog.svg',
                                 width: 16,
                               ),
+                              onPressed: () => controller.addProductToCatalog(
+                                element,
+                                product,
+                                false,
+                              ),
                             )
-                          : Padding(
-                              padding: const EdgeInsets.only(right: 0),
-                              child: Button(
-                                style: ButtonStyles.secondaryCirlce,
-                                child: SvgPicture.asset(
-                                    'assets/svg/PlusCircle.svg',
-                                    width: 26,
-                                    color: secondaryBase),
-                                onPressed: () => controller.addProductToCatalog(
-                                  element,
-                                  product,
-                                ),
+                          : Button(
+                              style: ButtonStyles.secondaryCirlce,
+                              child: SvgPicture.asset(
+                                  'assets/svg/PlusCircle.svg',
+                                  width: 26,
+                                  color: secondaryBase),
+                              onPressed: () => controller.addProductToCatalog(
+                                element,
+                                product,
+                                true,
                               ),
                             ),
                     ),

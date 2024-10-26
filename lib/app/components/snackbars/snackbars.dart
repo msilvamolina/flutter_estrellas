@@ -52,8 +52,8 @@ class Snackbars {
     );
   }
 
-  static void addToCatalog(
-      ProductFirebaseLiteModel product, String catalogName) {
+  static void productSnackbar(
+      ProductFirebaseLiteModel product, String message) {
     MainController mainController = Get.find<MainController>();
     Color background = mainController.isThemeModeDark ? neutral950 : white;
     Color colorText = !mainController.isThemeModeDark ? neutral950 : white;
@@ -96,7 +96,7 @@ class Snackbars {
                       ),
                     ),
                     Text(
-                      'Guardado en $catalogName',
+                      message,
                       style: TextStyle(
                         fontSize: 14,
                         color: colorText.withOpacity(0.8),

@@ -199,7 +199,9 @@ class UserProductController extends GetxController {
         Snackbars.error(failure);
       },
       (_) {
-        Snackbars.addToCatalog(_productCatalogBottomSheet!, name);
+        String message = 'Guardado en';
+        Snackbars.productSnackbar(
+            _productCatalogBottomSheet!, '$message $name');
       },
     );
   }
@@ -214,31 +216,35 @@ class UserProductController extends GetxController {
     return option != null;
   }
 
-  Future<void> addProductToCatalog(
-      UserCatalogModel catalog, ProductFirebaseLiteModel product) async {
-    print('addProductToCatalog');
-
+  Future<void> addProductToCatalog(UserCatalogModel catalog,
+      ProductFirebaseLiteModel product, bool add) async {
     List<ProductFirebaseLiteModel> listProducts = catalog.products ?? [];
 
     List<dynamic> newlistProducts = [];
 
     for (ProductFirebaseLiteModel element in listProducts) {
-      newlistProducts.add(element.toJson());
+      if (element.id != product.id) {
+        newlistProducts.add(element.toJson());
+      }
     }
-    newlistProducts.add(product.toJson());
+
+    if (add) {
+      newlistProducts.add(product.toJson());
+    }
 
     Either<String, Unit> response =
         await userProductRepository.updateCatalogListProducts(
             catalogId: catalog.id, products: newlistProducts);
 
-    _addCatalogIsLoading = false;
     Get.back();
     response.fold(
       (failure) {
         Snackbars.error(failure);
       },
       (_) {
-        Snackbars.addToCatalog(_productCatalogBottomSheet!, catalog.name);
+        String message = add ? 'Guardado en' : 'Removido de';
+        Snackbars.productSnackbar(
+            _productCatalogBottomSheet!, '$message ${catalog.name}');
       },
     );
   }
