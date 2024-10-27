@@ -32,6 +32,7 @@ class VideoLabel extends StatelessWidget {
 
     double profit = suggestedPrice - price;
 
+    int points = product?.points ?? 0;
     String profitStr =
         CurrencyHelpers.moneyFormat(amount: profit, withDecimals: false);
     String priceStr =
@@ -64,14 +65,11 @@ class VideoLabel extends StatelessWidget {
                         color: Colors.white, width: 1), // Borde blanco
                   ),
                   child: ClipOval(
-                    child: Hero(
-                      tag: 'productHeroTag-${product!.id}',
-                      child: Image.network(
-                        product.thumbnail ?? '',
-                        width: 44,
-                        height: 44,
-                        fit: BoxFit.cover,
-                      ),
+                    child: Image.network(
+                      product?.thumbnail ?? '',
+                      width: 44,
+                      height: 44,
+                      fit: BoxFit.cover,
                     ),
                   ),
                 ),
@@ -82,19 +80,79 @@ class VideoLabel extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text(
-                        product.name ?? '',
-                        style: TypographyStyle.bodyRegularMedium
-                            .copyWith(color: white),
+                        product?.name ?? '',
+                        style: TypographyStyle.bodyBlackMedium.copyWith(
+                          color: neutral50,
+                          fontWeight: FontWeight.w500,
+                          shadows: [
+                            Shadow(
+                              offset: Offset(1, 1), // Desplazamiento en x y y
+                              blurRadius: 8, // Radio de desenfoque
+                              color: Colors.black
+                                  .withOpacity(0.5), // Color de la sombra
+                            ),
+                          ],
+                        ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
-                      SizedBox(height: 4),
+                      SizedBox(height: 6),
                       Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
                             providerName,
-                            style: TypographyStyle.bodyBlackSmall
-                                .copyWith(color: white),
+                            style: TypographyStyle.bodyBlackMedium.copyWith(
+                              color: neutral50,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                              shadows: [
+                                Shadow(
+                                  offset:
+                                      Offset(1, 1), // Desplazamiento en x y y
+                                  blurRadius: 8, // Radio de desenfoque
+                                  color: Colors.black
+                                      .withOpacity(0.5), // Color de la sombra
+                                ),
+                              ],
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 4),
+                            child: SvgPicture.asset(
+                              'assets/svg/ellipse.svg',
+                              width: 2,
+                            ),
+                          ),
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: BackdropFilter(
+                              filter:
+                                  ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
+                              child: Container(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 8, vertical: 4),
+                                decoration: BoxDecoration(
+                                  color: primaryLight,
+                                  borderRadius: BorderRadius.circular(20.0),
+                                ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text(
+                                      '$points puntos',
+                                      style: TypographyStyle.bodyRegularSmall
+                                          .copyWith(
+                                        color: primaryDark,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
                           ),
                         ],
                       ),
@@ -103,7 +161,7 @@ class VideoLabel extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 8),
+            SizedBox(height: 16),
             Wrap(
               crossAxisAlignment: WrapCrossAlignment.start,
               children: [
