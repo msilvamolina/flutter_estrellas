@@ -50,7 +50,7 @@ class UserProductController extends GetxController {
         Fields.addCatalogName.name: FormControl<String>(
           validators: [
             Validators.required,
-            Validators.minLength(6),
+            Validators.minLength(4),
           ],
         ),
       });
@@ -151,14 +151,38 @@ class UserProductController extends GetxController {
     );
   }
 
-  Future<void> showBottomSeetCatalog(
+  Future<void> showBottomSheetCatalog(
       ProductFirebaseLiteModel? productLite) async {
     _productCatalogBottomSheet = productLite;
 
     if (_listUserCatalogs.isEmpty) {
       openAddCatalogBottomSheet();
     } else {
-      Bottomsheets.draggableBottomSheet(BottomSheetTypes.catalog);
+      double initialChildSize = 0.4;
+      double maxChildSize = 0.9;
+      double minChildSize = 0.3;
+
+      if (_listUserCatalogs.length == 1) {
+        initialChildSize = 0.4;
+        maxChildSize = initialChildSize;
+        minChildSize = initialChildSize;
+      }
+      if (_listUserCatalogs.length == 2) {
+        initialChildSize = 0.5;
+        maxChildSize = initialChildSize;
+        minChildSize = initialChildSize;
+      }
+      if (_listUserCatalogs.length == 3) {
+        initialChildSize = 0.56;
+        maxChildSize = initialChildSize;
+        minChildSize = initialChildSize;
+      }
+      Bottomsheets.draggableBottomSheet(
+        type: BottomSheetTypes.catalog,
+        initialChildSize: initialChildSize,
+        maxChildSize: maxChildSize,
+        minChildSize: minChildSize,
+      );
     }
   }
 

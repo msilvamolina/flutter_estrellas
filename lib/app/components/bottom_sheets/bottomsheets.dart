@@ -9,7 +9,12 @@ import 'types.dart';
 class Bottomsheets {
   Bottomsheets._();
 
-  static void draggableBottomSheet(BottomSheetTypes type) {
+  static void draggableBottomSheet({
+    required BottomSheetTypes type,
+    required double initialChildSize,
+    required double minChildSize,
+    required double maxChildSize,
+  }) {
     showModalBottomSheet(
       context: Get.context!,
       isScrollControlled: true,
@@ -21,11 +26,10 @@ class Bottomsheets {
         ),
       ),
       builder: (context) => DraggableScrollableSheet(
-        initialChildSize: 0.64, // Ocupa la mitad de la pantalla al inicio
-        minChildSize: 0.4, // Tamaño mínimo cuando está contraído
-        maxChildSize: 0.9, // Tamaño máximo al arrastrar hacia arriba
-        expand:
-            false, // Esto evita que se expanda automáticamente al tamaño máximo
+        initialChildSize: initialChildSize,
+        minChildSize: minChildSize,
+        maxChildSize: maxChildSize,
+        expand: false,
         builder: (context, scrollController) {
           return ClipRRect(
             borderRadius: BorderRadius.only(
@@ -38,47 +42,6 @@ class Bottomsheets {
         },
       ),
     );
-
-    // showCupertinoModalBottomSheet(
-    //   context: Get.context!,
-    //   isDismissible: true,
-    //   enableDrag: true,
-    //   shadow: BoxShadow(color: Colors.transparent),
-    //   barrierColor: Colors.black.withOpacity(0.5),
-    //   backgroundColor: Colors.transparent,
-    //   builder: (context) => DraggableScrollableSheet(
-    //     initialChildSize: 0.5, // Toma la mitad de la pantalla inicialmente
-    //     minChildSize: 0.5, // Tamaño mínimo (mitad de pantalla)
-    //     maxChildSize: 0.9, // Tamaño máximo (casi toda la pantalla)
-    //     builder: (context, scrollController) {
-    //       return ClipRRect(
-    //         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-    //         child: DraggableBottomSheet(
-    //             type: type, scrollController: scrollController),
-    //       );
-    //     },
-    //   ),
-    // );
-    // showModalBottomSheet(
-    //   context: Get.context!,
-    //   isScrollControlled: true,
-    //   // shadow: BoxShadow(color: Colors.transparent),
-    //   isDismissible: true,
-
-    //   backgroundColor: Colors.transparent,
-    //   builder: (context) => DraggableScrollableSheet(
-    //     initialChildSize: 0.5, // Toma la mitad de la pantalla inicialmente
-    //     minChildSize: 0.5, // Tamaño mínimo (mitad de pantalla)
-    //     maxChildSize: 0.9, // Tamaño máximo (casi toda la pantalla)
-    //     builder: (context, scrollController) {
-    //       return ClipRRect(
-    //         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-    //         child: DraggableBottomSheet(
-    //             type: type, scrollController: scrollController),
-    //       );
-    //     },
-    //   ),
-    // );
   }
 
   static void staticBottomSheet(BottomSheetTypes type) {

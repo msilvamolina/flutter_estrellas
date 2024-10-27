@@ -43,7 +43,7 @@ class _VideoButtonsState extends State<VideoButtons> {
         Spacer(),
         InkWell(
           onTap: () => userProductController
-              .showBottomSeetCatalog(widget.videoPostModel.product),
+              .showBottomSheetCatalog(widget.videoPostModel.product),
           child: SvgPicture.asset(
             'assets/svg/BookmarkSimple.svg',
             width: iconSize,

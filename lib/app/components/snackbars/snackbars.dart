@@ -101,6 +101,8 @@ class Snackbars {
                         fontSize: 14,
                         color: colorText.withOpacity(0.8),
                       ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ],
                 ),

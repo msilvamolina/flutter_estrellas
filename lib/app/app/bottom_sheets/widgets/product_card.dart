@@ -52,21 +52,24 @@ class _ProductCardState extends State<ProductCard> {
             ),
           ),
           SizedBox(width: 16),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                widget.title,
-                style: TypographyStyle.bodyBlackLarge,
-              ),
-              Text(
-                widget.message,
-                style: TypographyStyle.bodyRegularMedium
-                    .copyWith(color: neutral700),
-              ),
-            ],
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  widget.title,
+                  style: TypographyStyle.bodyBlackLarge,
+                  maxLines: 2, 
+                  overflow: TextOverflow.ellipsis,
+                ),
+                Text(
+                  widget.message,
+                  style: TypographyStyle.bodyRegularMedium
+                      .copyWith(color: neutral700),
+                ),
+              ],
+            ),
           ),
-          Spacer(),
           !isLoading
               ? (widget.isProductoInCatalog
                   ? Button(
@@ -96,8 +99,8 @@ class _ProductCardState extends State<ProductCard> {
               : Padding(
                   padding: const EdgeInsets.only(right: 16),
                   child: SizedBox(
-                    width: 20, // Ancho deseado
-                    height: 20, // Alto deseado
+                    width: 20, 
+                    height: 20, 
                     child: CircularProgressIndicator(
                       valueColor: AlwaysStoppedAnimation<Color>(secondaryBase),
                       strokeWidth: 2.0,
