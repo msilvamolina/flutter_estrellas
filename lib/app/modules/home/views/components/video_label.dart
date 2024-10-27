@@ -27,12 +27,15 @@ class VideoLabel extends StatelessWidget {
       }
     }
 
-    double profit = 0;
     double price = product?.price ?? 0;
+    double suggestedPrice = product?.suggestedPrice ?? 0;
 
-    String profitStr = '\$3.000';
+    double profit = suggestedPrice - price;
+
+    String profitStr =
+        CurrencyHelpers.moneyFormat(amount: profit, withDecimals: false);
     String priceStr =
-        CurrencyHelpers.moneyFormat(amount: price, withDecimals: true);
+        CurrencyHelpers.moneyFormat(amount: price, withDecimals: false);
 
     double screenWidth = MediaQuery.of(context).size.width;
     bool isMobile = screenWidth < 480;
