@@ -45,12 +45,24 @@ class _VideoButtonsState extends State<VideoButtons> {
             image: 'assets/svg/InfoFill.svg',
             label: 'Info'),
         SizedBox(height: 22),
-        buttonCard(
-          onTap: () => userProductController
-              .addToFavorites(widget.videoPostModel.product),
-          image: 'assets/svg/HeartFill.svg',
-          label: '220',
-        ),
+        GetBuilder<UserProductController>(
+            id: 'product_favorite_icon',
+            builder: (_) {
+              return buttonCard(
+                onTap: () => userProductController
+                        .isProductInFavorites(widget.videoPostModel.product)
+                    ? userProductController
+                        .removeFromFavorites(widget.videoPostModel.product)
+                    : userProductController
+                        .addToFavorites(widget.videoPostModel.product),
+                image: 'assets/svg/HeartFill.svg',
+                label: '220',
+                colorIcon: userProductController
+                        .isProductInFavorites(widget.videoPostModel.product)
+                    ? error900
+                    : white,
+              );
+            }),
         SizedBox(height: 22),
         buttonCard(
             onTap: () => userProductController
@@ -64,6 +76,7 @@ class _VideoButtonsState extends State<VideoButtons> {
           image: 'assets/svg/logo.svg',
           label: 'Vender',
           isLogo: true,
+          colorIcon: primaryBase,
         ),
       ],
     );
@@ -73,16 +86,9 @@ class _VideoButtonsState extends State<VideoButtons> {
     required Function()? onTap,
     required String image,
     required String label,
+    Color colorIcon = white,
     bool isLogo = false,
   }) {
-    MainController mainController = Get.find();
-    Color colorText = widget.buttonInsideVideo
-        ? white
-        : (mainController.isThemeModeDark ? white : neutral800);
-
-    Color colorIcon = widget.buttonInsideVideo
-        ? white
-        : (mainController.isThemeModeDark ? white : neutral500);
     double iconSize = 34;
     return Material(
       color: Colors.transparent,
@@ -107,7 +113,7 @@ class _VideoButtonsState extends State<VideoButtons> {
                   image,
                   width: isLogo ? (iconSize + 6) : iconSize,
                   colorFilter: ColorFilter.mode(
-                    isLogo ? primaryBase : colorIcon,
+                    colorIcon,
                     BlendMode.srcIn,
                   ),
                 ),

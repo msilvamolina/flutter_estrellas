@@ -112,8 +112,8 @@ class UserProductController extends GetxController {
       },
       (_) {
         String message = 'agregado en a tus favoritos';
-        Snackbars.productSnackbar(
-            _productCatalogBottomSheet!, '${productLite.name} $message');
+        Snackbars.productSnackbar(productLite, '${productLite.name} $message');
+        update(['product_favorite_icon']);
       },
     );
   }
@@ -132,8 +132,8 @@ class UserProductController extends GetxController {
       },
       (_) {
         String message = 'removido de tus favoritos';
-        Snackbars.productSnackbar(
-            _productCatalogBottomSheet!, '${productLite.name} $message');
+        Snackbars.productSnackbar(productLite, '${productLite.name} $message');
+        update(['product_favorite_icon']);
       },
     );
   }
@@ -250,6 +250,13 @@ class UserProductController extends GetxController {
 
     ProductFirebaseLiteModel? option =
         listProducts.firstWhereOrNull((element) => element.id == product.id);
+
+    return option != null;
+  }
+
+  bool isProductInFavorites(ProductFirebaseLiteModel? product) {
+    UserProductModel? option = _listProductFavorites
+        .firstWhereOrNull((element) => element.product?.id == product?.id);
 
     return option != null;
   }
