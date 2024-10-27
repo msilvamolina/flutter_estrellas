@@ -49,6 +49,27 @@ class UserProductsRepository {
     }
   }
 
+  Stream<List<UserProductModel>> getUserCatalogPrivate() async* {
+    Map<String, String> userData = getUidAndEmail();
+    String uid = userData['uid'] ?? '';
+    try {
+      Stream<QuerySnapshot> snapshots = _firebaseFirestore
+          .collection('users')
+          .doc(uid)
+          .collection('catalog_private')
+          .orderBy('createdAt', descending: true)
+          .snapshots();
+
+      yield* snapshots.map((snapshot) {
+        return snapshot.docs
+            .map((doc) => UserProductModel.fromDocument(doc))
+            .toList();
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
   Stream<List<UserCatalogModel>> getUserCatalogs() async* {
     Map<String, String> userData = getUidAndEmail();
     String uid = userData['uid'] ?? '';

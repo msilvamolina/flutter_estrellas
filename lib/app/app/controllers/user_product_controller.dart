@@ -32,6 +32,11 @@ class UserProductController extends GetxController {
   List<UserProductModel> get listProductFavorite =>
       _listProductFavorites.toList();
 
+  final RxList<UserProductModel> _listProductCatalogPrivate =
+      <UserProductModel>[].obs;
+  List<UserProductModel> get listProductCatalogPrivate =>
+      _listProductCatalogPrivate.toList();
+
   final RxList<UserCatalogModel> _listUserCatalogs = <UserCatalogModel>[].obs;
   List<UserCatalogModel> get listUserCatalogs => _listUserCatalogs.toList();
 
@@ -59,6 +64,8 @@ class UserProductController extends GetxController {
   void onReady() {
     _listProductCart.bindStream(userProductRepository.getUserCart());
     _listProductFavorites.bindStream(userProductRepository.getUserFavorites());
+    _listProductCatalogPrivate
+        .bindStream(userProductRepository.getUserCatalogPrivate());
     _listUserCatalogs.bindStream(userProductRepository.getUserCatalogs());
     super.onReady();
   }
@@ -139,7 +146,7 @@ class UserProductController extends GetxController {
   }
 
   Future<void> addToCatalogPrivate(
-      ProductFirebaseLiteModel? productLite) async {
+      ProductFirebaseLiteModel? productLite, bool openBottomSheet) async {
     if (productLite == null) {
       return;
     }
@@ -151,7 +158,9 @@ class UserProductController extends GetxController {
         Snackbars.error(failure);
       },
       (_) {
-        showBottomSheetCatalog(productLite);
+        if (openBottomSheet) {
+          showBottomSheetCatalog(productLite);
+        }
         update(['product_catalog_icon']);
       },
     );
@@ -194,9 +203,9 @@ class UserProductController extends GetxController {
     );
   }
 
-  Future<void> onPressedSaveButton(
-      ProductFirebaseLiteModel? productLite) async {
-    addToCatalogPrivate(productLite);
+  Future<void> onPressedSaveButton(ProductFirebaseLiteModel? productLite,
+      {bool openBottomSheet = true}) async {
+    addToCatalogPrivate(productLite, openBottomSheet);
   }
 
   Future<void> showBottomSheetCatalog(
@@ -300,6 +309,13 @@ class UserProductController extends GetxController {
 
   bool isProductInFavorites(ProductFirebaseLiteModel? product) {
     UserProductModel? option = _listProductFavorites
+        .firstWhereOrNull((element) => element.product?.id == product?.id);
+
+    return option != null;
+  }
+
+  bool isProductInCatalogPrivate(ProductFirebaseLiteModel? product) {
+    UserProductModel? option = _listProductCatalogPrivate
         .firstWhereOrNull((element) => element.product?.id == product?.id);
 
     return option != null;

@@ -33,11 +33,33 @@ class _VideoButtonsState extends State<VideoButtons> {
     return Column(
       children: [
         Spacer(),
-        buttonCard(
-            onTap: () => userProductController
-                .onPressedSaveButton(widget.videoPostModel.product),
-            image: 'assets/svg/SaveFIll.svg',
-            label: 'Guardar'),
+        SizedBox(height: 22),
+        GetBuilder<UserProductController>(
+            id: 'product_catalog_icon',
+            builder: (_) {
+              return buttonCard(
+                onTap: () => userProductController.isProductInCatalogPrivate(
+                        widget.videoPostModel.product)
+                    ? userProductController
+                        .showBottomSheetCatalog(widget.videoPostModel.product)
+                    : userProductController.onPressedSaveButton(
+                        widget.videoPostModel.product,
+                      ),
+                iconSize: userProductController.isProductInCatalogPrivate(
+                        widget.videoPostModel.product)
+                    ? 22
+                    : 34,
+                image: userProductController.isProductInCatalogPrivate(
+                        widget.videoPostModel.product)
+                    ? 'assets/svg/catalog.svg'
+                    : 'assets/svg/SaveFIll.svg',
+                label: 'Guardar',
+                colorIcon: userProductController.isProductInCatalogPrivate(
+                        widget.videoPostModel.product)
+                    ? null
+                    : white,
+              );
+            }),
         SizedBox(height: 22),
         buttonCard(
             onTap: () => Get.toNamed(Routes.PRODUCT,
@@ -86,10 +108,10 @@ class _VideoButtonsState extends State<VideoButtons> {
     required Function()? onTap,
     required String image,
     required String label,
-    Color colorIcon = white,
+    Color? colorIcon = white,
     bool isLogo = false,
+    double iconSize = 34,
   }) {
-    double iconSize = 34;
     return Material(
       color: Colors.transparent,
       child: InkWell(
@@ -112,10 +134,12 @@ class _VideoButtonsState extends State<VideoButtons> {
                 child: SvgPicture.asset(
                   image,
                   width: isLogo ? (iconSize + 6) : iconSize,
-                  colorFilter: ColorFilter.mode(
-                    colorIcon,
-                    BlendMode.srcIn,
-                  ),
+                  colorFilter: colorIcon != null
+                      ? ColorFilter.mode(
+                          colorIcon,
+                          BlendMode.srcIn,
+                        )
+                      : null,
                 ),
               ),
               SizedBox(height: 4),
