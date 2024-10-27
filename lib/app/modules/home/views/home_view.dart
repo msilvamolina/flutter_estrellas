@@ -15,6 +15,8 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+  int viewSelected = 0;
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -62,13 +64,13 @@ class _HomeViewState extends State<HomeView> {
             ),
           ),
           Positioned(
-            bottom: 16,
+            bottom: 26,
             left: 16,
             right: 16,
             child: Center(
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 16),
-                height: 60,
+                height: 66,
                 decoration: BoxDecoration(
                   color: neutral900,
                   borderRadius: BorderRadius.circular(16),
@@ -84,11 +86,56 @@ class _HomeViewState extends State<HomeView> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    buttonCard('Home', EstrellasIcons.house),
-                    buttonCard('Billetera', EstrellasIcons.wallet),
-                    buttonCard('Buscar', EstrellasIcons.search),
-                    buttonCard('Tienda', EstrellasIcons.storefront),
-                    buttonCard('Cuenta', EstrellasIcons.userCircle),
+                    buttonCard(
+                        label: 'Home',
+                        icon: EstrellasIcons.house,
+                        iconActive: EstrellasIcons.houseFill,
+                        isActive: viewSelected == 0,
+                        onTap: () {
+                          setState(() {
+                            viewSelected = 0;
+                          });
+                        }),
+                    buttonCard(
+                        label: 'Billetera',
+                        icon: EstrellasIcons.wallet,
+                        iconActive: EstrellasIcons.walletFill,
+                        isActive: viewSelected == 1,
+                        onTap: () {
+                          setState(() {
+                            viewSelected = 1;
+                          });
+                        }),
+                    buttonCard(
+                        label: 'Buscar',
+                        icon: EstrellasIcons.search,
+                        iconActive: EstrellasIcons.searchFill,
+                        isActive: viewSelected == 2,
+                        onTap: () {
+                          setState(() {
+                            viewSelected = 2;
+                          });
+                        }),
+                    buttonCard(
+                        label: 'Tienda',
+                        icon: EstrellasIcons.storefront,
+                        iconActive: EstrellasIcons.storefrontFill,
+                        isActive: viewSelected == 3,
+                        onTap: () {
+                          setState(() {
+                            viewSelected = 3;
+                          });
+                        }),
+                    buttonCard(
+                        label: 'Cuenta',
+                        icon: EstrellasIcons.userCircle,
+                        iconActive: EstrellasIcons.userCircle1,
+                        isActive: viewSelected == 4,
+                        onTap: () {
+                          setState(() {
+                            viewSelected = 4;
+                          });
+                        }),
                   ],
                 ),
               ),
@@ -99,29 +146,46 @@ class _HomeViewState extends State<HomeView> {
     );
   }
 
-  Widget buttonCard(String label, IconData icon) {
-    return Column(
-      children: [
-        Container(
-          decoration: BoxDecoration(
-            color: primaryBase,
-            borderRadius: BorderRadius.circular(16),
+  Widget buttonCard({
+    required String label,
+    required IconData icon,
+    required IconData iconActive,
+    required bool isActive,
+    Function()? onTap,
+  }) {
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        highlightColor: Colors.transparent,
+        splashColor: primaryBase.withOpacity(0.25),
+        onTap: onTap,
+        child: SizedBox(
+          width: 60,
+          child: Column(
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  color: isActive ? primaryBase : Colors.transparent,
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                height: 5,
+                width: 42,
+              ),
+              SizedBox(height: 8),
+              Icon(
+                isActive ? iconActive : icon,
+                color: isActive ? primaryBase : neutral400,
+                size: 28,
+              ),
+              Text(
+                label,
+                style: TypographyStyle.bodyBlackSmall
+                    .copyWith(color: neutral400, fontWeight: FontWeight.w500),
+              ),
+            ],
           ),
-          height: 4,
-          width: 33,
         ),
-        SizedBox(height: 8),
-        Icon(
-          icon,
-          color: neutral400,
-        ),
-        Text(
-          label,
-          style: TypographyStyle.bodyBlackSmall.copyWith(
-            color: neutral400,
-          ),
-        ),
-      ],
+      ),
     );
   }
 }
