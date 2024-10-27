@@ -111,7 +111,9 @@ class UserProductController extends GetxController {
         Snackbars.error(failure);
       },
       (_) {
-        Snackbars.success('${productLite.name} agregado a favoritos');
+        String message = 'agregado en a tus favoritos';
+        Snackbars.productSnackbar(
+            _productCatalogBottomSheet!, '${productLite.name} $message');
       },
     );
   }
@@ -129,7 +131,9 @@ class UserProductController extends GetxController {
         Snackbars.error(failure);
       },
       (_) {
-        Snackbars.success('${productLite.name} removido de favoritos');
+        String message = 'removido de tus favoritos';
+        Snackbars.productSnackbar(
+            _productCatalogBottomSheet!, '${productLite.name} $message');
       },
     );
   }

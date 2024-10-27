@@ -46,10 +46,11 @@ class _VideoButtonsState extends State<VideoButtons> {
             label: 'Info'),
         SizedBox(height: 22),
         buttonCard(
-            onTap: () => userProductController
-                .addToFavorites(widget.videoPostModel.product),
-            image: 'assets/svg/HeartFill.svg',
-            label: '220'),
+          onTap: () => userProductController
+              .addToFavorites(widget.videoPostModel.product),
+          image: 'assets/svg/HeartFill.svg',
+          label: '220',
+        ),
         SizedBox(height: 22),
         buttonCard(
             onTap: () => userProductController
