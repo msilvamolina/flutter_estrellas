@@ -148,7 +148,7 @@ class _VideoAppState extends State<VideoApp> {
                         SliderTheme(
                           data: SliderTheme.of(context).copyWith(
                             thumbShape: SliderComponentShape.noThumb,
-                            trackHeight: 3.0,
+                            trackHeight: 2.0,
                             activeTrackColor: Colors.white,
                             inactiveTrackColor: Colors.black.withOpacity(0.3),
                             overlayShape: SliderComponentShape.noOverlay,

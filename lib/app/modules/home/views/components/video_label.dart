@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_estrellas/app/data/models/product_firebase_lite/product_firebase_lite.dart';
 import 'package:flutter_estrellas/app/data/models/product_lite/product_lite.dart';
+import 'package:flutter_estrellas/app/libraries/icons/icons_font.dart';
 import 'package:flutter_estrellas/app/themes/styles/colors.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -24,6 +25,9 @@ class VideoLabel extends StatelessWidget {
         providerName = product?.provider['name'];
       }
     }
+
+    double profit = 0;
+    double price = 0;
 
     double screenWidth = MediaQuery.of(context).size.width;
     bool isMobile = screenWidth < 480;
@@ -105,23 +109,20 @@ class VideoLabel extends StatelessWidget {
                         padding:
                             EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                         decoration: BoxDecoration(
-                          border: Border.all(
-                            color: neutral500,
-                            width: 1,
-                          ),
-                          color: neutral600.withOpacity(0.6),
+                          color: neutral900,
                           borderRadius: BorderRadius.circular(20.0),
                         ),
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            SvgPicture.asset(
-                              'assets/svg/medal.svg',
-                              width: 10,
+                            Icon(
+                              EstrellasIcons.handCoins,
+                              color: neutral400,
+                              size: 18,
                             ),
                             SizedBox(width: 4),
                             Text(
-                              'Puntos: ${product.points}',
+                              'Ganancia: ${product.points}',
                               style: TypographyStyle.bodyRegularSmall
                                   .copyWith(color: white),
                             ),
@@ -142,19 +143,16 @@ class VideoLabel extends StatelessWidget {
                         padding:
                             EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                         decoration: BoxDecoration(
-                          border: Border.all(
-                            color: neutral500,
-                            width: 1,
-                          ),
-                          color: neutral600.withOpacity(0.6),
+                          color: neutral900,
                           borderRadius: BorderRadius.circular(20.0),
                         ),
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            SvgPicture.asset(
-                              'assets/svg/coins.svg',
-                              width: 10,
+                            Icon(
+                              EstrellasIcons.currencyCircleDollar,
+                              color: neutral400,
+                              size: 18,
                             ),
                             SizedBox(width: 4),
                             Text(
