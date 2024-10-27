@@ -209,11 +209,15 @@ class _VideoAppState extends State<VideoApp> {
                   ],
                 ),
               )
-            : CachedNetworkImage(
-                imageUrl: widget.videoPostModel.thumbnail,
-                placeholder: (context, url) =>
-                    Center(child: CircularProgressIndicator()),
-                errorWidget: (context, url, error) => Icon(Icons.error),
+            : SizedBox.expand(
+                child: CachedNetworkImage(
+                  imageUrl: widget.videoPostModel.thumbnail,
+                  placeholder: (context, url) =>
+                      Center(child: CircularProgressIndicator()),
+                  errorWidget: (context, url, error) => Icon(Icons.error),
+                  fit: BoxFit
+                      .cover, // Ajusta la imagen para cubrir todo el espacio
+                ),
               ),
       );
 
