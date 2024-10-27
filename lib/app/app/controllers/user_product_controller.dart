@@ -177,6 +177,16 @@ class UserProductController extends GetxController {
         maxChildSize = initialChildSize;
         minChildSize = initialChildSize;
       }
+      if (_listUserCatalogs.length == 4) {
+        initialChildSize = 0.67;
+        maxChildSize = initialChildSize;
+        minChildSize = initialChildSize;
+      }
+      if (_listUserCatalogs.length > 4) {
+        initialChildSize = 0.67;
+        maxChildSize = 0.9;
+        minChildSize = 0.4;
+      }
       Bottomsheets.draggableBottomSheet(
         type: BottomSheetTypes.catalog,
         initialChildSize: initialChildSize,

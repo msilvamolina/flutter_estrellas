@@ -59,7 +59,7 @@ class _ProductCardState extends State<ProductCard> {
                 Text(
                   widget.title,
                   style: TypographyStyle.bodyBlackLarge,
-                  maxLines: 2, 
+                  maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),
                 Text(
@@ -99,8 +99,8 @@ class _ProductCardState extends State<ProductCard> {
               : Padding(
                   padding: const EdgeInsets.only(right: 16),
                   child: SizedBox(
-                    width: 20, 
-                    height: 20, 
+                    width: 20,
+                    height: 20,
                     child: CircularProgressIndicator(
                       valueColor: AlwaysStoppedAnimation<Color>(secondaryBase),
                       strokeWidth: 2.0,
