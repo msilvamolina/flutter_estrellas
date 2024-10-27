@@ -3,8 +3,8 @@ import 'package:flutter_estrellas/app/app/controllers/main_controller.dart';
 import 'package:flutter_estrellas/app/app/controllers/user_product_controller.dart';
 import 'package:get/get.dart';
 
-import '../../../data/models/videos/video_post_model.dart';
-import '../../../data/providers/repositories/videos/videos_repository.dart';
+import '../../../../data/models/videos/video_post_model.dart';
+import '../../../../data/providers/repositories/videos/videos_repository.dart';
 
 class HomeController extends GetxController {
   PageController pageController = PageController();

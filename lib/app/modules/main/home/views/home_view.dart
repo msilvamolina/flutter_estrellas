@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_estrellas/app/libraries/icons/icons_font.dart';
-import 'package:flutter_estrellas/app/modules/home/controllers/home_controller.dart';
+import 'package:flutter_estrellas/app/modules/main/home/controllers/home_controller.dart';
 import 'package:flutter_estrellas/app/routes/app_pages.dart';
 import 'package:flutter_estrellas/app/themes/styles/colors.dart';
 import 'package:flutter_estrellas/app/themes/styles/typography.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-import 'components/video_card.dart';
+import '../widgets/video_card.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});

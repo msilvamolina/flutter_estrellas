@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_estrellas/app/data/models/video_model.dart';
-import 'package:flutter_estrellas/app/modules/home/views/components/video.dart';
-import 'package:flutter_estrellas/app/modules/home/views/components/video_label.dart';
+import 'package:flutter_estrellas/app/modules/main/home/widgets/video.dart';
+import 'package:flutter_estrellas/app/modules/main/home/widgets/video_label.dart';
 import 'package:flutter_estrellas/app/themes/styles/typography.dart';
 
 import '../../../../data/models/videos/video_post_model.dart';
