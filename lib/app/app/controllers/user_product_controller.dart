@@ -179,6 +179,7 @@ class UserProductController extends GetxController {
         Snackbars.error(failure);
       },
       (_) {
+        Get.back();
         String message = 'removido de tu catálogo privado';
         Snackbars.productSnackbar(productLite, '${productLite.name} $message');
         update(['product_catalog_icon']);

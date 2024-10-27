@@ -37,9 +37,12 @@ class CatalogsBottomsheet extends StatelessWidget {
                     imageUrl: product.thumbnail ?? '',
                     title: product.name ?? '',
                     message: 'Guardado en privado',
-                    isProductoInCatalog: true,
-                    addFunction: null,
-                    removeFunction: null,
+                    isProductoInCatalog:
+                        controller.isProductInCatalogPrivate(product),
+                    addFunction: () => controller.onPressedSaveButton(product,
+                        openBottomSheet: false),
+                    removeFunction: () =>
+                        controller.removeFromCatalogPrivate(product),
                   ),
                   SizedBox(height: 6),
                   DottedLine(
