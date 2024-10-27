@@ -12,7 +12,6 @@ import '../../../../data/models/videos/video_post_model.dart';
 import 'video_buttons.dart';
 import 'video_label.dart';
 
-/// Stateful widget to fetch and then display video content.
 class VideoApp extends StatefulWidget {
   const VideoApp(
       {super.key, required this.videoPostModel, required this.onCompleted});
@@ -39,7 +38,6 @@ class _VideoAppState extends State<VideoApp> {
     _controller = VideoPlayerController.networkUrl(
         Uri.parse(widget.videoPostModel.videoUrl))
       ..initialize().then((_) {
-        // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
         setState(() {
           _controller.setLooping(true);
           _controller.play();
@@ -47,7 +45,6 @@ class _VideoAppState extends State<VideoApp> {
             if (_controller.value.isInitialized &&
                 _controller.value.isPlaying) {
               setState(() {
-                // Actualizar el slider según el tiempo actual de reproducción
                 _currentSliderValue =
                     _controller.value.position.inSeconds.toDouble();
               });
@@ -148,7 +145,32 @@ class _VideoAppState extends State<VideoApp> {
                         VideoLabel(
                           videoPostModel: widget.videoPostModel,
                         ),
-                        SizedBox(height: 76),
+                        SliderTheme(
+                          data: SliderTheme.of(context).copyWith(
+                            thumbShape: SliderComponentShape.noThumb,
+                            trackHeight: 3.0,
+                            activeTrackColor: Colors.white,
+                            inactiveTrackColor: Colors.black.withOpacity(0.3),
+                            overlayShape: SliderComponentShape.noOverlay,
+                          ),
+                          child: Container(
+                            padding: EdgeInsets.symmetric(horizontal: 14),
+                            child: Slider(
+                              value: _currentSliderValue,
+                              min: 0.0,
+                              max: _controller.value.duration.inSeconds
+                                  .toDouble(),
+                              onChanged: (value) {
+                                setState(() {
+                                  _currentSliderValue = value;
+                                  _controller
+                                      .seekTo(Duration(seconds: value.toInt()));
+                                });
+                              },
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 106),
                       ],
                     ),
                     Center(
@@ -162,51 +184,6 @@ class _VideoAppState extends State<VideoApp> {
                         ),
                       ),
                     ),
-                    Column(
-                      children: [
-                        // Row(
-                        //   children: [
-                        //     IconButton(
-                        //       onPressed: onPause,
-                        //       icon: Icon(
-                        //         _isPlaying ? Icons.pause : Icons.play_arrow,
-                        //         color: neutral500,
-                        //       ),
-                        //     ),
-                        //     Expanded(
-                        //       child: Slider(
-                        //         activeColor:
-                        //             primaryBase, // Cambia el color del slider
-                        //         inactiveColor:
-                        //             neutral400, // Color inactivo más claro
-
-                        //         value: _currentSliderValue,
-                        //         min: 0.0,
-                        //         max: _controller.value.duration.inSeconds
-                        //             .toDouble(),
-                        //         onChanged: (value) {
-                        //           setState(() {
-                        //             _currentSliderValue = value;
-                        //             // Saltar a la posición del slider
-                        //             _controller.seekTo(
-                        //                 Duration(seconds: value.toInt()));
-                        //           });
-                        //         },
-                        //       ),
-                        //     ),
-                        //     IconButton(
-                        //       onPressed: onVolume,
-                        //       icon: Icon(
-                        //         mainController.withVolume
-                        //             ? Icons.volume_off
-                        //             : Icons.volume_up_rounded,
-                        //         color: neutral500,
-                        //       ),
-                        //     ),
-                        //   ],
-                        // ),
-                      ],
-                    ),
                   ],
                 ),
               )
@@ -216,8 +193,7 @@ class _VideoAppState extends State<VideoApp> {
                   placeholder: (context, url) =>
                       Center(child: CircularProgressIndicator()),
                   errorWidget: (context, url, error) => Icon(Icons.error),
-                  fit: BoxFit
-                      .cover, // Ajusta la imagen para cubrir todo el espacio
+                  fit: BoxFit.cover,
                 ),
               ),
       );
