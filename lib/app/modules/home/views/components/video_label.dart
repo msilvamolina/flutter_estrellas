@@ -8,6 +8,7 @@ import 'package:flutter_estrellas/app/themes/styles/colors.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
+import '../../../../data/helpers/currency_helper.dart';
 import '../../../../data/models/videos/video_post_model.dart';
 import '../../../../routes/app_pages.dart';
 import '../../../../themes/styles/typography.dart';
@@ -27,7 +28,11 @@ class VideoLabel extends StatelessWidget {
     }
 
     double profit = 0;
-    double price = 0;
+    double price = product?.price ?? 0;
+
+    String profitStr = '\$3.000';
+    String priceStr =
+        CurrencyHelpers.moneyFormat(amount: price, withDecimals: true);
 
     double screenWidth = MediaQuery.of(context).size.width;
     bool isMobile = screenWidth < 480;
@@ -122,9 +127,11 @@ class VideoLabel extends StatelessWidget {
                             ),
                             SizedBox(width: 4),
                             Text(
-                              'Ganancia: ${product.points}',
-                              style: TypographyStyle.bodyRegularSmall
-                                  .copyWith(color: white),
+                              'Ganancia: $profitStr',
+                              style: TypographyStyle.bodyRegularSmall.copyWith(
+                                color: neutral400,
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
                           ],
                         ),
@@ -156,9 +163,11 @@ class VideoLabel extends StatelessWidget {
                             ),
                             SizedBox(width: 4),
                             Text(
-                              'Precio: ${product.suggestedPrice}',
-                              style: TypographyStyle.bodyRegularSmall
-                                  .copyWith(color: white),
+                              'Precio: $priceStr',
+                              style: TypographyStyle.bodyRegularSmall.copyWith(
+                                color: neutral400,
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
                           ],
                         ),
