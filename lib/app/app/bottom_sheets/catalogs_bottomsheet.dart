@@ -48,7 +48,7 @@ class CatalogsBottomsheet extends StatelessWidget {
                   ),
                   SizedBox(height: 16),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    padding: const EdgeInsets.symmetric(horizontal: 22),
                     child: Column(
                       children: [
                         Row(
@@ -72,22 +72,25 @@ class CatalogsBottomsheet extends StatelessWidget {
                   ),
                   SizedBox(height: 16),
                   for (UserCatalogModel element in controller.listUserCatalogs)
-                    ProductCard(
-                      imageUrl: element.imageUrl,
-                      title: element.name,
-                      message:
-                          '${element.products?.length ?? 0} ${(element.products?.length ?? 0) == 1 ? 'Producto' : 'Productos'}',
-                      isProductoInCatalog:
-                          controller.isProductoInCatalog(element, product),
-                      addFunction: () => controller.addProductToCatalog(
-                        element,
-                        product,
-                        true,
-                      ),
-                      removeFunction: () => controller.addProductToCatalog(
-                        element,
-                        product,
-                        false,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: ProductCard(
+                        imageUrl: element.imageUrl,
+                        title: element.name,
+                        message:
+                            '${element.products?.length ?? 0} ${(element.products?.length ?? 0) == 1 ? 'Producto' : 'Productos'}',
+                        isProductoInCatalog:
+                            controller.isProductoInCatalog(element, product),
+                        addFunction: () => controller.addProductToCatalog(
+                          element,
+                          product,
+                          true,
+                        ),
+                        removeFunction: () => controller.addProductToCatalog(
+                          element,
+                          product,
+                          false,
+                        ),
                       ),
                     ),
                 ],
