@@ -148,6 +148,7 @@ class _VideoAppState extends State<VideoApp> {
                         VideoLabel(
                           videoPostModel: widget.videoPostModel,
                         ),
+                        SizedBox(height: 76),
                       ],
                     ),
                     Center(

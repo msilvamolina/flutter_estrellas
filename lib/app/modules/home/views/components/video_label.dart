@@ -28,16 +28,16 @@ class VideoLabel extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
     bool isMobile = screenWidth < 480;
     return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.bottomCenter,
-          end: Alignment.topCenter,
-          colors: [
-            Colors.black,
-            Colors.transparent,
-          ],
-        ),
-      ),
+      // decoration: BoxDecoration(
+      //   gradient: LinearGradient(
+      //     begin: Alignment.bottomCenter,
+      //     end: Alignment.topCenter,
+      //     colors: [
+      //       Colors.black,
+      //       Colors.transparent,
+      //     ],
+      //   ),
+      // ),
       child: GestureDetector(
         onTap: () => Get.toNamed(Routes.PRODUCT, arguments: product),
         child: Padding(
