@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_estrellas/app/libraries/icons/icons_font.dart';
 import 'package:flutter_estrellas/app/modules/home/controllers/home_controller.dart';
+import 'package:flutter_estrellas/app/routes/app_pages.dart';
 import 'package:flutter_estrellas/app/themes/styles/colors.dart';
 import 'package:flutter_estrellas/app/themes/styles/typography.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import 'components/video_card.dart';
@@ -60,6 +62,61 @@ class _HomeViewState extends State<HomeView> {
                     return const Center(child: Text('no data'));
                   }
                 },
+              ),
+            ),
+          ),
+          SafeArea(
+            child: SizedBox(
+              height: kToolbarHeight,
+              child: Row(
+                children: [
+                  Spacer(),
+                  IconButton(
+                    onPressed: () {
+                      Get.toNamed(Routes.CART);
+                    },
+                    icon: Stack(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(
+                                    0.05), // Sombra con opacidad del 30%
+                                offset: Offset(1, 1), // Desplazamiento en x e y
+                                blurRadius: 6, // Radio de desenfoque
+                              ),
+                            ],
+                          ),
+                          child: Icon(
+                            EstrellasIcons.shoppingCartSimpleFill,
+                            color: white,
+                            size: 40,
+                          ),
+                        ),
+                        GetX<HomeController>(
+                          builder: (controller) {
+                            return Positioned(
+                              right: 0,
+                              child: CircleAvatar(
+                                radius: 8,
+                                backgroundColor: error900,
+                                child: Text(
+                                  controller.userProductController
+                                      .listProductCart.length
+                                      .toString(),
+                                  style: TypographyStyle.bodyBlackSmall
+                                      .copyWith(color: white, fontSize: 12),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(width: 12),
+                ],
               ),
             ),
           ),
