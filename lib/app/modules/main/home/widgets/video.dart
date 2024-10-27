@@ -1,13 +1,14 @@
+import 'dart:typed_data';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_estrellas/app/app/controllers/main_controller.dart';
 import 'package:flutter_estrellas/app/data/models/video_model.dart';
 import 'package:flutter_estrellas/app/themes/styles/colors.dart';
-import 'package:flutter_estrellas/app/themes/styles/typography.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
 
+import '../../../../../main.dart';
 import '../../../../data/models/videos/video_post_model.dart';
 import 'video_buttons.dart';
 import 'video_label.dart';
@@ -23,7 +24,7 @@ class VideoApp extends StatefulWidget {
   _VideoAppState createState() => _VideoAppState();
 }
 
-class _VideoAppState extends State<VideoApp> {
+class _VideoAppState extends State<VideoApp> with RouteAware {
   late VideoPlayerController _controller;
   double _currentSliderValue = 0.0;
   bool _isPlaying = true;
@@ -41,22 +42,49 @@ class _VideoAppState extends State<VideoApp> {
         setState(() {
           _controller.setLooping(true);
           _controller.play();
-          _controller.addListener(() {
-            if (_controller.value.isInitialized &&
-                _controller.value.isPlaying) {
-              setState(() {
-                _currentSliderValue =
-                    _controller.value.position.inSeconds.toDouble();
-              });
-              if (_controller.value.position >= _controller.value.duration) {
-                widget.onCompleted();
-              }
-            }
-          });
         });
       });
 
     _controller.setVolume(mainController.withVolume ? 100 : 0);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Verificamos si la ruta es de tipo PageRoute antes de suscribir
+    final route = ModalRoute.of(context);
+    if (route is PageRoute<dynamic>) {
+      routeObserver.subscribe(this, route);
+    }
+  }
+
+  @override
+  void dispose() {
+    routeObserver.unsubscribe(this);
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  void didPushNext() {
+    // Pausa el video cuando se navega a otra pantalla
+    if (_controller.value.isPlaying) {
+      _controller.pause();
+      setState(() {
+        _isPlaying = false;
+      });
+    }
+  }
+
+  @override
+  void didPopNext() {
+    // Reanuda el video cuando se regresa a esta pantalla
+    if (!_isPlaying) {
+      _controller.play();
+      setState(() {
+        _isPlaying = true;
+      });
+    }
   }
 
   void onPause() {
@@ -197,10 +225,4 @@ class _VideoAppState extends State<VideoApp> {
                 ),
               ),
       );
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
 }
