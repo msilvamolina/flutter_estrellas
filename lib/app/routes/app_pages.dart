@@ -2,6 +2,8 @@ import 'package:flutter/foundation.dart';
 
 import 'package:get/get.dart';
 
+import '../modules/main/account/bindings/account_binding.dart';
+import '../modules/main/account/views/account_view.dart';
 import '../modules/address/address_list/bindings/address_binding.dart';
 import '../modules/address/address_list/views/address_view.dart';
 import '../modules/address/new_address/bindings/new_address_binding.dart';
@@ -22,6 +24,12 @@ import '../modules/cart/bindings/cart_binding.dart';
 import '../modules/cart/views/cart_view.dart';
 import '../modules/main/home/bindings/home_binding.dart';
 import '../modules/main/home/views/home_view.dart';
+import '../modules/main/search/bindings/search_binding.dart';
+import '../modules/main/search/views/search_view.dart';
+import '../modules/main/store/bindings/store_binding.dart';
+import '../modules/main/store/views/store_view.dart';
+import '../modules/main/wallet/bindings/wallet_binding.dart';
+import '../modules/main/wallet/views/wallet_view.dart';
 import '../modules/order/order_success/bindings/order_success_binding.dart';
 import '../modules/order/order_success/views/order_success_view.dart';
 import '../modules/product/bindings/product_binding.dart';
@@ -125,6 +133,30 @@ class AppPages {
       name: _Paths.ORDER_SUCCESS,
       page: () => const OrderSuccessView(),
       binding: OrderSuccessBinding(),
+    ),
+    GetPage(
+      name: _Paths.STORE,
+      page: () => const StoreView(),
+      binding: StoreBinding(),
+      transition: Transition.fadeIn,
+    ),
+    GetPage(
+      name: _Paths.WALLET,
+      page: () => const WalletView(),
+      binding: WalletBinding(),
+      transition: Transition.fadeIn,
+    ),
+    GetPage(
+      name: _Paths.SEARCH,
+      page: () => const SearchView(),
+      binding: SearchBinding(),
+      transition: Transition.fadeIn,
+    ),
+    GetPage(
+      name: _Paths.ACCOUNT,
+      page: () => const AccountView(),
+      binding: AccountBinding(),
+      transition: Transition.fadeIn,
     ),
   ];
 }
