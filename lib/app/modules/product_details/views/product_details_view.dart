@@ -19,7 +19,7 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
             slivers: <Widget>[
               ProductAppbar(),
               ProductMainHeader(),
-              // ProductStickyContent(),
+              ProductStickyContent(),
             ],
           ),
         ),
