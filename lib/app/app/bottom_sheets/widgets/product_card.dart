@@ -81,7 +81,7 @@ class _ProductCardState extends State<ProductCard> {
                       onPressed: widget.addFunction != null
                           ? () {
                               setLoading();
-                              widget.addFunction!();
+                              widget.removeFunction!();
                             }
                           : null,
                     )
@@ -92,7 +92,7 @@ class _ProductCardState extends State<ProductCard> {
                       onPressed: widget.removeFunction != null
                           ? () {
                               setLoading();
-                              widget.removeFunction!();
+                              widget.addFunction!();
                             }
                           : null,
                     ))
