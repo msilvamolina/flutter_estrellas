@@ -27,13 +27,13 @@ class ProductMainHeader extends StatelessWidget {
                         style: TypographyStyle.bodyBlackLarge
                             .copyWith(color: warning500),
                       ),
-                      Container(
-                        color: Colors.red,
-                        width: 400,
-                        height: 400,
-                      )
                     ],
                   ),
+                  Container(
+                    color: Colors.red,
+                    width: 200,
+                    height: 400,
+                  )
                 ],
               ),
             ),

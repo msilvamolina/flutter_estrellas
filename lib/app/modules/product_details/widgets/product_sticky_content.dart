@@ -16,8 +16,14 @@ class ProductStickyContent extends StatelessWidget {
           removeTop: true,
           removeLeft: true,
           removeRight: true,
-          child: SliverToBoxAdapter(
-            child: DescriptionView(),
+          child: SliverFillRemaining(
+            child: TabBarView(
+              children: [
+                DescriptionView(), // Contenido de la pestaña "Inicio"
+                Center(child: Text('Contenido de Favoritos')),
+                Center(child: Text('Contenido de Ajustes')),
+              ],
+            ),
           ),
         ),
       );
