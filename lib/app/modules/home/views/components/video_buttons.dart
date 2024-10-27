@@ -86,49 +86,52 @@ class _VideoButtonsState extends State<VideoButtons> {
     return Material(
       color: Colors.transparent,
       child: InkWell(
-        onTap: () => userProductController
-            .showBottomSheetCatalog(widget.videoPostModel.product),
-        child: Column(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(
-                        0.1), // Menor opacidad para una sombra más sutil
-                    offset: Offset(0.5, 0.5), // Sombra más cercana al ícono
-                    blurRadius: 4, // Menor desenfoque
+        onTap: onTap,
+        child: SizedBox(
+          width: 55,
+          child: Column(
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(
+                          0.1), // Menor opacidad para una sombra más sutil
+                      offset: Offset(0.5, 0.5), // Sombra más cercana al ícono
+                      blurRadius: 4, // Menor desenfoque
+                    ),
+                  ],
+                ),
+                child: SvgPicture.asset(
+                  image,
+                  width: isLogo ? (iconSize + 6) : iconSize,
+                  colorFilter: ColorFilter.mode(
+                    isLogo ? primaryBase : colorIcon,
+                    BlendMode.srcIn,
                   ),
-                ],
-              ),
-              child: SvgPicture.asset(
-                image,
-                width: isLogo ? (iconSize + 6) : iconSize,
-                colorFilter: ColorFilter.mode(
-                  isLogo ? primaryBase : colorIcon,
-                  BlendMode.srcIn,
                 ),
               ),
-            ),
-            SizedBox(height: 4),
-            Text(
-              label,
-              style: TypographyStyle.bodyBlackMedium.copyWith(
-                color: neutral50,
-                fontSize: 12,
-                fontWeight: FontWeight.w600,
-                shadows: [
-                  Shadow(
-                    offset: Offset(1, 1), // Desplazamiento en x y y
-                    blurRadius: 8, // Radio de desenfoque
-                    color: Colors.black.withOpacity(0.8), // Color de la sombra
-                  ),
-                ],
+              SizedBox(height: 4),
+              Text(
+                label,
+                style: TypographyStyle.bodyBlackMedium.copyWith(
+                  color: neutral50,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                  shadows: [
+                    Shadow(
+                      offset: Offset(1, 1), // Desplazamiento en x y y
+                      blurRadius: 8, // Radio de desenfoque
+                      color:
+                          Colors.black.withOpacity(0.8), // Color de la sombra
+                    ),
+                  ],
+                ),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
               ),
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
