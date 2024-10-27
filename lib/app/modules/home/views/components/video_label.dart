@@ -120,7 +120,7 @@ class VideoLabel extends StatelessWidget {
                             overflow: TextOverflow.ellipsis,
                           ),
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 4),
+                            padding: const EdgeInsets.symmetric(horizontal: 6),
                             child: SvgPicture.asset(
                               'assets/svg/ellipse.svg',
                               width: 2,
