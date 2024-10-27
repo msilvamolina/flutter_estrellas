@@ -35,7 +35,7 @@ class _VideoButtonsState extends State<VideoButtons> {
         Spacer(),
         buttonCard(
             onTap: () => userProductController
-                .showBottomSheetCatalog(widget.videoPostModel.product),
+                .onPressedSaveButton(widget.videoPostModel.product),
             image: 'assets/svg/SaveFIll.svg',
             label: 'Guardar'),
         SizedBox(height: 22),

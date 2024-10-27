@@ -138,6 +138,45 @@ class UserProductController extends GetxController {
     );
   }
 
+  Future<void> addToCatalogPrivate(
+      ProductFirebaseLiteModel? productLite) async {
+    if (productLite == null) {
+      return;
+    }
+    Either<String, Unit> response = await userProductRepository
+        .addToCatalogPrivate(productLite: productLite);
+
+    response.fold(
+      (failure) {
+        Snackbars.error(failure);
+      },
+      (_) {
+        showBottomSheetCatalog(productLite);
+        update(['product_catalog_icon']);
+      },
+    );
+  }
+
+  Future<void> removeFromCatalogPrivate(
+      ProductFirebaseLiteModel? productLite) async {
+    if (productLite == null) {
+      return;
+    }
+    Either<String, Unit> response = await userProductRepository
+        .removeFromCatalogPrivate(productLite: productLite);
+
+    response.fold(
+      (failure) {
+        Snackbars.error(failure);
+      },
+      (_) {
+        String message = 'removido de tu catálogo privado';
+        Snackbars.productSnackbar(productLite, '${productLite.name} $message');
+        update(['product_catalog_icon']);
+      },
+    );
+  }
+
   Future<void> removeFromCart(ProductFirebaseLiteModel? productLite) async {
     if (productLite == null) {
       return;
@@ -153,6 +192,11 @@ class UserProductController extends GetxController {
         Snackbars.success('${productLite.name} removido de tu carrito');
       },
     );
+  }
+
+  Future<void> onPressedSaveButton(
+      ProductFirebaseLiteModel? productLite) async {
+    addToCatalogPrivate(productLite);
   }
 
   Future<void> showBottomSheetCatalog(

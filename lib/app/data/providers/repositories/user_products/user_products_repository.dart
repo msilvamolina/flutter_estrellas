@@ -117,6 +117,51 @@ class UserProductsRepository {
     }
   }
 
+  Future<Either<String, Unit>> addToCatalogPrivate({
+    required ProductFirebaseLiteModel productLite,
+  }) async {
+    Map<String, String> userData = getUidAndEmail();
+    String uid = userData['uid'] ?? '';
+    String email = userData['email'] ?? '';
+    String productId = productLite.id;
+    try {
+      await _firebaseFirestore
+          .collection('users')
+          .doc(uid)
+          .collection('catalog_private')
+          .doc(productId)
+          .set({
+        'product': productLite.toDocument(),
+        'isAnonymous': false,
+        'createdBy': email,
+        'createdByUserId': uid,
+        'createdAt': DateTime.now(),
+      });
+      return right(unit);
+    } on FirebaseException catch (e) {
+      return left(e.code);
+    }
+  }
+
+  Future<Either<String, Unit>> removeFromCatalogPrivate({
+    required ProductFirebaseLiteModel productLite,
+  }) async {
+    Map<String, String> userData = getUidAndEmail();
+    String uid = userData['uid'] ?? '';
+    String productId = productLite.id;
+    try {
+      await _firebaseFirestore
+          .collection('users')
+          .doc(uid)
+          .collection('catalog_private')
+          .doc(productId)
+          .delete();
+      return right(unit);
+    } on FirebaseException catch (e) {
+      return left(e.code);
+    }
+  }
+
   Future<Either<String, Unit>> removeFromFavorites({
     required ProductFirebaseLiteModel productLite,
   }) async {
