@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_estrellas/app/routes/app_pages.dart';
+import 'package:get/get.dart';
 
 import '../../../libraries/icons/icons_font.dart';
 import '../../../themes/styles/colors.dart';
@@ -30,38 +32,71 @@ class Bottombar extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             buttonCard(
-                label: 'Home',
-                icon: EstrellasIcons.house,
-                iconActive: EstrellasIcons.houseFill,
-                isActive: viewSelected == 0,
-                onTap: () {}),
+              label: 'Home',
+              icon: EstrellasIcons.house,
+              iconActive: EstrellasIcons.houseFill,
+              isActive: viewSelected == 0,
+              onTap: () {
+                if (viewSelected != 0) {
+                  Get.back();
+                }
+              },
+            ),
             buttonCard(
               label: 'Billetera',
               icon: EstrellasIcons.wallet,
               iconActive: EstrellasIcons.walletFill,
               isActive: viewSelected == 1,
-              onTap: () {},
+              onTap: () {
+                String route = Routes.WALLET;
+                if (viewSelected == 0) {
+                  Get.toNamed(route);
+                } else {
+                  Get.offNamed(route);
+                }
+              },
             ),
             buttonCard(
               label: 'Buscar',
               icon: EstrellasIcons.search,
               iconActive: EstrellasIcons.searchFill,
               isActive: viewSelected == 2,
-              onTap: () {},
+              onTap: () {
+                String route = Routes.SEARCH;
+                if (viewSelected == 0) {
+                  Get.toNamed(route);
+                } else {
+                  Get.offNamed(route);
+                }
+              },
             ),
             buttonCard(
               label: 'Tienda',
               icon: EstrellasIcons.storefront,
               iconActive: EstrellasIcons.storefrontFill,
               isActive: viewSelected == 3,
-              onTap: () {},
+              onTap: () {
+                String route = Routes.STORE;
+                if (viewSelected == 0) {
+                  Get.toNamed(route);
+                } else {
+                  Get.offNamed(route);
+                }
+              },
             ),
             buttonCard(
               label: 'Cuenta',
               icon: EstrellasIcons.userCircle,
               iconActive: EstrellasIcons.userCircle1,
               isActive: viewSelected == 4,
-              onTap: () {},
+              onTap: () {
+                String route = Routes.ACCOUNT;
+                if (viewSelected == 0) {
+                  Get.toNamed(route);
+                } else {
+                  Get.offNamed(route);
+                }
+              },
             ),
           ],
         ),
@@ -74,14 +109,14 @@ class Bottombar extends StatelessWidget {
     required IconData icon,
     required IconData iconActive,
     required bool isActive,
-    Function()? onTap,
+    required Function() onTap,
   }) {
     return Material(
       color: Colors.transparent,
       child: InkWell(
         highlightColor: Colors.transparent,
         splashColor: primaryBase.withOpacity(0.25),
-        onTap: onTap,
+        onTap: !isActive ? () => onTap() : null,
         child: SizedBox(
           width: 60,
           child: Column(
