@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 
+import '../../product/views/description_view.dart';
 import 'product_sticky_header.dart';
 
 class ProductStickyContent extends StatelessWidget {
@@ -15,10 +16,8 @@ class ProductStickyContent extends StatelessWidget {
           removeTop: true,
           removeLeft: true,
           removeRight: true,
-          child: SliverList(
-            delegate: SliverChildListDelegate([
-              
-            ]),
+          child: SliverToBoxAdapter(
+            child: DescriptionView(),
           ),
         ),
       );

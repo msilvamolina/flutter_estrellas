@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_estrellas/app/themes/styles/colors.dart';
 
@@ -26,6 +27,11 @@ class ProductMainHeader extends StatelessWidget {
                         style: TypographyStyle.bodyBlackLarge
                             .copyWith(color: warning500),
                       ),
+                      Container(
+                        color: Colors.red,
+                        width: 400,
+                        height: 400,
+                      )
                     ],
                   ),
                 ],
