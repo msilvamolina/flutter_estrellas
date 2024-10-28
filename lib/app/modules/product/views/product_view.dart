@@ -3,7 +3,7 @@ import 'dart:ui';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_estrellas/app/modules/product/views/description_view.dart';
+import 'package:flutter_estrellas/app/modules/product_details/tabs_views/description_view.dart';
 import 'package:flutter_estrellas/app/themes/styles/typography.dart';
 
 import 'package:get/get.dart';

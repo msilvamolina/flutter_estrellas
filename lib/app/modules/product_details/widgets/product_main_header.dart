@@ -1,8 +1,12 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_estrellas/app/libraries/icons/icons_font.dart';
 import 'package:flutter_estrellas/app/themes/styles/colors.dart';
+import 'package:get/get.dart';
 
 import '../../../themes/styles/typography.dart';
+import '../controllers/product_details_controller.dart';
 
 class ProductMainHeader extends StatelessWidget {
   const ProductMainHeader({
@@ -11,33 +15,49 @@ class ProductMainHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => SliverToBoxAdapter(
-        child: Column(
-          children: [
-            Padding(
-              padding: EdgeInsets.only(top: 0),
+        child: GetX<ProductDetailsController>(
+          builder: (controller) {
+            return Padding(
+              padding: const EdgeInsets.all(16),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        '\$ 0 (+0,0%)',
-                        style: TypographyStyle.bodyBlackLarge
-                            .copyWith(color: warning500),
+                children: [
+                  Stack(
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.all(Radius.circular(16)),
+                        child: CachedNetworkImage(
+                            imageUrl: controller.productLite.thumbnail ?? ''),
                       ),
+                      Container(
+                        margin: EdgeInsets.all(16),
+                        padding: EdgeInsets.only(
+                            left: 6, right: 8, top: 2, bottom: 3),
+                        decoration: BoxDecoration(
+                          color: primaryLight,
+                          borderRadius: BorderRadius.all(Radius.circular(16)),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(EstrellasIcons.medal),
+                            Text(
+                              '${controller.productLite.points} puntos',
+                              style: TypographyStyle.bodyBlackMedium,
+                            ),
+                          ],
+                        ),
+                      )
                     ],
                   ),
-                  Container(
-                    color: Colors.red,
-                    width: 200,
-                    height: 400,
-                  )
+                  Text('product: '),
+                  Text(controller.product.toString()),
+                  SizedBox(height: 26),
+                  Text('imagenes: '),
+                  Text(controller.listImages.toString()),
                 ],
               ),
-            ),
-          ],
+            );
+          },
         ),
       );
 }

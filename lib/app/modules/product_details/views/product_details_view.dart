@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_estrellas/app/themes/styles/typography.dart';
 
 import 'package:get/get.dart';
 
@@ -14,10 +15,15 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
   Widget build(BuildContext context) => DefaultTabController(
         length: 3,
         child: Scaffold(
+          appBar: AppBar(
+            title: Text(
+              'Detalle de producto',
+              style: TypographyStyle.bodyBlackLarge,
+            ),
+          ),
           body: CustomScrollView(
             shrinkWrap: true,
             slivers: <Widget>[
-              ProductAppbar(),
               ProductMainHeader(),
               ProductStickyContent(),
             ],

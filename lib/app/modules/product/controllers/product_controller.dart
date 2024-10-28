@@ -7,7 +7,6 @@ class ProductController extends GetxController {
   MainController mainController = Get.find<MainController>();
   UserProductController userProductController =
       Get.find<UserProductController>();
-  final count = 0.obs;
 
   late ProductFirebaseLiteModel productLite;
   @override
@@ -15,16 +14,4 @@ class ProductController extends GetxController {
     productLite = Get.arguments as ProductFirebaseLiteModel;
     super.onInit();
   }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
-  void increment() => count.value++;
 }

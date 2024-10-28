@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 
-import '../../product/views/description_view.dart';
+import '../tabs_views/description_view.dart';
 import 'product_sticky_header.dart';
 
 class ProductStickyContent extends StatelessWidget {
@@ -18,6 +18,7 @@ class ProductStickyContent extends StatelessWidget {
           removeRight: true,
           child: SliverFillRemaining(
             child: TabBarView(
+              
               children: [
                 DescriptionView(), // Contenido de la pestaña "Inicio"
                 Center(child: Text('Contenido de Favoritos')),
