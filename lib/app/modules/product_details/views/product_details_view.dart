@@ -17,6 +17,7 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
         child: Scaffold(
           backgroundColor: Colors.white,
           appBar: AppBar(
+            backgroundColor: Colors.white,
             title: Text(
               'Detalle de producto',
               style: TypographyStyle.bodyBlackLarge,

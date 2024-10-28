@@ -11,6 +11,7 @@ import '../../../components/buttons/buttons.dart';
 import '../controllers/product_details_controller.dart';
 import 'content/prodocut_price.dart';
 import 'content/product_variations.dart';
+import 'content/product_variations_color.dart';
 
 class ProductContent extends StatelessWidget {
   const ProductContent({super.key});
@@ -24,6 +25,8 @@ class ProductContent extends StatelessWidget {
         ProdocutPrice(),
         SizedBox(height: 16),
         ProductVariationsSize(),
+        SizedBox(height: 16),
+        ProductVariationsColor(),
       ],
     );
   }
