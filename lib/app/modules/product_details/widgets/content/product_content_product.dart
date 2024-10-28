@@ -87,8 +87,10 @@ class ProductContentProduct extends StatelessWidget {
                   ),
                   Spacer(),
                   ButtonCircleSvg(
-                    assetName: 'assets/svg/Heart.svg',
-                    color: neutral700,
+                    assetName: controller.isLiked
+                        ? 'assets/svg/HeartColor.svg'
+                        : 'assets/svg/Heart.svg',
+                    color: !controller.isLiked ? neutral700 : null,
                     onTap: () {},
                     width: 28,
                   ),
@@ -99,8 +101,10 @@ class ProductContentProduct extends StatelessWidget {
                     width: 22,
                   ),
                   ButtonCircleSvg(
-                    assetName: 'assets/svg/Cart.svg',
-                    color: neutral700,
+                    assetName: controller.isInCart
+                        ? 'assets/svg/CartColor.svg'
+                        : 'assets/svg/Cart.svg',
+                    color: !controller.isInCart ? neutral700 : null,
                     onTap: () {},
                     width: 26,
                   ),

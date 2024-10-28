@@ -22,6 +22,12 @@ class ProductDetailsController extends GetxController {
   final RxList<ProductImageModel> _listImages = <ProductImageModel>[].obs;
   List<ProductImageModel> get listImages => _listImages.toList();
 
+  bool _isLiked = true;
+  bool get isLiked => _isLiked;
+
+  bool _isInCart = true;
+  bool get isInCart => _isInCart;
+
   @override
   void onInit() {
     productLite = Get.arguments as ProductFirebaseLiteModel;
