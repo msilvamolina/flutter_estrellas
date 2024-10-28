@@ -9,6 +9,8 @@ import 'package:get/get.dart';
 import '../../../components/buttons/button_circle_svg.dart';
 import '../../../components/buttons/buttons.dart';
 import '../controllers/product_details_controller.dart';
+import 'content/prodocut_price.dart';
+import 'content/product_variations.dart';
 
 class ProductContent extends StatelessWidget {
   const ProductContent({super.key});
@@ -18,6 +20,10 @@ class ProductContent extends StatelessWidget {
     return Column(
       children: [
         ProductContentProduct(),
+        SizedBox(height: 16),
+        ProdocutPrice(),
+        SizedBox(height: 16),
+        ProductVariationsSize(),
       ],
     );
   }

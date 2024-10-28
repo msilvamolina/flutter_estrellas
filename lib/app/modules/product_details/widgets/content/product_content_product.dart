@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 
 import '../../../../components/buttons/button_circle_svg.dart';
 import '../../controllers/product_details_controller.dart';
+import 'product_card_container.dart';
 
 class ProductContentProduct extends StatelessWidget {
   const ProductContentProduct({super.key});
@@ -16,14 +17,7 @@ class ProductContentProduct extends StatelessWidget {
     return GetBuilder<ProductDetailsController>(
       id: 'content_product',
       builder: (controller) {
-        return Container(
-          margin: EdgeInsets.symmetric(horizontal: 16),
-          padding: EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: neutral200,
-            borderRadius: BorderRadius.circular(14),
-          ),
-          width: double.infinity,
+        return ProductCardContainer(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

@@ -83,6 +83,14 @@ class ProductImagesCard extends StatelessWidget {
                     style: TypographyStyle.bodyBlackLarge.copyWith(
                         color: white,
                         fontSize: 20,
+                        shadows: [
+                          Shadow(
+                            offset: Offset(1, 2), // Desplazamiento en x y y
+                            blurRadius: 8, // Radio de desenfoque
+                            color: Colors.black
+                                .withOpacity(0.8), // Color de la sombra
+                          ),
+                        ],
                         fontWeight: FontWeight.w700),
                   ),
                 ),
