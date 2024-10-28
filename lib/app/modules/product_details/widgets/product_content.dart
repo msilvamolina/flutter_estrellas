@@ -5,6 +5,8 @@ import 'package:flutter_estrellas/app/themes/styles/typography.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
+import '../../../components/buttons/button_circle_svg.dart';
+import '../../../components/buttons/buttons.dart';
 import '../controllers/product_details_controller.dart';
 
 class ProductContent extends StatelessWidget {
@@ -35,6 +37,7 @@ class ProductContent extends StatelessWidget {
               ),
               SizedBox(height: 4),
               Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
                     'Tangerine Company',
@@ -43,11 +46,65 @@ class ProductContent extends StatelessWidget {
                       // fontWeight: FontWeight.w700,
                     ),
                   ),
-                  Icon(EstrellasIcons.usersFill)
-                  // SvgPicture.asset(
-                  //   'assets/svg/ellipse.svg',
-                  //   width: 10,
-                  // ),
+                  SizedBox(width: 6),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 2),
+                    child: CircleAvatar(
+                      backgroundColor: neutral500,
+                      radius: 1.5,
+                    ),
+                  ),
+                  SizedBox(width: 4),
+                  Icon(
+                    EstrellasIcons.starFill,
+                    color: tertiaryBase,
+                    size: 22,
+                  ),
+                  Text(
+                    '4.8',
+                    style: TypographyStyle.bodyRegularMedium.copyWith(
+                      color: neutral700,
+                      // fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  SizedBox(width: 4),
+                  Text(
+                    'comentarios',
+                    style: TypographyStyle.bodyRegularMedium.copyWith(
+                      color: neutral700,
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 8),
+              Row(
+                children: [
+                  Text(
+                    '¡Quedan 12!',
+                    style: TypographyStyle.bodyBlackMedium.copyWith(
+                      color: secondaryBase,
+                    ),
+                  ),
+                  Spacer(),
+                  ButtonCircleSvg(
+                    assetName: 'assets/svg/Heart.svg',
+                    color: neutral700,
+                    onTap: () {},
+                    width: 28,
+                  ),
+                  ButtonCircleSvg(
+                    assetName: 'assets/svg/Comment.svg',
+                    color: neutral700,
+                    onTap: () {},
+                    width: 22,
+                  ),
+                  ButtonCircleSvg(
+                    assetName: 'assets/svg/Cart.svg',
+                    color: neutral700,
+                    onTap: () {},
+                    width: 26,
+                  ),
                 ],
               ),
             ],
