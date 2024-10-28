@@ -13,9 +13,6 @@ class ProductImagesCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String imageUrl =
-        'https://firebasestorage.googleapis.com/v0/b/estrellas-dev-ecd61.appspot.com/o/products%2F671923db043d1fc932a5537a%2Fimage-0e457ef7-17d5-4450-81be-9b27ccb18c3c?alt=media&token=7f37296e-bbfe-4c5f-a309-8d1590684514';
-
     return Container(
       margin: const EdgeInsets.all(26),
       child: Center(
@@ -41,10 +38,9 @@ class ProductImagesCard extends StatelessWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  imageCard(imageUrl),
-                  imageCard(imageUrl),
-                  imageCard(imageUrl),
-                  imageCard(imageUrl, imageCount: 6),
+                  for (int index = 0; index < listImages.length; index++)
+                    imageCard(listImages[index].imageUrl,
+                        isFinalImage: index == (listImages.length - 1)),
                 ],
               ),
             ),
@@ -54,11 +50,12 @@ class ProductImagesCard extends StatelessWidget {
     );
   }
 
-  Widget imageCard(String imageUrl, {int? imageCount}) {
+  Widget imageCard(String imageUrl,
+      {int? imageCount, bool isFinalImage = false}) {
     double doublePadding = 10;
     return Padding(
       padding: EdgeInsets.only(
-          left: doublePadding, right: imageCount != null ? doublePadding : 0),
+          left: doublePadding, right: isFinalImage ? doublePadding : 0),
       child: ClipRRect(
         borderRadius: BorderRadius.all(Radius.circular(10)),
         child: SizedBox(

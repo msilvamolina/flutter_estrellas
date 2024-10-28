@@ -59,8 +59,12 @@ class ProductMainHeader extends StatelessWidget {
                   ),
                 ),
                 Spacer(),
-                ProductImagesCard(
-                  listImages: [],
+                Obx(
+                  () => controller.listImages.isNotEmpty
+                      ? ProductImagesCard(
+                          listImages: controller.listImages,
+                        )
+                      : SizedBox.shrink(),
                 ),
               ],
             ),
