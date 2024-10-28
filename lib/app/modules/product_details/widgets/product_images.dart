@@ -1,13 +1,15 @@
 import 'dart:ui'; // Importa para el desenfoque de fondo
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_estrellas/app/themes/styles/typography.dart';
 
 import '../../../data/models/product_image/product_image_model.dart';
+import '../../../themes/styles/colors.dart';
 
 class ProductImagesCard extends StatelessWidget {
   const ProductImagesCard({required this.listImages, super.key});
   final List<ProductImageModel> listImages;
-  final double imageSize = 76;
+  final double imageSize = 66;
 
   @override
   Widget build(BuildContext context) {
@@ -42,8 +44,7 @@ class ProductImagesCard extends StatelessWidget {
                   imageCard(imageUrl),
                   imageCard(imageUrl),
                   imageCard(imageUrl),
-                  imageCard(imageUrl),
-                  const SizedBox(width: 10),
+                  imageCard(imageUrl, imageCount: 6),
                 ],
               ),
             ),
@@ -53,17 +54,32 @@ class ProductImagesCard extends StatelessWidget {
     );
   }
 
-  Widget imageCard(String imageUrl, {bool isEmpty = false}) {
-    return Container(
-      width: imageSize,
-      height: imageSize,
-      padding: const EdgeInsets.only(left: 10),
-      child: Opacity(
-        opacity: isEmpty ? 0 : 1,
-        child: ClipRRect(
-          borderRadius: BorderRadius.all(Radius.circular(8)),
-          child: CachedNetworkImage(
-            imageUrl: imageUrl,
+  Widget imageCard(String imageUrl, {int? imageCount}) {
+    double doublePadding = 10;
+    return Padding(
+      padding: EdgeInsets.only(
+          left: doublePadding, right: imageCount != null ? doublePadding : 0),
+      child: ClipRRect(
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+        child: SizedBox(
+          width: imageSize,
+          height: imageSize,
+          child: Stack(
+            children: [
+              CachedNetworkImage(
+                imageUrl: imageUrl,
+              ),
+              if (imageCount != null)
+                Center(
+                  child: Text(
+                    '+$imageCount',
+                    style: TypographyStyle.bodyBlackLarge.copyWith(
+                        color: white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w700),
+                  ),
+                ),
+            ],
           ),
         ),
       ),
