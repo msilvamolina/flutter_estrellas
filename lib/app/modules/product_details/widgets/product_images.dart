@@ -10,6 +10,7 @@ class ProductImagesCard extends StatelessWidget {
   const ProductImagesCard({required this.listImages, super.key});
   final List<ProductImageModel> listImages;
   final double imageSize = 66;
+  final int imageLimit = 4;
 
   @override
   Widget build(BuildContext context) {
@@ -38,9 +39,15 @@ class ProductImagesCard extends StatelessWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  for (int index = 0; index < listImages.length; index++)
-                    imageCard(listImages[index].imageUrl,
-                        isFinalImage: index == (listImages.length - 1)),
+                  for (int index = 0;
+                      index < listImages.length && index < imageLimit;
+                      index++)
+                    imageCard(
+                      listImages[index].imageUrl,
+                      isFinalImage: index == (listImages.length - 1),
+                      imageCount:
+                          index == (imageLimit - 1) ? getImageCount() : null,
+                    ),
                 ],
               ),
             ),
@@ -50,12 +57,15 @@ class ProductImagesCard extends StatelessWidget {
     );
   }
 
+  int getImageCount() => (listImages.length - imageLimit);
+
   Widget imageCard(String imageUrl,
       {int? imageCount, bool isFinalImage = false}) {
     double doublePadding = 10;
     return Padding(
       padding: EdgeInsets.only(
-          left: doublePadding, right: isFinalImage ? doublePadding : 0),
+          left: doublePadding,
+          right: (isFinalImage || imageCount != null) ? doublePadding : 0),
       child: ClipRRect(
         borderRadius: BorderRadius.all(Radius.circular(10)),
         child: SizedBox(
