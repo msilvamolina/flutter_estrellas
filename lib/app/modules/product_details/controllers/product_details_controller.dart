@@ -1,3 +1,5 @@
+import 'package:easy_image_viewer/easy_image_viewer.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_estrellas/app/data/models/product/product/product.dart';
 import 'package:flutter_estrellas/app/data/models/product/product_firebase/product_firebase_model.dart';
 import 'package:flutter_estrellas/app/data/providers/repositories/products/products_repository.dart';
@@ -28,5 +30,21 @@ class ProductDetailsController extends GetxController {
         .bindStream(_repository.getProductImages(productId: productLite.id));
 
     super.onInit();
+  }
+
+  void openPhotoView() {
+    MultiImageProvider multiImageProvider = MultiImageProvider([
+      NetworkImage(productLite.thumbnail ?? ''),
+      if (_listImages.isNotEmpty)
+        for (ProductImageModel image in _listImages)
+          NetworkImage(image.imageUrl),
+    ]);
+
+    showImageViewerPager(Get.context!, multiImageProvider,
+        onPageChanged: (page) {
+      // print("page changed to $page");
+    }, onViewerDismissed: (page) {
+      // print("dismissed while on page $page");
+    });
   }
 }

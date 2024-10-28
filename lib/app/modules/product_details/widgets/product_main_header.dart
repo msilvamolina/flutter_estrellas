@@ -23,50 +23,53 @@ class ProductMainHeader extends StatelessWidget {
     return SliverToBoxAdapter(
       child: GetBuilder<ProductDetailsController>(
         builder: (controller) {
-          return Container(
-            width: imageSize,
-            height: imageSize,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(16)),
-              image: DecorationImage(
-                image: NetworkImage(controller.productLite.thumbnail ?? ''),
-                fit: BoxFit.cover,
+          return GestureDetector(
+            onTap: controller.openPhotoView,
+            child: Container(
+              width: imageSize,
+              height: imageSize,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(16)),
+                image: DecorationImage(
+                  image: NetworkImage(controller.productLite.thumbnail ?? ''),
+                  fit: BoxFit.cover,
+                ),
               ),
-            ),
-            margin: EdgeInsets.all(padding),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  margin: EdgeInsets.all(16),
-                  padding:
-                      EdgeInsets.only(left: 6, right: 8, top: 2, bottom: 3),
-                  decoration: BoxDecoration(
-                    color: primaryLight,
-                    borderRadius: BorderRadius.all(Radius.circular(16)),
+              margin: EdgeInsets.all(padding),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    margin: EdgeInsets.all(16),
+                    padding:
+                        EdgeInsets.only(left: 6, right: 8, top: 2, bottom: 3),
+                    decoration: BoxDecoration(
+                      color: primaryLight,
+                      borderRadius: BorderRadius.all(Radius.circular(16)),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(EstrellasIcons.medal),
+                        Text(
+                          '${controller.productLite.points} puntos',
+                          style: TypographyStyle.bodyBlackMedium,
+                        ),
+                      ],
+                    ),
                   ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(EstrellasIcons.medal),
-                      Text(
-                        '${controller.productLite.points} puntos',
-                        style: TypographyStyle.bodyBlackMedium,
-                      ),
-                    ],
+                  Spacer(),
+                  Obx(
+                    () => controller.listImages.isNotEmpty
+                        ? ProductImagesCard(
+                            listImages: controller.listImages,
+                          )
+                        : SizedBox.shrink(),
                   ),
-                ),
-                Spacer(),
-                Obx(
-                  () => controller.listImages.isNotEmpty
-                      ? ProductImagesCard(
-                          listImages: controller.listImages,
-                        )
-                      : SizedBox.shrink(),
-                ),
-              ],
+                ],
+              ),
             ),
           );
         },
