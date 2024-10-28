@@ -15,6 +15,7 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
   Widget build(BuildContext context) => DefaultTabController(
         length: 3,
         child: Scaffold(
+          backgroundColor: Colors.white,
           appBar: AppBar(
             title: Text(
               'Detalle de producto',
