@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 
 import '../../../themes/styles/typography.dart';
 import '../controllers/product_details_controller.dart';
+import 'product_images.dart';
 
 class ProductMainHeader extends StatelessWidget {
   const ProductMainHeader({
@@ -14,50 +15,58 @@ class ProductMainHeader extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) => SliverToBoxAdapter(
-        child: GetX<ProductDetailsController>(
-          builder: (controller) {
-            return Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                children: [
-                  Stack(
+  Widget build(BuildContext context) {
+    double padding = 16;
+    double width = MediaQuery.of(context).size.width;
+
+    double imageSize = width - (padding * 2);
+    return SliverToBoxAdapter(
+      child: GetBuilder<ProductDetailsController>(
+        builder: (controller) {
+          return Container(
+            width: imageSize,
+            height: imageSize,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(16)),
+              image: DecorationImage(
+                image: NetworkImage(controller.productLite.thumbnail ?? ''),
+                fit: BoxFit.cover,
+              ),
+            ),
+            margin: EdgeInsets.all(padding),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  margin: EdgeInsets.all(16),
+                  padding:
+                      EdgeInsets.only(left: 6, right: 8, top: 2, bottom: 3),
+                  decoration: BoxDecoration(
+                    color: primaryLight,
+                    borderRadius: BorderRadius.all(Radius.circular(16)),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.all(Radius.circular(16)),
-                        child: CachedNetworkImage(
-                            imageUrl: controller.productLite.thumbnail ?? ''),
+                      Icon(EstrellasIcons.medal),
+                      Text(
+                        '${controller.productLite.points} puntos',
+                        style: TypographyStyle.bodyBlackMedium,
                       ),
-                      Container(
-                        margin: EdgeInsets.all(16),
-                        padding: EdgeInsets.only(
-                            left: 6, right: 8, top: 2, bottom: 3),
-                        decoration: BoxDecoration(
-                          color: primaryLight,
-                          borderRadius: BorderRadius.all(Radius.circular(16)),
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Icon(EstrellasIcons.medal),
-                            Text(
-                              '${controller.productLite.points} puntos',
-                              style: TypographyStyle.bodyBlackMedium,
-                            ),
-                          ],
-                        ),
-                      )
                     ],
                   ),
-                  Text('product: '),
-                  Text(controller.product.toString()),
-                  SizedBox(height: 26),
-                  Text('imagenes: '),
-                  Text(controller.listImages.toString()),
-                ],
-              ),
-            );
-          },
-        ),
-      );
+                ),
+                Spacer(),
+                ProductImagesCard(
+                  listImages: [],
+                ),
+              ],
+            ),
+          );
+        },
+      ),
+    );
+  }
 }
