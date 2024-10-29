@@ -13,7 +13,6 @@ import 'package:http/http.dart';
 
 import '../../../../services/api_services.dart';
 import '../../../models/product/product_firebase/product_firebase_model.dart';
-import '../../../models/product_variant/product_variant_model.dart';
 import 'package:path/path.dart';
 import 'package:async/async.dart';
 import 'dart:io';
