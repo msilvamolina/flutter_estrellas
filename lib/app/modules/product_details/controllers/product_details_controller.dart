@@ -9,6 +9,8 @@ import '../../../app/controllers/main_controller.dart';
 import '../../../app/controllers/user_product_controller.dart';
 import '../../../data/models/product_firebase_lite/product_firebase_lite.dart';
 import '../../../data/models/product_image/product_image_model.dart';
+import '../../../data/models/product_variant/product_variant_model.dart';
+import '../../../data/models/product_variant_combination/product_variant_combination_model.dart';
 
 class ProductDetailsController extends GetxController {
   MainController mainController = Get.find<MainController>();
@@ -22,6 +24,17 @@ class ProductDetailsController extends GetxController {
   final RxList<ProductImageModel> _listImages = <ProductImageModel>[].obs;
   List<ProductImageModel> get listImages => _listImages.toList();
 
+  final RxList<ProductVariantCombinationModel> _listCombination =
+      <ProductVariantCombinationModel>[].obs;
+  List<ProductVariantCombinationModel> get listCombination =>
+      _listCombination.toList();
+  List<String> _newOrderList = [];
+  final RxList<ProductVariantModel> sizeList = <ProductVariantModel>[].obs;
+  final RxList<ProductVariantModel> colorList = <ProductVariantModel>[].obs;
+
+  final RxList<ProductVariantModel> _listVariants = <ProductVariantModel>[].obs;
+  List<ProductVariantModel> get listVariants => _listVariants.toList();
+
   bool _isLiked = true;
   bool get isLiked => _isLiked;
 
@@ -34,6 +47,12 @@ class ProductDetailsController extends GetxController {
     product.bindStream(_repository.getProduct(productId: productLite.id));
     _listImages
         .bindStream(_repository.getProductImages(productId: productLite.id));
+    _listVariants.bindStream(_repository.getAllProductVariants(
+      productId: productLite.id,
+    ));
+    _listCombination.bindStream(_repository.getAllProductVariantsCombinations(
+      productId: productLite.id,
+    ));
 
     super.onInit();
   }
