@@ -35,6 +35,9 @@ class ProductDetailsController extends GetxController {
   final RxList<ProductVariantModel> _listVariants = <ProductVariantModel>[].obs;
   List<ProductVariantModel> get listVariants => _listVariants.toList();
 
+  ProductVariantModel? _userProductVariantColor;
+  ProductVariantModel? get userProductVariantColor => _userProductVariantColor;
+
   bool _isLiked = true;
   bool get isLiked => _isLiked;
 
@@ -55,6 +58,18 @@ class ProductDetailsController extends GetxController {
     ));
 
     super.onInit();
+  }
+
+  void setFirstVariantColor(ProductVariantModel value) {
+    if (_userProductVariantColor == null) {
+      _userProductVariantColor = value;
+      update(['product_variant_color']);
+    }
+  }
+
+  void chooseColorVariant(ProductVariantModel value) {
+    _userProductVariantColor = value;
+    update(['product_variant_color']);
   }
 
   void openPhotoView() {
