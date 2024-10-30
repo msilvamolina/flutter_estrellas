@@ -25,7 +25,7 @@ class ProductContent extends StatelessWidget {
           children: [
             ProductContentProduct(),
             SizedBox(height: 16),
-            ProdocutPrice(),
+            ProductPrice(),
             SizedBox(height: 16),
             Obx(
               () => controller.listVariants.isNotEmpty

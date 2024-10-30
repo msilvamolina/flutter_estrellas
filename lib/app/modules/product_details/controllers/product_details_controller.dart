@@ -47,6 +47,17 @@ class ProductDetailsController extends GetxController {
   bool _isInCart = true;
   bool get isInCart => _isInCart;
 
+  double _price = 0;
+  double get price => _price;
+
+  double _suggestedPrice = 0;
+  double get suggestedPrice => _suggestedPrice;
+
+  int _stock = 0;
+  int get stock => _stock;
+
+  int _points = 0;
+  int get points => _points;
   @override
   void onInit() {
     productLite = Get.arguments as ProductFirebaseLiteModel;
@@ -60,7 +71,39 @@ class ProductDetailsController extends GetxController {
       productId: productLite.id,
     ));
 
+    resetPrice();
     super.onInit();
+  }
+
+  void resetPrice() {
+    _price = productLite.price ?? 0;
+    _suggestedPrice = productLite.suggestedPrice ?? 0;
+    _points = productLite.points ?? 0;
+    _stock = 0;
+    update(['product_price']);
+  }
+
+  ProductVariantCombinationModel? getBySizeAndColor(
+      String? sizeId, String? colorId) {
+    ProductVariantCombinationModel? option = _listCombination.firstWhereOrNull(
+        (element) => element.sizeId == sizeId && element.colorId == colorId);
+
+    return option;
+  }
+
+  void buildVariationPrice() {
+    ProductVariantCombinationModel? combinationModel = getBySizeAndColor(
+        _userProductVariantSize?.id, _userProductVariantColor?.id);
+
+    if (combinationModel != null) {
+      _price = combinationModel.price ?? 0;
+      _suggestedPrice = combinationModel.suggestedPrice ?? 0;
+      _points = combinationModel.points ?? 0;
+      _stock = combinationModel.points ?? 0;
+      update(['product_price']);
+    } else {
+      resetPrice();
+    }
   }
 
   void setFirstVariantColor(ProductVariantModel value) {
@@ -73,6 +116,7 @@ class ProductDetailsController extends GetxController {
   void chooseColorVariant(ProductVariantModel value) {
     _userProductVariantColor = value;
     update(['product_variant_color']);
+    buildVariationPrice();
   }
 
   void setFirstVariantSize(ProductVariantModel value) {
@@ -86,6 +130,7 @@ class ProductDetailsController extends GetxController {
     _userProductVariantSize = value;
     Get.back();
     update(['product_variant_size']);
+    buildVariationPrice();
   }
 
   void openPhotoView() {
