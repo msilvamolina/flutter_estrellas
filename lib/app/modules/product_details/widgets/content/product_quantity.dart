@@ -41,21 +41,23 @@ class ProductQuantity extends StatelessWidget {
                   child: Row(
                     children: [
                       ButtonCircleSvg(
-                          assetName: 'assets/svg/minus-icon.svg',
-                          width: 24,
-                          onTap: () {}),
+                        assetName: 'assets/svg/minus-icon.svg',
+                        width: 24,
+                        onTap: controller.minusQuantity,
+                      ),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 12),
                         child: Text(
-                          '1',
+                          controller.quantity.toString(),
                           style: TypographyStyle.bodyRegularLarge
                               .copyWith(color: neutral700),
                         ),
                       ),
                       ButtonCircleSvg(
-                          assetName: 'assets/svg/add-icon.svg',
-                          width: 24,
-                          onTap: () {}),
+                        assetName: 'assets/svg/add-icon.svg',
+                        width: 24,
+                        onTap: controller.addQuantity,
+                      ),
                     ],
                   ),
                 ),

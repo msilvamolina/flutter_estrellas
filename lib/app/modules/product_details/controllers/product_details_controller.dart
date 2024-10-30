@@ -56,6 +56,9 @@ class ProductDetailsController extends GetxController {
   int _stock = 0;
   int get stock => _stock;
 
+  int _quantity = 1;
+  int get quantity => _quantity;
+
   int _points = 0;
   int get points => _points;
   @override
@@ -80,7 +83,20 @@ class ProductDetailsController extends GetxController {
     _suggestedPrice = productLite.suggestedPrice ?? 0;
     _points = productLite.points ?? 0;
     _stock = 1;
-    update(['product_price', 'content_product']);
+    _quantity = 1;
+    update(['product_price', 'content_product', 'product_quantity']);
+  }
+
+  void addQuantity() {
+    int _newQuantity = _quantity + 1;
+    _quantity = _newQuantity > _stock ? _stock : _newQuantity;
+    update(['product_quantity']);
+  }
+
+  void minusQuantity() {
+    int _newQuantity = _quantity - 1;
+    _quantity = _newQuantity < 1 ? 1 : _newQuantity;
+    update(['product_quantity']);
   }
 
   ProductVariantCombinationModel? getBySizeAndColor(
@@ -100,7 +116,8 @@ class ProductDetailsController extends GetxController {
       _suggestedPrice = combinationModel.suggestedPrice ?? 0;
       _points = combinationModel.points ?? 0;
       _stock = combinationModel.stock ?? 1;
-      update(['product_price', 'content_product']);
+      _quantity = 1;
+      update(['product_price', 'content_product', 'product_quantity']);
     } else {
       resetPrice();
     }
