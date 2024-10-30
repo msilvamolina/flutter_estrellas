@@ -38,6 +38,9 @@ class ProductDetailsController extends GetxController {
   ProductVariantModel? _userProductVariantColor;
   ProductVariantModel? get userProductVariantColor => _userProductVariantColor;
 
+  ProductVariantModel? _userProductVariantSize;
+  ProductVariantModel? get userProductVariantSize => _userProductVariantSize;
+
   bool _isLiked = true;
   bool get isLiked => _isLiked;
 
@@ -70,6 +73,19 @@ class ProductDetailsController extends GetxController {
   void chooseColorVariant(ProductVariantModel value) {
     _userProductVariantColor = value;
     update(['product_variant_color']);
+  }
+
+  void setFirstVariantSize(ProductVariantModel value) {
+    if (_userProductVariantSize == null) {
+      _userProductVariantSize = value;
+      update(['product_variant_size']);
+    }
+  }
+
+  void chooseSizeVariant(ProductVariantModel value) {
+    _userProductVariantSize = value;
+    Get.back();
+    update(['product_variant_size']);
   }
 
   void openPhotoView() {

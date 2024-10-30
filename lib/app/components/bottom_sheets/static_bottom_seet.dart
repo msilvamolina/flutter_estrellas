@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 import '../../app/bottom_sheets/catalogs_bottomsheet.dart';
 import '../../app/bottom_sheets/new_catalog_bottomsheet.dart';
+import '../../app/bottom_sheets/select_variant_size.dart';
 import 'types.dart';
 
 class StaticBottomSeet extends StatelessWidget {
@@ -29,6 +30,7 @@ class StaticBottomSeet extends StatelessWidget {
     switch (type) {
       case BottomSheetTypes.newCatalog:
         return NewCatalogBottomsheet();
+
       default:
         return SizedBox.shrink();
     }

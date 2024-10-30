@@ -6,9 +6,10 @@ import 'package:get/get.dart';
 import '../../../themes/styles/typography.dart';
 
 class TitleWithCloseButton extends StatelessWidget {
-  const TitleWithCloseButton({required this.title, super.key});
+  const TitleWithCloseButton({required this.title, this.style, super.key});
 
   final String title;
+  final TextStyle? style;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -17,9 +18,10 @@ class TitleWithCloseButton extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 22),
           child: Text(
             title,
-            style: TypographyStyle.h4Mobile.copyWith(
-              fontWeight: FontWeight.w500,
-            ),
+            style: style ??
+                TypographyStyle.h4Mobile.copyWith(
+                  fontWeight: FontWeight.w500,
+                ),
           ),
         ),
         Spacer(),
