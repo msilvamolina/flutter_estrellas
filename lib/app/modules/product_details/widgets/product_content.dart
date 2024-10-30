@@ -35,6 +35,7 @@ class ProductContent extends StatelessWidget {
             ),
             SizedBox(height: 16),
             ProductQuantity(),
+            SizedBox(height: 16),
           ],
         );
       },
