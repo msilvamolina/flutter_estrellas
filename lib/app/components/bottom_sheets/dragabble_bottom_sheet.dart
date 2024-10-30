@@ -3,15 +3,13 @@ import 'package:flutter_estrellas/app/app/controllers/main_controller.dart';
 import 'package:get/get.dart';
 
 import '../../app/bottom_sheets/catalogs_bottomsheet.dart';
-
-enum BottomSheetTypes {
-  catalog,
-}
+import 'types.dart';
 
 class DraggableBottomSheet extends StatelessWidget {
-  const DraggableBottomSheet({required this.type, super.key});
+  const DraggableBottomSheet(
+      {required this.type, required this.scrollController, super.key});
   final BottomSheetTypes type;
-
+  final ScrollController scrollController;
   @override
   Widget build(BuildContext context) {
     MainController mainController = Get.find<MainController>();
@@ -20,21 +18,29 @@ class DraggableBottomSheet extends StatelessWidget {
       onTap: () {
         Navigator.of(context).pop();
       },
-      child: DraggableScrollableSheet(
-        initialChildSize: 0.5,
-        minChildSize: 0.3,
-        maxChildSize: 1.0,
-        builder: (context, scrollController) {
-          return Material(
-            color: Colors.transparent,
-            child: Container(
-              color:
-                  mainController.isThemeModeDark ? Colors.black : Colors.white,
-              child: getBottomSheet(type, scrollController),
-            ),
-          );
-        },
+      child: Material(
+        color: Colors.transparent,
+        child: Container(
+          color: mainController.isThemeModeDark ? Colors.black : Colors.white,
+          child: getBottomSheet(type, scrollController),
+        ),
       ),
+
+      //  DraggableScrollableSheet(
+      //   initialChildSize: 0.5,
+      //   minChildSize: 0.3,
+      //   maxChildSize: 1.0,
+      //   builder: (context, scrollController) {
+      //     return Material(
+      //       color: Colors.transparent,
+      //       child: Container(
+      //         color:
+      //             mainController.isThemeModeDark ? Colors.black : Colors.white,
+      //         child: getBottomSheet(type, scrollController),
+      //       ),
+      //     );
+      //   },
+      // ),
     );
   }
 

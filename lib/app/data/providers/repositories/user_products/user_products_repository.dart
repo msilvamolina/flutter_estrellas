@@ -2,7 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_estrellas/app/data/models/product_firebase_lite/product_firebase_lite.dart';
+import 'package:flutter_estrellas/app/data/models/user_catalog/user_catalog_model.dart';
 import 'package:get/get.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../../models/user_product/user_product_model.dart';
 
@@ -40,6 +42,48 @@ class UserProductsRepository {
       yield* snapshots.map((snapshot) {
         return snapshot.docs
             .map((doc) => UserProductModel.fromDocument(doc))
+            .toList();
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Stream<List<UserProductModel>> getUserCatalogPrivate() async* {
+    Map<String, String> userData = getUidAndEmail();
+    String uid = userData['uid'] ?? '';
+    try {
+      Stream<QuerySnapshot> snapshots = _firebaseFirestore
+          .collection('users')
+          .doc(uid)
+          .collection('catalog_private')
+          .orderBy('createdAt', descending: true)
+          .snapshots();
+
+      yield* snapshots.map((snapshot) {
+        return snapshot.docs
+            .map((doc) => UserProductModel.fromDocument(doc))
+            .toList();
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Stream<List<UserCatalogModel>> getUserCatalogs() async* {
+    Map<String, String> userData = getUidAndEmail();
+    String uid = userData['uid'] ?? '';
+    try {
+      Stream<QuerySnapshot> snapshots = _firebaseFirestore
+          .collection('users')
+          .doc(uid)
+          .collection('catalogs')
+          .orderBy('createdAt', descending: true)
+          .snapshots();
+
+      yield* snapshots.map((snapshot) {
+        return snapshot.docs
+            .map((doc) => UserCatalogModel.fromDocument(doc))
             .toList();
       });
     } catch (e) {
@@ -94,6 +138,51 @@ class UserProductsRepository {
     }
   }
 
+  Future<Either<String, Unit>> addToCatalogPrivate({
+    required ProductFirebaseLiteModel productLite,
+  }) async {
+    Map<String, String> userData = getUidAndEmail();
+    String uid = userData['uid'] ?? '';
+    String email = userData['email'] ?? '';
+    String productId = productLite.id;
+    try {
+      await _firebaseFirestore
+          .collection('users')
+          .doc(uid)
+          .collection('catalog_private')
+          .doc(productId)
+          .set({
+        'product': productLite.toDocument(),
+        'isAnonymous': false,
+        'createdBy': email,
+        'createdByUserId': uid,
+        'createdAt': DateTime.now(),
+      });
+      return right(unit);
+    } on FirebaseException catch (e) {
+      return left(e.code);
+    }
+  }
+
+  Future<Either<String, Unit>> removeFromCatalogPrivate({
+    required ProductFirebaseLiteModel productLite,
+  }) async {
+    Map<String, String> userData = getUidAndEmail();
+    String uid = userData['uid'] ?? '';
+    String productId = productLite.id;
+    try {
+      await _firebaseFirestore
+          .collection('users')
+          .doc(uid)
+          .collection('catalog_private')
+          .doc(productId)
+          .delete();
+      return right(unit);
+    } on FirebaseException catch (e) {
+      return left(e.code);
+    }
+  }
+
   Future<Either<String, Unit>> removeFromFavorites({
     required ProductFirebaseLiteModel productLite,
   }) async {
@@ -107,6 +196,60 @@ class UserProductsRepository {
           .collection('favorites')
           .doc(productId)
           .delete();
+      return right(unit);
+    } on FirebaseException catch (e) {
+      return left(e.code);
+    }
+  }
+
+  Future<Either<String, Unit>> createCatalog({
+    required ProductFirebaseLiteModel productLite,
+    required String catalogName,
+  }) async {
+    Map<String, String> userData = getUidAndEmail();
+    String uid = userData['uid'] ?? '';
+    String email = userData['email'] ?? '';
+
+    String id = Uuid().v4();
+    try {
+      await _firebaseFirestore
+          .collection('users')
+          .doc(uid)
+          .collection('catalogs')
+          .doc(id)
+          .set({
+        'id': id,
+        'name': catalogName,
+        'imageUrl': productLite.thumbnail,
+        'products': [
+          productLite.toJson(),
+        ],
+        'createdBy': email,
+        'createdByUserId': uid,
+        'createdAt': DateTime.now(),
+      });
+
+      return right(unit);
+    } on FirebaseException catch (e) {
+      return left(e.code);
+    }
+  }
+
+  Future<Either<String, Unit>> updateCatalogListProducts({
+    required String catalogId,
+    required List<dynamic> products,
+  }) async {
+    Map<String, String> userData = getUidAndEmail();
+    String uid = userData['uid'] ?? '';
+
+    try {
+      await _firebaseFirestore
+          .collection('users')
+          .doc(uid)
+          .collection('catalogs')
+          .doc(catalogId)
+          .update({'products': products});
+
       return right(unit);
     } on FirebaseException catch (e) {
       return left(e.code);

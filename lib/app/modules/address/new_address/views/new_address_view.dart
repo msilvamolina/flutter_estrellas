@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_estrellas/app/components/buttons/buttons.dart';
 
 import 'package:get/get.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
-import '../../../../components/buttons/loadingButton.dart';
 import '../../../../themes/input_decoration.dart';
 import '../../../../themes/styles/typography.dart';
 import '../controllers/new_address_controller.dart';
@@ -129,10 +129,9 @@ class NewAddressView extends GetView<NewAddressController> {
                             'Al Continuar, aceptas los Términos y condiciones y la Política de privacidad de Estrellas.'),
                         const SizedBox(height: 26),
                         ReactiveFormConsumer(
-                          builder: (context, form, child) => LoadingButton(
+                          builder: (context, form, child) => Button(
                             label: 'Continuar',
-                            // isLoading: controller.loading,
-                            isLoading: false,
+                            style: ButtonStyles.primary,
                             onPressed: (form.valid)
                                 ? () => controller.sendForm(form.value)
                                 : null,

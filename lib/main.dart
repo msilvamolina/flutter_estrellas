@@ -64,6 +64,8 @@ Future<void> initFirebase() async {
   await Firebase.initializeApp(options: firebaseOptions);
 }
 
+final RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -73,13 +75,16 @@ class MyApp extends StatelessWidget {
     MaterialTheme theme = MaterialTheme(textTheme);
 
     return GetMaterialApp(
+      navigatorObservers: [routeObserver],
+
       title: "Estrellas",
       locale: const Locale('es'),
       fallbackLocale: const Locale('es'),
       debugShowCheckedModeBanner: false,
       theme: theme.light(),
-      darkTheme: theme.dark(),
-      themeMode: ThemeService.getThemeMode(),
+      // darkTheme: theme.dark(),
+      themeMode: ThemeMode.light,
+      // themeMode: ThemeService.getThemeMode(),
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
       // builder: (context, child) => MainLayout(child: child!),

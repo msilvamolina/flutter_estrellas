@@ -20,9 +20,13 @@ ProductVariantModel _$ProductVariantModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$ProductVariantModel {
-  String get name => throw _privateConstructorUsedError;
   String get id => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
+  String get label => throw _privateConstructorUsedError;
   String get createdAt => throw _privateConstructorUsedError;
+  String get type => throw _privateConstructorUsedError;
+  String? get imageUrl => throw _privateConstructorUsedError;
+  int? get color => throw _privateConstructorUsedError;
   String? get searchField => throw _privateConstructorUsedError;
   dynamic get reference => throw _privateConstructorUsedError;
   String? get updatedAt => throw _privateConstructorUsedError;
@@ -44,9 +48,13 @@ abstract class $ProductVariantModelCopyWith<$Res> {
       _$ProductVariantModelCopyWithImpl<$Res, ProductVariantModel>;
   @useResult
   $Res call(
-      {String name,
-      String id,
+      {String id,
+      String name,
+      String label,
       String createdAt,
+      String type,
+      String? imageUrl,
+      int? color,
       String? searchField,
       dynamic reference,
       String? updatedAt});
@@ -67,26 +75,46 @@ class _$ProductVariantModelCopyWithImpl<$Res, $Val extends ProductVariantModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = null,
     Object? id = null,
+    Object? name = null,
+    Object? label = null,
     Object? createdAt = null,
+    Object? type = null,
+    Object? imageUrl = freezed,
+    Object? color = freezed,
     Object? searchField = freezed,
     Object? reference = freezed,
     Object? updatedAt = freezed,
   }) {
     return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
+      label: null == label
+          ? _value.label
+          : label // ignore: cast_nullable_to_non_nullable
               as String,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as String,
+      type: null == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as String,
+      imageUrl: freezed == imageUrl
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      color: freezed == color
+          ? _value.color
+          : color // ignore: cast_nullable_to_non_nullable
+              as int?,
       searchField: freezed == searchField
           ? _value.searchField
           : searchField // ignore: cast_nullable_to_non_nullable
@@ -112,9 +140,13 @@ abstract class _$$ProductVariantModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String name,
-      String id,
+      {String id,
+      String name,
+      String label,
       String createdAt,
+      String type,
+      String? imageUrl,
+      int? color,
       String? searchField,
       dynamic reference,
       String? updatedAt});
@@ -133,26 +165,46 @@ class __$$ProductVariantModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = null,
     Object? id = null,
+    Object? name = null,
+    Object? label = null,
     Object? createdAt = null,
+    Object? type = null,
+    Object? imageUrl = freezed,
+    Object? color = freezed,
     Object? searchField = freezed,
     Object? reference = freezed,
     Object? updatedAt = freezed,
   }) {
     return _then(_$ProductVariantModelImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
+      label: null == label
+          ? _value.label
+          : label // ignore: cast_nullable_to_non_nullable
               as String,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as String,
+      type: null == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as String,
+      imageUrl: freezed == imageUrl
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      color: freezed == color
+          ? _value.color
+          : color // ignore: cast_nullable_to_non_nullable
+              as int?,
       searchField: freezed == searchField
           ? _value.searchField
           : searchField // ignore: cast_nullable_to_non_nullable
@@ -173,9 +225,13 @@ class __$$ProductVariantModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$ProductVariantModelImpl extends _ProductVariantModel {
   const _$ProductVariantModelImpl(
-      {required this.name,
-      required this.id,
+      {required this.id,
+      required this.name,
+      required this.label,
       required this.createdAt,
+      required this.type,
+      this.imageUrl,
+      this.color,
       this.searchField,
       this.reference,
       this.updatedAt})
@@ -185,11 +241,19 @@ class _$ProductVariantModelImpl extends _ProductVariantModel {
       _$$ProductVariantModelImplFromJson(json);
 
   @override
-  final String name;
-  @override
   final String id;
   @override
+  final String name;
+  @override
+  final String label;
+  @override
   final String createdAt;
+  @override
+  final String type;
+  @override
+  final String? imageUrl;
+  @override
+  final int? color;
   @override
   final String? searchField;
   @override
@@ -199,7 +263,7 @@ class _$ProductVariantModelImpl extends _ProductVariantModel {
 
   @override
   String toString() {
-    return 'ProductVariantModel(name: $name, id: $id, createdAt: $createdAt, searchField: $searchField, reference: $reference, updatedAt: $updatedAt)';
+    return 'ProductVariantModel(id: $id, name: $name, label: $label, createdAt: $createdAt, type: $type, imageUrl: $imageUrl, color: $color, searchField: $searchField, reference: $reference, updatedAt: $updatedAt)';
   }
 
   @override
@@ -207,10 +271,15 @@ class _$ProductVariantModelImpl extends _ProductVariantModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ProductVariantModelImpl &&
-            (identical(other.name, name) || other.name == name) &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.label, label) || other.label == label) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
+            (identical(other.type, type) || other.type == type) &&
+            (identical(other.imageUrl, imageUrl) ||
+                other.imageUrl == imageUrl) &&
+            (identical(other.color, color) || other.color == color) &&
             (identical(other.searchField, searchField) ||
                 other.searchField == searchField) &&
             const DeepCollectionEquality().equals(other.reference, reference) &&
@@ -220,8 +289,18 @@ class _$ProductVariantModelImpl extends _ProductVariantModel {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, name, id, createdAt, searchField,
-      const DeepCollectionEquality().hash(reference), updatedAt);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      name,
+      label,
+      createdAt,
+      type,
+      imageUrl,
+      color,
+      searchField,
+      const DeepCollectionEquality().hash(reference),
+      updatedAt);
 
   /// Create a copy of ProductVariantModel
   /// with the given fields replaced by the non-null parameter values.
@@ -242,9 +321,13 @@ class _$ProductVariantModelImpl extends _ProductVariantModel {
 
 abstract class _ProductVariantModel extends ProductVariantModel {
   const factory _ProductVariantModel(
-      {required final String name,
-      required final String id,
+      {required final String id,
+      required final String name,
+      required final String label,
       required final String createdAt,
+      required final String type,
+      final String? imageUrl,
+      final int? color,
       final String? searchField,
       final dynamic reference,
       final String? updatedAt}) = _$ProductVariantModelImpl;
@@ -254,11 +337,19 @@ abstract class _ProductVariantModel extends ProductVariantModel {
       _$ProductVariantModelImpl.fromJson;
 
   @override
-  String get name;
-  @override
   String get id;
   @override
+  String get name;
+  @override
+  String get label;
+  @override
   String get createdAt;
+  @override
+  String get type;
+  @override
+  String? get imageUrl;
+  @override
+  int? get color;
   @override
   String? get searchField;
   @override

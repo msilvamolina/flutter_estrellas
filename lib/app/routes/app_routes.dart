@@ -18,6 +18,11 @@ abstract class Routes {
   static const SELECT_CITY = _Paths.SELECT_CITY;
   static const SELECT_PAYMENT = _Paths.SELECT_PAYMENT;
   static const ORDER_SUCCESS = _Paths.ORDER_SUCCESS;
+  static const STORE = _Paths.STORE;
+  static const WALLET = _Paths.WALLET;
+  static const SEARCH = _Paths.SEARCH;
+  static const ACCOUNT = _Paths.ACCOUNT;
+  static const PRODUCT_DETAILS = _Paths.PRODUCT_DETAILS;
 }
 
 abstract class _Paths {
@@ -37,4 +42,9 @@ abstract class _Paths {
   static const SELECT_CITY = '/select-city';
   static const SELECT_PAYMENT = '/select-payment';
   static const ORDER_SUCCESS = '/order-success';
+  static const STORE = '/store';
+  static const WALLET = '/wallet';
+  static const SEARCH = '/search';
+  static const ACCOUNT = '/account';
+  static const PRODUCT_DETAILS = '/product-details';
 }
