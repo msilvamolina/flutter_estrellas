@@ -1,5 +1,7 @@
+import 'dart:io';
 import 'dart:typed_data';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_estrellas/app/app/controllers/main_controller.dart';
 import 'package:flutter_estrellas/app/data/models/video_model.dart';
@@ -148,81 +150,91 @@ class _VideoAppState extends State<VideoApp> with RouteAware {
     );
   }
 
-  Widget videoContent(showButtonsOutside) => Container(
-        child: _controller.value.isInitialized
-            ? GestureDetector(
-                onTap: onPause,
-                onDoubleTap: onVolume,
-                child: Stack(
-                  children: [
-                    VideoPlayer(_controller),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        if (showButtonsOutside)
-                          Expanded(
-                              child: Padding(
-                            padding: const EdgeInsets.only(right: 16),
-                            child: VideoButtons(
-                              buttonInsideVideo: true,
-                              videoPostModel: widget.videoPostModel,
-                            ),
-                          ))
-                        else
-                          Spacer(),
-                        VideoLabel(
-                          videoPostModel: widget.videoPostModel,
-                        ),
-                        SliderTheme(
-                          data: SliderTheme.of(context).copyWith(
-                            thumbShape: SliderComponentShape.noThumb,
-                            trackHeight: 2.0,
-                            activeTrackColor: Colors.white,
-                            inactiveTrackColor: Colors.black.withOpacity(0.3),
-                            overlayShape: SliderComponentShape.noOverlay,
+  Widget videoContent(showButtonsOutside) {
+    bool isIos = false;
+    bool isAndroid = false;
+
+    if (!kIsWeb) {
+      isIos = Platform.isIOS;
+      isAndroid = Platform.isAndroid;
+    }
+    return Container(
+      child: _controller.value.isInitialized
+          ? GestureDetector(
+              onTap: onPause,
+              onDoubleTap: onVolume,
+              child: Stack(
+                children: [
+                  VideoPlayer(_controller),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      if (showButtonsOutside)
+                        Expanded(
+                            child: Padding(
+                          padding: const EdgeInsets.only(right: 16),
+                          child: VideoButtons(
+                            buttonInsideVideo: true,
+                            videoPostModel: widget.videoPostModel,
                           ),
-                          child: Container(
-                            padding: EdgeInsets.symmetric(horizontal: 14),
-                            child: Slider(
-                              value: _currentSliderValue,
-                              min: 0.0,
-                              max: _controller.value.duration.inSeconds
-                                  .toDouble(),
-                              onChanged: (value) {
-                                setState(() {
-                                  _currentSliderValue = value;
-                                  _controller
-                                      .seekTo(Duration(seconds: value.toInt()));
-                                });
-                              },
-                            ),
-                          ),
+                        ))
+                      else
+                        Spacer(),
+                      VideoLabel(
+                        videoPostModel: widget.videoPostModel,
+                      ),
+                      SliderTheme(
+                        data: SliderTheme.of(context).copyWith(
+                          thumbShape: SliderComponentShape.noThumb,
+                          trackHeight: 2.0,
+                          activeTrackColor: Colors.white,
+                          inactiveTrackColor: Colors.black.withOpacity(0.3),
+                          overlayShape: SliderComponentShape.noOverlay,
                         ),
-                        SizedBox(height: 106),
-                      ],
-                    ),
-                    Center(
-                      child: AnimatedOpacity(
-                        opacity: _iconAnimationShowing ? 0.4 : 0,
-                        duration: Duration(milliseconds: 500),
-                        child: Icon(
-                          _iconAnimationIcon,
-                          size: 140,
-                          color: Colors.white,
+                        child: Container(
+                          padding: EdgeInsets.symmetric(horizontal: 14),
+                          child: Slider(
+                            value: _currentSliderValue,
+                            min: 0.0,
+                            max:
+                                _controller.value.duration.inSeconds.toDouble(),
+                            onChanged: (value) {
+                              setState(() {
+                                _currentSliderValue = value;
+                                _controller
+                                    .seekTo(Duration(seconds: value.toInt()));
+                              });
+                            },
+                          ),
                         ),
                       ),
+                      SizedBox(height: 106),
+                      if (isAndroid) SizedBox(height: 10),
+                    ],
+                  ),
+                  Center(
+                    child: AnimatedOpacity(
+                      opacity: _iconAnimationShowing ? 0.4 : 0,
+                      duration: Duration(milliseconds: 500),
+                      child: Icon(
+                        _iconAnimationIcon,
+                        size: 140,
+                        color: Colors.white,
+                      ),
                     ),
-                  ],
-                ),
-              )
-            : SizedBox.expand(
-                child: CachedNetworkImage(
-                  imageUrl: widget.videoPostModel.thumbnail,
-                  placeholder: (context, url) =>
-                      Center(child: CircularProgressIndicator()),
-                  errorWidget: (context, url, error) => Icon(Icons.error),
-                  fit: BoxFit.cover,
-                ),
+                  ),
+                ],
               ),
-      );
+            )
+          : SizedBox.expand(
+              child: CachedNetworkImage(
+                imageUrl: widget.videoPostModel.thumbnail,
+                placeholder: (context, url) =>
+                    Center(child: CircularProgressIndicator()),
+                errorWidget: (context, url, error) => Icon(Icons.error),
+                fit: BoxFit.cover,
+              ),
+            ),
+    );
+  }
 }
