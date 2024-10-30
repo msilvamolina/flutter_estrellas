@@ -33,7 +33,7 @@ class ProductContentProduct extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    'Tangerine Company',
+                    'ESTRELLAS',
                     style: TypographyStyle.bodyRegularMedium.copyWith(
                       color: neutral700,
                       // fontWeight: FontWeight.w700,
@@ -74,7 +74,7 @@ class ProductContentProduct extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    '¡Quedan 12!',
+                    '¡Quedan ${controller.stock}!',
                     style: TypographyStyle.bodyBlackMedium.copyWith(
                       color: secondaryBase,
                     ),

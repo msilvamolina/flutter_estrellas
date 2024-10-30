@@ -79,8 +79,8 @@ class ProductDetailsController extends GetxController {
     _price = productLite.price ?? 0;
     _suggestedPrice = productLite.suggestedPrice ?? 0;
     _points = productLite.points ?? 0;
-    _stock = 0;
-    update(['product_price']);
+    _stock = 1;
+    update(['product_price', 'content_product']);
   }
 
   ProductVariantCombinationModel? getBySizeAndColor(
@@ -99,8 +99,8 @@ class ProductDetailsController extends GetxController {
       _price = combinationModel.price ?? 0;
       _suggestedPrice = combinationModel.suggestedPrice ?? 0;
       _points = combinationModel.points ?? 0;
-      _stock = combinationModel.points ?? 0;
-      update(['product_price']);
+      _stock = combinationModel.stock ?? 1;
+      update(['product_price', 'content_product']);
     } else {
       resetPrice();
     }
