@@ -67,7 +67,7 @@ class MainController extends GetxController {
   @override
   Future<void> onInit() async {
     _isWelcome = await localStorage.getWelcome();
-    checkTheme();
+    // checkTheme();
     super.onInit();
   }
 
