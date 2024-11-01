@@ -56,23 +56,111 @@ class AccountView extends GetView<AccountController> {
         viewSelected: 4,
         isDarkTheme: false,
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Row(
+      body: Column(
+        children: [
+          SingleChildScrollView(
+            child: Column(
               children: [
-                Icon(Icons.abc),
-                Column(
+                Row(
                   children: [
-                    Text('Andrea Sánchez'),
-                    Text('Ver perfil'),
+                    Icon(Icons.abc),
+                    Column(
+                      children: [
+                        Text('Andrea Sánchez'),
+                        Text('Ver perfil'),
+                      ],
+                    ),
                   ],
+                ),
+                SizedBox(height: 26),
+                accountTile(
+                  onTap: () {},
+                  icon: EstrellasIcons.star,
+                  title: 'Favoritos',
+                ),
+                accountTile(
+                  onTap: () {},
+                  icon: EstrellasIcons.star,
+                  title: 'Órdenes',
+                ),
+                accountTile(
+                  onTap: () {},
+                  icon: EstrellasIcons.star,
+                  title: 'Mis cuentas bancarias',
+                ),
+                accountTile(
+                  onTap: () {},
+                  icon: EstrellasIcons.star,
+                  title: 'Academia',
+                ),
+                accountTile(
+                  onTap: () {},
+                  icon: EstrellasIcons.star,
+                  title: 'Ayuda',
+                ),
+                accountTile(
+                  onTap: () {},
+                  icon: EstrellasIcons.star,
+                  title: 'Acerca de estrellas',
+                ),
+                accountTile(
+                  onTap: () {},
+                  icon: EstrellasIcons.star,
+                  title: 'Cerrar Sesión',
+                ),
+                SizedBox(height: 26),
+                Text(
+                  '2.0.6',
+                  style: TypographyStyle.bodyRegularLarge.copyWith(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                Text(
+                  '© Estrellas APP',
+                  style: TypographyStyle.bodyRegularLarge.copyWith(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                  ),
                 ),
               ],
             ),
-            Text('Ver perfil'),
-            Text('Ver perfil'),
-          ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget accountTile({
+    required Function()? onTap,
+    required IconData icon,
+    required String title,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16),
+      child: ListTile(
+        onTap: onTap,
+        leading: Container(
+          padding: EdgeInsets.all(8),
+          decoration: BoxDecoration(
+              color: secondaryLight,
+              borderRadius: BorderRadius.all(Radius.circular(8))),
+          child: Icon(
+            icon,
+            size: 28,
+            color: secondaryBase,
+          ),
+        ),
+        title: Text(
+          title,
+          style: TypographyStyle.bodyRegularLarge.copyWith(
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        trailing: Icon(
+          EstrellasIcons.arrowRight,
+          size: 26,
         ),
       ),
     );
