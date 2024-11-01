@@ -8,9 +8,11 @@ class Environment {
   static final Environment instance = Environment._constructor();
 
   String? _version;
+  String? _fullVersion;
   String? _packageVersion;
 
-  String? get fullVersion => _version;
+  String? get fullVersion => _fullVersion;
+  String? get version => _version;
   String? get packageVersion => _packageVersion;
 
   String? _userCustomerApi;
@@ -41,14 +43,15 @@ class Environment {
         } else if (packageInfo.packageName == 'app.estrellas.dev') {
           _currentEnv = Env.dev;
         } else {
-          _currentEnv = Env.dev;
+          _currentEnv = Env.qa;
         }
       } on Exception catch (_) {
         rethrow;
       }
     }
     PackageInfo _packageInfo = await PackageInfo.fromPlatform();
-    _version = '${_packageInfo.version} (${_packageInfo.buildNumber})';
+    _fullVersion = '${_packageInfo.version} (${_packageInfo.buildNumber})';
+    _version = _packageInfo.version;
     _packageVersion = _packageInfo.version;
   }
 }

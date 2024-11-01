@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_estrellas/app/services/environment.dart';
 
 import 'package:get/get.dart';
 
@@ -107,13 +108,29 @@ class AccountView extends GetView<AccountController> {
                   isDestructive: true,
                 ),
                 SizedBox(height: 26),
-                Text(
-                  '2.0.6',
-                  style: TypographyStyle.bodyRegularLarge.copyWith(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
+                if (Environment.instance.currentEnv != Env.prod) ...[
+                  Text(
+                    Environment.instance.fullVersion.toString(),
+                    style: TypographyStyle.bodyRegularLarge.copyWith(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
-                ),
+                  Text(
+                    Environment.instance.currentEnv.toString(),
+                    style: TypographyStyle.bodyRegularLarge.copyWith(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ] else
+                  Text(
+                    Environment.instance.version.toString(),
+                    style: TypographyStyle.bodyRegularLarge.copyWith(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
                 Text(
                   '© Estrellas APP',
                   style: TypographyStyle.bodyRegularLarge.copyWith(

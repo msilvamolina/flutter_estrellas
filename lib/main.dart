@@ -12,7 +12,6 @@ import 'app/config/firebase_config.dart';
 import 'app/routes/app_pages.dart';
 import 'app/services/dependency_injection.dart';
 import 'app/services/environment.dart';
-import 'app/services/theme_service.dart';
 import 'app/themes/text_theme.dart';
 import 'app/themes/theme.dart';
 
