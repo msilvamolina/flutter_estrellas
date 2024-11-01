@@ -71,6 +71,7 @@ class AccountView extends GetView<AccountController> {
               ],
             ),
             Text('Ver perfil'),
+            Text('Ver perfil'),
           ],
         ),
       ),
