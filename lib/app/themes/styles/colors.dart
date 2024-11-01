@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 const Color white = Color(0xFFFFFFFF);
 
+const Color scaffold = Color(0xFFD1D1D6);
 const Color primaryLight = Color(0xFFE5FFF6);
 const Color primaryBase = Color(0xFF1FE371);
 const Color primaryDark = Color(0xFF10753A);

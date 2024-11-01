@@ -15,6 +15,7 @@ class AccountView extends GetView<AccountController> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBody: true,
+      backgroundColor: neutral50,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -92,11 +93,13 @@ class AccountView extends GetView<AccountController> {
                   onTap: () {},
                   icon: EstrellasIcons.graduationCap,
                   title: 'Academia',
+                  isExternal: true,
                 ),
                 accountTile(
                   onTap: () {},
                   icon: EstrellasIcons.lifebuoy,
                   title: 'Ayuda',
+                  isExternal: true,
                 ),
                 accountTile(
                   onTap: () {},
@@ -107,6 +110,7 @@ class AccountView extends GetView<AccountController> {
                   onTap: () {},
                   icon: EstrellasIcons.signOut,
                   title: 'Cerrar Sesión',
+                  isDestructive: true,
                 ),
                 SizedBox(height: 26),
                 Text(
@@ -135,6 +139,8 @@ class AccountView extends GetView<AccountController> {
     required Function()? onTap,
     required IconData icon,
     required String title,
+    bool isExternal = false,
+    bool isDestructive = false,
   }) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 16),
@@ -143,12 +149,12 @@ class AccountView extends GetView<AccountController> {
         leading: Container(
           padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
-              color: secondaryLight,
-              borderRadius: BorderRadius.all(Radius.circular(8))),
+              color: isDestructive ? error50 : secondaryLight,
+              borderRadius: BorderRadius.all(Radius.circular(12))),
           child: Icon(
             icon,
             size: 32,
-            color: secondaryBase,
+            color: isDestructive ? error900 : secondaryBase,
           ),
         ),
         title: Text(
@@ -159,7 +165,9 @@ class AccountView extends GetView<AccountController> {
           ),
         ),
         trailing: Icon(
-          EstrellasIcons.arrowRight,
+          isExternal
+              ? EstrellasIcons.arrowSquareOut
+              : EstrellasIcons.arrowRight,
           size: 26,
         ),
       ),
