@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
-import '../../widgets/bottombar_layout.dart';
+import '../../widgets/bottombar.dart';
 import '../controllers/store_controller.dart';
 
 class StoreView extends GetView<StoreController> {
@@ -10,11 +10,13 @@ class StoreView extends GetView<StoreController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BottombarLayout(
+      extendBody: true,
+      bottomNavigationBar: Bottombar(
         viewSelected: 3,
-        child: Center(
-          child: Text('Store'),
-        ),
+        isDarkTheme: false,
+      ),
+      body: Center(
+        child: Text('wallet'),
       ),
     );
   }

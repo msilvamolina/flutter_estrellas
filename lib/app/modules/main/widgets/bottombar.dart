@@ -17,8 +17,9 @@ class Bottombar extends StatelessWidget {
   final bool isDarkTheme;
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return SafeArea(
       child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 16),
         padding: EdgeInsets.symmetric(horizontal: 16),
         height: 66,
         decoration: BoxDecoration(

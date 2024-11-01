@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
-import '../../widgets/bottombar_layout.dart';
+import '../../widgets/bottombar.dart';
 import '../controllers/search_controller.dart';
 
 class SearchView extends GetView<SearchViewController> {
@@ -10,11 +10,13 @@ class SearchView extends GetView<SearchViewController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BottombarLayout(
+      extendBody: true,
+      bottomNavigationBar: Bottombar(
         viewSelected: 2,
-        child: Center(
-          child: Text('Search'),
-        ),
+        isDarkTheme: false,
+      ),
+      body: Center(
+        child: Text('wallet'),
       ),
     );
   }

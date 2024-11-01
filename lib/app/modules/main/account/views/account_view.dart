@@ -6,7 +6,7 @@ import '../../../../libraries/icons/icons_font.dart';
 import '../../../../themes/styles/colors.dart';
 import '../../../../themes/styles/typography.dart';
 import '../../home/controllers/home_controller.dart';
-import '../../widgets/bottombar_layout.dart';
+import '../../widgets/bottombar.dart';
 import '../controllers/account_controller.dart';
 
 class AccountView extends GetView<AccountController> {
@@ -14,6 +14,7 @@ class AccountView extends GetView<AccountController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBody: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -51,10 +52,26 @@ class AccountView extends GetView<AccountController> {
           ),
         ],
       ),
-      body: BottombarLayout(
+      bottomNavigationBar: Bottombar(
         viewSelected: 4,
-        child: Center(
-          child: Text('Account'),
+        isDarkTheme: false,
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Icon(Icons.abc),
+                Column(
+                  children: [
+                    Text('Andrea Sánchez'),
+                    Text('Ver perfil'),
+                  ],
+                ),
+              ],
+            ),
+            Text('Ver perfil'),
+          ],
         ),
       ),
     );

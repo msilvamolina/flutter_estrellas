@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
-import '../../widgets/bottombar_layout.dart';
+import '../../widgets/bottombar.dart';
 import '../controllers/wallet_controller.dart';
 
 class WalletView extends GetView<WalletController> {
@@ -10,11 +10,13 @@ class WalletView extends GetView<WalletController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BottombarLayout(
+      extendBody: true,
+      bottomNavigationBar: Bottombar(
         viewSelected: 1,
-        child: Center(
-          child: Text('Wallet'),
-        ),
+        isDarkTheme: false,
+      ),
+      body: Center(
+        child: Text('wallet'),
       ),
     );
   }
