@@ -80,32 +80,32 @@ class AccountView extends GetView<AccountController> {
                 ),
                 accountTile(
                   onTap: () {},
-                  icon: EstrellasIcons.star,
+                  icon: EstrellasIcons.stack,
                   title: 'Órdenes',
                 ),
                 accountTile(
                   onTap: () {},
-                  icon: EstrellasIcons.star,
+                  icon: EstrellasIcons.creditCard,
                   title: 'Mis cuentas bancarias',
                 ),
                 accountTile(
                   onTap: () {},
-                  icon: EstrellasIcons.star,
+                  icon: EstrellasIcons.graduationCap,
                   title: 'Academia',
                 ),
                 accountTile(
                   onTap: () {},
-                  icon: EstrellasIcons.star,
+                  icon: EstrellasIcons.lifebuoy,
                   title: 'Ayuda',
                 ),
                 accountTile(
                   onTap: () {},
-                  icon: EstrellasIcons.star,
+                  icon: EstrellasIcons.question,
                   title: 'Acerca de estrellas',
                 ),
                 accountTile(
                   onTap: () {},
-                  icon: EstrellasIcons.star,
+                  icon: EstrellasIcons.signOut,
                   title: 'Cerrar Sesión',
                 ),
                 SizedBox(height: 26),
@@ -141,13 +141,13 @@ class AccountView extends GetView<AccountController> {
       child: ListTile(
         onTap: onTap,
         leading: Container(
-          padding: EdgeInsets.all(8),
+          padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
               color: secondaryLight,
               borderRadius: BorderRadius.all(Radius.circular(8))),
           child: Icon(
             icon,
-            size: 28,
+            size: 32,
             color: secondaryBase,
           ),
         ),
