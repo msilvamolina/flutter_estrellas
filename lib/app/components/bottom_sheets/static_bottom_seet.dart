@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import '../../app/bottom_sheets/catalogs_bottomsheet.dart';
 import '../../app/bottom_sheets/new_catalog_bottomsheet.dart';
 import '../../app/bottom_sheets/select_variant_size.dart';
+import '../../app/bottom_sheets/signout_bottomsheet.dart';
 import 'types.dart';
 
 class StaticBottomSeet extends StatelessWidget {
@@ -30,6 +31,9 @@ class StaticBottomSeet extends StatelessWidget {
     switch (type) {
       case BottomSheetTypes.newCatalog:
         return NewCatalogBottomsheet();
+
+      case BottomSheetTypes.signOut:
+        return SignOutBottomsheet();
 
       default:
         return SizedBox.shrink();

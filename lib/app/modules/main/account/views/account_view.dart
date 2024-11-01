@@ -157,7 +157,9 @@ class AccountView extends GetView<AccountController> {
       child: ListTile(
         onTap: onTap,
         leading: Container(
-          margin: EdgeInsets.only(left: 16),
+          margin: EdgeInsets.only(
+            left: 16,
+          ),
           padding: EdgeInsets.all(12),
           decoration: BoxDecoration(
               border: Border.all(
