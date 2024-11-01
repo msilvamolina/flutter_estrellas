@@ -7,9 +7,14 @@ import '../../../themes/styles/colors.dart';
 import '../../../themes/styles/typography.dart';
 
 class Bottombar extends StatelessWidget {
-  const Bottombar({required this.viewSelected, super.key});
+  const Bottombar({
+    required this.viewSelected,
+    this.isDarkTheme = false,
+    super.key,
+  });
 
   final int viewSelected;
+  final bool isDarkTheme;
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -17,11 +22,13 @@ class Bottombar extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 16),
         height: 66,
         decoration: BoxDecoration(
-          color: neutral900,
+          color: isDarkTheme ? neutral900 : neutral50,
           borderRadius: BorderRadius.circular(16),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.3),
+              color: isDarkTheme
+                  ? Colors.black.withOpacity(0.3)
+                  : Colors.black.withOpacity(0.05),
               spreadRadius: 1,
               blurRadius: 10,
               offset: Offset(0, 3),
@@ -32,6 +39,7 @@ class Bottombar extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             buttonCard(
+              isDarkTheme: isDarkTheme,
               label: 'Home',
               icon: EstrellasIcons.house,
               iconActive: EstrellasIcons.houseFill,
@@ -43,6 +51,7 @@ class Bottombar extends StatelessWidget {
               },
             ),
             buttonCard(
+              isDarkTheme: isDarkTheme,
               label: 'Billetera',
               icon: EstrellasIcons.wallet,
               iconActive: EstrellasIcons.walletFill,
@@ -57,6 +66,7 @@ class Bottombar extends StatelessWidget {
               },
             ),
             buttonCard(
+              isDarkTheme: isDarkTheme,
               label: 'Buscar',
               icon: EstrellasIcons.search,
               iconActive: EstrellasIcons.searchFill,
@@ -71,6 +81,7 @@ class Bottombar extends StatelessWidget {
               },
             ),
             buttonCard(
+              isDarkTheme: isDarkTheme,
               label: 'Tienda',
               icon: EstrellasIcons.storefront,
               iconActive: EstrellasIcons.storefrontFill,
@@ -85,6 +96,7 @@ class Bottombar extends StatelessWidget {
               },
             ),
             buttonCard(
+              isDarkTheme: isDarkTheme,
               label: 'Cuenta',
               icon: EstrellasIcons.userCircle,
               iconActive: EstrellasIcons.userCircle1,
@@ -110,6 +122,7 @@ class Bottombar extends StatelessWidget {
     required IconData iconActive,
     required bool isActive,
     required Function() onTap,
+    required bool isDarkTheme,
   }) {
     return Material(
       color: Colors.transparent,
@@ -132,13 +145,16 @@ class Bottombar extends StatelessWidget {
               SizedBox(height: 8),
               Icon(
                 isActive ? iconActive : icon,
-                color: isActive ? primaryBase : neutral400,
+                color: isActive
+                    ? primaryBase
+                    : (isDarkTheme ? neutral400 : neutral900),
                 size: 28,
               ),
               Text(
                 label,
-                style: TypographyStyle.bodyBlackSmall
-                    .copyWith(color: neutral400, fontWeight: FontWeight.w500),
+                style: TypographyStyle.bodyBlackSmall.copyWith(
+                    color: isDarkTheme ? neutral400 : neutral900,
+                    fontWeight: FontWeight.w500),
               ),
             ],
           ),
