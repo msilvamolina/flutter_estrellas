@@ -17,8 +17,7 @@ class AccountView extends GetView<AccountController> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        automaticallyImplyLeading: false, // Esto oculta el botón de retroceso
-
+        automaticallyImplyLeading: false,
         actions: [
           Stack(
             children: [
