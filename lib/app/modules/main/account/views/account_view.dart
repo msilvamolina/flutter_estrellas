@@ -62,16 +62,10 @@ class AccountView extends GetView<AccountController> {
           SingleChildScrollView(
             child: Column(
               children: [
-                Row(
-                  children: [
-                    Icon(Icons.abc),
-                    Column(
-                      children: [
-                        Text('Andrea Sánchez'),
-                        Text('Ver perfil'),
-                      ],
-                    ),
-                  ],
+                accountUser(
+                  onTap: () {},
+                  icon: EstrellasIcons.user,
+                  title: 'Andrea Sánchez',
                 ),
                 SizedBox(height: 26),
                 accountTile(
@@ -131,6 +125,50 @@ class AccountView extends GetView<AccountController> {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget accountUser({
+    required Function()? onTap,
+    required IconData icon,
+    required String title,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16),
+      child: ListTile(
+        onTap: onTap,
+        leading: Container(
+          margin: EdgeInsets.only(left: 16),
+          padding: EdgeInsets.all(12),
+          decoration: BoxDecoration(
+              border: Border.all(
+                color: neutral950,
+              ),
+              color: Colors.transparent,
+              borderRadius: BorderRadius.all(Radius.circular(12))),
+          child: Icon(
+            icon,
+            size: 26,
+            color: neutral950,
+          ),
+        ),
+        title: Text(
+          title,
+          style: TypographyStyle.bodyRegularLarge.copyWith(
+            fontSize: 18,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        subtitle: Text(
+          'Ver perfil',
+          style: TypographyStyle.bodyRegularLarge.copyWith(
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+            color: secondaryBase,
+            decoration: TextDecoration.underline,
+          ),
+        ),
       ),
     );
   }
