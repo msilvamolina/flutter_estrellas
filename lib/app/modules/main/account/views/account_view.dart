@@ -102,7 +102,7 @@ class AccountView extends GetView<AccountController> {
                   title: 'Acerca de estrellas',
                 ),
                 accountTile(
-                  onTap: () {},
+                  onTap: controller.signOut,
                   icon: EstrellasIcons.signOut,
                   title: 'Cerrar Sesión',
                   isDestructive: true,

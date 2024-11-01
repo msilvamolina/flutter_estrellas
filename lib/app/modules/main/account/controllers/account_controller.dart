@@ -1,9 +1,9 @@
+import 'package:flutter_estrellas/app/modules/main/home/controllers/home_controller.dart';
 import 'package:get/get.dart';
 
 class AccountController extends GetxController {
-  //TODO: Implement AccountController
+  HomeController homeController = Get.find<HomeController>();
 
-  final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
@@ -14,10 +14,7 @@ class AccountController extends GetxController {
     super.onReady();
   }
 
-  @override
-  void onClose() {
-    super.onClose();
+  void signOut() {
+    print('signOut');
   }
-
-  void increment() => count.value++;
 }
