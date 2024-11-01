@@ -138,6 +138,7 @@ class AccountView extends GetView<AccountController> {
                     fontWeight: FontWeight.w400,
                   ),
                 ),
+                SizedBox(height: 26),
               ],
             ),
           ),
