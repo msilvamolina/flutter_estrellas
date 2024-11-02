@@ -43,7 +43,7 @@ class SignOutBottomsheet extends StatelessWidget {
                 ),
                 SizedBox(height: 24),
                 Button(
-                  style: ButtonStyles.primary,
+                  style: ButtonStyles.secondary,
                   onPressed: () {},
                   label: 'No',
                 ),

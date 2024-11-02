@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_estrellas/app/components/buttons/widgets/secondary_textbutton.dart';
 
 import 'widgets/primary_button.dart';
+import 'widgets/secondary_button.dart';
 import 'widgets/secondary_circle_button.dart';
 
 enum ButtonStyles {
   primary,
+  secondary,
   secondaryText,
   secondaryCirlce,
 }
@@ -29,6 +31,12 @@ class Button extends StatelessWidget {
     switch (style) {
       case ButtonStyles.primary:
         return PrimaryButton(
+          onPressed: onPressed,
+          label: label!,
+          isLoaderButton: false,
+        );
+      case ButtonStyles.secondary:
+        return SecondaryButton(
           onPressed: onPressed,
           label: label!,
           isLoaderButton: false,
