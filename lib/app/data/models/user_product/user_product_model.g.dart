@@ -15,6 +15,7 @@ _$UserProductModelImpl _$$UserProductModelImplFromJson(
       video: json['video'] == null
           ? null
           : VideoPostModel.fromJson(json['video'] as Map<String, dynamic>),
+      createdAt: json['createdAt'] as String?,
     );
 
 Map<String, dynamic> _$$UserProductModelImplToJson(
@@ -24,4 +25,5 @@ Map<String, dynamic> _$$UserProductModelImplToJson(
       'createdByUserId': instance.createdByUserId,
       'quantity': instance.quantity,
       'video': instance.video,
+      'createdAt': instance.createdAt,
     };
