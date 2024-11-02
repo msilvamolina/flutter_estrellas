@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_estrellas/app/themes/styles/typography.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 import 'package:get/get.dart';
 
@@ -18,21 +19,25 @@ class FavoritesView extends GetView<FavoritesController> {
         ),
         centerTitle: true,
       ),
-      body: Obx(
-        () => controller.userProductController.listProductFavorite.isNotEmpty
-            ? ListView.separated(
-                itemCount:
-                    controller.userProductController.listProductFavorite.length,
-                itemBuilder: (context, index) {
-                  return FavoritesCard(
-                    userProductModel: controller
-                        .userProductController.listProductFavorite[index],
-                  );
-                },
-                separatorBuilder: (context, index) =>
-                    const SizedBox(height: 10),
-              )
-            : Center(child: const Text('no data')),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: Obx(
+          () => controller.userProductController.listProductFavorite.isNotEmpty
+              ? MasonryGridView.count(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 2,
+                  crossAxisSpacing: 2,
+                  itemCount: controller
+                      .userProductController.listProductFavorite.length,
+                  itemBuilder: (context, index) {
+                    return FavoritesCard(
+                      userProductModel: controller
+                          .userProductController.listProductFavorite[index],
+                    );
+                  },
+                )
+              : Center(child: const Text('no data')),
+        ),
       ),
     );
   }
