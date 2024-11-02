@@ -53,7 +53,7 @@ class OrdersRepository {
 
         "client_surname": address.fullname,
         // "department_id": address.city['department_id'],
-        "product_id": product.product!.id,
+        // "product_id": product.product!.id,
 
         "user_id": "6463b06a7420bf4da4c1ecef",
       };

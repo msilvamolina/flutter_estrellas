@@ -47,9 +47,8 @@ class UserProductController extends GetxController {
   bool _addCatalogIsLoading = false;
   bool get addCatalogIsLoading => _addCatalogIsLoading;
 
-  ProductFirebaseLiteModel? _productCatalogBottomSheet;
-  ProductFirebaseLiteModel? get productCatalogBottomSheet =>
-      _productCatalogBottomSheet;
+  VideoPostModel? _productCatalogBottomSheet;
+  VideoPostModel? get productCatalogBottomSheet => _productCatalogBottomSheet;
 
   bool addCatalogFormIsSubmitted = false;
 
@@ -72,18 +71,18 @@ class UserProductController extends GetxController {
     super.onReady();
   }
 
-  void goToBuyUniqueProduct(ProductFirebaseLiteModel? productLite) {
-    setUniqueProduct(productLite);
+  void goToBuyUniqueProduct(VideoPostModel? videoPostModel) {
+    setUniqueProduct(videoPostModel);
     Get.toNamed(Routes.ADDRESS);
   }
 
-  void setUniqueProduct(ProductFirebaseLiteModel? productLite) {
-    if (productLite != null) {
+  void setUniqueProduct(VideoPostModel? videoPostModel) {
+    if (videoPostModel != null) {
       UserProductModel unique = UserProductModel(
         quantity: 1,
         createdBy: 'martin@gmail.com',
         createdByUserId: 'asdasd',
-        product: productLite,
+        videoPostModel: videoPostModel,
       );
       _uniqueProduct = unique;
     } else {
@@ -112,8 +111,8 @@ class UserProductController extends GetxController {
     if (videoPostModel == null) {
       return;
     }
-    Either<String, Unit> response =
-        await userProductRepository.addToFavorites(productLite: productLite);
+    Either<String, Unit> response = await userProductRepository.addToFavorites(
+        videoPostModel: videoPostModel);
 
     response.fold(
       (failure) {
@@ -128,13 +127,12 @@ class UserProductController extends GetxController {
     );
   }
 
-  Future<void> removeFromFavorites(
-      ProductFirebaseLiteModel? productLite) async {
-    if (productLite == null) {
+  Future<void> removeFromFavorites(VideoPostModel? videoPostModel) async {
+    if (videoPostModel == null) {
       return;
     }
     Either<String, Unit> response = await userProductRepository
-        .removeFromFavorites(productLite: productLite);
+        .removeFromFavorites(videoPostModel: videoPostModel);
 
     response.fold(
       (failure) {
@@ -142,19 +140,20 @@ class UserProductController extends GetxController {
       },
       (_) {
         String message = 'removido de tus favoritos';
-        Snackbars.productSnackbar(productLite, '${productLite.name} $message');
+        Snackbars.productSnackbar(videoPostModel.product!,
+            '${videoPostModel.product!.name} $message');
         update(['product_favorite_icon']);
       },
     );
   }
 
   Future<void> addToCatalogPrivate(
-      ProductFirebaseLiteModel? productLite, bool openBottomSheet) async {
-    if (productLite == null) {
+      VideoPostModel? videoPostModel, bool openBottomSheet) async {
+    if (videoPostModel == null) {
       return;
     }
     Either<String, Unit> response = await userProductRepository
-        .addToCatalogPrivate(productLite: productLite);
+        .addToCatalogPrivate(videoPostModel: videoPostModel);
 
     response.fold(
       (failure) {
@@ -162,20 +161,19 @@ class UserProductController extends GetxController {
       },
       (_) {
         if (openBottomSheet) {
-          showBottomSheetCatalog(productLite);
+          showBottomSheetCatalog(videoPostModel);
         }
         update(['product_catalog_icon']);
       },
     );
   }
 
-  Future<void> removeFromCatalogPrivate(
-      ProductFirebaseLiteModel? productLite) async {
-    if (productLite == null) {
+  Future<void> removeFromCatalogPrivate(VideoPostModel? videoPostModel) async {
+    if (videoPostModel == null) {
       return;
     }
     Either<String, Unit> response = await userProductRepository
-        .removeFromCatalogPrivate(productLite: productLite);
+        .removeFromCatalogPrivate(videoPostModel: videoPostModel);
 
     response.fold(
       (failure) {
@@ -184,7 +182,8 @@ class UserProductController extends GetxController {
       (_) {
         Get.back();
         String message = 'removido de tu catálogo privado';
-        Snackbars.productSnackbar(productLite, '${productLite.name} $message');
+        Snackbars.productSnackbar(videoPostModel!.product!,
+            '${videoPostModel.product!.name} $message');
         update(['product_catalog_icon']);
       },
     );
@@ -207,14 +206,13 @@ class UserProductController extends GetxController {
     );
   }
 
-  Future<void> onPressedSaveButton(ProductFirebaseLiteModel? productLite,
+  Future<void> onPressedSaveButton(VideoPostModel? videoPostModel,
       {bool openBottomSheet = true}) async {
-    addToCatalogPrivate(productLite, openBottomSheet);
+    addToCatalogPrivate(videoPostModel, openBottomSheet);
   }
 
-  Future<void> showBottomSheetCatalog(
-      ProductFirebaseLiteModel? productLite) async {
-    _productCatalogBottomSheet = productLite;
+  Future<void> showBottomSheetCatalog(VideoPostModel? videoPostModel) async {
+    _productCatalogBottomSheet = videoPostModel;
 
     if (_listUserCatalogs.isEmpty) {
       openAddCatalogBottomSheet();
@@ -285,7 +283,7 @@ class UserProductController extends GetxController {
     update(['new_catalog_bottom_sheet']);
 
     Either<String, Unit> response = await userProductRepository.createCatalog(
-        productLite: _productCatalogBottomSheet!, catalogName: name);
+        videoPostModel: _productCatalogBottomSheet!, catalogName: name);
 
     _addCatalogIsLoading = false;
     Get.back();
@@ -296,49 +294,49 @@ class UserProductController extends GetxController {
       (_) {
         String message = 'Guardado en';
         Snackbars.productSnackbar(
-            _productCatalogBottomSheet!, '$message $name');
+            _productCatalogBottomSheet!.product!, '$message $name');
       },
     );
   }
 
   bool isProductoInCatalog(
-      UserCatalogModel catalog, ProductFirebaseLiteModel product) {
-    List<ProductFirebaseLiteModel> listProducts = catalog.products ?? [];
+      UserCatalogModel catalog, VideoPostModel videoPostModel) {
+    List<VideoPostModel> listProducts = catalog.videos ?? [];
 
-    ProductFirebaseLiteModel? option =
-        listProducts.firstWhereOrNull((element) => element.id == product.id);
-
-    return option != null;
-  }
-
-  bool isProductInFavorites(ProductFirebaseLiteModel? product) {
-    UserProductModel? option = _listProductFavorites
-        .firstWhereOrNull((element) => element.product?.id == product?.id);
+    VideoPostModel? option = listProducts
+        .firstWhereOrNull((element) => element.id == videoPostModel.id);
 
     return option != null;
   }
 
-  bool isProductInCatalogPrivate(ProductFirebaseLiteModel? product) {
-    UserProductModel? option = _listProductCatalogPrivate
-        .firstWhereOrNull((element) => element.product?.id == product?.id);
+  bool isProductInFavorites(VideoPostModel? videoPostModel) {
+    UserProductModel? option = _listProductFavorites.firstWhereOrNull(
+        (element) => element.videoPostModel?.id == videoPostModel?.id);
 
     return option != null;
   }
 
-  Future<void> addProductToCatalog(UserCatalogModel catalog,
-      ProductFirebaseLiteModel product, bool add) async {
-    List<ProductFirebaseLiteModel> listProducts = catalog.products ?? [];
+  bool isProductInCatalogPrivate(VideoPostModel? videoPostModel) {
+    UserProductModel? option = _listProductCatalogPrivate.firstWhereOrNull(
+        (element) => element.videoPostModel?.id == videoPostModel?.id);
+
+    return option != null;
+  }
+
+  Future<void> addProductToCatalog(
+      UserCatalogModel catalog, VideoPostModel videoPostModel, bool add) async {
+    List<VideoPostModel> listProducts = catalog.videos ?? [];
 
     List<dynamic> newlistProducts = [];
 
-    for (ProductFirebaseLiteModel element in listProducts) {
-      if (element.id != product.id) {
+    for (VideoPostModel element in listProducts) {
+      if (element.id != videoPostModel.id) {
         newlistProducts.add(element.toJson());
       }
     }
 
     if (add) {
-      newlistProducts.add(product.toJson());
+      newlistProducts.add(videoPostModel.toJson());
     }
 
     Either<String, Unit> response =
@@ -353,7 +351,7 @@ class UserProductController extends GetxController {
       (_) {
         String message = add ? 'Guardado en' : 'Removido de';
         Snackbars.productSnackbar(
-            _productCatalogBottomSheet!, '$message ${catalog.name}');
+            _productCatalogBottomSheet!.product!, '$message ${catalog.name}');
       },
     );
   }

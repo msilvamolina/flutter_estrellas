@@ -23,7 +23,7 @@ mixin _$UserProductModel {
   String get createdBy => throw _privateConstructorUsedError;
   String get createdByUserId => throw _privateConstructorUsedError;
   int? get quantity => throw _privateConstructorUsedError;
-  ProductFirebaseLiteModel? get product => throw _privateConstructorUsedError;
+  VideoPostModel? get videoPostModel => throw _privateConstructorUsedError;
 
   /// Serializes this UserProductModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -45,9 +45,9 @@ abstract class $UserProductModelCopyWith<$Res> {
       {String createdBy,
       String createdByUserId,
       int? quantity,
-      ProductFirebaseLiteModel? product});
+      VideoPostModel? videoPostModel});
 
-  $ProductFirebaseLiteModelCopyWith<$Res>? get product;
+  $VideoPostModelCopyWith<$Res>? get videoPostModel;
 }
 
 /// @nodoc
@@ -68,7 +68,7 @@ class _$UserProductModelCopyWithImpl<$Res, $Val extends UserProductModel>
     Object? createdBy = null,
     Object? createdByUserId = null,
     Object? quantity = freezed,
-    Object? product = freezed,
+    Object? videoPostModel = freezed,
   }) {
     return _then(_value.copyWith(
       createdBy: null == createdBy
@@ -83,10 +83,10 @@ class _$UserProductModelCopyWithImpl<$Res, $Val extends UserProductModel>
           ? _value.quantity
           : quantity // ignore: cast_nullable_to_non_nullable
               as int?,
-      product: freezed == product
-          ? _value.product
-          : product // ignore: cast_nullable_to_non_nullable
-              as ProductFirebaseLiteModel?,
+      videoPostModel: freezed == videoPostModel
+          ? _value.videoPostModel
+          : videoPostModel // ignore: cast_nullable_to_non_nullable
+              as VideoPostModel?,
     ) as $Val);
   }
 
@@ -94,13 +94,13 @@ class _$UserProductModelCopyWithImpl<$Res, $Val extends UserProductModel>
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $ProductFirebaseLiteModelCopyWith<$Res>? get product {
-    if (_value.product == null) {
+  $VideoPostModelCopyWith<$Res>? get videoPostModel {
+    if (_value.videoPostModel == null) {
       return null;
     }
 
-    return $ProductFirebaseLiteModelCopyWith<$Res>(_value.product!, (value) {
-      return _then(_value.copyWith(product: value) as $Val);
+    return $VideoPostModelCopyWith<$Res>(_value.videoPostModel!, (value) {
+      return _then(_value.copyWith(videoPostModel: value) as $Val);
     });
   }
 }
@@ -117,10 +117,10 @@ abstract class _$$UserProductModelImplCopyWith<$Res>
       {String createdBy,
       String createdByUserId,
       int? quantity,
-      ProductFirebaseLiteModel? product});
+      VideoPostModel? videoPostModel});
 
   @override
-  $ProductFirebaseLiteModelCopyWith<$Res>? get product;
+  $VideoPostModelCopyWith<$Res>? get videoPostModel;
 }
 
 /// @nodoc
@@ -139,7 +139,7 @@ class __$$UserProductModelImplCopyWithImpl<$Res>
     Object? createdBy = null,
     Object? createdByUserId = null,
     Object? quantity = freezed,
-    Object? product = freezed,
+    Object? videoPostModel = freezed,
   }) {
     return _then(_$UserProductModelImpl(
       createdBy: null == createdBy
@@ -154,10 +154,10 @@ class __$$UserProductModelImplCopyWithImpl<$Res>
           ? _value.quantity
           : quantity // ignore: cast_nullable_to_non_nullable
               as int?,
-      product: freezed == product
-          ? _value.product
-          : product // ignore: cast_nullable_to_non_nullable
-              as ProductFirebaseLiteModel?,
+      videoPostModel: freezed == videoPostModel
+          ? _value.videoPostModel
+          : videoPostModel // ignore: cast_nullable_to_non_nullable
+              as VideoPostModel?,
     ));
   }
 }
@@ -169,7 +169,7 @@ class _$UserProductModelImpl extends _UserProductModel {
       {required this.createdBy,
       required this.createdByUserId,
       this.quantity,
-      this.product})
+      this.videoPostModel})
       : super._();
 
   factory _$UserProductModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -182,11 +182,11 @@ class _$UserProductModelImpl extends _UserProductModel {
   @override
   final int? quantity;
   @override
-  final ProductFirebaseLiteModel? product;
+  final VideoPostModel? videoPostModel;
 
   @override
   String toString() {
-    return 'UserProductModel(createdBy: $createdBy, createdByUserId: $createdByUserId, quantity: $quantity, product: $product)';
+    return 'UserProductModel(createdBy: $createdBy, createdByUserId: $createdByUserId, quantity: $quantity, videoPostModel: $videoPostModel)';
   }
 
   @override
@@ -200,13 +200,14 @@ class _$UserProductModelImpl extends _UserProductModel {
                 other.createdByUserId == createdByUserId) &&
             (identical(other.quantity, quantity) ||
                 other.quantity == quantity) &&
-            (identical(other.product, product) || other.product == product));
+            (identical(other.videoPostModel, videoPostModel) ||
+                other.videoPostModel == videoPostModel));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, createdBy, createdByUserId, quantity, product);
+  int get hashCode => Object.hash(
+      runtimeType, createdBy, createdByUserId, quantity, videoPostModel);
 
   /// Create a copy of UserProductModel
   /// with the given fields replaced by the non-null parameter values.
@@ -230,7 +231,7 @@ abstract class _UserProductModel extends UserProductModel {
       {required final String createdBy,
       required final String createdByUserId,
       final int? quantity,
-      final ProductFirebaseLiteModel? product}) = _$UserProductModelImpl;
+      final VideoPostModel? videoPostModel}) = _$UserProductModelImpl;
   const _UserProductModel._() : super._();
 
   factory _UserProductModel.fromJson(Map<String, dynamic> json) =
@@ -243,7 +244,7 @@ abstract class _UserProductModel extends UserProductModel {
   @override
   int? get quantity;
   @override
-  ProductFirebaseLiteModel? get product;
+  VideoPostModel? get videoPostModel;
 
   /// Create a copy of UserProductModel
   /// with the given fields replaced by the non-null parameter values.

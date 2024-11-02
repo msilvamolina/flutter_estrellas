@@ -142,20 +142,20 @@ class UserProductsRepository {
   }
 
   Future<Either<String, Unit>> addToCatalogPrivate({
-    required ProductFirebaseLiteModel productLite,
+    required VideoPostModel videoPostModel,
   }) async {
     Map<String, String> userData = getUidAndEmail();
     String uid = userData['uid'] ?? '';
     String email = userData['email'] ?? '';
-    String productId = productLite.id;
+    String videoId = videoPostModel.id;
     try {
       await _firebaseFirestore
           .collection('users')
           .doc(uid)
-          .collection('catalog_private')
-          .doc(productId)
+          .collection('video_catalog_private')
+          .doc(videoId)
           .set({
-        'product': productLite.toDocument(),
+        'video': videoPostModel.toDocument(),
         'isAnonymous': false,
         'createdBy': email,
         'createdByUserId': uid,
@@ -168,17 +168,17 @@ class UserProductsRepository {
   }
 
   Future<Either<String, Unit>> removeFromCatalogPrivate({
-    required ProductFirebaseLiteModel productLite,
+    required VideoPostModel videoPostModel,
   }) async {
     Map<String, String> userData = getUidAndEmail();
     String uid = userData['uid'] ?? '';
-    String productId = productLite.id;
+    String videoId = videoPostModel.id;
     try {
       await _firebaseFirestore
           .collection('users')
           .doc(uid)
-          .collection('catalog_private')
-          .doc(productId)
+          .collection('video_catalog_private')
+          .doc(videoId)
           .delete();
       return right(unit);
     } on FirebaseException catch (e) {
@@ -205,7 +205,7 @@ class UserProductsRepository {
   }
 
   Future<Either<String, Unit>> createCatalog({
-    required ProductFirebaseLiteModel productLite,
+    required VideoPostModel videoPostModel,
     required String catalogName,
   }) async {
     Map<String, String> userData = getUidAndEmail();
@@ -217,14 +217,14 @@ class UserProductsRepository {
       await _firebaseFirestore
           .collection('users')
           .doc(uid)
-          .collection('catalogs')
+          .collection('video_catalogs')
           .doc(id)
           .set({
         'id': id,
         'name': catalogName,
-        'imageUrl': productLite.thumbnail,
-        'products': [
-          productLite.toJson(),
+        'imageUrl': videoPostModel.product!.thumbnail,
+        'videos': [
+          videoPostModel.toJson(),
         ],
         'createdBy': email,
         'createdByUserId': uid,
