@@ -44,6 +44,8 @@ import '../modules/product/bindings/product_binding.dart';
 import '../modules/product/views/product_view.dart';
 import '../modules/product_details/bindings/product_details_binding.dart';
 import '../modules/product_details/views/product_details_view.dart';
+import '../modules/account/profile/bindings/profile_binding.dart';
+import '../modules/account/profile/views/profile_view.dart';
 import '../modules/select_payment/bindings/select_payment_binding.dart';
 import '../modules/select_payment/views/select_payment_view.dart';
 import '../modules/selects/select_city/bindings/select_city_binding.dart';
@@ -193,6 +195,11 @@ class AppPages {
       name: _Paths.ABOUT,
       page: () => const AboutView(),
       binding: AboutBinding(),
+    ),
+    GetPage(
+      name: _Paths.PROFILE,
+      page: () => const ProfileView(),
+      binding: ProfileBinding(),
     ),
   ];
 }

@@ -4,6 +4,7 @@ import 'package:flutter_estrellas/app/services/environment.dart';
 import 'package:get/get.dart';
 
 import '../../../../libraries/icons/icons_font.dart';
+import '../../../../routes/app_pages.dart';
 import '../../../../themes/styles/colors.dart';
 import '../../../../themes/styles/typography.dart';
 import '../../home/controllers/home_controller.dart';
@@ -64,23 +65,23 @@ class AccountView extends GetView<AccountController> {
             child: Column(
               children: [
                 accountUser(
-                  onTap: () {},
+                  onTap: () => Get.toNamed(Routes.PROFILE),
                   icon: EstrellasIcons.user,
                   title: 'Andrea Sánchez',
                 ),
                 SizedBox(height: 26),
                 accountTile(
-                  onTap: () {},
+                  onTap: () => Get.toNamed(Routes.FAVORITES),
                   icon: EstrellasIcons.star,
                   title: 'Favoritos',
                 ),
                 accountTile(
-                  onTap: () {},
+                  onTap: () => Get.toNamed(Routes.ORDERS),
                   icon: EstrellasIcons.stack,
                   title: 'Órdenes',
                 ),
                 accountTile(
-                  onTap: () {},
+                  onTap: () => Get.toNamed(Routes.BANK_ACCOUNTS),
                   icon: EstrellasIcons.creditCard,
                   title: 'Mis cuentas bancarias',
                 ),
@@ -97,7 +98,7 @@ class AccountView extends GetView<AccountController> {
                   isExternal: true,
                 ),
                 accountTile(
-                  onTap: () {},
+                  onTap: () => Get.toNamed(Routes.ABOUT),
                   icon: EstrellasIcons.question,
                   title: 'Acerca de estrellas',
                 ),

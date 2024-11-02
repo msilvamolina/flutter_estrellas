@@ -27,6 +27,7 @@ abstract class Routes {
   static const ORDERS = _Paths.ORDERS;
   static const BANK_ACCOUNTS = _Paths.BANK_ACCOUNTS;
   static const ABOUT = _Paths.ABOUT;
+  static const PROFILE = _Paths.PROFILE;
 }
 
 abstract class _Paths {
@@ -55,4 +56,5 @@ abstract class _Paths {
   static const ORDERS = '/orders';
   static const BANK_ACCOUNTS = '/bank-accounts';
   static const ABOUT = '/about';
+  static const PROFILE = '/profile';
 }
