@@ -77,12 +77,12 @@ class _VideoButtonsState extends State<VideoButtons> {
                         .removeFromFavorites(widget.videoPostModel)
                     : userProductController
                         .addToFavorites(widget.videoPostModel),
-                image: 'assets/svg/HeartFill.svg',
-                label: '220',
-                colorIcon: userProductController
+                image: userProductController
                         .isProductInFavorites(widget.videoPostModel)
-                    ? error900
-                    : white,
+                    ? 'assets/svg/HeartColor.svg'
+                    : 'assets/svg/HeartFill.svg',
+                label: '220',
+                colorIcon: null,
               );
             }),
         SizedBox(height: 22),
