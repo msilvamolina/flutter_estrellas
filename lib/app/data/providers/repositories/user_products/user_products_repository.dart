@@ -57,8 +57,8 @@ class UserProductsRepository {
       Stream<QuerySnapshot> snapshots = _firebaseFirestore
           .collection('users')
           .doc(uid)
-          .collection('catalog_private')
-          .orderBy('createdAt', descending: true)
+          .collection('video_catalog_private')
+          // .orderBy('createdAt', descending: true)
           .snapshots();
 
       yield* snapshots.map((snapshot) {
@@ -78,8 +78,8 @@ class UserProductsRepository {
       Stream<QuerySnapshot> snapshots = _firebaseFirestore
           .collection('users')
           .doc(uid)
-          .collection('catalogs')
-          .orderBy('createdAt', descending: true)
+          .collection('video_catalogs')
+          // .orderBy('createdAt', descending: true)
           .snapshots();
 
       yield* snapshots.map((snapshot) {
@@ -99,8 +99,8 @@ class UserProductsRepository {
       Stream<QuerySnapshot> snapshots = _firebaseFirestore
           .collection('users')
           .doc(uid)
-          .collection('cart')
-          .orderBy('createdAt', descending: true)
+          .collection('video_cart')
+          // .orderBy('createdAt', descending: true)
           .snapshots();
 
       yield* snapshots.map((snapshot) {
@@ -134,7 +134,7 @@ class UserProductsRepository {
         'isAnonymous': false,
         'createdBy': email,
         'createdByUserId': uid,
-        'createdAt': DateTime.now(),
+        // 'createdAt': DateTime.now(),
       });
       return right(unit);
     } on FirebaseException catch (e) {
@@ -160,7 +160,7 @@ class UserProductsRepository {
         'isAnonymous': false,
         'createdBy': email,
         'createdByUserId': uid,
-        'createdAt': DateTime.now(),
+        // 'createdAt': DateTime.now(),
       });
       return right(unit);
     } on FirebaseException catch (e) {
@@ -249,7 +249,7 @@ class UserProductsRepository {
       await _firebaseFirestore
           .collection('users')
           .doc(uid)
-          .collection('catalogs')
+          .collection('video_catalogs')
           .doc(catalogId)
           .update({'products': products});
 
@@ -260,24 +260,24 @@ class UserProductsRepository {
   }
 
   Future<Either<String, Unit>> addToCart({
-    required ProductFirebaseLiteModel productLite,
+    required VideoPostModel video,
   }) async {
     Map<String, String> userData = getUidAndEmail();
     String uid = userData['uid'] ?? '';
     String email = userData['email'] ?? '';
-    String productId = productLite.id;
+    String videoId = video.id;
     try {
       await _firebaseFirestore
           .collection('users')
           .doc(uid)
-          .collection('cart')
-          .doc(productId)
+          .collection('video_cart')
+          .doc(videoId)
           .set({
-        'product': productLite.toDocument(),
+        'video': video.toDocument(),
         'isAnonymous': false,
         'createdBy': email,
         'createdByUserId': uid,
-        'createdAt': DateTime.now(),
+        // 'createdAt': DateTime.now(),
       });
       return right(unit);
     } on FirebaseException catch (e) {
@@ -286,17 +286,17 @@ class UserProductsRepository {
   }
 
   Future<Either<String, Unit>> removeFromCart({
-    required ProductFirebaseLiteModel productLite,
+    required VideoPostModel video,
   }) async {
     Map<String, String> userData = getUidAndEmail();
     String uid = userData['uid'] ?? '';
-    String productId = productLite.id;
+    String videoId = video.id;
     try {
       await _firebaseFirestore
           .collection('users')
           .doc(uid)
-          .collection('cart')
-          .doc(productId)
+          .collection('video_cart')
+          .doc(videoId)
           .delete();
       return right(unit);
     } on FirebaseException catch (e) {

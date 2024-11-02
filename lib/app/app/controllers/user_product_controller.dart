@@ -90,19 +90,19 @@ class UserProductController extends GetxController {
     }
   }
 
-  Future<void> addToCart(ProductFirebaseLiteModel? productLite) async {
-    if (productLite == null) {
+  Future<void> addToCart(VideoPostModel? video) async {
+    if (video == null) {
       return;
     }
     Either<String, Unit> response =
-        await userProductRepository.addToCart(productLite: productLite);
+        await userProductRepository.addToCart(video: video);
 
     response.fold(
       (failure) {
         Snackbars.error(failure);
       },
       (_) {
-        Snackbars.success('${productLite.name} agregado a tu carrito');
+        Snackbars.success('${video.product!.name} agregado a tu carrito');
       },
     );
   }
@@ -189,19 +189,19 @@ class UserProductController extends GetxController {
     );
   }
 
-  Future<void> removeFromCart(ProductFirebaseLiteModel? productLite) async {
-    if (productLite == null) {
+  Future<void> removeFromCart(VideoPostModel? video) async {
+    if (video == null) {
       return;
     }
     Either<String, Unit> response =
-        await userProductRepository.removeFromCart(productLite: productLite);
+        await userProductRepository.removeFromCart(video: video);
 
     response.fold(
       (failure) {
         Snackbars.error(failure);
       },
       (_) {
-        Snackbars.success('${productLite.name} removido de tu carrito');
+        Snackbars.success('${video.product!.name} removido de tu carrito');
       },
     );
   }
