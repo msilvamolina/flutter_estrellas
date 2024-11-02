@@ -123,14 +123,12 @@ class UserProductsRepository {
     String uid = userData['uid'] ?? '';
     String email = userData['email'] ?? '';
 
-    
-
     try {
       await _firebaseFirestore
           .collection('users')
           .doc(uid)
           .collection('video_favorites')
-          .doc(videoPostModel.name)
+          .doc(videoPostModel.id)
           .set({
         'video': videoPostModel.toDocument(),
         'isAnonymous': false,
