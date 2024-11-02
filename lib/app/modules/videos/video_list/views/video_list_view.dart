@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
+import '../../../../libraries/icons/icons_font.dart';
+import '../../../../themes/styles/colors.dart';
+import '../../../../themes/styles/typography.dart';
+import '../../../main/home/controllers/home_controller.dart';
 import '../../../main/home/widgets/video_card.dart';
 import '../controllers/video_list_controller.dart';
 
@@ -18,7 +22,43 @@ class VideoListView extends GetView<VideoListController> {
       extendBody: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
+        elevation: 0,
         shadowColor: Colors.transparent,
+        iconTheme: IconThemeData(
+          color: white,
+        ),
+        actions: [
+          Stack(
+            children: [
+              IconButton(
+                onPressed: () {},
+                icon: Icon(
+                  EstrellasIcons.shoppingCartSimpleFill,
+                  color: white,
+                  size: 40,
+                ),
+              ),
+              GetX<HomeController>(
+                builder: (controller) {
+                  return Positioned(
+                    right: 6,
+                    top: 8,
+                    child: CircleAvatar(
+                      radius: 9,
+                      backgroundColor: error900,
+                      child: Text(
+                        controller.userProductController.listProductCart.length
+                            .toString(),
+                        style: TypographyStyle.bodyBlackSmall
+                            .copyWith(color: white, fontSize: 12),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
+        ],
       ),
       body: Container(
         margin: EdgeInsets.all(isMobile ? 0 : 16),
