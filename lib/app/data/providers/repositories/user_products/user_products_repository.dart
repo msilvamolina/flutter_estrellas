@@ -225,7 +225,7 @@ class UserProductsRepository {
         'name': catalogName,
         'imageUrl': videoPostModel.product!.thumbnail,
         'videos': [
-          videoPostModel.toJson(),
+          videoPostModel.toDocument(),
         ],
         'createdBy': email,
         'createdByUserId': uid,
