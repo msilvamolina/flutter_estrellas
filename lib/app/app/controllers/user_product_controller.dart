@@ -341,7 +341,7 @@ class UserProductController extends GetxController {
 
     Either<String, Unit> response =
         await userProductRepository.updateCatalogListProducts(
-            catalogId: catalog.id, products: newlistProducts);
+            catalogId: catalog.id, videos: newlistProducts);
 
     Get.back();
     response.fold(

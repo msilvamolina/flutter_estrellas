@@ -240,7 +240,7 @@ class UserProductsRepository {
 
   Future<Either<String, Unit>> updateCatalogListProducts({
     required String catalogId,
-    required List<dynamic> products,
+    required List<dynamic> videos,
   }) async {
     Map<String, String> userData = getUidAndEmail();
     String uid = userData['uid'] ?? '';
@@ -251,7 +251,7 @@ class UserProductsRepository {
           .doc(uid)
           .collection('video_catalogs')
           .doc(catalogId)
-          .update({'products': products});
+          .update({'videos': videos});
 
       return right(unit);
     } on FirebaseException catch (e) {
