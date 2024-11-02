@@ -10,6 +10,8 @@ import '../modules/account/favorites/bindings/favorites_binding.dart';
 import '../modules/account/favorites/views/favorites_view.dart';
 import '../modules/account/orders/bindings/orders_binding.dart';
 import '../modules/account/orders/views/orders_view.dart';
+import '../modules/account/profile/bindings/profile_binding.dart';
+import '../modules/account/profile/views/profile_view.dart';
 import '../modules/address/address_list/bindings/address_binding.dart';
 import '../modules/address/address_list/views/address_view.dart';
 import '../modules/address/new_address/bindings/new_address_binding.dart';
@@ -44,14 +46,14 @@ import '../modules/product/bindings/product_binding.dart';
 import '../modules/product/views/product_view.dart';
 import '../modules/product_details/bindings/product_details_binding.dart';
 import '../modules/product_details/views/product_details_view.dart';
-import '../modules/account/profile/bindings/profile_binding.dart';
-import '../modules/account/profile/views/profile_view.dart';
 import '../modules/select_payment/bindings/select_payment_binding.dart';
 import '../modules/select_payment/views/select_payment_view.dart';
 import '../modules/selects/select_city/bindings/select_city_binding.dart';
 import '../modules/selects/select_city/views/select_city_view.dart';
 import '../modules/selects/select_department/bindings/select_department_binding.dart';
 import '../modules/selects/select_department/views/select_department_view.dart';
+import '../modules/videos/video_list/bindings/video_list_binding.dart';
+import '../modules/videos/video_list/views/video_list_view.dart';
 
 part 'app_routes.dart';
 
@@ -200,6 +202,11 @@ class AppPages {
       name: _Paths.PROFILE,
       page: () => const ProfileView(),
       binding: ProfileBinding(),
+    ),
+    GetPage(
+      name: _Paths.VIDEO_LIST,
+      page: () => const VideoListView(),
+      binding: VideoListBinding(),
     ),
   ];
 }

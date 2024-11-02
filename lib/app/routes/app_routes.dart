@@ -28,6 +28,7 @@ abstract class Routes {
   static const BANK_ACCOUNTS = _Paths.BANK_ACCOUNTS;
   static const ABOUT = _Paths.ABOUT;
   static const PROFILE = _Paths.PROFILE;
+  static const VIDEO_LIST = _Paths.VIDEO_LIST;
 }
 
 abstract class _Paths {
@@ -57,4 +58,5 @@ abstract class _Paths {
   static const BANK_ACCOUNTS = '/bank-accounts';
   static const ABOUT = '/about';
   static const PROFILE = '/profile';
+  static const VIDEO_LIST = '/video-list';
 }

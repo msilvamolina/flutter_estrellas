@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_estrellas/app/routes/app_pages.dart';
 import 'package:flutter_estrellas/app/themes/styles/typography.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
@@ -30,9 +31,18 @@ class FavoritesView extends GetView<FavoritesController> {
                   itemCount: controller
                       .userProductController.listProductFavorite.length,
                   itemBuilder: (context, index) {
-                    return FavoritesCard(
-                      userProductModel: controller
-                          .userProductController.listProductFavorite[index],
+                    return GestureDetector(
+                      onTap: () => Get.toNamed(
+                        Routes.VIDEO_LIST,
+                        arguments: [
+                          controller.userProductController.listProductFavorite,
+                          index
+                        ],
+                      ),
+                      child: FavoritesCard(
+                        userProductModel: controller
+                            .userProductController.listProductFavorite[index],
+                      ),
                     );
                   },
                 )
