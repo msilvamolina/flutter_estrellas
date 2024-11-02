@@ -42,13 +42,16 @@ class SignOutBottomsheet extends StatelessWidget {
                     SizedBox(height: 22),
                     Button(
                       style: ButtonStyles.primary,
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.back();
+                        controller.mainController.signOut();
+                      },
                       label: 'Sí',
                     ),
                     SizedBox(height: 24),
                     Button(
                       style: ButtonStyles.secondary,
-                      onPressed: () {},
+                      onPressed: Get.back,
                       label: 'No',
                     ),
                   ],
