@@ -82,7 +82,7 @@ class UserProductController extends GetxController {
         quantity: 1,
         createdBy: 'martin@gmail.com',
         createdByUserId: 'asdasd',
-        videoPostModel: videoPostModel,
+        video: videoPostModel,
       );
       _uniqueProduct = unique;
     } else {
@@ -310,15 +310,15 @@ class UserProductController extends GetxController {
   }
 
   bool isProductInFavorites(VideoPostModel? videoPostModel) {
-    UserProductModel? option = _listProductFavorites.firstWhereOrNull(
-        (element) => element.videoPostModel?.id == videoPostModel?.id);
+    UserProductModel? option = _listProductFavorites
+        .firstWhereOrNull((element) => element.video?.id == videoPostModel?.id);
 
     return option != null;
   }
 
   bool isProductInCatalogPrivate(VideoPostModel? videoPostModel) {
-    UserProductModel? option = _listProductCatalogPrivate.firstWhereOrNull(
-        (element) => element.videoPostModel?.id == videoPostModel?.id);
+    UserProductModel? option = _listProductCatalogPrivate
+        .firstWhereOrNull((element) => element.video?.id == videoPostModel?.id);
 
     return option != null;
   }

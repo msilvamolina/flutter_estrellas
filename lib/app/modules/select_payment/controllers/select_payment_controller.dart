@@ -54,7 +54,7 @@ class SelectPaymentController extends GetxController {
       for (UserProductModel element in userProductController.listProductCart) {
         products.add(
           {
-            "video_id": element.videoPostModel!.id,
+            "video_id": element.video!.id,
             "client_quantity": element.quantity ?? 1,
             "variation_id": ""
           },

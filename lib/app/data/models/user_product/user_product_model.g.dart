@@ -12,10 +12,9 @@ _$UserProductModelImpl _$$UserProductModelImplFromJson(
       createdBy: json['createdBy'] as String,
       createdByUserId: json['createdByUserId'] as String,
       quantity: (json['quantity'] as num?)?.toInt(),
-      videoPostModel: json['videoPostModel'] == null
+      video: json['video'] == null
           ? null
-          : VideoPostModel.fromJson(
-              json['videoPostModel'] as Map<String, dynamic>),
+          : VideoPostModel.fromJson(json['video'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$UserProductModelImplToJson(
@@ -24,5 +23,5 @@ Map<String, dynamic> _$$UserProductModelImplToJson(
       'createdBy': instance.createdBy,
       'createdByUserId': instance.createdByUserId,
       'quantity': instance.quantity,
-      'videoPostModel': instance.videoPostModel,
+      'video': instance.video,
     };

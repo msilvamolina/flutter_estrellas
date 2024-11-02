@@ -16,7 +16,7 @@ abstract class UserProductModel implements _$UserProductModel {
     required String createdBy,
     required String createdByUserId,
     int? quantity,
-    VideoPostModel? videoPostModel,
+    VideoPostModel? video,
   }) = _UserProductModel;
 
   factory UserProductModel.fromJson(Map<String, dynamic> json) =>
