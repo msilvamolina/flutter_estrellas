@@ -2,6 +2,14 @@ import 'package:flutter/foundation.dart';
 
 import 'package:get/get.dart';
 
+import '../modules/account/about/bindings/about_binding.dart';
+import '../modules/account/about/views/about_view.dart';
+import '../modules/account/bank_accounts/bindings/bank_accounts_binding.dart';
+import '../modules/account/bank_accounts/views/bank_accounts_view.dart';
+import '../modules/account/favorites/bindings/favorites_binding.dart';
+import '../modules/account/favorites/views/favorites_view.dart';
+import '../modules/account/orders/bindings/orders_binding.dart';
+import '../modules/account/orders/views/orders_view.dart';
 import '../modules/address/address_list/bindings/address_binding.dart';
 import '../modules/address/address_list/views/address_view.dart';
 import '../modules/address/new_address/bindings/new_address_binding.dart';
@@ -165,6 +173,26 @@ class AppPages {
       page: () => const ProductDetailsView(),
       binding: ProductDetailsBinding(),
       transition: Transition.downToUp,
+    ),
+    GetPage(
+      name: _Paths.FAVORITES,
+      page: () => const FavoritesView(),
+      binding: FavoritesBinding(),
+    ),
+    GetPage(
+      name: _Paths.ORDERS,
+      page: () => const OrdersView(),
+      binding: OrdersBinding(),
+    ),
+    GetPage(
+      name: _Paths.BANK_ACCOUNTS,
+      page: () => const BankAccountsView(),
+      binding: BankAccountsBinding(),
+    ),
+    GetPage(
+      name: _Paths.ABOUT,
+      page: () => const AboutView(),
+      binding: AboutBinding(),
     ),
   ];
 }

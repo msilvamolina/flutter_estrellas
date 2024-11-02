@@ -23,6 +23,10 @@ abstract class Routes {
   static const SEARCH = _Paths.SEARCH;
   static const ACCOUNT = _Paths.ACCOUNT;
   static const PRODUCT_DETAILS = _Paths.PRODUCT_DETAILS;
+  static const FAVORITES = _Paths.FAVORITES;
+  static const ORDERS = _Paths.ORDERS;
+  static const BANK_ACCOUNTS = _Paths.BANK_ACCOUNTS;
+  static const ABOUT = _Paths.ABOUT;
 }
 
 abstract class _Paths {
@@ -47,4 +51,8 @@ abstract class _Paths {
   static const SEARCH = '/search';
   static const ACCOUNT = '/account';
   static const PRODUCT_DETAILS = '/product-details';
+  static const FAVORITES = '/favorites';
+  static const ORDERS = '/orders';
+  static const BANK_ACCOUNTS = '/bank-accounts';
+  static const ABOUT = '/about';
 }
