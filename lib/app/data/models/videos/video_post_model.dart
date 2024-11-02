@@ -41,7 +41,15 @@ abstract class VideoPostModel implements _$VideoPostModel {
     );
   }
 
-  Map<String, dynamic> toDocument() => ModelHelpers.toDocument(toJson());
+  Map<String, dynamic> toDocument() {
+    dynamic videoJson = toJson();
+    videoJson['product'] = null;
+
+    dynamic videoToDocument = ModelHelpers.toDocument(videoJson);
+
+    videoToDocument['product'] = product!.toJson();
+    return videoToDocument;
+  }
 
   static Future<VideoPostModel?> fromReference(dynamic reference) async {
     try {

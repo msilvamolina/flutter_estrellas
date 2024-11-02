@@ -122,6 +122,9 @@ class UserProductsRepository {
     Map<String, String> userData = getUidAndEmail();
     String uid = userData['uid'] ?? '';
     String email = userData['email'] ?? '';
+
+    
+
     try {
       await _firebaseFirestore
           .collection('users')
