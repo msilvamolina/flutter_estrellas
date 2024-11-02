@@ -1,23 +1,14 @@
 import 'package:get/get.dart';
 
-class FavoritesController extends GetxController {
-  //TODO: Implement FavoritesController
+import '../../../../app/controllers/main_controller.dart';
+import '../../../../app/controllers/user_product_controller.dart';
 
-  final count = 0.obs;
+class FavoritesController extends GetxController {
+  MainController mainController = Get.find<MainController>();
+  UserProductController userProductController =
+      Get.find<UserProductController>();
   @override
   void onInit() {
     super.onInit();
   }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
-  void increment() => count.value++;
 }
