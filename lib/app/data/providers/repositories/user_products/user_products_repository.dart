@@ -3,6 +3,7 @@ import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_estrellas/app/data/models/product_firebase_lite/product_firebase_lite.dart';
 import 'package:flutter_estrellas/app/data/models/user_catalog/user_catalog_model.dart';
+import 'package:flutter_estrellas/app/data/models/videos/video_post_model.dart';
 import 'package:get/get.dart';
 import 'package:uuid/uuid.dart';
 
@@ -35,7 +36,7 @@ class UserProductsRepository {
       Stream<QuerySnapshot> snapshots = _firebaseFirestore
           .collection('users')
           .doc(uid)
-          .collection('favorites')
+          .collection('video_favorites')
           .orderBy('createdAt', descending: true)
           .snapshots();
 
@@ -113,20 +114,22 @@ class UserProductsRepository {
   }
 
   Future<Either<String, Unit>> addToFavorites({
-    required ProductFirebaseLiteModel productLite,
+    required VideoPostModel videoPostModel,
   }) async {
+    if (videoPostModel.product == null) {
+      return left('El producto no puede estar vacío');
+    }
     Map<String, String> userData = getUidAndEmail();
     String uid = userData['uid'] ?? '';
     String email = userData['email'] ?? '';
-    String productId = productLite.id;
     try {
       await _firebaseFirestore
           .collection('users')
           .doc(uid)
-          .collection('favorites')
-          .doc(productId)
+          .collection('video_favorites')
+          .doc(videoPostModel.name)
           .set({
-        'product': productLite.toDocument(),
+        'video': videoPostModel.toDocument(),
         'isAnonymous': false,
         'createdBy': email,
         'createdByUserId': uid,
@@ -184,17 +187,16 @@ class UserProductsRepository {
   }
 
   Future<Either<String, Unit>> removeFromFavorites({
-    required ProductFirebaseLiteModel productLite,
+    required VideoPostModel videoPostModel,
   }) async {
     Map<String, String> userData = getUidAndEmail();
     String uid = userData['uid'] ?? '';
-    String productId = productLite.id;
     try {
       await _firebaseFirestore
           .collection('users')
           .doc(uid)
-          .collection('favorites')
-          .doc(productId)
+          .collection('video_favorites')
+          .doc(videoPostModel.id)
           .delete();
       return right(unit);
     } on FirebaseException catch (e) {

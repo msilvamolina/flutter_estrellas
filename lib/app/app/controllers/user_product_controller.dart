@@ -6,12 +6,14 @@ import 'package:flutter_estrellas/app/components/bottom_sheets/bottomsheets.dart
 import 'package:flutter_estrellas/app/components/snackbars/snackbars.dart';
 import 'package:flutter_estrellas/app/data/models/product_firebase_lite/product_firebase_lite.dart';
 import 'package:flutter_estrellas/app/data/models/user_catalog/user_catalog_model.dart';
+import 'package:flutter_estrellas/app/data/models/video_model.dart';
 import 'package:flutter_estrellas/app/data/providers/repositories/user_products/user_products_repository.dart';
 import 'package:get/get.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
 import '../../components/bottom_sheets/types.dart';
 import '../../data/models/user_product/user_product_model.dart';
+import '../../data/models/videos/video_post_model.dart';
 import '../../routes/app_pages.dart';
 import '../../components/bottom_sheets/dragabble_bottom_sheet.dart';
 
@@ -106,8 +108,8 @@ class UserProductController extends GetxController {
     );
   }
 
-  Future<void> addToFavorites(ProductFirebaseLiteModel? productLite) async {
-    if (productLite == null) {
+  Future<void> addToFavorites(VideoPostModel? videoPostModel) async {
+    if (videoPostModel == null) {
       return;
     }
     Either<String, Unit> response =
@@ -119,7 +121,8 @@ class UserProductController extends GetxController {
       },
       (_) {
         String message = 'agregado en a tus favoritos';
-        Snackbars.productSnackbar(productLite, '${productLite.name} $message');
+        Snackbars.productSnackbar(videoPostModel.product!,
+            '${videoPostModel.product!.name} $message');
         update(['product_favorite_icon']);
       },
     );
