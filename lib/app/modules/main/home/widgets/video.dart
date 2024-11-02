@@ -52,12 +52,20 @@ class _VideoAppState extends State<VideoApp> with RouteAware {
       });
 
     _controller.setVolume(mainController.withVolume ? 100 : 0);
+
+    // Añade un listener para actualizar el slider
+    _controller.addListener(() {
+      if (_controller.value.isInitialized && _controller.value.isPlaying) {
+        setState(() {
+          _currentSliderValue = _controller.value.position.inSeconds.toDouble();
+        });
+      }
+    });
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    // Verificamos si la ruta es de tipo PageRoute antes de suscribir
     final route = ModalRoute.of(context);
     if (route is PageRoute<dynamic>) {
       routeObserver.subscribe(this, route);
@@ -73,7 +81,6 @@ class _VideoAppState extends State<VideoApp> with RouteAware {
 
   @override
   void didPushNext() {
-    // Pausa el video cuando se navega a otra pantalla
     if (_controller.value.isPlaying) {
       _controller.pause();
       setState(() {
@@ -84,7 +91,6 @@ class _VideoAppState extends State<VideoApp> with RouteAware {
 
   @override
   void didPopNext() {
-    // Reanuda el video cuando se regresa a esta pantalla
     if (!_isPlaying) {
       _controller.play();
       setState(() {
@@ -96,9 +102,13 @@ class _VideoAppState extends State<VideoApp> with RouteAware {
   void onPause() {
     setState(() {
       _isPlaying = !_controller.value.isPlaying;
-      _isPlaying ? _controller.play() : _controller.pause();
+      if (_isPlaying) {
+        _controller.play();
+      } else {
+        _controller.pause();
+      }
       _iconAnimationIcon = _isPlaying ? Icons.play_arrow : Icons.pause;
-
+      _currentSliderValue = _controller.value.position.inSeconds.toDouble();
       _iconAnimationShowing = true;
     });
 
@@ -214,7 +224,6 @@ class _VideoAppState extends State<VideoApp> with RouteAware {
                           ),
                         ),
                         if (widget.bottomSpace) SizedBox(height: 16),
-                        // if (isAndroid) SizedBox(height: 10),
                       ],
                     ),
                   ),
