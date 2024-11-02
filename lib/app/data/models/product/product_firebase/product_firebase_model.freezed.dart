@@ -37,11 +37,8 @@ mixin _$ProductFirebaseModel {
   int? get points => throw _privateConstructorUsedError;
   double? get suggestedPrice => throw _privateConstructorUsedError;
   String? get thumbnail => throw _privateConstructorUsedError;
-  String? get createdAt => throw _privateConstructorUsedError;
   String? get uploadDate => throw _privateConstructorUsedError;
   String? get searchField => throw _privateConstructorUsedError;
-  dynamic get reference => throw _privateConstructorUsedError;
-  String? get updatedAt => throw _privateConstructorUsedError;
 
   /// Serializes this ProductFirebaseModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -76,11 +73,8 @@ abstract class $ProductFirebaseModelCopyWith<$Res> {
       int? points,
       double? suggestedPrice,
       String? thumbnail,
-      String? createdAt,
       String? uploadDate,
-      String? searchField,
-      dynamic reference,
-      String? updatedAt});
+      String? searchField});
 }
 
 /// @nodoc
@@ -115,11 +109,8 @@ class _$ProductFirebaseModelCopyWithImpl<$Res,
     Object? points = freezed,
     Object? suggestedPrice = freezed,
     Object? thumbnail = freezed,
-    Object? createdAt = freezed,
     Object? uploadDate = freezed,
     Object? searchField = freezed,
-    Object? reference = freezed,
-    Object? updatedAt = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -186,10 +177,6 @@ class _$ProductFirebaseModelCopyWithImpl<$Res,
           ? _value.thumbnail
           : thumbnail // ignore: cast_nullable_to_non_nullable
               as String?,
-      createdAt: freezed == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as String?,
       uploadDate: freezed == uploadDate
           ? _value.uploadDate
           : uploadDate // ignore: cast_nullable_to_non_nullable
@@ -197,14 +184,6 @@ class _$ProductFirebaseModelCopyWithImpl<$Res,
       searchField: freezed == searchField
           ? _value.searchField
           : searchField // ignore: cast_nullable_to_non_nullable
-              as String?,
-      reference: freezed == reference
-          ? _value.reference
-          : reference // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      updatedAt: freezed == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
   }
@@ -235,11 +214,8 @@ abstract class _$$ProductFirebaseModelImplCopyWith<$Res>
       int? points,
       double? suggestedPrice,
       String? thumbnail,
-      String? createdAt,
       String? uploadDate,
-      String? searchField,
-      dynamic reference,
-      String? updatedAt});
+      String? searchField});
 }
 
 /// @nodoc
@@ -271,11 +247,8 @@ class __$$ProductFirebaseModelImplCopyWithImpl<$Res>
     Object? points = freezed,
     Object? suggestedPrice = freezed,
     Object? thumbnail = freezed,
-    Object? createdAt = freezed,
     Object? uploadDate = freezed,
     Object? searchField = freezed,
-    Object? reference = freezed,
-    Object? updatedAt = freezed,
   }) {
     return _then(_$ProductFirebaseModelImpl(
       id: null == id
@@ -342,10 +315,6 @@ class __$$ProductFirebaseModelImplCopyWithImpl<$Res>
           ? _value.thumbnail
           : thumbnail // ignore: cast_nullable_to_non_nullable
               as String?,
-      createdAt: freezed == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as String?,
       uploadDate: freezed == uploadDate
           ? _value.uploadDate
           : uploadDate // ignore: cast_nullable_to_non_nullable
@@ -353,14 +322,6 @@ class __$$ProductFirebaseModelImplCopyWithImpl<$Res>
       searchField: freezed == searchField
           ? _value.searchField
           : searchField // ignore: cast_nullable_to_non_nullable
-              as String?,
-      reference: freezed == reference
-          ? _value.reference
-          : reference // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      updatedAt: freezed == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -386,11 +347,8 @@ class _$ProductFirebaseModelImpl extends _ProductFirebaseModel {
       this.points,
       this.suggestedPrice,
       this.thumbnail,
-      this.createdAt,
       this.uploadDate,
-      this.searchField,
-      this.reference,
-      this.updatedAt})
+      this.searchField})
       : super._();
 
   factory _$ProductFirebaseModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -430,19 +388,13 @@ class _$ProductFirebaseModelImpl extends _ProductFirebaseModel {
   @override
   final String? thumbnail;
   @override
-  final String? createdAt;
-  @override
   final String? uploadDate;
   @override
   final String? searchField;
-  @override
-  final dynamic reference;
-  @override
-  final String? updatedAt;
 
   @override
   String toString() {
-    return 'ProductFirebaseModel(id: $id, provider: $provider, category: $category, name: $name, externalId: $externalId, usefulId: $usefulId, videoUrl: $videoUrl, description: $description, type: $type, sku: $sku, price: $price, active: $active, isPercentage: $isPercentage, points: $points, suggestedPrice: $suggestedPrice, thumbnail: $thumbnail, createdAt: $createdAt, uploadDate: $uploadDate, searchField: $searchField, reference: $reference, updatedAt: $updatedAt)';
+    return 'ProductFirebaseModel(id: $id, provider: $provider, category: $category, name: $name, externalId: $externalId, usefulId: $usefulId, videoUrl: $videoUrl, description: $description, type: $type, sku: $sku, price: $price, active: $active, isPercentage: $isPercentage, points: $points, suggestedPrice: $suggestedPrice, thumbnail: $thumbnail, uploadDate: $uploadDate, searchField: $searchField)';
   }
 
   @override
@@ -473,43 +425,34 @@ class _$ProductFirebaseModelImpl extends _ProductFirebaseModel {
                 other.suggestedPrice == suggestedPrice) &&
             (identical(other.thumbnail, thumbnail) ||
                 other.thumbnail == thumbnail) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt) &&
             (identical(other.uploadDate, uploadDate) ||
                 other.uploadDate == uploadDate) &&
             (identical(other.searchField, searchField) ||
-                other.searchField == searchField) &&
-            const DeepCollectionEquality().equals(other.reference, reference) &&
-            (identical(other.updatedAt, updatedAt) ||
-                other.updatedAt == updatedAt));
+                other.searchField == searchField));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hashAll([
-        runtimeType,
-        id,
-        const DeepCollectionEquality().hash(provider),
-        const DeepCollectionEquality().hash(category),
-        name,
-        externalId,
-        usefulId,
-        videoUrl,
-        description,
-        type,
-        sku,
-        price,
-        active,
-        isPercentage,
-        points,
-        suggestedPrice,
-        thumbnail,
-        createdAt,
-        uploadDate,
-        searchField,
-        const DeepCollectionEquality().hash(reference),
-        updatedAt
-      ]);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      const DeepCollectionEquality().hash(provider),
+      const DeepCollectionEquality().hash(category),
+      name,
+      externalId,
+      usefulId,
+      videoUrl,
+      description,
+      type,
+      sku,
+      price,
+      active,
+      isPercentage,
+      points,
+      suggestedPrice,
+      thumbnail,
+      uploadDate,
+      searchField);
 
   /// Create a copy of ProductFirebaseModel
   /// with the given fields replaced by the non-null parameter values.
@@ -547,11 +490,8 @@ abstract class _ProductFirebaseModel extends ProductFirebaseModel {
       final int? points,
       final double? suggestedPrice,
       final String? thumbnail,
-      final String? createdAt,
       final String? uploadDate,
-      final String? searchField,
-      final dynamic reference,
-      final String? updatedAt}) = _$ProductFirebaseModelImpl;
+      final String? searchField}) = _$ProductFirebaseModelImpl;
   const _ProductFirebaseModel._() : super._();
 
   factory _ProductFirebaseModel.fromJson(Map<String, dynamic> json) =
@@ -591,15 +531,9 @@ abstract class _ProductFirebaseModel extends ProductFirebaseModel {
   @override
   String? get thumbnail;
   @override
-  String? get createdAt;
-  @override
   String? get uploadDate;
   @override
   String? get searchField;
-  @override
-  dynamic get reference;
-  @override
-  String? get updatedAt;
 
   /// Create a copy of ProductFirebaseModel
   /// with the given fields replaced by the non-null parameter values.

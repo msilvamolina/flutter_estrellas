@@ -17,14 +17,12 @@ abstract class UserData implements _$UserData {
     required String username,
     required String firstName,
     required String lastName,
-    required String createdAt,
     required String createdBy,
     String? searchField,
     dynamic reference,
     String? defaultCurrency,
     Map<String, dynamic>? currencies,
     @Default(false) bool isAnonymous,
-    String? updatedAt,
   }) = _UserData;
 
   factory UserData.fromJson(Map<String, dynamic> json) =>

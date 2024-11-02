@@ -23,7 +23,6 @@ mixin _$UserCatalogModel {
   String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get imageUrl => throw _privateConstructorUsedError;
-  String get createdBy => throw _privateConstructorUsedError;
   String get createdByUserId => throw _privateConstructorUsedError;
   List<VideoPostModel>? get videos => throw _privateConstructorUsedError;
 
@@ -47,7 +46,6 @@ abstract class $UserCatalogModelCopyWith<$Res> {
       {String id,
       String name,
       String imageUrl,
-      String createdBy,
       String createdByUserId,
       List<VideoPostModel>? videos});
 }
@@ -70,7 +68,6 @@ class _$UserCatalogModelCopyWithImpl<$Res, $Val extends UserCatalogModel>
     Object? id = null,
     Object? name = null,
     Object? imageUrl = null,
-    Object? createdBy = null,
     Object? createdByUserId = null,
     Object? videos = freezed,
   }) {
@@ -86,10 +83,6 @@ class _$UserCatalogModelCopyWithImpl<$Res, $Val extends UserCatalogModel>
       imageUrl: null == imageUrl
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
-              as String,
-      createdBy: null == createdBy
-          ? _value.createdBy
-          : createdBy // ignore: cast_nullable_to_non_nullable
               as String,
       createdByUserId: null == createdByUserId
           ? _value.createdByUserId
@@ -115,7 +108,6 @@ abstract class _$$UserCatalogModelImplCopyWith<$Res>
       {String id,
       String name,
       String imageUrl,
-      String createdBy,
       String createdByUserId,
       List<VideoPostModel>? videos});
 }
@@ -136,7 +128,6 @@ class __$$UserCatalogModelImplCopyWithImpl<$Res>
     Object? id = null,
     Object? name = null,
     Object? imageUrl = null,
-    Object? createdBy = null,
     Object? createdByUserId = null,
     Object? videos = freezed,
   }) {
@@ -152,10 +143,6 @@ class __$$UserCatalogModelImplCopyWithImpl<$Res>
       imageUrl: null == imageUrl
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
-              as String,
-      createdBy: null == createdBy
-          ? _value.createdBy
-          : createdBy // ignore: cast_nullable_to_non_nullable
               as String,
       createdByUserId: null == createdByUserId
           ? _value.createdByUserId
@@ -176,7 +163,6 @@ class _$UserCatalogModelImpl extends _UserCatalogModel {
       {required this.id,
       required this.name,
       required this.imageUrl,
-      required this.createdBy,
       required this.createdByUserId,
       final List<VideoPostModel>? videos})
       : _videos = videos,
@@ -192,8 +178,6 @@ class _$UserCatalogModelImpl extends _UserCatalogModel {
   @override
   final String imageUrl;
   @override
-  final String createdBy;
-  @override
   final String createdByUserId;
   final List<VideoPostModel>? _videos;
   @override
@@ -207,7 +191,7 @@ class _$UserCatalogModelImpl extends _UserCatalogModel {
 
   @override
   String toString() {
-    return 'UserCatalogModel(id: $id, name: $name, imageUrl: $imageUrl, createdBy: $createdBy, createdByUserId: $createdByUserId, videos: $videos)';
+    return 'UserCatalogModel(id: $id, name: $name, imageUrl: $imageUrl, createdByUserId: $createdByUserId, videos: $videos)';
   }
 
   @override
@@ -219,8 +203,6 @@ class _$UserCatalogModelImpl extends _UserCatalogModel {
             (identical(other.name, name) || other.name == name) &&
             (identical(other.imageUrl, imageUrl) ||
                 other.imageUrl == imageUrl) &&
-            (identical(other.createdBy, createdBy) ||
-                other.createdBy == createdBy) &&
             (identical(other.createdByUserId, createdByUserId) ||
                 other.createdByUserId == createdByUserId) &&
             const DeepCollectionEquality().equals(other._videos, _videos));
@@ -228,7 +210,7 @@ class _$UserCatalogModelImpl extends _UserCatalogModel {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, imageUrl, createdBy,
+  int get hashCode => Object.hash(runtimeType, id, name, imageUrl,
       createdByUserId, const DeepCollectionEquality().hash(_videos));
 
   /// Create a copy of UserCatalogModel
@@ -253,7 +235,6 @@ abstract class _UserCatalogModel extends UserCatalogModel {
       {required final String id,
       required final String name,
       required final String imageUrl,
-      required final String createdBy,
       required final String createdByUserId,
       final List<VideoPostModel>? videos}) = _$UserCatalogModelImpl;
   const _UserCatalogModel._() : super._();
@@ -267,8 +248,6 @@ abstract class _UserCatalogModel extends UserCatalogModel {
   String get name;
   @override
   String get imageUrl;
-  @override
-  String get createdBy;
   @override
   String get createdByUserId;
   @override

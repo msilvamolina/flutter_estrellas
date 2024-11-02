@@ -23,13 +23,10 @@ mixin _$ProductVariantModel {
   String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get label => throw _privateConstructorUsedError;
-  String get createdAt => throw _privateConstructorUsedError;
   String get type => throw _privateConstructorUsedError;
   String? get imageUrl => throw _privateConstructorUsedError;
   int? get color => throw _privateConstructorUsedError;
   String? get searchField => throw _privateConstructorUsedError;
-  dynamic get reference => throw _privateConstructorUsedError;
-  String? get updatedAt => throw _privateConstructorUsedError;
 
   /// Serializes this ProductVariantModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -51,13 +48,10 @@ abstract class $ProductVariantModelCopyWith<$Res> {
       {String id,
       String name,
       String label,
-      String createdAt,
       String type,
       String? imageUrl,
       int? color,
-      String? searchField,
-      dynamic reference,
-      String? updatedAt});
+      String? searchField});
 }
 
 /// @nodoc
@@ -78,13 +72,10 @@ class _$ProductVariantModelCopyWithImpl<$Res, $Val extends ProductVariantModel>
     Object? id = null,
     Object? name = null,
     Object? label = null,
-    Object? createdAt = null,
     Object? type = null,
     Object? imageUrl = freezed,
     Object? color = freezed,
     Object? searchField = freezed,
-    Object? reference = freezed,
-    Object? updatedAt = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -98,10 +89,6 @@ class _$ProductVariantModelCopyWithImpl<$Res, $Val extends ProductVariantModel>
       label: null == label
           ? _value.label
           : label // ignore: cast_nullable_to_non_nullable
-              as String,
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
               as String,
       type: null == type
           ? _value.type
@@ -119,14 +106,6 @@ class _$ProductVariantModelCopyWithImpl<$Res, $Val extends ProductVariantModel>
           ? _value.searchField
           : searchField // ignore: cast_nullable_to_non_nullable
               as String?,
-      reference: freezed == reference
-          ? _value.reference
-          : reference // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      updatedAt: freezed == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as String?,
     ) as $Val);
   }
 }
@@ -143,13 +122,10 @@ abstract class _$$ProductVariantModelImplCopyWith<$Res>
       {String id,
       String name,
       String label,
-      String createdAt,
       String type,
       String? imageUrl,
       int? color,
-      String? searchField,
-      dynamic reference,
-      String? updatedAt});
+      String? searchField});
 }
 
 /// @nodoc
@@ -168,13 +144,10 @@ class __$$ProductVariantModelImplCopyWithImpl<$Res>
     Object? id = null,
     Object? name = null,
     Object? label = null,
-    Object? createdAt = null,
     Object? type = null,
     Object? imageUrl = freezed,
     Object? color = freezed,
     Object? searchField = freezed,
-    Object? reference = freezed,
-    Object? updatedAt = freezed,
   }) {
     return _then(_$ProductVariantModelImpl(
       id: null == id
@@ -188,10 +161,6 @@ class __$$ProductVariantModelImplCopyWithImpl<$Res>
       label: null == label
           ? _value.label
           : label // ignore: cast_nullable_to_non_nullable
-              as String,
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
               as String,
       type: null == type
           ? _value.type
@@ -209,14 +178,6 @@ class __$$ProductVariantModelImplCopyWithImpl<$Res>
           ? _value.searchField
           : searchField // ignore: cast_nullable_to_non_nullable
               as String?,
-      reference: freezed == reference
-          ? _value.reference
-          : reference // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      updatedAt: freezed == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as String?,
     ));
   }
 }
@@ -228,13 +189,10 @@ class _$ProductVariantModelImpl extends _ProductVariantModel {
       {required this.id,
       required this.name,
       required this.label,
-      required this.createdAt,
       required this.type,
       this.imageUrl,
       this.color,
-      this.searchField,
-      this.reference,
-      this.updatedAt})
+      this.searchField})
       : super._();
 
   factory _$ProductVariantModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -247,8 +205,6 @@ class _$ProductVariantModelImpl extends _ProductVariantModel {
   @override
   final String label;
   @override
-  final String createdAt;
-  @override
   final String type;
   @override
   final String? imageUrl;
@@ -256,14 +212,10 @@ class _$ProductVariantModelImpl extends _ProductVariantModel {
   final int? color;
   @override
   final String? searchField;
-  @override
-  final dynamic reference;
-  @override
-  final String? updatedAt;
 
   @override
   String toString() {
-    return 'ProductVariantModel(id: $id, name: $name, label: $label, createdAt: $createdAt, type: $type, imageUrl: $imageUrl, color: $color, searchField: $searchField, reference: $reference, updatedAt: $updatedAt)';
+    return 'ProductVariantModel(id: $id, name: $name, label: $label, type: $type, imageUrl: $imageUrl, color: $color, searchField: $searchField)';
   }
 
   @override
@@ -274,33 +226,18 @@ class _$ProductVariantModelImpl extends _ProductVariantModel {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.label, label) || other.label == label) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt) &&
             (identical(other.type, type) || other.type == type) &&
             (identical(other.imageUrl, imageUrl) ||
                 other.imageUrl == imageUrl) &&
             (identical(other.color, color) || other.color == color) &&
             (identical(other.searchField, searchField) ||
-                other.searchField == searchField) &&
-            const DeepCollectionEquality().equals(other.reference, reference) &&
-            (identical(other.updatedAt, updatedAt) ||
-                other.updatedAt == updatedAt));
+                other.searchField == searchField));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      name,
-      label,
-      createdAt,
-      type,
-      imageUrl,
-      color,
-      searchField,
-      const DeepCollectionEquality().hash(reference),
-      updatedAt);
+      runtimeType, id, name, label, type, imageUrl, color, searchField);
 
   /// Create a copy of ProductVariantModel
   /// with the given fields replaced by the non-null parameter values.
@@ -324,13 +261,10 @@ abstract class _ProductVariantModel extends ProductVariantModel {
       {required final String id,
       required final String name,
       required final String label,
-      required final String createdAt,
       required final String type,
       final String? imageUrl,
       final int? color,
-      final String? searchField,
-      final dynamic reference,
-      final String? updatedAt}) = _$ProductVariantModelImpl;
+      final String? searchField}) = _$ProductVariantModelImpl;
   const _ProductVariantModel._() : super._();
 
   factory _ProductVariantModel.fromJson(Map<String, dynamic> json) =
@@ -343,8 +277,6 @@ abstract class _ProductVariantModel extends ProductVariantModel {
   @override
   String get label;
   @override
-  String get createdAt;
-  @override
   String get type;
   @override
   String? get imageUrl;
@@ -352,10 +284,6 @@ abstract class _ProductVariantModel extends ProductVariantModel {
   int? get color;
   @override
   String? get searchField;
-  @override
-  dynamic get reference;
-  @override
-  String? get updatedAt;
 
   /// Create a copy of ProductVariantModel
   /// with the given fields replaced by the non-null parameter values.

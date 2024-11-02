@@ -25,11 +25,8 @@ _$ProductFirebaseModelImpl _$$ProductFirebaseModelImplFromJson(
       points: (json['points'] as num?)?.toInt(),
       suggestedPrice: (json['suggestedPrice'] as num?)?.toDouble(),
       thumbnail: json['thumbnail'] as String?,
-      createdAt: json['createdAt'] as String?,
       uploadDate: json['uploadDate'] as String?,
       searchField: json['searchField'] as String?,
-      reference: json['reference'],
-      updatedAt: json['updatedAt'] as String?,
     );
 
 Map<String, dynamic> _$$ProductFirebaseModelImplToJson(
@@ -51,9 +48,6 @@ Map<String, dynamic> _$$ProductFirebaseModelImplToJson(
       'points': instance.points,
       'suggestedPrice': instance.suggestedPrice,
       'thumbnail': instance.thumbnail,
-      'createdAt': instance.createdAt,
       'uploadDate': instance.uploadDate,
       'searchField': instance.searchField,
-      'reference': instance.reference,
-      'updatedAt': instance.updatedAt,
     };

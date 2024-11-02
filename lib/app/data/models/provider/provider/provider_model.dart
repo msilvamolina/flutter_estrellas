@@ -20,9 +20,7 @@ abstract class ProviderModel implements _$ProviderModel {
     String? phone,
     bool? isActive,
     int? porcentage,
-    String? createdAt,
     String? uploadDate,
-    String? updatedAt,
     String? avatarUrl,
   }) = _ProviderModel;
 
@@ -37,8 +35,8 @@ abstract class ProviderModel implements _$ProviderModel {
           warehouses!.map((warehouse) => warehouse.toJson()).toList();
     }
 
-    json['createdAt'] = ModelHelpers.dateToDocument(json['createdAt']);
-    json['updatedAt'] = ModelHelpers.dateToDocument(json['updatedAt']);
+    // json['createdAt'] = ModelHelpers.dateToDocument(json['createdAt']);
+    // json['updatedAt'] = ModelHelpers.dateToDocument(json['updatedAt']);
 
     return json;
   }

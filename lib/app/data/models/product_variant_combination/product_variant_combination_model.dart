@@ -16,7 +16,6 @@ abstract class ProductVariantCombinationModel
     required String id,
     required String name,
     required String label,
-    required String createdAt,
     String? dropiId,
     String? colorId,
     String? colorName,
@@ -31,23 +30,14 @@ abstract class ProductVariantCombinationModel
     String? imageUrl,
     int? color,
     String? searchField,
-    dynamic reference,
-    String? updatedAt,
   }) = _ProductVariantCombinationModel;
 
   factory ProductVariantCombinationModel.fromJson(Map<String, dynamic> json) =>
       _$ProductVariantCombinationModelFromJson(json);
 
   factory ProductVariantCombinationModel.fromDocument(DocumentSnapshot doc) {
-    ProductVariantCombinationModel data =
-        ProductVariantCombinationModel.fromJson(
-            ModelHelpers.fromDocument(doc.data()!));
-    String searchField = data.name;
-
-    return data.copyWith(
-      reference: doc.reference,
-      searchField: FriendlyHelpers.friendlySearchField(searchField),
-    );
+    return ProductVariantCombinationModel.fromJson(
+        ModelHelpers.fromDocument(doc.data()!));
   }
 
   Map<String, dynamic> toDocument() => ModelHelpers.toDocument(toJson());

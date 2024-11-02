@@ -331,12 +331,12 @@ class UserProductController extends GetxController {
 
     for (VideoPostModel element in listProducts) {
       if (element.id != videoPostModel.id) {
-        newlistProducts.add(element.toJson());
+        newlistProducts.add(element.toDocument());
       }
     }
 
     if (add) {
-      newlistProducts.add(videoPostModel.toJson());
+      newlistProducts.add(videoPostModel.toDocument());
     }
 
     Either<String, Unit> response =

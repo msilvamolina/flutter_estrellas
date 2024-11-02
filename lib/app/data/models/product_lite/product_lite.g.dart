@@ -21,8 +21,6 @@ _$ProductLiteModelImpl _$$ProductLiteModelImplFromJson(
       showInFeed: json['showInFeed'] as bool?,
       active: json['active'] as bool?,
       thumbnail: json['thumbnail'] as String?,
-      createdAt: json['createdAt'] as String?,
-      updatedAt: json['updatedAt'] as String?,
     );
 
 Map<String, dynamic> _$$ProductLiteModelImplToJson(
@@ -40,6 +38,4 @@ Map<String, dynamic> _$$ProductLiteModelImplToJson(
       'showInFeed': instance.showInFeed,
       'active': instance.active,
       'thumbnail': instance.thumbnail,
-      'createdAt': instance.createdAt,
-      'updatedAt': instance.updatedAt,
     };

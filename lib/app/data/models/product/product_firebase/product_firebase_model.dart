@@ -28,25 +28,16 @@ abstract class ProductFirebaseModel implements _$ProductFirebaseModel {
     int? points,
     double? suggestedPrice,
     String? thumbnail,
-    String? createdAt,
     String? uploadDate,
     String? searchField,
-    dynamic reference,
-    String? updatedAt,
   }) = _ProductFirebaseModel;
 
   factory ProductFirebaseModel.fromJson(Map<String, dynamic> json) =>
       _$ProductFirebaseModelFromJson(json);
 
   factory ProductFirebaseModel.fromDocument(DocumentSnapshot doc) {
-    ProductFirebaseModel data =
-        ProductFirebaseModel.fromJson(ModelHelpers.fromDocument(doc.data()!));
-    String searchField = data.name ?? '';
-
-    return data.copyWith(
-      reference: doc.reference,
-      searchField: FriendlyHelpers.friendlySearchField(searchField),
-    );
+    return ProductFirebaseModel.fromJson(
+        ModelHelpers.fromDocument(doc.data()!));
   }
 
   Map<String, dynamic> toDocument() => ModelHelpers.toDocument(toJson());

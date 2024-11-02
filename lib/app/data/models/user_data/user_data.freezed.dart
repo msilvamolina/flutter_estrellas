@@ -25,14 +25,12 @@ mixin _$UserData {
   String get username => throw _privateConstructorUsedError;
   String get firstName => throw _privateConstructorUsedError;
   String get lastName => throw _privateConstructorUsedError;
-  String get createdAt => throw _privateConstructorUsedError;
   String get createdBy => throw _privateConstructorUsedError;
   String? get searchField => throw _privateConstructorUsedError;
   dynamic get reference => throw _privateConstructorUsedError;
   String? get defaultCurrency => throw _privateConstructorUsedError;
   Map<String, dynamic>? get currencies => throw _privateConstructorUsedError;
   bool get isAnonymous => throw _privateConstructorUsedError;
-  String? get updatedAt => throw _privateConstructorUsedError;
 
   /// Serializes this UserData to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -55,14 +53,12 @@ abstract class $UserDataCopyWith<$Res> {
       String username,
       String firstName,
       String lastName,
-      String createdAt,
       String createdBy,
       String? searchField,
       dynamic reference,
       String? defaultCurrency,
       Map<String, dynamic>? currencies,
-      bool isAnonymous,
-      String? updatedAt});
+      bool isAnonymous});
 }
 
 /// @nodoc
@@ -85,14 +81,12 @@ class _$UserDataCopyWithImpl<$Res, $Val extends UserData>
     Object? username = null,
     Object? firstName = null,
     Object? lastName = null,
-    Object? createdAt = null,
     Object? createdBy = null,
     Object? searchField = freezed,
     Object? reference = freezed,
     Object? defaultCurrency = freezed,
     Object? currencies = freezed,
     Object? isAnonymous = null,
-    Object? updatedAt = freezed,
   }) {
     return _then(_value.copyWith(
       uid: null == uid
@@ -114,10 +108,6 @@ class _$UserDataCopyWithImpl<$Res, $Val extends UserData>
       lastName: null == lastName
           ? _value.lastName
           : lastName // ignore: cast_nullable_to_non_nullable
-              as String,
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
               as String,
       createdBy: null == createdBy
           ? _value.createdBy
@@ -143,10 +133,6 @@ class _$UserDataCopyWithImpl<$Res, $Val extends UserData>
           ? _value.isAnonymous
           : isAnonymous // ignore: cast_nullable_to_non_nullable
               as bool,
-      updatedAt: freezed == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as String?,
     ) as $Val);
   }
 }
@@ -165,14 +151,12 @@ abstract class _$$UserDataImplCopyWith<$Res>
       String username,
       String firstName,
       String lastName,
-      String createdAt,
       String createdBy,
       String? searchField,
       dynamic reference,
       String? defaultCurrency,
       Map<String, dynamic>? currencies,
-      bool isAnonymous,
-      String? updatedAt});
+      bool isAnonymous});
 }
 
 /// @nodoc
@@ -193,14 +177,12 @@ class __$$UserDataImplCopyWithImpl<$Res>
     Object? username = null,
     Object? firstName = null,
     Object? lastName = null,
-    Object? createdAt = null,
     Object? createdBy = null,
     Object? searchField = freezed,
     Object? reference = freezed,
     Object? defaultCurrency = freezed,
     Object? currencies = freezed,
     Object? isAnonymous = null,
-    Object? updatedAt = freezed,
   }) {
     return _then(_$UserDataImpl(
       uid: null == uid
@@ -222,10 +204,6 @@ class __$$UserDataImplCopyWithImpl<$Res>
       lastName: null == lastName
           ? _value.lastName
           : lastName // ignore: cast_nullable_to_non_nullable
-              as String,
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
               as String,
       createdBy: null == createdBy
           ? _value.createdBy
@@ -251,10 +229,6 @@ class __$$UserDataImplCopyWithImpl<$Res>
           ? _value.isAnonymous
           : isAnonymous // ignore: cast_nullable_to_non_nullable
               as bool,
-      updatedAt: freezed == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as String?,
     ));
   }
 }
@@ -268,14 +242,12 @@ class _$UserDataImpl extends _UserData {
       required this.username,
       required this.firstName,
       required this.lastName,
-      required this.createdAt,
       required this.createdBy,
       this.searchField,
       this.reference,
       this.defaultCurrency,
       final Map<String, dynamic>? currencies,
-      this.isAnonymous = false,
-      this.updatedAt})
+      this.isAnonymous = false})
       : _currencies = currencies,
         super._();
 
@@ -292,8 +264,6 @@ class _$UserDataImpl extends _UserData {
   final String firstName;
   @override
   final String lastName;
-  @override
-  final String createdAt;
   @override
   final String createdBy;
   @override
@@ -315,12 +285,10 @@ class _$UserDataImpl extends _UserData {
   @override
   @JsonKey()
   final bool isAnonymous;
-  @override
-  final String? updatedAt;
 
   @override
   String toString() {
-    return 'UserData(uid: $uid, email: $email, username: $username, firstName: $firstName, lastName: $lastName, createdAt: $createdAt, createdBy: $createdBy, searchField: $searchField, reference: $reference, defaultCurrency: $defaultCurrency, currencies: $currencies, isAnonymous: $isAnonymous, updatedAt: $updatedAt)';
+    return 'UserData(uid: $uid, email: $email, username: $username, firstName: $firstName, lastName: $lastName, createdBy: $createdBy, searchField: $searchField, reference: $reference, defaultCurrency: $defaultCurrency, currencies: $currencies, isAnonymous: $isAnonymous)';
   }
 
   @override
@@ -336,8 +304,6 @@ class _$UserDataImpl extends _UserData {
                 other.firstName == firstName) &&
             (identical(other.lastName, lastName) ||
                 other.lastName == lastName) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt) &&
             (identical(other.createdBy, createdBy) ||
                 other.createdBy == createdBy) &&
             (identical(other.searchField, searchField) ||
@@ -348,9 +314,7 @@ class _$UserDataImpl extends _UserData {
             const DeepCollectionEquality()
                 .equals(other._currencies, _currencies) &&
             (identical(other.isAnonymous, isAnonymous) ||
-                other.isAnonymous == isAnonymous) &&
-            (identical(other.updatedAt, updatedAt) ||
-                other.updatedAt == updatedAt));
+                other.isAnonymous == isAnonymous));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -362,14 +326,12 @@ class _$UserDataImpl extends _UserData {
       username,
       firstName,
       lastName,
-      createdAt,
       createdBy,
       searchField,
       const DeepCollectionEquality().hash(reference),
       defaultCurrency,
       const DeepCollectionEquality().hash(_currencies),
-      isAnonymous,
-      updatedAt);
+      isAnonymous);
 
   /// Create a copy of UserData
   /// with the given fields replaced by the non-null parameter values.
@@ -394,14 +356,12 @@ abstract class _UserData extends UserData {
       required final String username,
       required final String firstName,
       required final String lastName,
-      required final String createdAt,
       required final String createdBy,
       final String? searchField,
       final dynamic reference,
       final String? defaultCurrency,
       final Map<String, dynamic>? currencies,
-      final bool isAnonymous,
-      final String? updatedAt}) = _$UserDataImpl;
+      final bool isAnonymous}) = _$UserDataImpl;
   const _UserData._() : super._();
 
   factory _UserData.fromJson(Map<String, dynamic> json) =
@@ -418,8 +378,6 @@ abstract class _UserData extends UserData {
   @override
   String get lastName;
   @override
-  String get createdAt;
-  @override
   String get createdBy;
   @override
   String? get searchField;
@@ -431,8 +389,6 @@ abstract class _UserData extends UserData {
   Map<String, dynamic>? get currencies;
   @override
   bool get isAnonymous;
-  @override
-  String? get updatedAt;
 
   /// Create a copy of UserData
   /// with the given fields replaced by the non-null parameter values.

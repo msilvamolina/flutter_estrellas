@@ -33,8 +33,6 @@ mixin _$ProductLiteModel {
   bool? get showInFeed => throw _privateConstructorUsedError;
   bool? get active => throw _privateConstructorUsedError;
   String? get thumbnail => throw _privateConstructorUsedError;
-  String? get createdAt => throw _privateConstructorUsedError;
-  String? get updatedAt => throw _privateConstructorUsedError;
 
   /// Serializes this ProductLiteModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -64,9 +62,7 @@ abstract class $ProductLiteModelCopyWith<$Res> {
       bool? isPercentage,
       bool? showInFeed,
       bool? active,
-      String? thumbnail,
-      String? createdAt,
-      String? updatedAt});
+      String? thumbnail});
 }
 
 /// @nodoc
@@ -96,8 +92,6 @@ class _$ProductLiteModelCopyWithImpl<$Res, $Val extends ProductLiteModel>
     Object? showInFeed = freezed,
     Object? active = freezed,
     Object? thumbnail = freezed,
-    Object? createdAt = freezed,
-    Object? updatedAt = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -148,14 +142,6 @@ class _$ProductLiteModelCopyWithImpl<$Res, $Val extends ProductLiteModel>
           ? _value.thumbnail
           : thumbnail // ignore: cast_nullable_to_non_nullable
               as String?,
-      createdAt: freezed == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as String?,
-      updatedAt: freezed == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as String?,
     ) as $Val);
   }
 }
@@ -180,9 +166,7 @@ abstract class _$$ProductLiteModelImplCopyWith<$Res>
       bool? isPercentage,
       bool? showInFeed,
       bool? active,
-      String? thumbnail,
-      String? createdAt,
-      String? updatedAt});
+      String? thumbnail});
 }
 
 /// @nodoc
@@ -210,8 +194,6 @@ class __$$ProductLiteModelImplCopyWithImpl<$Res>
     Object? showInFeed = freezed,
     Object? active = freezed,
     Object? thumbnail = freezed,
-    Object? createdAt = freezed,
-    Object? updatedAt = freezed,
   }) {
     return _then(_$ProductLiteModelImpl(
       id: null == id
@@ -262,14 +244,6 @@ class __$$ProductLiteModelImplCopyWithImpl<$Res>
           ? _value.thumbnail
           : thumbnail // ignore: cast_nullable_to_non_nullable
               as String?,
-      createdAt: freezed == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as String?,
-      updatedAt: freezed == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as String?,
     ));
   }
 }
@@ -289,9 +263,7 @@ class _$ProductLiteModelImpl extends _ProductLiteModel {
       this.isPercentage,
       this.showInFeed,
       this.active,
-      this.thumbnail,
-      this.createdAt,
-      this.updatedAt})
+      this.thumbnail})
       : super._();
 
   factory _$ProductLiteModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -322,14 +294,10 @@ class _$ProductLiteModelImpl extends _ProductLiteModel {
   final bool? active;
   @override
   final String? thumbnail;
-  @override
-  final String? createdAt;
-  @override
-  final String? updatedAt;
 
   @override
   String toString() {
-    return 'ProductLiteModel(id: $id, provider: $provider, name: $name, externalId: $externalId, price: $price, points: $points, suggestedPrice: $suggestedPrice, type: $type, isPercentage: $isPercentage, showInFeed: $showInFeed, active: $active, thumbnail: $thumbnail, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'ProductLiteModel(id: $id, provider: $provider, name: $name, externalId: $externalId, price: $price, points: $points, suggestedPrice: $suggestedPrice, type: $type, isPercentage: $isPercentage, showInFeed: $showInFeed, active: $active, thumbnail: $thumbnail)';
   }
 
   @override
@@ -354,11 +322,7 @@ class _$ProductLiteModelImpl extends _ProductLiteModel {
                 other.showInFeed == showInFeed) &&
             (identical(other.active, active) || other.active == active) &&
             (identical(other.thumbnail, thumbnail) ||
-                other.thumbnail == thumbnail) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt) &&
-            (identical(other.updatedAt, updatedAt) ||
-                other.updatedAt == updatedAt));
+                other.thumbnail == thumbnail));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -376,9 +340,7 @@ class _$ProductLiteModelImpl extends _ProductLiteModel {
       isPercentage,
       showInFeed,
       active,
-      thumbnail,
-      createdAt,
-      updatedAt);
+      thumbnail);
 
   /// Create a copy of ProductLiteModel
   /// with the given fields replaced by the non-null parameter values.
@@ -410,9 +372,7 @@ abstract class _ProductLiteModel extends ProductLiteModel {
       final bool? isPercentage,
       final bool? showInFeed,
       final bool? active,
-      final String? thumbnail,
-      final String? createdAt,
-      final String? updatedAt}) = _$ProductLiteModelImpl;
+      final String? thumbnail}) = _$ProductLiteModelImpl;
   const _ProductLiteModel._() : super._();
 
   factory _ProductLiteModel.fromJson(Map<String, dynamic> json) =
@@ -443,10 +403,6 @@ abstract class _ProductLiteModel extends ProductLiteModel {
   bool? get active;
   @override
   String? get thumbnail;
-  @override
-  String? get createdAt;
-  @override
-  String? get updatedAt;
 
   /// Create a copy of ProductLiteModel
   /// with the given fields replaced by the non-null parameter values.

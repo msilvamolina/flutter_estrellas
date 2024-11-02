@@ -28,8 +28,6 @@ abstract class ProductModel implements _$ProductModel {
     int? points,
     double? suggestedPrice,
     String? thumbnail,
-    String? createdAt,
-    String? uploadDate,
   }) = _ProductModel;
 
   factory ProductModel.fromJson(Map<String, dynamic> json) =>

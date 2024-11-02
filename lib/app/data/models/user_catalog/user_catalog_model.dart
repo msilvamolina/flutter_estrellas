@@ -16,7 +16,6 @@ abstract class UserCatalogModel implements _$UserCatalogModel {
     required String id,
     required String name,
     required String imageUrl,
-    required String createdBy,
     required String createdByUserId,
     List<VideoPostModel>? videos,
   }) = _UserCatalogModel;

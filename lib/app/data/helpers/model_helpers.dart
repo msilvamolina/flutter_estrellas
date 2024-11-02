@@ -5,16 +5,16 @@ class ModelHelpers {
   ModelHelpers._();
 
   static Map<String, dynamic> fromDocument(dynamic data) {
-    data['createdAt'] = dateFromDocument(data['createdAt']);
+    // data['createdAt'] = dateFromDocument(data['createdAt']);
 
-    if (data['updatedAt'] != null) {
-      data['updatedAt'] = dateFromDocument(data['updatedAt']);
-    } else {
-      data['updatedAt'] = data['createdAt'];
-    }
-    if (data['initDate'] != null) {
-      data['initDate'] = dateFromDocument(data['initDate']);
-    }
+    // if (data['updatedAt'] != null) {
+    //   data['updatedAt'] = dateFromDocument(data['updatedAt']);
+    // } else {
+    //   data['updatedAt'] = data['createdAt'];
+    // }
+    // if (data['initDate'] != null) {
+    //   data['initDate'] = dateFromDocument(data['initDate']);
+    // }
     return data;
   }
 

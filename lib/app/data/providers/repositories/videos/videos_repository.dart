@@ -121,7 +121,6 @@ class VideosRepository {
           'name': product.name,
           'id': product.id,
           'thumbnail': product.thumbnail,
-          'reference': product.reference,
         }
       });
 
