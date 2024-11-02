@@ -31,6 +31,7 @@ class VideoListView extends GetView<VideoListController> {
                 scrollDirection: Axis.vertical,
                 onPageChanged: controller.setValue,
                 itemBuilder: (context, index) => VideoCard(
+                  bottomSpace: false,
                   videoPostModel: controller.listVideos[index],
                   onCompleted: () {
                     controller.pageController.animateToPage(

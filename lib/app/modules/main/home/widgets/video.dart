@@ -16,12 +16,16 @@ import 'video_buttons.dart';
 import 'video_label.dart';
 
 class VideoApp extends StatefulWidget {
-  const VideoApp(
-      {super.key, required this.videoPostModel, required this.onCompleted});
+  const VideoApp({
+    required this.videoPostModel,
+    required this.onCompleted,
+    this.bottomSpace = true,
+    super.key,
+  });
 
   final VideoPostModel videoPostModel;
   final Function() onCompleted;
-
+  final bool bottomSpace;
   @override
   _VideoAppState createState() => _VideoAppState();
 }
@@ -166,51 +170,53 @@ class _VideoAppState extends State<VideoApp> with RouteAware {
               child: Stack(
                 children: [
                   VideoPlayer(_controller),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      if (showButtonsOutside)
-                        Expanded(
-                            child: Padding(
-                          padding: const EdgeInsets.only(right: 16),
-                          child: VideoButtons(
-                            buttonInsideVideo: true,
-                            videoPostModel: widget.videoPostModel,
-                          ),
-                        ))
-                      else
-                        Spacer(),
-                      VideoLabel(
-                        videoPostModel: widget.videoPostModel,
-                      ),
-                      SliderTheme(
-                        data: SliderTheme.of(context).copyWith(
-                          thumbShape: SliderComponentShape.noThumb,
-                          trackHeight: 2.0,
-                          activeTrackColor: Colors.white,
-                          inactiveTrackColor: Colors.black.withOpacity(0.3),
-                          overlayShape: SliderComponentShape.noOverlay,
+                  SafeArea(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        if (showButtonsOutside)
+                          Expanded(
+                              child: Padding(
+                            padding: const EdgeInsets.only(right: 16),
+                            child: VideoButtons(
+                              buttonInsideVideo: true,
+                              videoPostModel: widget.videoPostModel,
+                            ),
+                          ))
+                        else
+                          Spacer(),
+                        VideoLabel(
+                          videoPostModel: widget.videoPostModel,
                         ),
-                        child: Container(
-                          padding: EdgeInsets.symmetric(horizontal: 14),
-                          child: Slider(
-                            value: _currentSliderValue,
-                            min: 0.0,
-                            max:
-                                _controller.value.duration.inSeconds.toDouble(),
-                            onChanged: (value) {
-                              setState(() {
-                                _currentSliderValue = value;
-                                _controller
-                                    .seekTo(Duration(seconds: value.toInt()));
-                              });
-                            },
+                        SliderTheme(
+                          data: SliderTheme.of(context).copyWith(
+                            thumbShape: SliderComponentShape.noThumb,
+                            trackHeight: 2.0,
+                            activeTrackColor: Colors.white,
+                            inactiveTrackColor: Colors.black.withOpacity(0.3),
+                            overlayShape: SliderComponentShape.noOverlay,
+                          ),
+                          child: Container(
+                            padding: EdgeInsets.symmetric(horizontal: 14),
+                            child: Slider(
+                              value: _currentSliderValue,
+                              min: 0.0,
+                              max: _controller.value.duration.inSeconds
+                                  .toDouble(),
+                              onChanged: (value) {
+                                setState(() {
+                                  _currentSliderValue = value;
+                                  _controller
+                                      .seekTo(Duration(seconds: value.toInt()));
+                                });
+                              },
+                            ),
                           ),
                         ),
-                      ),
-                      SizedBox(height: 106),
-                      if (isAndroid) SizedBox(height: 10),
-                    ],
+                        if (widget.bottomSpace) SizedBox(height: 16),
+                        // if (isAndroid) SizedBox(height: 10),
+                      ],
+                    ),
                   ),
                   Center(
                     child: AnimatedOpacity(

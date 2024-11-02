@@ -10,18 +10,18 @@ class VideoCard extends StatelessWidget {
   const VideoCard({
     required this.videoPostModel,
     required this.onCompleted,
+    this.bottomSpace = true,
     super.key,
   });
 
   final VideoPostModel videoPostModel;
   final Function() onCompleted;
+  final bool bottomSpace;
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    bool isMobile = screenWidth < 480;
-
     return VideoApp(
+      bottomSpace: bottomSpace,
       videoPostModel: videoPostModel,
       onCompleted: onCompleted,
     );
