@@ -134,7 +134,7 @@ class UserProductsRepository {
         'isAnonymous': false,
         'createdBy': email,
         'createdByUserId': uid,
-        // 'createdAt': DateTime.now(),
+        'createdAt': DateTime.now(),
       });
       return right(unit);
     } on FirebaseException catch (e) {
