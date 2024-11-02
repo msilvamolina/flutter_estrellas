@@ -19,6 +19,7 @@ class StaticBottomSeet extends StatelessWidget {
         topRight: Radius.circular(16),
       ),
       child: Material(
+        color: Colors.white,
         child: SafeArea(
           top: false,
           child: getBottomSheet(type),

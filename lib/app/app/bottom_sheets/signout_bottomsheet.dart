@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
 import '../../components/buttons/buttons.dart';
+import 'widgets/title_with_close_button.dart';
 
 class SignOutBottomsheet extends StatelessWidget {
   const SignOutBottomsheet({super.key});
@@ -20,35 +21,41 @@ class SignOutBottomsheet extends StatelessWidget {
       builder: (controller) {
         return Container(
           width: double.infinity,
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(
-                  EstrellasIcons.infoFill,
-                  color: info500,
-                  size: 44,
+          child: Stack(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SizedBox(height: 16),
+                    Icon(
+                      EstrellasIcons.infoFill,
+                      color: info500,
+                      size: 44,
+                    ),
+                    SizedBox(height: 16),
+                    Text(
+                      '¿Estás seguro de cerrar sesión?',
+                      style: TypographyStyle.h3Mobile,
+                    ),
+                    SizedBox(height: 22),
+                    Button(
+                      style: ButtonStyles.primary,
+                      onPressed: () {},
+                      label: 'Sí',
+                    ),
+                    SizedBox(height: 24),
+                    Button(
+                      style: ButtonStyles.secondary,
+                      onPressed: () {},
+                      label: 'No',
+                    ),
+                  ],
                 ),
-                SizedBox(height: 16),
-                Text(
-                  '¿Estás seguro de cerrar sesión?',
-                  style: TypographyStyle.h3Mobile,
-                ),
-                SizedBox(height: 22),
-                Button(
-                  style: ButtonStyles.primary,
-                  onPressed: () {},
-                  label: 'Sí',
-                ),
-                SizedBox(height: 24),
-                Button(
-                  style: ButtonStyles.secondary,
-                  onPressed: () {},
-                  label: 'No',
-                ),
-              ],
-            ),
+              ),
+              TitleWithCloseButton(title: ''),
+            ],
           ),
         );
       },
