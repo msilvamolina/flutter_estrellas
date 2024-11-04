@@ -20,5 +20,11 @@ final List<RemoteConfigVariable> remoteConfigVariables = [
     valueType: RemoteConfigValueType.stringType,
     defaultValue: '0',
   ),
+  RemoteConfigVariable(
+    flutterName: 'cartValue',
+    firebaseName: 'cart_value',
+    valueType: RemoteConfigValueType.stringType,
+    defaultValue: '0',
+  ),
   // Agrega más variables aquí
 ];
