@@ -102,7 +102,7 @@ class _RemoteConfigLayoutState extends State<RemoteConfigLayout> {
             style: TextStyle(fontSize: 20),
           ),
           Text(
-            update.toString(),
+            update != null ? 'Updated keys: ${update?.updatedKeys}' : 'No data',
             style: TextStyle(fontSize: 20),
           ),
         ],
