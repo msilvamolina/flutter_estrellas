@@ -15,6 +15,7 @@ class RemoteConfigLayout extends StatefulWidget {
 }
 
 class _RemoteConfigLayoutState extends State<RemoteConfigLayout> {
+  late FirebaseRemoteConfig remoteConfig;
   StreamSubscription? subscription;
   RemoteConfigUpdate? update;
   bool maintenance = false;
@@ -24,12 +25,13 @@ class _RemoteConfigLayoutState extends State<RemoteConfigLayout> {
   @override
   void initState() {
     initialize();
+    listenData();
     super.initState();
   }
 
   Future<void> initialize() async {
     try {
-      final FirebaseRemoteConfig remoteConfig = FirebaseRemoteConfig.instance;
+      remoteConfig = FirebaseRemoteConfig.instance;
       // Using zero duration to force fetching from remote server.
       await remoteConfig.setConfigSettings(
         RemoteConfigSettings(
@@ -43,6 +45,32 @@ class _RemoteConfigLayoutState extends State<RemoteConfigLayout> {
         maintenance = remoteConfig.getBool('maintenance');
         forceUpdate = remoteConfig.getString('force_update');
         lastVersion = remoteConfig.getString('last_version');
+      });
+    } on PlatformException catch (exception) {
+      // Fetch exception.
+      print(exception);
+    } catch (exception) {
+      print(exception);
+    }
+  }
+
+  Future<void> listenData() async {
+    try {
+      if (subscription != null) {
+        await subscription!.cancel();
+        setState(() {
+          subscription = null;
+        });
+      }
+      setState(() {
+        subscription = remoteConfig.onConfigUpdated.listen((event) async {
+          // Make new values available to the app.
+          await remoteConfig.activate();
+
+          setState(() {
+            update = event;
+          });
+        });
       });
     } on PlatformException catch (exception) {
       // Fetch exception.
@@ -71,6 +99,10 @@ class _RemoteConfigLayoutState extends State<RemoteConfigLayout> {
           ),
           Text(
             lastVersion,
+            style: TextStyle(fontSize: 20),
+          ),
+          Text(
+            update.toString(),
             style: TextStyle(fontSize: 20),
           ),
         ],
