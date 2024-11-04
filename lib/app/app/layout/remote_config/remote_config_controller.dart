@@ -5,6 +5,7 @@ import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter_estrellas/app/config/features/features_values.dart';
 import 'package:get/get.dart';
 import '../../../config/features/features.dart';
+import '../../../services/environment.dart';
 import 'remote_config_variable.dart';
 
 class RemoteConfigController extends GetxController {
@@ -111,6 +112,42 @@ class RemoteConfigController extends GetxController {
     if (value is bool) {
       return value;
     }
+    return false;
+  }
+
+  bool checkNewVersion() {
+    String? lastVersion = _configValues[Features.lastVersion.name];
+    String currentVersion = Environment.instance.version.toString();
+
+    if (lastVersion != null) {
+      if (lastVersion != '0') {
+        lastVersion = lastVersion.replaceAll('.', '').trim();
+        currentVersion = currentVersion.replaceAll('.', '').trim();
+        int dblLastVersion = int.tryParse(lastVersion) ?? 0;
+        int dblCurrentVersion = int.tryParse(currentVersion) ?? 0;
+
+        return dblLastVersion > dblCurrentVersion;
+      }
+    }
+
+    return false;
+  }
+
+  bool checkForceUpdate() {
+    String? forceUpdate = _configValues[Features.forceUpdate.name];
+    String currentVersion = Environment.instance.version.toString();
+
+    if (forceUpdate != null) {
+      if (forceUpdate != '0') {
+        forceUpdate = forceUpdate.replaceAll('.', '').trim();
+        currentVersion = currentVersion.replaceAll('.', '').trim();
+        int dblCurrentVersion = int.tryParse(currentVersion) ?? 0;
+        int dblforceUpdate = int.tryParse(forceUpdate) ?? 0;
+
+        return dblforceUpdate > dblCurrentVersion;
+      }
+    }
+
     return false;
   }
 }
