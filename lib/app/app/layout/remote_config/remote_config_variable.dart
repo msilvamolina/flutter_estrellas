@@ -7,14 +7,12 @@ enum RemoteConfigValueType {
 }
 
 class RemoteConfigVariable {
-  final String flutterName;
-  final String firebaseName;
+  final String name;
   final RemoteConfigValueType valueType;
   final dynamic defaultValue;
 
   RemoteConfigVariable({
-    required this.flutterName,
-    required this.firebaseName,
+    required this.name,
     required this.valueType,
     required this.defaultValue,
   });

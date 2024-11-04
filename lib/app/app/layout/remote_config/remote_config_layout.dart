@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../config/features/features.dart';
 import 'remote_config_controller.dart';
 
 class RemoteConfigLayout extends StatelessWidget {
@@ -14,7 +15,7 @@ class RemoteConfigLayout extends StatelessWidget {
 
     return Obx(() {
       // Verificar si está en modo mantenimiento
-      if (controller.isFeatureEnabled('maintenance')) {
+      if (controller.checkFeature(Features.maintenance)) {
         return Scaffold(
           appBar: AppBar(
             title: const Text('Mantenimiento'),

@@ -2,8 +2,9 @@
 import 'dart:async';
 
 import 'package:firebase_remote_config/firebase_remote_config.dart';
-import 'package:flutter_estrellas/app/app/layout/remote_config/features.dart';
+import 'package:flutter_estrellas/app/config/features/features_values.dart';
 import 'package:get/get.dart';
+import '../../../config/features/features.dart';
 import 'remote_config_variable.dart';
 
 class RemoteConfigController extends GetxController {
@@ -46,7 +47,7 @@ class RemoteConfigController extends GetxController {
       // Establecer valores predeterminados
       Map<String, dynamic> defaultValues = {};
       for (var variable in remoteConfigVariables) {
-        defaultValues[variable.firebaseName] = variable.defaultValue;
+        defaultValues[variable.name] = variable.defaultValue;
       }
       await _remoteConfig.setDefaults(defaultValues);
 
@@ -83,19 +84,19 @@ class RemoteConfigController extends GetxController {
       dynamic value;
       switch (variable.valueType) {
         case RemoteConfigValueType.boolType:
-          value = _remoteConfig.getBool(variable.firebaseName);
+          value = _remoteConfig.getBool(variable.name);
           break;
         case RemoteConfigValueType.stringType:
-          value = _remoteConfig.getString(variable.firebaseName);
+          value = _remoteConfig.getString(variable.name);
           break;
         case RemoteConfigValueType.intType:
-          value = _remoteConfig.getInt(variable.firebaseName);
+          value = _remoteConfig.getInt(variable.name);
           break;
         case RemoteConfigValueType.doubleType:
-          value = _remoteConfig.getDouble(variable.firebaseName);
+          value = _remoteConfig.getDouble(variable.name);
           break;
       }
-      _configValues[variable.flutterName] = value;
+      _configValues[variable.name] = value;
     }
   }
 
@@ -105,8 +106,8 @@ class RemoteConfigController extends GetxController {
   }
 
   // Método para verificar si una característica está habilitada
-  bool isFeatureEnabled(String featureName) {
-    final value = _configValues[featureName];
+  bool checkFeature(Features feature) {
+    final value = _configValues[feature.name];
     if (value is bool) {
       return value;
     }

@@ -1,28 +1,26 @@
 // remote_config_variables.dart
-import 'remote_config_variable.dart';
+import 'package:flutter_estrellas/app/config/features/features.dart';
+
+import '../../app/layout/remote_config/remote_config_variable.dart';
 
 final List<RemoteConfigVariable> remoteConfigVariables = [
   RemoteConfigVariable(
-    flutterName: 'maintenance',
-    firebaseName: 'maintenance',
+    name: Features.maintenance.name,
     valueType: RemoteConfigValueType.boolType,
     defaultValue: false,
   ),
   RemoteConfigVariable(
-    flutterName: 'forceUpdate',
-    firebaseName: 'force_update',
+    name: Features.forceUpdate.name,
     valueType: RemoteConfigValueType.stringType,
     defaultValue: '0',
   ),
   RemoteConfigVariable(
-    flutterName: 'lastVersion',
-    firebaseName: 'last_version',
+    name: Features.lastVersion.name,
     valueType: RemoteConfigValueType.stringType,
     defaultValue: '0',
   ),
   RemoteConfigVariable(
-    flutterName: 'cartValue',
-    firebaseName: 'cart_value',
+    name: Features.cartValue.name,
     valueType: RemoteConfigValueType.stringType,
     defaultValue: '0',
   ),
