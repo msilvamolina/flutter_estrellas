@@ -19,11 +19,20 @@ class RemoteConfigLayout extends StatelessWidget {
         return MaintenanceScreen();
       } else if (controller.checkForceUpdate()) {
         return ForceUpdateScreen();
-      } else if (controller.checkNewVersion()) {
-        return NewVersionScreen();
       }
 
-      return child;
+      return Stack(
+        children: [
+          child,
+          if (controller.checkNewVersion())
+            SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: NewVersionScreen(),
+              ),
+            ),
+        ],
+      );
     });
   }
 }

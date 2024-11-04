@@ -15,6 +15,7 @@ class RemoteConfigController extends GetxController {
 
   // Mapa para almacenar los valores de configuración
   final _configValues = <String, dynamic>{}.obs;
+  RxBool skipVersionBool = false.obs;
 
   @override
   void onInit() {
@@ -119,14 +120,16 @@ class RemoteConfigController extends GetxController {
     String? lastVersion = _configValues[Features.lastVersion.name];
     String currentVersion = Environment.instance.version.toString();
 
-    if (lastVersion != null) {
-      if (lastVersion != '0') {
-        lastVersion = lastVersion.replaceAll('.', '').trim();
-        currentVersion = currentVersion.replaceAll('.', '').trim();
-        int dblLastVersion = int.tryParse(lastVersion) ?? 0;
-        int dblCurrentVersion = int.tryParse(currentVersion) ?? 0;
+    if (!skipVersionBool.value) {
+      if (lastVersion != null) {
+        if (lastVersion != '0') {
+          lastVersion = lastVersion.replaceAll('.', '').trim();
+          currentVersion = currentVersion.replaceAll('.', '').trim();
+          int dblLastVersion = int.tryParse(lastVersion) ?? 0;
+          int dblCurrentVersion = int.tryParse(currentVersion) ?? 0;
 
-        return dblLastVersion > dblCurrentVersion;
+          return dblLastVersion > dblCurrentVersion;
+        }
       }
     }
 
@@ -149,5 +152,9 @@ class RemoteConfigController extends GetxController {
     }
 
     return false;
+  }
+
+  void skipVersion() {
+    skipVersionBool.value = true;
   }
 }
