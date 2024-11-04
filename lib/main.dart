@@ -8,9 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'app/app/layouts/firebase_config_example.dart';
-import 'app/app/layouts/main_layout.dart';
-import 'app/app/layouts/remote_config_layout/views/remote_config_layout_view.dart';
+import 'app/app/layout/remote_config_layout.dart';
 import 'app/config/firebase_config.dart';
 import 'app/routes/app_pages.dart';
 import 'app/services/dependency_injection.dart';
@@ -82,29 +80,20 @@ class MyApp extends StatelessWidget {
     MaterialTheme theme = MaterialTheme(textTheme);
 
     FlutterNativeSplash.remove();
-    // return GetMaterialApp(
-    //   navigatorObservers: [routeObserver],
+    return GetMaterialApp(
+      navigatorObservers: [routeObserver],
 
-    //   title: "Estrellas",
-    //   locale: const Locale('es'),
-    //   fallbackLocale: const Locale('es'),
-    //   debugShowCheckedModeBanner: false,
-    //   theme: theme.light(),
-    //   // darkTheme: theme.dark(),
-    //   themeMode: ThemeMode.light,
-    //   // themeMode: ThemeService.getThemeMode(),
-    //   initialRoute: AppPages.INITIAL,
-    //   getPages: AppPages.routes,
-    //   builder: (context, child) => HomePage(),
-    // );
-
-    return MaterialApp(
-      title: 'Remote Config Example',
-      home: const HomePage(),
-      theme: ThemeData(
-        useMaterial3: true,
-        primarySwatch: Colors.blue,
-      ),
+      title: "Estrellas",
+      locale: const Locale('es'),
+      fallbackLocale: const Locale('es'),
+      debugShowCheckedModeBanner: false,
+      theme: theme.light(),
+      // darkTheme: theme.dark(),
+      themeMode: ThemeMode.light,
+      // themeMode: ThemeService.getThemeMode(),
+      initialRoute: AppPages.INITIAL,
+      getPages: AppPages.routes,
+      builder: (context, child) => RemoteConfigLayout(child: child!),
     );
   }
 }

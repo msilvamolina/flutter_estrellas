@@ -12,10 +12,10 @@ class DependecyInjection {
   static void init() {
     Get.put<GetStorage>(GetStorage());
     Get.put<LocalStorage>(LocalStorage());
+    Get.put<FirebaseRemoteConfig>(FirebaseRemoteConfig.instance);
     Get.put<FirebaseFirestore>(FirebaseFirestore.instance);
     Get.put<FirebaseStorage>(FirebaseStorage.instance);
     Get.put<MainController>(MainController());
     Get.put<UserProductController>(UserProductController());
-    Get.put<FirebaseRemoteConfig>(FirebaseRemoteConfig.instance);
   }
 }
