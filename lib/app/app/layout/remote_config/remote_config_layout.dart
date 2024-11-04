@@ -24,13 +24,7 @@ class RemoteConfigLayout extends StatelessWidget {
       return Stack(
         children: [
           child,
-          if (controller.checkNewVersion())
-            SafeArea(
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: NewVersionScreen(),
-              ),
-            ),
+          if (controller.checkNewVersion()) NewVersionScreen(),
         ],
       );
     });
