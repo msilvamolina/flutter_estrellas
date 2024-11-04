@@ -1,3 +1,4 @@
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_estrellas/app/app/dialogs/register/register_dialog.dart';
@@ -25,6 +26,7 @@ enum UserStatus {
 class MainController extends GetxController {
   LocalStorage localStorage = Get.find();
   UserRepository userRepository = UserRepository();
+
   bool _withVolume = true;
   bool get withVolume => _withVolume;
 
@@ -68,6 +70,7 @@ class MainController extends GetxController {
   Future<void> onInit() async {
     _isWelcome = await localStorage.getWelcome();
     // checkTheme();
+
     super.onInit();
   }
 
@@ -78,7 +81,7 @@ class MainController extends GetxController {
 
   @override
   void onReady() async {
-    checkUser();
+    // checkUser();
     super.onReady();
   }
 

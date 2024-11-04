@@ -46,6 +46,8 @@ import '../modules/product/bindings/product_binding.dart';
 import '../modules/product/views/product_view.dart';
 import '../modules/product_details/bindings/product_details_binding.dart';
 import '../modules/product_details/views/product_details_view.dart';
+import '../app/layouts/remote_config_layout/bindings/remote_config_layout_binding.dart';
+import '../app/layouts/remote_config_layout/views/remote_config_layout_view.dart';
 import '../modules/select_payment/bindings/select_payment_binding.dart';
 import '../modules/select_payment/views/select_payment_view.dart';
 import '../modules/selects/select_city/bindings/select_city_binding.dart';
