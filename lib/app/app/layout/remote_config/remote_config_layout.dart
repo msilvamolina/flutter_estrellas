@@ -17,11 +17,9 @@ class RemoteConfigLayout extends StatelessWidget {
     return Obx(() {
       if (controller.checkFeature(Features.maintenance)) {
         return MaintenanceScreen();
-      }
-      if (controller.checkForceUpdate()) {
+      } else if (controller.checkForceUpdate()) {
         return ForceUpdateScreen();
-      }
-      if (controller.checkNewVersion()) {
+      } else if (controller.checkNewVersion()) {
         return NewVersionScreen();
       }
 
