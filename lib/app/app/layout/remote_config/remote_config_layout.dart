@@ -3,16 +3,18 @@ import 'package:get/get.dart';
 import 'remote_config_controller.dart';
 
 class RemoteConfigLayout extends StatelessWidget {
-  const RemoteConfigLayout({required this.child, super.key});
+  const RemoteConfigLayout({required this.child, Key? key}) : super(key: key);
 
   final Widget child;
+
   @override
   Widget build(BuildContext context) {
-    final RemoteConfigController controller = Get.find();
+    final RemoteConfigController controller =
+        Get.find<RemoteConfigController>();
 
     return Obx(() {
       // Verificar si está en modo mantenimiento
-      if (controller.maintenance.value) {
+      if (controller.isFeatureEnabled('maintenance')) {
         return Scaffold(
           appBar: AppBar(
             title: const Text('Mantenimiento'),
@@ -31,26 +33,28 @@ class RemoteConfigLayout extends StatelessWidget {
       // Si no está en mantenimiento, mostrar el contenido normal
       return Scaffold(
         appBar: AppBar(
-          title: const Text('RemoteConfigView'),
+          title: const Text('RemoteConfigLayout'),
           centerTitle: true,
         ),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              '3 Mantenimiento: ${controller.maintenance.value}',
-              style: TextStyle(fontSize: 20),
-            ),
-            Text(
-              '3 Forzar Actualización: ${controller.forceUpdate.value}',
-              style: TextStyle(fontSize: 20),
-            ),
-            Text(
-              '3 Última Versión: ${controller.lastVersion.value}',
-              style: TextStyle(fontSize: 20),
-            ),
-            SizedBox(height: 20),
-          ],
+        body: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // Mostrar todas las variables dinámicamente
+              ...controller.getAllConfigValues().entries.map((entry) {
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    '${entry.key}: ${entry.value}',
+                    style: TextStyle(fontSize: 20),
+                  ),
+                );
+              }).toList(),
+              SizedBox(height: 20),
+              // Puedes agregar aquí el widget 'child' si lo necesitas
+              // child,
+            ],
+          ),
         ),
       );
     });
