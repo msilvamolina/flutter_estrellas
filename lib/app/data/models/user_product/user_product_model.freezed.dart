@@ -22,9 +22,12 @@ UserProductModel _$UserProductModelFromJson(Map<String, dynamic> json) {
 mixin _$UserProductModel {
   String get createdBy => throw _privateConstructorUsedError;
   String get createdByUserId => throw _privateConstructorUsedError;
+  double get price => throw _privateConstructorUsedError;
+  double get suggestedPrice => throw _privateConstructorUsedError;
+  int get points => throw _privateConstructorUsedError;
+  int get stock => throw _privateConstructorUsedError;
   int? get quantity => throw _privateConstructorUsedError;
   VideoPostModel? get video => throw _privateConstructorUsedError;
-  @JsonKey(name: 'product_combination')
   ProductVariantCombinationModel? get productCombination =>
       throw _privateConstructorUsedError;
   String? get createdAt => throw _privateConstructorUsedError;
@@ -48,9 +51,12 @@ abstract class $UserProductModelCopyWith<$Res> {
   $Res call(
       {String createdBy,
       String createdByUserId,
+      double price,
+      double suggestedPrice,
+      int points,
+      int stock,
       int? quantity,
       VideoPostModel? video,
-      @JsonKey(name: 'product_combination')
       ProductVariantCombinationModel? productCombination,
       String? createdAt});
 
@@ -75,6 +81,10 @@ class _$UserProductModelCopyWithImpl<$Res, $Val extends UserProductModel>
   $Res call({
     Object? createdBy = null,
     Object? createdByUserId = null,
+    Object? price = null,
+    Object? suggestedPrice = null,
+    Object? points = null,
+    Object? stock = null,
     Object? quantity = freezed,
     Object? video = freezed,
     Object? productCombination = freezed,
@@ -89,6 +99,22 @@ class _$UserProductModelCopyWithImpl<$Res, $Val extends UserProductModel>
           ? _value.createdByUserId
           : createdByUserId // ignore: cast_nullable_to_non_nullable
               as String,
+      price: null == price
+          ? _value.price
+          : price // ignore: cast_nullable_to_non_nullable
+              as double,
+      suggestedPrice: null == suggestedPrice
+          ? _value.suggestedPrice
+          : suggestedPrice // ignore: cast_nullable_to_non_nullable
+              as double,
+      points: null == points
+          ? _value.points
+          : points // ignore: cast_nullable_to_non_nullable
+              as int,
+      stock: null == stock
+          ? _value.stock
+          : stock // ignore: cast_nullable_to_non_nullable
+              as int,
       quantity: freezed == quantity
           ? _value.quantity
           : quantity // ignore: cast_nullable_to_non_nullable
@@ -149,9 +175,12 @@ abstract class _$$UserProductModelImplCopyWith<$Res>
   $Res call(
       {String createdBy,
       String createdByUserId,
+      double price,
+      double suggestedPrice,
+      int points,
+      int stock,
       int? quantity,
       VideoPostModel? video,
-      @JsonKey(name: 'product_combination')
       ProductVariantCombinationModel? productCombination,
       String? createdAt});
 
@@ -176,6 +205,10 @@ class __$$UserProductModelImplCopyWithImpl<$Res>
   $Res call({
     Object? createdBy = null,
     Object? createdByUserId = null,
+    Object? price = null,
+    Object? suggestedPrice = null,
+    Object? points = null,
+    Object? stock = null,
     Object? quantity = freezed,
     Object? video = freezed,
     Object? productCombination = freezed,
@@ -190,6 +223,22 @@ class __$$UserProductModelImplCopyWithImpl<$Res>
           ? _value.createdByUserId
           : createdByUserId // ignore: cast_nullable_to_non_nullable
               as String,
+      price: null == price
+          ? _value.price
+          : price // ignore: cast_nullable_to_non_nullable
+              as double,
+      suggestedPrice: null == suggestedPrice
+          ? _value.suggestedPrice
+          : suggestedPrice // ignore: cast_nullable_to_non_nullable
+              as double,
+      points: null == points
+          ? _value.points
+          : points // ignore: cast_nullable_to_non_nullable
+              as int,
+      stock: null == stock
+          ? _value.stock
+          : stock // ignore: cast_nullable_to_non_nullable
+              as int,
       quantity: freezed == quantity
           ? _value.quantity
           : quantity // ignore: cast_nullable_to_non_nullable
@@ -216,9 +265,13 @@ class _$UserProductModelImpl extends _UserProductModel {
   const _$UserProductModelImpl(
       {required this.createdBy,
       required this.createdByUserId,
+      required this.price,
+      required this.suggestedPrice,
+      required this.points,
+      required this.stock,
       this.quantity,
       this.video,
-      @JsonKey(name: 'product_combination') this.productCombination,
+      this.productCombination,
       this.createdAt})
       : super._();
 
@@ -230,18 +283,25 @@ class _$UserProductModelImpl extends _UserProductModel {
   @override
   final String createdByUserId;
   @override
+  final double price;
+  @override
+  final double suggestedPrice;
+  @override
+  final int points;
+  @override
+  final int stock;
+  @override
   final int? quantity;
   @override
   final VideoPostModel? video;
   @override
-  @JsonKey(name: 'product_combination')
   final ProductVariantCombinationModel? productCombination;
   @override
   final String? createdAt;
 
   @override
   String toString() {
-    return 'UserProductModel(createdBy: $createdBy, createdByUserId: $createdByUserId, quantity: $quantity, video: $video, productCombination: $productCombination, createdAt: $createdAt)';
+    return 'UserProductModel(createdBy: $createdBy, createdByUserId: $createdByUserId, price: $price, suggestedPrice: $suggestedPrice, points: $points, stock: $stock, quantity: $quantity, video: $video, productCombination: $productCombination, createdAt: $createdAt)';
   }
 
   @override
@@ -253,6 +313,11 @@ class _$UserProductModelImpl extends _UserProductModel {
                 other.createdBy == createdBy) &&
             (identical(other.createdByUserId, createdByUserId) ||
                 other.createdByUserId == createdByUserId) &&
+            (identical(other.price, price) || other.price == price) &&
+            (identical(other.suggestedPrice, suggestedPrice) ||
+                other.suggestedPrice == suggestedPrice) &&
+            (identical(other.points, points) || other.points == points) &&
+            (identical(other.stock, stock) || other.stock == stock) &&
             (identical(other.quantity, quantity) ||
                 other.quantity == quantity) &&
             (identical(other.video, video) || other.video == video) &&
@@ -264,8 +329,18 @@ class _$UserProductModelImpl extends _UserProductModel {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, createdBy, createdByUserId,
-      quantity, video, productCombination, createdAt);
+  int get hashCode => Object.hash(
+      runtimeType,
+      createdBy,
+      createdByUserId,
+      price,
+      suggestedPrice,
+      points,
+      stock,
+      quantity,
+      video,
+      productCombination,
+      createdAt);
 
   /// Create a copy of UserProductModel
   /// with the given fields replaced by the non-null parameter values.
@@ -288,9 +363,12 @@ abstract class _UserProductModel extends UserProductModel {
   const factory _UserProductModel(
       {required final String createdBy,
       required final String createdByUserId,
+      required final double price,
+      required final double suggestedPrice,
+      required final int points,
+      required final int stock,
       final int? quantity,
       final VideoPostModel? video,
-      @JsonKey(name: 'product_combination')
       final ProductVariantCombinationModel? productCombination,
       final String? createdAt}) = _$UserProductModelImpl;
   const _UserProductModel._() : super._();
@@ -303,11 +381,18 @@ abstract class _UserProductModel extends UserProductModel {
   @override
   String get createdByUserId;
   @override
+  double get price;
+  @override
+  double get suggestedPrice;
+  @override
+  int get points;
+  @override
+  int get stock;
+  @override
   int? get quantity;
   @override
   VideoPostModel? get video;
   @override
-  @JsonKey(name: 'product_combination')
   ProductVariantCombinationModel? get productCombination;
   @override
   String? get createdAt;

@@ -77,17 +77,17 @@ class UserProductController extends GetxController {
   }
 
   void setUniqueProduct(VideoPostModel? videoPostModel) {
-    if (videoPostModel != null) {
-      UserProductModel unique = UserProductModel(
-        quantity: 1,
-        createdBy: 'martin@gmail.com',
-        createdByUserId: 'asdasd',
-        video: videoPostModel,
-      );
-      _uniqueProduct = unique;
-    } else {
-      _uniqueProduct = null;
-    }
+    //   if (videoPostModel != null) {
+    //     UserProductModel unique = UserProductModel(
+    //       quantity: 1,
+    //       createdBy: 'martin@gmail.com',
+    //       createdByUserId: 'asdasd',
+    //       video: videoPostModel,
+    //     );
+    //     _uniqueProduct = unique;
+    //   } else {
+    //     _uniqueProduct = null;
+    //   }
   }
 
   Future<void> addToFavorites(VideoPostModel? videoPostModel) async {
