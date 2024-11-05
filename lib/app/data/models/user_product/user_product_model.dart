@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_estrellas/app/data/models/product_variant_combination/product_variant_combination_model.dart';
 import 'package:flutter_estrellas/app/data/models/videos/video_post_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -17,6 +18,8 @@ abstract class UserProductModel implements _$UserProductModel {
     required String createdByUserId,
     int? quantity,
     VideoPostModel? video,
+    @JsonKey(name: 'product_combination')
+    ProductVariantCombinationModel? productCombination,
     String? createdAt,
   }) = _UserProductModel;
 

@@ -15,6 +15,10 @@ _$UserProductModelImpl _$$UserProductModelImplFromJson(
       video: json['video'] == null
           ? null
           : VideoPostModel.fromJson(json['video'] as Map<String, dynamic>),
+      productCombination: json['product_combination'] == null
+          ? null
+          : ProductVariantCombinationModel.fromJson(
+              json['product_combination'] as Map<String, dynamic>),
       createdAt: json['createdAt'] as String?,
     );
 
@@ -25,5 +29,6 @@ Map<String, dynamic> _$$UserProductModelImplToJson(
       'createdByUserId': instance.createdByUserId,
       'quantity': instance.quantity,
       'video': instance.video,
+      'product_combination': instance.productCombination,
       'createdAt': instance.createdAt,
     };

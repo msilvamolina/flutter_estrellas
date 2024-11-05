@@ -24,6 +24,9 @@ mixin _$UserProductModel {
   String get createdByUserId => throw _privateConstructorUsedError;
   int? get quantity => throw _privateConstructorUsedError;
   VideoPostModel? get video => throw _privateConstructorUsedError;
+  @JsonKey(name: 'product_combination')
+  ProductVariantCombinationModel? get productCombination =>
+      throw _privateConstructorUsedError;
   String? get createdAt => throw _privateConstructorUsedError;
 
   /// Serializes this UserProductModel to a JSON map.
@@ -47,9 +50,12 @@ abstract class $UserProductModelCopyWith<$Res> {
       String createdByUserId,
       int? quantity,
       VideoPostModel? video,
+      @JsonKey(name: 'product_combination')
+      ProductVariantCombinationModel? productCombination,
       String? createdAt});
 
   $VideoPostModelCopyWith<$Res>? get video;
+  $ProductVariantCombinationModelCopyWith<$Res>? get productCombination;
 }
 
 /// @nodoc
@@ -71,6 +77,7 @@ class _$UserProductModelCopyWithImpl<$Res, $Val extends UserProductModel>
     Object? createdByUserId = null,
     Object? quantity = freezed,
     Object? video = freezed,
+    Object? productCombination = freezed,
     Object? createdAt = freezed,
   }) {
     return _then(_value.copyWith(
@@ -90,6 +97,10 @@ class _$UserProductModelCopyWithImpl<$Res, $Val extends UserProductModel>
           ? _value.video
           : video // ignore: cast_nullable_to_non_nullable
               as VideoPostModel?,
+      productCombination: freezed == productCombination
+          ? _value.productCombination
+          : productCombination // ignore: cast_nullable_to_non_nullable
+              as ProductVariantCombinationModel?,
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -110,6 +121,21 @@ class _$UserProductModelCopyWithImpl<$Res, $Val extends UserProductModel>
       return _then(_value.copyWith(video: value) as $Val);
     });
   }
+
+  /// Create a copy of UserProductModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $ProductVariantCombinationModelCopyWith<$Res>? get productCombination {
+    if (_value.productCombination == null) {
+      return null;
+    }
+
+    return $ProductVariantCombinationModelCopyWith<$Res>(
+        _value.productCombination!, (value) {
+      return _then(_value.copyWith(productCombination: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -125,10 +151,14 @@ abstract class _$$UserProductModelImplCopyWith<$Res>
       String createdByUserId,
       int? quantity,
       VideoPostModel? video,
+      @JsonKey(name: 'product_combination')
+      ProductVariantCombinationModel? productCombination,
       String? createdAt});
 
   @override
   $VideoPostModelCopyWith<$Res>? get video;
+  @override
+  $ProductVariantCombinationModelCopyWith<$Res>? get productCombination;
 }
 
 /// @nodoc
@@ -148,6 +178,7 @@ class __$$UserProductModelImplCopyWithImpl<$Res>
     Object? createdByUserId = null,
     Object? quantity = freezed,
     Object? video = freezed,
+    Object? productCombination = freezed,
     Object? createdAt = freezed,
   }) {
     return _then(_$UserProductModelImpl(
@@ -167,6 +198,10 @@ class __$$UserProductModelImplCopyWithImpl<$Res>
           ? _value.video
           : video // ignore: cast_nullable_to_non_nullable
               as VideoPostModel?,
+      productCombination: freezed == productCombination
+          ? _value.productCombination
+          : productCombination // ignore: cast_nullable_to_non_nullable
+              as ProductVariantCombinationModel?,
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -183,6 +218,7 @@ class _$UserProductModelImpl extends _UserProductModel {
       required this.createdByUserId,
       this.quantity,
       this.video,
+      @JsonKey(name: 'product_combination') this.productCombination,
       this.createdAt})
       : super._();
 
@@ -198,11 +234,14 @@ class _$UserProductModelImpl extends _UserProductModel {
   @override
   final VideoPostModel? video;
   @override
+  @JsonKey(name: 'product_combination')
+  final ProductVariantCombinationModel? productCombination;
+  @override
   final String? createdAt;
 
   @override
   String toString() {
-    return 'UserProductModel(createdBy: $createdBy, createdByUserId: $createdByUserId, quantity: $quantity, video: $video, createdAt: $createdAt)';
+    return 'UserProductModel(createdBy: $createdBy, createdByUserId: $createdByUserId, quantity: $quantity, video: $video, productCombination: $productCombination, createdAt: $createdAt)';
   }
 
   @override
@@ -217,14 +256,16 @@ class _$UserProductModelImpl extends _UserProductModel {
             (identical(other.quantity, quantity) ||
                 other.quantity == quantity) &&
             (identical(other.video, video) || other.video == video) &&
+            (identical(other.productCombination, productCombination) ||
+                other.productCombination == productCombination) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, createdBy, createdByUserId, quantity, video, createdAt);
+  int get hashCode => Object.hash(runtimeType, createdBy, createdByUserId,
+      quantity, video, productCombination, createdAt);
 
   /// Create a copy of UserProductModel
   /// with the given fields replaced by the non-null parameter values.
@@ -249,6 +290,8 @@ abstract class _UserProductModel extends UserProductModel {
       required final String createdByUserId,
       final int? quantity,
       final VideoPostModel? video,
+      @JsonKey(name: 'product_combination')
+      final ProductVariantCombinationModel? productCombination,
       final String? createdAt}) = _$UserProductModelImpl;
   const _UserProductModel._() : super._();
 
@@ -263,6 +306,9 @@ abstract class _UserProductModel extends UserProductModel {
   int? get quantity;
   @override
   VideoPostModel? get video;
+  @override
+  @JsonKey(name: 'product_combination')
+  ProductVariantCombinationModel? get productCombination;
   @override
   String? get createdAt;
 

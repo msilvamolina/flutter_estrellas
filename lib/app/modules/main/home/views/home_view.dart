@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../libraries/icons/icons_font.dart';
+import '../../../../routes/app_pages.dart';
 import '../../../../themes/styles/colors.dart';
 import '../../../../themes/styles/typography.dart';
 import '../../widgets/bottombar.dart';
@@ -37,7 +38,7 @@ class _HomeViewState extends State<HomeView> {
           Stack(
             children: [
               IconButton(
-                onPressed: () {},
+                onPressed: () => Get.toNamed(Routes.CART),
                 icon: Icon(
                   EstrellasIcons.shoppingCartSimpleFill,
                   color: white,
