@@ -42,8 +42,7 @@ import '../modules/main/wallet/bindings/wallet_binding.dart';
 import '../modules/main/wallet/views/wallet_view.dart';
 import '../modules/order/order_success/bindings/order_success_binding.dart';
 import '../modules/order/order_success/views/order_success_view.dart';
-import '../modules/product/bindings/product_binding.dart';
-import '../modules/product/views/product_view.dart';
+
 import '../modules/product_details/bindings/product_details_binding.dart';
 import '../modules/product_details/views/product_details_view.dart';
 import '../modules/select_payment/bindings/select_payment_binding.dart';
@@ -105,13 +104,6 @@ class AppPages {
       page: () => const WelcomeView(),
       binding: WelcomeBinding(),
       transition: Transition.fadeIn,
-    ),
-    GetPage(
-      name: _Paths.PRODUCT,
-      page: () => const ProductView(),
-      binding: ProductBinding(),
-      transition: Transition.downToUp,
-      opaque: false,
     ),
     GetPage(
       name: _Paths.CART,

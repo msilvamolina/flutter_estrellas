@@ -43,7 +43,8 @@ class VideoLabel extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
     bool isMobile = screenWidth < 480;
     return GestureDetector(
-      onTap: () => Get.toNamed(Routes.PRODUCT, arguments: product),
+      onTap: () =>
+          Get.toNamed(Routes.PRODUCT_DETAILS, arguments: videoPostModel),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         child: Column(

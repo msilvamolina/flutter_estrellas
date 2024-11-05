@@ -11,12 +11,15 @@ import '../../../data/models/product_firebase_lite/product_firebase_lite.dart';
 import '../../../data/models/product_image/product_image_model.dart';
 import '../../../data/models/product_variant/product_variant_model.dart';
 import '../../../data/models/product_variant_combination/product_variant_combination_model.dart';
+import '../../../data/models/videos/video_post_model.dart';
 
 class ProductDetailsController extends GetxController {
   MainController mainController = Get.find<MainController>();
   final ProductsRepository _repository = ProductsRepository();
   UserProductController userProductController =
       Get.find<UserProductController>();
+
+  late VideoPostModel videoPostModel;
 
   late ProductFirebaseLiteModel productLite;
   Rxn<ProductFirebaseModel> product = Rxn<ProductFirebaseModel>();
@@ -63,7 +66,8 @@ class ProductDetailsController extends GetxController {
   int get points => _points;
   @override
   void onInit() {
-    productLite = Get.arguments as ProductFirebaseLiteModel;
+    videoPostModel = Get.arguments as VideoPostModel;
+    productLite = videoPostModel.product!;
     product.bindStream(_repository.getProduct(productId: productLite.id));
     _listImages
         .bindStream(_repository.getProductImages(productId: productLite.id));
