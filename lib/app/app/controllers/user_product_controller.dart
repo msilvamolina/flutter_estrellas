@@ -90,23 +90,6 @@ class UserProductController extends GetxController {
     }
   }
 
-  Future<void> addToCart(VideoPostModel? video) async {
-    if (video == null) {
-      return;
-    }
-    Either<String, Unit> response =
-        await userProductRepository.addToCart(video: video);
-
-    response.fold(
-      (failure) {
-        Snackbars.error(failure);
-      },
-      (_) {
-        Snackbars.success('${video.product!.name} agregado a tu carrito');
-      },
-    );
-  }
-
   Future<void> addToFavorites(VideoPostModel? videoPostModel) async {
     if (videoPostModel == null) {
       return;

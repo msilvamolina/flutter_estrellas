@@ -68,8 +68,7 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                 Expanded(
                   child: ElevatedButton(
                     onPressed: () {
-                      // controller.userProductController
-                      //     .addToCart(controller.productLite);
+                      controller.addToCart();
                       Get.back();
                     },
                     style: ElevatedButton.styleFrom(

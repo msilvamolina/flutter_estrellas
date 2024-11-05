@@ -7,6 +7,7 @@ import 'package:flutter_estrellas/app/data/models/videos/video_post_model.dart';
 import 'package:get/get.dart';
 import 'package:uuid/uuid.dart';
 
+import '../../../models/product_variant_combination/product_variant_combination_model.dart';
 import '../../../models/user_product/user_product_model.dart';
 
 class UserProductsRepository {
@@ -261,6 +262,8 @@ class UserProductsRepository {
 
   Future<Either<String, Unit>> addToCart({
     required VideoPostModel video,
+    required int quantity,
+    ProductVariantCombinationModel? productVariantCombination,
   }) async {
     Map<String, String> userData = getUidAndEmail();
     String uid = userData['uid'] ?? '';
@@ -274,10 +277,14 @@ class UserProductsRepository {
           .doc(videoId)
           .set({
         'video': video.toDocument(),
+        'product_combination': productVariantCombination != null
+            ? productVariantCombination.toDocument()
+            : null,
+        'quantity': quantity,
         'isAnonymous': false,
         'createdBy': email,
         'createdByUserId': uid,
-        // 'createdAt': DateTime.now(),
+        'createdAt': DateTime.now(),
       });
       return right(unit);
     } on FirebaseException catch (e) {

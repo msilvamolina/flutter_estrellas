@@ -99,7 +99,7 @@ class ProductContentProduct extends StatelessWidget {
                         ? 'assets/svg/CartColor.svg'
                         : 'assets/svg/Cart.svg',
                     color: !controller.isInCart ? neutral700 : null,
-                    onTap: () {},
+                    onTap: controller.addToCart,
                     width: 26,
                   ),
                 ],

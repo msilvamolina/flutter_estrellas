@@ -1,12 +1,15 @@
+import 'package:dartz/dartz.dart';
 import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_estrellas/app/data/models/product/product/product.dart';
 import 'package:flutter_estrellas/app/data/models/product/product_firebase/product_firebase_model.dart';
 import 'package:flutter_estrellas/app/data/providers/repositories/products/products_repository.dart';
+import 'package:flutter_estrellas/app/data/providers/repositories/user_products/user_products_repository.dart';
 import 'package:get/get.dart';
 
 import '../../../app/controllers/main_controller.dart';
 import '../../../app/controllers/user_product_controller.dart';
+import '../../../components/snackbars/snackbars.dart';
 import '../../../data/models/product_firebase_lite/product_firebase_lite.dart';
 import '../../../data/models/product_image/product_image_model.dart';
 import '../../../data/models/product_variant/product_variant_model.dart';
@@ -16,6 +19,8 @@ import '../../../data/models/videos/video_post_model.dart';
 class ProductDetailsController extends GetxController {
   MainController mainController = Get.find<MainController>();
   final ProductsRepository _repository = ProductsRepository();
+  final UserProductsRepository _userProductsRepository =
+      UserProductsRepository();
   UserProductController userProductController =
       Get.find<UserProductController>();
 
@@ -43,6 +48,8 @@ class ProductDetailsController extends GetxController {
 
   ProductVariantModel? _userProductVariantSize;
   ProductVariantModel? get userProductVariantSize => _userProductVariantSize;
+
+  ProductVariantCombinationModel? _productVariantCombination;
 
   bool _isLiked = true;
   bool get isLiked => _isLiked;
@@ -91,6 +98,23 @@ class ProductDetailsController extends GetxController {
     update(['product_price', 'content_product', 'product_quantity']);
   }
 
+  Future<void> addToCart() async {
+    Either<String, Unit> response = await _userProductsRepository.addToCart(
+      video: videoPostModel,
+      productVariantCombination: _productVariantCombination,
+      quantity: quantity,
+    );
+
+    response.fold(
+      (failure) {
+        Snackbars.error(failure);
+      },
+      (_) {
+        Snackbars.success('${productLite.name ?? ''} agregado a tu carrito');
+      },
+    );
+  }
+
   void addQuantity() {
     int _newQuantity = _quantity + 1;
     _quantity = _newQuantity > _stock ? _stock : _newQuantity;
@@ -112,14 +136,14 @@ class ProductDetailsController extends GetxController {
   }
 
   void buildVariationPrice() {
-    ProductVariantCombinationModel? combinationModel = getBySizeAndColor(
+    _productVariantCombination = getBySizeAndColor(
         _userProductVariantSize?.id, _userProductVariantColor?.id);
 
-    if (combinationModel != null) {
-      _price = combinationModel.price ?? 0;
-      _suggestedPrice = combinationModel.suggestedPrice ?? 0;
-      _points = combinationModel.points ?? 0;
-      _stock = combinationModel.stock ?? 1;
+    if (_productVariantCombination != null) {
+      _price = _productVariantCombination!.price ?? 0;
+      _suggestedPrice = _productVariantCombination!.suggestedPrice ?? 0;
+      _points = _productVariantCombination!.points ?? 0;
+      _stock = _productVariantCombination!.stock ?? 1;
       _quantity = 1;
       update(['product_price', 'content_product', 'product_quantity']);
     } else {
@@ -127,9 +151,16 @@ class ProductDetailsController extends GetxController {
     }
   }
 
+  void setFirstProductVariationCombination() {
+    _productVariantCombination = getBySizeAndColor(
+        _userProductVariantSize?.id, _userProductVariantColor?.id);
+  }
+
   void setFirstVariantColor(ProductVariantModel value) {
     if (_userProductVariantColor == null) {
       _userProductVariantColor = value;
+      setFirstProductVariationCombination();
+
       update(['product_variant_color']);
     }
   }
@@ -143,6 +174,8 @@ class ProductDetailsController extends GetxController {
   void setFirstVariantSize(ProductVariantModel value) {
     if (_userProductVariantSize == null) {
       _userProductVariantSize = value;
+      setFirstProductVariationCombination();
+
       update(['product_variant_size']);
     }
   }
