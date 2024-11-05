@@ -103,6 +103,10 @@ class ProductDetailsController extends GetxController {
       video: videoPostModel,
       productVariantCombination: _productVariantCombination,
       quantity: quantity,
+      price: _price,
+      suggestedPrice: _suggestedPrice,
+      points: _points,
+      stock: _stock,
     );
 
     response.fold(

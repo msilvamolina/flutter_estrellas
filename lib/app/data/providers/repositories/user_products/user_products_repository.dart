@@ -263,6 +263,10 @@ class UserProductsRepository {
   Future<Either<String, Unit>> addToCart({
     required VideoPostModel video,
     required int quantity,
+    required int stock,
+    required double price,
+    required double suggestedPrice,
+    required int points,
     ProductVariantCombinationModel? productVariantCombination,
   }) async {
     Map<String, String> userData = getUidAndEmail();
@@ -277,11 +281,14 @@ class UserProductsRepository {
           .doc(videoId)
           .set({
         'video': video.toDocument(),
-        'product_combination': productVariantCombination != null
+        'productCombination': productVariantCombination != null
             ? productVariantCombination.toDocument()
             : null,
         'quantity': quantity,
-        'isAnonymous': false,
+        'stock': stock,
+        'price': price,
+        'suggestedPrice': suggestedPrice,
+        'points': points,
         'createdBy': email,
         'createdByUserId': uid,
         'createdAt': DateTime.now(),
