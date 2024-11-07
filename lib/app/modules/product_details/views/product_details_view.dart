@@ -8,7 +8,6 @@ import 'package:get/get.dart';
 
 import '../../../themes/styles/colors.dart';
 import '../controllers/product_details_controller.dart';
-import '../widgets/product_appbar.dart';
 import '../widgets/product_main_header.dart';
 import '../widgets/product_sticky_content.dart';
 

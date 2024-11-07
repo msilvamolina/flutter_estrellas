@@ -8,6 +8,7 @@ import '../../../components/fields/quantity.dart';
 import '../../../data/helpers/currency_helper.dart';
 import '../../../data/models/product_firebase_lite/product_firebase_lite.dart';
 import '../../../data/models/user_product_cart/user_product_cart_model.dart';
+import '../../../libraries/icons/icons_font.dart';
 import '../../../themes/styles/colors.dart';
 import '../../../themes/styles/typography.dart';
 import '../controllers/cart_controller.dart';
@@ -107,7 +108,24 @@ class CartCard extends StatelessWidget {
               SizedBox(height: 12),
               Row(
                 children: [
-                  Text('$point puntos'),
+                  Container(
+                    padding:
+                        EdgeInsets.only(left: 6, right: 12, top: 2, bottom: 3),
+                    decoration: BoxDecoration(
+                      color: primaryLight,
+                      borderRadius: BorderRadius.all(Radius.circular(16)),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(EstrellasIcons.medal),
+                        Text(
+                          '$points puntos',
+                          style: TypographyStyle.bodyBlackMedium,
+                        ),
+                      ],
+                    ),
+                  ),
                   Spacer(),
                   FieldQuantity(
                     value: controller.getQuantity(userProductCartModel),
