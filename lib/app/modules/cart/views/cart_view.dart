@@ -8,6 +8,7 @@ import '../../../themes/styles/colors.dart';
 import '../../../themes/styles/typography.dart';
 import '../controllers/cart_controller.dart';
 import '../widget/cart_card.dart';
+import '../widget/cart_price_bottom_sheet.dart';
 
 class CartView extends GetView<CartController> {
   const CartView({super.key});
@@ -23,15 +24,38 @@ class CartView extends GetView<CartController> {
         ),
         centerTitle: true,
       ),
-      bottomNavigationBar: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Button(
-            onPressed: () {},
-            label: 'Continuar compra',
-            style: ButtonStyles.primary,
-          ),
-        ),
+      bottomNavigationBar: Obx(
+        () => controller.userProductController.listProductCart.isNotEmpty
+            ? SafeArea(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      GetBuilder<CartController>(
+                        id: 'price_bottombar',
+                        builder: (_) {
+                          return CartPriceBottomBar(
+                            productsPoints: 22,
+                            productsQuantity: 3,
+                            productsPrices: 12.222,
+                            productsShipping: 0,
+                            productsTotal: 21.222,
+                          );
+                        },
+                      ),
+                      Button(
+                        onPressed: () {},
+                        label: 'Continuar compra',
+                        style: ButtonStyles.primary,
+                      ),
+                    ],
+                  ),
+                ),
+              )
+            : SizedBox.shrink(),
       ),
       body: Obx(
         () => controller.userProductController.listProductCart.isNotEmpty

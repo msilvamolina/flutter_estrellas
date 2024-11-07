@@ -9,22 +9,22 @@ class CartController extends GetxController {
   UserProductController userProductController =
       Get.find<UserProductController>();
 
-  Map<String, int> mapQuantity = {};
-
   void addFunction(UserProductCartModel userProductCartModel) {
     int _quantity = getQuantity(userProductCartModel);
-    mapQuantity[userProductCartModel.id] = _quantity + 1;
+    userProductController.mapProductsQuantity[userProductCartModel.id] =
+        _quantity + 1;
     update(['card_product']);
   }
 
   int getQuantity(UserProductCartModel userProductCartModel) =>
-      mapQuantity[userProductCartModel.id] ??
+      userProductController.mapProductsQuantity[userProductCartModel.id] ??
       userProductCartModel.quantity ??
       1;
 
   void minusFunction(UserProductCartModel userProductCartModel) {
     int _quantity = getQuantity(userProductCartModel);
-    mapQuantity[userProductCartModel.id] = _quantity - 1;
+    userProductController.mapProductsQuantity[userProductCartModel.id] =
+        _quantity - 1;
     update(['card_product']);
   }
 }

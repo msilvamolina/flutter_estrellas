@@ -52,6 +52,8 @@ class UserProductController extends GetxController {
   VideoPostModel? _productCatalogBottomSheet;
   VideoPostModel? get productCatalogBottomSheet => _productCatalogBottomSheet;
 
+  Map<String, int> mapProductsQuantity = {};
+
   bool addCatalogFormIsSubmitted = false;
 
   FormGroup addCatalogForm() => fb.group(<String, Object>{
