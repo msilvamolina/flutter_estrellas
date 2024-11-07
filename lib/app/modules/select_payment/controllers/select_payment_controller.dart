@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import '../../../app/controllers/main_controller.dart';
 import '../../../app/controllers/user_product_controller.dart';
 import '../../../data/models/user_product/user_product_model.dart';
+import '../../../data/models/user_product_cart/user_product_cart_model.dart';
 import '../../../data/providers/repositories/address/address_repository.dart';
 import '../../../routes/app_pages.dart';
 
@@ -51,7 +52,8 @@ class SelectPaymentController extends GetxController {
     List<dynamic> products = [];
 
     if (userProductController.listProductCart.isNotEmpty) {
-      for (UserProductModel element in userProductController.listProductCart) {
+      for (UserProductCartModel element
+          in userProductController.listProductCart) {
         products.add(
           {
             "video_id": element.video!.id,

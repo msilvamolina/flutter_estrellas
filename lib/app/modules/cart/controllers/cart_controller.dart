@@ -7,4 +7,8 @@ class CartController extends GetxController {
   MainController mainController = Get.find();
   UserProductController userProductController =
       Get.find<UserProductController>();
+
+  Map<String, int> mapQuantity = {};
+
+  void addFunction() {}
 }

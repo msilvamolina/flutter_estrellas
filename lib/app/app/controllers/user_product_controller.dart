@@ -13,6 +13,7 @@ import 'package:reactive_forms/reactive_forms.dart';
 
 import '../../components/bottom_sheets/types.dart';
 import '../../data/models/user_product/user_product_model.dart';
+import '../../data/models/user_product_cart/user_product_cart_model.dart';
 import '../../data/models/videos/video_post_model.dart';
 import '../../routes/app_pages.dart';
 import '../../components/bottom_sheets/dragabble_bottom_sheet.dart';
@@ -26,8 +27,9 @@ enum Fields {
 
 class UserProductController extends GetxController {
   UserProductsRepository userProductRepository = UserProductsRepository();
-  final RxList<UserProductModel> _listProductCart = <UserProductModel>[].obs;
-  List<UserProductModel> get listProductCart => _listProductCart.toList();
+  final RxList<UserProductCartModel> _listProductCart =
+      <UserProductCartModel>[].obs;
+  List<UserProductCartModel> get listProductCart => _listProductCart.toList();
 
   final RxList<UserProductModel> _listProductFavorites =
       <UserProductModel>[].obs;

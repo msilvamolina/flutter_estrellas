@@ -9,6 +9,7 @@ import 'package:uuid/uuid.dart';
 
 import '../../../models/product_variant_combination/product_variant_combination_model.dart';
 import '../../../models/user_product/user_product_model.dart';
+import '../../../models/user_product_cart/user_product_cart_model.dart';
 
 class UserProductsRepository {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -93,7 +94,7 @@ class UserProductsRepository {
     }
   }
 
-  Stream<List<UserProductModel>> getUserCart() async* {
+  Stream<List<UserProductCartModel>> getUserCart() async* {
     Map<String, String> userData = getUidAndEmail();
     String uid = userData['uid'] ?? '';
     try {
@@ -101,12 +102,12 @@ class UserProductsRepository {
           .collection('users')
           .doc(uid)
           .collection('video_cart')
-          // .orderBy('createdAt', descending: true)
+          .orderBy('createdAt', descending: true)
           .snapshots();
 
       yield* snapshots.map((snapshot) {
         return snapshot.docs
-            .map((doc) => UserProductModel.fromDocument(doc))
+            .map((doc) => UserProductCartModel.fromDocument(doc))
             .toList();
       });
     } catch (e) {
@@ -272,14 +273,16 @@ class UserProductsRepository {
     Map<String, String> userData = getUidAndEmail();
     String uid = userData['uid'] ?? '';
     String email = userData['email'] ?? '';
-    String videoId = video.id;
+    String id = Uuid().v4();
+
     try {
       await _firebaseFirestore
           .collection('users')
           .doc(uid)
           .collection('video_cart')
-          .doc(videoId)
+          .doc(id)
           .set({
+        'id': id,
         'video': video.toDocument(),
         'productCombination': productVariantCombination != null
             ? productVariantCombination.toDocument()

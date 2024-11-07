@@ -16,13 +16,7 @@ abstract class UserProductModel implements _$UserProductModel {
   const factory UserProductModel({
     required String createdBy,
     required String createdByUserId,
-    required double price,
-    required double suggestedPrice,
-    required int points,
-    required int stock,
-    int? quantity,
     VideoPostModel? video,
-    ProductVariantCombinationModel? productCombination,
     String? createdAt,
   }) = _UserProductModel;
 
