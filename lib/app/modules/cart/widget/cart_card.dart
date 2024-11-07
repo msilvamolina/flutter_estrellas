@@ -37,6 +37,7 @@ class CartCard extends StatelessWidget {
     ProductVariantCombinationModel? variantCombination =
         userProductCartModel.productCombination;
     return GetBuilder<CartController>(
+      id: 'card_product',
       builder: (controller) {
         return Padding(
           padding: const EdgeInsets.all(16),

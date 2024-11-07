@@ -12,18 +12,19 @@ class CartController extends GetxController {
   Map<String, int> mapQuantity = {};
 
   void addFunction(UserProductCartModel userProductCartModel) {
-    print('addFunction');
-    print('${userProductCartModel.id}');
+    int _quantity = getQuantity(userProductCartModel);
+    mapQuantity[userProductCartModel.id] = _quantity + 1;
+    update(['card_product']);
   }
 
-  int getQuantity(UserProductCartModel userProductCartModel) {
-    print('getQuantity');
-    print('${userProductCartModel.id}');
-    return 3;
-  }
+  int getQuantity(UserProductCartModel userProductCartModel) =>
+      mapQuantity[userProductCartModel.id] ??
+      userProductCartModel.quantity ??
+      1;
 
   void minusFunction(UserProductCartModel userProductCartModel) {
-    print('minusFunction');
-    print('${userProductCartModel.id}');
+    int _quantity = getQuantity(userProductCartModel);
+    mapQuantity[userProductCartModel.id] = _quantity - 1;
+    update(['card_product']);
   }
 }
