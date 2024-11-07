@@ -109,10 +109,12 @@ class CartCard extends StatelessWidget {
                   Text('$point puntos'),
                   Spacer(),
                   FieldQuantity(
-                    value: 2,
-                    addFunction: () {},
-                    minusFunction: () {},
-                    maxValue: 5,
+                    value: controller.getQuantity(userProductCartModel),
+                    addFunction: () =>
+                        controller.addFunction(userProductCartModel),
+                    minusFunction: () =>
+                        controller.minusFunction(userProductCartModel),
+                    maxValue: userProductCartModel.stock,
                   ),
                 ],
               ),

@@ -1,7 +1,6 @@
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-import '../../modules/product_details/widgets/content/product_card_container.dart';
 import '../../themes/styles/colors.dart';
 import '../../themes/styles/typography.dart';
 import '../buttons/button_circle_svg.dart';
@@ -38,7 +37,8 @@ class FieldQuantity extends StatelessWidget {
           ButtonCircleSvg(
             assetName: 'assets/svg/minus-icon.svg',
             width: 24,
-            onTap: minusFunction,
+            color: minusActive ? secondaryBase : neutral400,
+            onTap: minusActive ? minusFunction : null,
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -49,8 +49,9 @@ class FieldQuantity extends StatelessWidget {
           ),
           ButtonCircleSvg(
             assetName: 'assets/svg/add-icon.svg',
+            color: addActive ? secondaryBase : neutral400,
             width: 24,
-            onTap: addFunction,
+            onTap: addActive ? addFunction : null,
           ),
         ],
       ),
