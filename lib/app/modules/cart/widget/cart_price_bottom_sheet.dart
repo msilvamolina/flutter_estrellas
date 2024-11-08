@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_estrellas/app/themes/styles/colors.dart';
+import 'package:flutter_estrellas/app/themes/styles/typography.dart';
 import 'package:text_transformation_animation/text_transformation_animation.dart';
 
 import '../../../data/helpers/currency_helper.dart';
+import '../../../libraries/icons/icons_font.dart';
 
 class CartPriceBottomBar extends StatefulWidget {
   const CartPriceBottomBar({
@@ -113,20 +116,35 @@ class _CartPriceBottomBarState extends State<CartPriceBottomBar> {
           children: [
             Text('Puntos'),
             Spacer(),
-            // Solo anima si hay un cambio en productsPoints
-            if (widget.productsPoints == previousPoints)
-              Text('${widget.productsPoints} puntos')
-            else
-              Row(
+            Container(
+              padding: EdgeInsets.only(left: 6, right: 12, top: 2, bottom: 3),
+              decoration: BoxDecoration(
+                color: primaryLight,
+                borderRadius: BorderRadius.all(Radius.circular(16)),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  TextTransformationAnimation(
-                    text: widget.productsPoints.toString(),
-                    duration: textAnimationDuration,
-                    alphabet: numberAlphabet,
-                  ),
-                  Text(' puntos'),
+                  Icon(EstrellasIcons.medal),
+                  if (widget.productsPoints == previousPoints)
+                    Text(
+                      '${widget.productsPoints} puntos',
+                      style: TypographyStyle.bodyBlackMedium,
+                    )
+                  else
+                    Row(
+                      children: [
+                        TextTransformationAnimation(
+                          text: widget.productsPoints.toString(),
+                          duration: textAnimationDuration,
+                          alphabet: numberAlphabet,
+                        ),
+                        Text(' puntos'),
+                      ],
+                    ),
                 ],
               ),
+            ),
           ],
         ),
         Divider(),
