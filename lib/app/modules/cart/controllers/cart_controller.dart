@@ -65,7 +65,6 @@ class CartController extends GetxController {
   }
 
   void removeProduct(UserProductCartModel userProductCartModel) {
-    // Lógica para eliminar el producto del carrito
     update(['card_product']);
   }
 }
