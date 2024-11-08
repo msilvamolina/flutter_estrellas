@@ -1,7 +1,9 @@
+import 'package:dartz/dartz.dart';
 import 'package:flutter_estrellas/app/app/controllers/main_controller.dart';
 import 'package:get/get.dart';
 
 import '../../../app/controllers/user_product_controller.dart';
+import '../../../components/snackbars/snackbars.dart';
 import '../../../data/models/user_product_cart/user_product_cart_model.dart';
 
 class CartController extends GetxController {
@@ -64,7 +66,21 @@ class CartController extends GetxController {
     }
   }
 
-  void removeProduct(UserProductCartModel userProductCartModel) {
+  Future<void> removeProduct(UserProductCartModel userProductCartModel) async {
+    Either<String, Unit> response = await userProductController
+        .userProductRepository
+        .removeFromCart(cart: userProductCartModel);
+
+    response.fold(
+      (failure) {
+        Snackbars.error(failure);
+      },
+      (_) {
+        Snackbars.success(
+            '${userProductCartModel.video!.product!.name} removido de tu carrito');
+        calculateProducts();
+      },
+    );
     update(['card_product']);
   }
 }

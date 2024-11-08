@@ -176,23 +176,6 @@ class UserProductController extends GetxController {
     );
   }
 
-  Future<void> removeFromCart(VideoPostModel? video) async {
-    if (video == null) {
-      return;
-    }
-    Either<String, Unit> response =
-        await userProductRepository.removeFromCart(video: video);
-
-    response.fold(
-      (failure) {
-        Snackbars.error(failure);
-      },
-      (_) {
-        Snackbars.success('${video.product!.name} removido de tu carrito');
-      },
-    );
-  }
-
   Future<void> onPressedSaveButton(VideoPostModel? videoPostModel,
       {bool openBottomSheet = true}) async {
     addToCatalogPrivate(videoPostModel, openBottomSheet);

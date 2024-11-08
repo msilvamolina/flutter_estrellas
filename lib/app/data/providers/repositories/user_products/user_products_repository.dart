@@ -303,17 +303,17 @@ class UserProductsRepository {
   }
 
   Future<Either<String, Unit>> removeFromCart({
-    required VideoPostModel video,
+    required UserProductCartModel cart,
   }) async {
     Map<String, String> userData = getUidAndEmail();
     String uid = userData['uid'] ?? '';
-    String videoId = video.id;
+    String cartId = cart.id;
     try {
       await _firebaseFirestore
           .collection('users')
           .doc(uid)
           .collection('video_cart')
-          .doc(videoId)
+          .doc(cartId)
           .delete();
       return right(unit);
     } on FirebaseException catch (e) {
