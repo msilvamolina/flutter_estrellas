@@ -45,10 +45,13 @@ class CartView extends GetView<CartController> {
                           );
                         },
                       ),
-                      Button(
-                        onPressed: () {},
-                        label: 'Continuar compra',
-                        style: ButtonStyles.primary,
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: Button(
+                          onPressed: () {},
+                          label: 'Continuar compra',
+                          style: ButtonStyles.primary,
+                        ),
                       ),
                     ],
                   ),

@@ -75,9 +75,17 @@ class _CartPriceBottomBarState extends State<CartPriceBottomBar> {
     String numberAlphabet = '0123456789';
 
     TextStyle textStyle = TypographyStyle.bodyRegularLarge;
+
+    TextStyle shippingStyle = TypographyStyle.bodyRegularLarge;
+
+    TextStyle freeShippingStyle =
+        TypographyStyle.bodyRegularLarge.copyWith(color: success500);
+
     TextStyle priceTextStyle = TypographyStyle.bodyRegularLarge.copyWith(
       fontWeight: FontWeight.w500,
     );
+    TextStyle totalPriceStyle = TypographyStyle.bodyRegularLarge
+        .copyWith(fontWeight: FontWeight.w700, fontSize: 20);
 
     double separationHeight = 12;
 
@@ -86,132 +94,147 @@ class _CartPriceBottomBarState extends State<CartPriceBottomBar> {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Resumen de compra',
-          style: TypographyStyle.bodyBlackLarge.copyWith(
-            color: neutral950,
-            fontSize: 18,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-        SizedBox(height: 16),
-        Row(
-          children: [
-            Text(
-              'Productos (',
-              style: textStyle,
-            ),
-            // Solo anima si hay un cambio en productsQuantity
-            if (widget.productsQuantity == previousQuantity)
+        Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
               Text(
-                widget.productsQuantity.toString(),
-                style: textStyle,
-              )
-            else
-              TextTransformationAnimation(
-                text: widget.productsQuantity.toString(),
-                duration: textAnimationDuration,
-                alphabet: numberAlphabet,
-                style: textStyle,
+                'Resumen de compra',
+                style: TypographyStyle.bodyBlackLarge.copyWith(
+                  color: neutral950,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
-            Text(
-              ')',
-              style: textStyle,
-            ),
-            Spacer(),
-            // Solo anima si hay un cambio en productsPrices
-            if (widget.productsPrices == previousPrices)
-              Text(
-                priceStr,
-                style: priceTextStyle,
-              )
-            else
-              TextTransformationAnimation(
-                text: priceStr,
-                duration: textAnimationDuration,
-                alphabet: moneyAlphabet,
-                style: priceTextStyle,
-              ),
-          ],
-        ),
-        SizedBox(height: separationHeight),
-        Row(
-          children: [
-            Text(
-              'Envío',
-              style: textStyle,
-            ),
-            Spacer(),
-            Text(shippingStr),
-          ],
-        ),
-        SizedBox(height: separationHeight),
-        Row(
-          children: [
-            Text(
-              'Puntos',
-              style: textStyle,
-            ),
-            Spacer(),
-            Container(
-              padding: EdgeInsets.only(left: 6, right: 12, top: 2, bottom: 3),
-              decoration: BoxDecoration(
-                color: primaryLight,
-                borderRadius: BorderRadius.all(Radius.circular(16)),
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
+              SizedBox(height: 16),
+              Row(
                 children: [
-                  Icon(EstrellasIcons.medal),
-                  if (widget.productsPoints == previousPoints)
+                  Text(
+                    'Productos (',
+                    style: textStyle,
+                  ),
+                  // Solo anima si hay un cambio en productsQuantity
+                  if (widget.productsQuantity == previousQuantity)
                     Text(
-                      '${widget.productsPoints} puntos',
-                      style: TypographyStyle.bodyBlackMedium,
+                      widget.productsQuantity.toString(),
+                      style: textStyle,
                     )
                   else
-                    Row(
-                      children: [
-                        TextTransformationAnimation(
-                          text: widget.productsPoints.toString(),
-                          duration: textAnimationDuration,
-                          alphabet: numberAlphabet,
-                          style: TypographyStyle.bodyBlackMedium,
-                        ),
-                        Text(
-                          ' puntos',
-                          style: TypographyStyle.bodyBlackMedium,
-                        )
-                      ],
+                    TextTransformationAnimation(
+                      text: widget.productsQuantity.toString(),
+                      duration: textAnimationDuration,
+                      alphabet: numberAlphabet,
+                      style: textStyle,
+                    ),
+                  Text(
+                    ')',
+                    style: textStyle,
+                  ),
+                  Spacer(),
+                  // Solo anima si hay un cambio en productsPrices
+                  if (widget.productsPrices == previousPrices)
+                    Text(
+                      priceStr,
+                      style: priceTextStyle,
+                    )
+                  else
+                    TextTransformationAnimation(
+                      text: priceStr,
+                      duration: textAnimationDuration,
+                      alphabet: moneyAlphabet,
+                      style: priceTextStyle,
                     ),
                 ],
               ),
-            ),
-          ],
-        ),
-        SizedBox(height: separationHeight),
-        Divider(),
-        SizedBox(height: separationHeight),
-        Row(
-          children: [
-            Text(
-              'Total a pagar',
-              style: textStyle,
-            ),
-            Spacer(),
-            // Solo anima si hay un cambio en el precio total
-            if (totalPrice == (previousShipping ?? 0) + (previousPrices ?? 0))
-              Text(
-                totalPriceStr,
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              )
-            else
-              TextTransformationAnimation(
-                text: totalPriceStr,
-                duration: textAnimationDuration,
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                alphabet: moneyAlphabet,
+              SizedBox(height: separationHeight),
+              Row(
+                children: [
+                  Text(
+                    'Envío',
+                    style: textStyle,
+                  ),
+                  Spacer(),
+                  Text(
+                    shippingStr,
+                    style: shippingStyle,
+                  ),
+                ],
               ),
-          ],
+              SizedBox(height: separationHeight),
+              Row(
+                children: [
+                  Text(
+                    'Puntos',
+                    style: textStyle,
+                  ),
+                  Spacer(),
+                  Container(
+                    padding:
+                        EdgeInsets.only(left: 6, right: 12, top: 2, bottom: 3),
+                    decoration: BoxDecoration(
+                      color: primaryLight,
+                      borderRadius: BorderRadius.all(Radius.circular(16)),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(EstrellasIcons.medal),
+                        if (widget.productsPoints == previousPoints)
+                          Text(
+                            '${widget.productsPoints} puntos',
+                            style: TypographyStyle.bodyBlackMedium,
+                          )
+                        else
+                          Row(
+                            children: [
+                              TextTransformationAnimation(
+                                text: widget.productsPoints.toString(),
+                                duration: textAnimationDuration,
+                                alphabet: numberAlphabet,
+                                style: TypographyStyle.bodyBlackMedium,
+                              ),
+                              Text(
+                                ' puntos',
+                                style: TypographyStyle.bodyBlackMedium,
+                              )
+                            ],
+                          ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+        Divider(),
+        Padding(
+          padding: const EdgeInsets.all(16),
+          child: Row(
+            children: [
+              Text(
+                'Total a pagar',
+                style: textStyle,
+              ),
+              Spacer(),
+              // Solo anima si hay un cambio en el precio total
+              if (totalPrice == (previousShipping ?? 0) + (previousPrices ?? 0))
+                Text(
+                  totalPriceStr,
+                  style: totalPriceStyle,
+                )
+              else
+                TextTransformationAnimation(
+                  text: totalPriceStr,
+                  duration: textAnimationDuration,
+                  style: totalPriceStyle,
+                  alphabet: moneyAlphabet,
+                ),
+            ],
+          ),
         ),
         SizedBox(
           height: 16,
