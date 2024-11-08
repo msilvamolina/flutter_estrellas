@@ -34,7 +34,6 @@ class _CartCardState extends State<CartCard> {
       _countdown = 5;
     });
 
-    // Inicia la cuenta regresiva
     _timer = Timer.periodic(Duration(seconds: 1), (timer) {
       setState(() {
         _countdown--;
@@ -43,8 +42,7 @@ class _CartCardState extends State<CartCard> {
       if (_countdown == 0) {
         _timer?.cancel();
         setState(() {
-          _isDeleted =
-              false; // Oculta el mensaje después de la cuenta regresiva
+          _isDeleted = false;
         });
         controller.removeProduct(widget.userProductCartModel);
       }
@@ -52,7 +50,6 @@ class _CartCardState extends State<CartCard> {
   }
 
   void _undoDelete() {
-    // Cancela la eliminación
     setState(() {
       _isDeleted = false;
     });
@@ -83,23 +80,24 @@ class _CartCardState extends State<CartCard> {
     return GetBuilder<CartController>(
       id: 'card_product',
       builder: (controller) {
-        return Padding(
-          padding: const EdgeInsets.all(16),
+        return Container(
+          padding: const EdgeInsets.symmetric(vertical: 16),
           child: _isDeleted
               ? GestureDetector(
                   onTap: _undoDelete,
                   child: Container(
                     padding: EdgeInsets.all(16),
                     decoration: BoxDecoration(
-                      color: Colors.grey[200],
+                      color: Colors.red[50],
                       borderRadius: BorderRadius.circular(16),
                     ),
                     child: Column(
                       children: [
-                        Icon(Icons.check_circle, color: Colors.green, size: 30),
+                        Icon(Icons.delete, color: Colors.red, size: 30),
                         Text(
-                          'Eliminado',
-                          style: TypographyStyle.bodyBlackLarge,
+                          'Eliminar',
+                          style: TypographyStyle.bodyBlackLarge
+                              .copyWith(color: Colors.red),
                         ),
                         Text(
                           'Toca para deshacer ($_countdown)',
@@ -115,119 +113,137 @@ class _CartCardState extends State<CartCard> {
                     motion: const ScrollMotion(),
                     dismissible: DismissiblePane(
                       onDismissed: () {
-                        // Inicia la cuenta regresiva inmediatamente después de deslizar
                         _startCountdown(controller);
                       },
                     ),
                     children: [
-                      SlidableAction(
+                      CustomSlidableAction(
                         onPressed: (context) => _startCountdown(controller),
-                        backgroundColor: Colors.red,
-                        foregroundColor: Colors.white,
-                        icon: Icons.delete,
-                        label: 'Eliminar',
+                        borderRadius: BorderRadius.circular(16),
+                        backgroundColor: error50,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              EstrellasIcons.trash,
+                              color: error500,
+                              size: 30,
+                            ),
+                            SizedBox(width: 8),
+                            Text(
+                              'Eliminar',
+                              style: TypographyStyle.bodyRegularLarge
+                                  .copyWith(color: neutral950),
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
-                  child: Column(
-                    children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.all(Radius.circular(18)),
-                            child: Image.network(
-                              product.thumbnail ?? '',
-                              width: 60,
-                              height: 60,
-                              fit: BoxFit.cover,
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      children: [
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            ClipRRect(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(18)),
+                              child: Image.network(
+                                product.thumbnail ?? '',
+                                width: 60,
+                                height: 60,
+                                fit: BoxFit.cover,
+                              ),
                             ),
-                          ),
-                          SizedBox(width: 16),
-                          Expanded(
-                            child: Column(
-                              children: [
-                                Row(
-                                  children: [
-                                    Expanded(
-                                      child: Text(
-                                        product.name ?? '',
-                                        style: TypographyStyle.bodyRegularLarge,
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                    ),
-                                    Text(
-                                      priceStr,
-                                      style: TypographyStyle.bodyBlackLarge
-                                          .copyWith(fontSize: 20),
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ],
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 6),
-                                  child: Row(
+                            SizedBox(width: 16),
+                            Expanded(
+                              child: Column(
+                                children: [
+                                  Row(
                                     children: [
                                       Expanded(
-                                        child: variantCombination != null
-                                            ? VariationWidget(
-                                                variantCombination:
-                                                    variantCombination)
-                                            : SizedBox.shrink(),
+                                        child: Text(
+                                          product.name ?? '',
+                                          style:
+                                              TypographyStyle.bodyRegularLarge,
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
                                       ),
                                       Text(
-                                        'Ganas $profitStr',
-                                        style: TypographyStyle.bodyBlackMedium
-                                            .copyWith(color: success900),
+                                        priceStr,
+                                        style: TypographyStyle.bodyBlackLarge
+                                            .copyWith(fontSize: 20),
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
                                       ),
                                     ],
                                   ),
-                                ),
-                              ],
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 6),
+                                    child: Row(
+                                      children: [
+                                        Expanded(
+                                          child: variantCombination != null
+                                              ? VariationWidget(
+                                                  variantCombination:
+                                                      variantCombination)
+                                              : SizedBox.shrink(),
+                                        ),
+                                        Text(
+                                          'Ganas $profitStr',
+                                          style: TypographyStyle.bodyBlackMedium
+                                              .copyWith(color: success900),
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 12),
-                      Row(
-                        children: [
-                          Container(
-                            padding: EdgeInsets.only(
-                                left: 6, right: 12, top: 2, bottom: 3),
-                            decoration: BoxDecoration(
-                              color: primaryLight,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(16)),
+                          ],
+                        ),
+                        SizedBox(height: 12),
+                        Row(
+                          children: [
+                            Container(
+                              padding: EdgeInsets.only(
+                                  left: 6, right: 12, top: 2, bottom: 3),
+                              decoration: BoxDecoration(
+                                color: primaryLight,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(16)),
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Icon(EstrellasIcons.medal),
+                                  Text(
+                                    '$points puntos',
+                                    style: TypographyStyle.bodyBlackMedium,
+                                  ),
+                                ],
+                              ),
                             ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Icon(EstrellasIcons.medal),
-                                Text(
-                                  '$points puntos',
-                                  style: TypographyStyle.bodyBlackMedium,
-                                ),
-                              ],
+                            Spacer(),
+                            FieldQuantity(
+                              value: controller
+                                  .getQuantity(widget.userProductCartModel),
+                              addFunction: () => controller
+                                  .addFunction(widget.userProductCartModel),
+                              minusFunction: () => controller
+                                  .minusFunction(widget.userProductCartModel),
+                              maxValue: widget.userProductCartModel.stock,
                             ),
-                          ),
-                          Spacer(),
-                          FieldQuantity(
-                            value: controller
-                                .getQuantity(widget.userProductCartModel),
-                            addFunction: () => controller
-                                .addFunction(widget.userProductCartModel),
-                            minusFunction: () => controller
-                                .minusFunction(widget.userProductCartModel),
-                            maxValue: widget.userProductCartModel.stock,
-                          ),
-                        ],
-                      ),
-                    ],
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
         );
