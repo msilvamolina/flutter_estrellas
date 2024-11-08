@@ -86,22 +86,21 @@ class _CartCardState extends State<CartCard> {
               ? GestureDetector(
                   onTap: _undoDelete,
                   child: Container(
+                    color: Colors.white,
                     padding: EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: Colors.red[50],
-                      borderRadius: BorderRadius.circular(16),
-                    ),
                     child: Column(
                       children: [
-                        Icon(Icons.delete, color: Colors.red, size: 30),
+                        Icon(EstrellasIcons.check, color: success500, size: 36),
                         Text(
-                          'Eliminar',
+                          'Eliminado',
                           style: TypographyStyle.bodyBlackLarge
-                              .copyWith(color: Colors.red),
+                              .copyWith(color: neutral950, fontSize: 18),
                         ),
+                        SizedBox(height: 4),
                         Text(
                           'Toca para deshacer ($_countdown)',
-                          style: TypographyStyle.bodyBlackLarge,
+                          style: TypographyStyle.bodyRegularLarge
+                              .copyWith(color: neutral700),
                         ),
                       ],
                     ),
