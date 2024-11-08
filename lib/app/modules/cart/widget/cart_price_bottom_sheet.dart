@@ -2,13 +2,14 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
+import '../../../data/helpers/currency_helper.dart';
+
 class CartPriceBottomBar extends StatelessWidget {
   const CartPriceBottomBar({
     required this.productsQuantity,
     required this.productsPrices,
     required this.productsPoints,
     required this.productsShipping,
-    required this.productsTotal,
     super.key,
   });
 
@@ -16,9 +17,19 @@ class CartPriceBottomBar extends StatelessWidget {
   final double productsPrices;
   final int productsPoints;
   final double productsShipping;
-  final double productsTotal;
   @override
   Widget build(BuildContext context) {
+    String shippingStr =
+        productsShipping == 0.0 ? '¡Gratis!' : productsShipping.toString();
+
+    String priceStr =
+        CurrencyHelpers.moneyFormat(amount: productsPrices, decimalIn0: false);
+
+    double totalPrice = productsShipping + productsPrices;
+
+    String totalPriceStr =
+        CurrencyHelpers.moneyFormat(amount: totalPrice, decimalIn0: false);
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.start,
@@ -29,14 +40,14 @@ class CartPriceBottomBar extends StatelessWidget {
           children: [
             Text('Productos ($productsQuantity)'),
             Spacer(),
-            Text('$productsPrices'),
+            Text(priceStr),
           ],
         ),
         Row(
           children: [
             Text('Envío'),
             Spacer(),
-            Text('$productsShipping'),
+            Text(shippingStr),
           ],
         ),
         Row(
@@ -51,7 +62,7 @@ class CartPriceBottomBar extends StatelessWidget {
           children: [
             Text('Total a pagar'),
             Spacer(),
-            Text('$productsTotal'),
+            Text(totalPriceStr),
           ],
         ),
         SizedBox(

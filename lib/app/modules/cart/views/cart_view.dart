@@ -35,14 +35,13 @@ class CartView extends GetView<CartController> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       GetBuilder<CartController>(
-                        id: 'price_bottombar',
+                        id: 'prices_bottombar',
                         builder: (_) {
                           return CartPriceBottomBar(
-                            productsPoints: 22,
-                            productsQuantity: 3,
-                            productsPrices: 12.222,
+                            productsPoints: controller.points,
+                            productsQuantity: controller.quantity,
+                            productsPrices: controller.prices,
                             productsShipping: 0,
-                            productsTotal: 21.222,
                           );
                         },
                       ),

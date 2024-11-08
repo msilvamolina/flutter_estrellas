@@ -9,11 +9,27 @@ class CartController extends GetxController {
   UserProductController userProductController =
       Get.find<UserProductController>();
 
+  double _prices = 0;
+  double get prices => _prices;
+
+  int _points = 0;
+  int get points => _points;
+
+  int _quantity = 0;
+  int get quantity => _quantity;
+
+  @override
+  void onReady() {
+    calculateProducts();
+    super.onReady();
+  }
+
   void addFunction(UserProductCartModel userProductCartModel) {
     int _quantity = getQuantity(userProductCartModel);
     userProductController.mapProductsQuantity[userProductCartModel.id] =
         _quantity + 1;
     update(['card_product']);
+    calculateProducts();
   }
 
   int getQuantity(UserProductCartModel userProductCartModel) =>
@@ -26,5 +42,25 @@ class CartController extends GetxController {
     userProductController.mapProductsQuantity[userProductCartModel.id] =
         _quantity - 1;
     update(['card_product']);
+    calculateProducts();
+  }
+
+  void calculateProducts() {
+    if (userProductController.listProductCart.isNotEmpty) {
+      _quantity = 0;
+      _prices = 0;
+      _points = 0;
+      for (UserProductCartModel element
+          in userProductController.listProductCart) {
+        int _productQuantity = getQuantity(element);
+        double _productPrice = element.price * _productQuantity;
+        int _elementPoints = element.points * _productQuantity;
+
+        _quantity = _quantity + _productQuantity;
+        _prices = _prices + _productPrice;
+        _points = _points + _elementPoints;
+      }
+      update(['prices_bottombar']);
+    }
   }
 }
