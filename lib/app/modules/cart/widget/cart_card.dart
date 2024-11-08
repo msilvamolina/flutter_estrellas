@@ -86,28 +86,27 @@ class _CartCardState extends State<CartCard> {
         return Padding(
           padding: const EdgeInsets.all(16),
           child: _isDeleted
-              ? Container(
-                  padding: EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: Colors.grey[200],
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  child: Column(
-                    children: [
-                      Icon(Icons.check_circle, color: Colors.green, size: 30),
-                      Text(
-                        'Eliminado',
-                        style: TypographyStyle.bodyBlackLarge,
-                      ),
-                      Text(
-                        'Toca para deshacer ($_countdown)',
-                        style: TypographyStyle.bodyBlackLarge,
-                      ),
-                      TextButton(
-                        onPressed: _undoDelete,
-                        child: Text('Deshacer'),
-                      ),
-                    ],
+              ? GestureDetector(
+                  onTap: _undoDelete,
+                  child: Container(
+                    padding: EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: Colors.grey[200],
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: Column(
+                      children: [
+                        Icon(Icons.check_circle, color: Colors.green, size: 30),
+                        Text(
+                          'Eliminado',
+                          style: TypographyStyle.bodyBlackLarge,
+                        ),
+                        Text(
+                          'Toca para deshacer ($_countdown)',
+                          style: TypographyStyle.bodyBlackLarge,
+                        ),
+                      ],
+                    ),
                   ),
                 )
               : Slidable(
