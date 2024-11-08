@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:text_transformation_animation/text_transformation_animation.dart';
 
 import '../../../data/helpers/currency_helper.dart';
 
@@ -62,7 +63,12 @@ class CartPriceBottomBar extends StatelessWidget {
           children: [
             Text('Total a pagar'),
             Spacer(),
-            Text(totalPriceStr),
+            TextTransformationAnimation(
+              text: totalPriceStr,
+              duration: Duration(milliseconds: 1000),
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              alphabet: '0123456789.,\$',
+            ),
           ],
         ),
         SizedBox(
