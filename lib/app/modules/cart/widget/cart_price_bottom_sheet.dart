@@ -31,6 +31,10 @@ class CartPriceBottomBar extends StatelessWidget {
     String totalPriceStr =
         CurrencyHelpers.moneyFormat(amount: totalPrice, decimalIn0: false);
 
+    Duration textAnimationDuration = Duration(milliseconds: 1000);
+
+    String moneyAlphabet = '0123456789.,\$';
+    String numberAlphabet = '0123456789';
     return Column(
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.start,
@@ -39,9 +43,19 @@ class CartPriceBottomBar extends StatelessWidget {
         Text('Resumen de compra'),
         Row(
           children: [
-            Text('Productos ($productsQuantity)'),
+            Text('Productos ('),
+            TextTransformationAnimation(
+              text: productsQuantity.toString(),
+              duration: textAnimationDuration,
+              alphabet: numberAlphabet,
+            ),
+            Text(')'),
             Spacer(),
-            Text(priceStr),
+            TextTransformationAnimation(
+              text: priceStr,
+              duration: textAnimationDuration,
+              alphabet: moneyAlphabet,
+            ),
           ],
         ),
         Row(
@@ -55,7 +69,12 @@ class CartPriceBottomBar extends StatelessWidget {
           children: [
             Text('Puntos'),
             Spacer(),
-            Text('$productsPoints puntos'),
+            TextTransformationAnimation(
+              text: productsPoints.toString(),
+              duration: textAnimationDuration,
+              alphabet: numberAlphabet,
+            ),
+            Text(' puntos'),
           ],
         ),
         Divider(),
@@ -65,9 +84,9 @@ class CartPriceBottomBar extends StatelessWidget {
             Spacer(),
             TextTransformationAnimation(
               text: totalPriceStr,
-              duration: Duration(milliseconds: 1000),
+              duration: textAnimationDuration,
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              alphabet: '0123456789.,\$',
+              alphabet: moneyAlphabet,
             ),
           ],
         ),
