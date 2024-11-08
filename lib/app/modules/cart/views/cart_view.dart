@@ -28,7 +28,7 @@ class CartView extends GetView<CartController> {
         () => controller.userProductController.listProductCart.isNotEmpty
             ? SafeArea(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  padding: const EdgeInsets.symmetric(horizontal: 0),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.start,

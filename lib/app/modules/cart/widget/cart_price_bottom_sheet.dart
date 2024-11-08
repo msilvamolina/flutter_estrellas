@@ -74,47 +74,84 @@ class _CartPriceBottomBarState extends State<CartPriceBottomBar> {
     String moneyAlphabet = '0123456789.,\$';
     String numberAlphabet = '0123456789';
 
+    TextStyle textStyle = TypographyStyle.bodyRegularLarge;
+    TextStyle priceTextStyle = TypographyStyle.bodyRegularLarge.copyWith(
+      fontWeight: FontWeight.w500,
+    );
+
+    double separationHeight = 12;
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Resumen de compra'),
+        Text(
+          'Resumen de compra',
+          style: TypographyStyle.bodyBlackLarge.copyWith(
+            color: neutral950,
+            fontSize: 18,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+        SizedBox(height: 16),
         Row(
           children: [
-            Text('Productos ('),
+            Text(
+              'Productos (',
+              style: textStyle,
+            ),
             // Solo anima si hay un cambio en productsQuantity
             if (widget.productsQuantity == previousQuantity)
-              Text(widget.productsQuantity.toString())
+              Text(
+                widget.productsQuantity.toString(),
+                style: textStyle,
+              )
             else
               TextTransformationAnimation(
                 text: widget.productsQuantity.toString(),
                 duration: textAnimationDuration,
                 alphabet: numberAlphabet,
+                style: textStyle,
               ),
-            Text(')'),
+            Text(
+              ')',
+              style: textStyle,
+            ),
             Spacer(),
             // Solo anima si hay un cambio en productsPrices
             if (widget.productsPrices == previousPrices)
-              Text(priceStr)
+              Text(
+                priceStr,
+                style: priceTextStyle,
+              )
             else
               TextTransformationAnimation(
                 text: priceStr,
                 duration: textAnimationDuration,
                 alphabet: moneyAlphabet,
+                style: priceTextStyle,
               ),
           ],
         ),
+        SizedBox(height: separationHeight),
         Row(
           children: [
-            Text('Envío'),
+            Text(
+              'Envío',
+              style: textStyle,
+            ),
             Spacer(),
             Text(shippingStr),
           ],
         ),
+        SizedBox(height: separationHeight),
         Row(
           children: [
-            Text('Puntos'),
+            Text(
+              'Puntos',
+              style: textStyle,
+            ),
             Spacer(),
             Container(
               padding: EdgeInsets.only(left: 6, right: 12, top: 2, bottom: 3),
@@ -138,8 +175,12 @@ class _CartPriceBottomBarState extends State<CartPriceBottomBar> {
                           text: widget.productsPoints.toString(),
                           duration: textAnimationDuration,
                           alphabet: numberAlphabet,
+                          style: TypographyStyle.bodyBlackMedium,
                         ),
-                        Text(' puntos'),
+                        Text(
+                          ' puntos',
+                          style: TypographyStyle.bodyBlackMedium,
+                        )
                       ],
                     ),
                 ],
@@ -147,10 +188,15 @@ class _CartPriceBottomBarState extends State<CartPriceBottomBar> {
             ),
           ],
         ),
+        SizedBox(height: separationHeight),
         Divider(),
+        SizedBox(height: separationHeight),
         Row(
           children: [
-            Text('Total a pagar'),
+            Text(
+              'Total a pagar',
+              style: textStyle,
+            ),
             Spacer(),
             // Solo anima si hay un cambio en el precio total
             if (totalPrice == (previousShipping ?? 0) + (previousPrices ?? 0))
