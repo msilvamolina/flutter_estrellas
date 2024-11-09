@@ -79,7 +79,7 @@ class _CartPriceBottomBarState extends State<CartPriceBottomBar> {
     TextStyle shippingStyle = TypographyStyle.bodyRegularLarge;
 
     TextStyle freeShippingStyle =
-        TypographyStyle.bodyRegularLarge.copyWith(color: success500);
+        TypographyStyle.bodyRegularLarge.copyWith(color: success900);
 
     TextStyle priceTextStyle = TypographyStyle.bodyRegularLarge.copyWith(
       fontWeight: FontWeight.w500,
@@ -159,7 +159,9 @@ class _CartPriceBottomBarState extends State<CartPriceBottomBar> {
                   Spacer(),
                   Text(
                     shippingStr,
-                    style: shippingStyle,
+                    style: shippingStr == '¡Gratis!'
+                        ? freeShippingStyle
+                        : shippingStyle,
                   ),
                 ],
               ),

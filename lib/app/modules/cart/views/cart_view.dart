@@ -48,7 +48,7 @@ class CartView extends GetView<CartController> {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16),
                         child: Button(
-                          onPressed: () {},
+                          onPressed: () => Get.toNamed(Routes.ADDRESS),
                           label: 'Continuar compra',
                           style: ButtonStyles.primary,
                         ),
