@@ -19,7 +19,10 @@ class NewAddressView extends GetView<NewAddressController> {
         builder: (context, form, child) {
           return Scaffold(
             appBar: AppBar(
-              title: const Text('Domicilio'),
+              title: Text(
+                'Domicilio',
+                style: TypographyStyle.bodyBlackLarge,
+              ),
               centerTitle: true,
             ),
             body: GetBuilder<NewAddressController>(
@@ -41,6 +44,7 @@ class NewAddressView extends GetView<NewAddressController> {
                           keyboardType: TextInputType.text,
                           decoration: CustomInputDecoration.inputDecoration(
                             text: "Nombre completo",
+                            hintText: 'Como está en tu documento',
                           ),
                         ),
                         const SizedBox(height: 16),
@@ -49,65 +53,16 @@ class NewAddressView extends GetView<NewAddressController> {
                           keyboardType: TextInputType.phone,
                           decoration: CustomInputDecoration.inputDecoration(
                             text: "Celular",
+                            hintText: 'Ingresa el número de celular',
                           ),
                         ),
+                        Text('Te llamaremos si tenemos problemas en el envío'),
                         const SizedBox(height: 16),
                         Text(
-                          'Datos de la persona que recibe',
+                          'Lugar de envío',
                           style: TypographyStyle.bodyBlackLarge,
                         ),
                         const SizedBox(height: 16),
-                        Card(
-                          child: InkWell(
-                            onTap: controller.pickCity,
-                            child: Padding(
-                              padding: const EdgeInsets.all(16),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Image.asset(
-                                    'assets/images/city.png',
-                                    width: 80,
-                                  ),
-                                  const SizedBox(width: 12),
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Ciudad',
-                                          style: TypographyStyle.bodyBlackLarge
-                                              .copyWith(color: primary),
-                                        ),
-                                        const SizedBox(height: 4),
-                                        Text(
-                                          controller.cityModel != null
-                                              ? (controller.cityModel!.name +
-                                                  '\n' +
-                                                  controller
-                                                      .departmentModel!.name)
-                                              : null ??
-                                                  '(Selecciona una ciudad)',
-                                          style:
-                                              TypographyStyle.bodyRegularSmall,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Icon(
-                                    Icons.chevron_right_rounded,
-                                    color: primary,
-                                    size: 48,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
                         const SizedBox(height: 16),
                         ReactiveTextField(
                           formControlName: Fields.address.name,
@@ -120,9 +75,11 @@ class NewAddressView extends GetView<NewAddressController> {
                         ReactiveTextField(
                           formControlName: Fields.notes.name,
                           keyboardType: TextInputType.text,
+                          maxLines: 8,
                           decoration: CustomInputDecoration.inputDecoration(
-                            text: "Referencias adicionales",
-                          ),
+                              text: "Referencias adicionales",
+                              hintText:
+                                  'Ingresa una descripción de la dirección o indicaciones de entrega'),
                         ),
                         const SizedBox(height: 16),
                         Text(
