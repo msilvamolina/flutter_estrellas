@@ -39,7 +39,7 @@ class PrimaryButton extends StatelessWidget {
         backgroundColor: MaterialStateProperty.resolveWith<Color?>(
           (Set<MaterialState> states) {
             if (states.contains(MaterialState.disabled)) {
-              return backgroundColor.withOpacity(0.2);
+              return neutral200;
             }
             return backgroundColor;
           },
@@ -47,7 +47,7 @@ class PrimaryButton extends StatelessWidget {
         foregroundColor: MaterialStateProperty.resolveWith<Color?>(
           (Set<MaterialState> states) {
             if (states.contains(MaterialState.disabled)) {
-              return foregroundColor.withOpacity(0.5);
+              return neutral800;
             }
             return foregroundColor;
           },
@@ -55,14 +55,14 @@ class PrimaryButton extends StatelessWidget {
         side: MaterialStateProperty.resolveWith<BorderSide?>(
           (Set<MaterialState> states) {
             if (states.contains(MaterialState.disabled)) {
-              return BorderSide(color: border.withOpacity(0.2), width: 1);
+              return BorderSide(color: neutral200, width: 1);
             }
             return BorderSide(color: border, width: 1);
           },
         ),
       ),
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 14),
         width: double.infinity,
         child: isLoaderButton
             ? !isLoading!
@@ -84,7 +84,7 @@ class PrimaryButton extends StatelessWidget {
             : Text(
                 label,
                 textAlign: TextAlign.center,
-                style: TypographyStyle.bodyBlackLarge,
+                style: TypographyStyle.bodyBlackLarge2,
               ),
       ),
     );
