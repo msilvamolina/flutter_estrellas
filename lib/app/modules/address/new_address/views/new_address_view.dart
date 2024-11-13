@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_estrellas/app/components/buttons/buttons.dart';
+import 'package:flutter_estrellas/app/data/models/city/city/city_model.dart';
 import 'package:flutter_estrellas/app/data/models/city/department/department_model.dart';
 
 import 'package:get/get.dart';
@@ -88,6 +89,24 @@ class NewAddressView extends GetView<NewAddressController> {
                                 .toList(),
                             onChanged: controller.onDepartmentSelected,
                           ),
+                        ),
+                        const SizedBox(height: 16),
+                        Obx(
+                          () => controller.cityList.isNotEmpty
+                              ? DropDown(
+                                  error: controller.cityError,
+                                  selectedValue: controller.citySelected.value,
+                                  values: controller.cityList
+                                      .map(
+                                        (CityModel value) => OptionDropDown(
+                                          text: value.name ?? '',
+                                          value: value.id.toString(),
+                                        ),
+                                      )
+                                      .toList(),
+                                  onChanged: controller.onCitySelected,
+                                )
+                              : SizedBox.shrink(),
                         ),
                         const SizedBox(height: 16),
                         ReactiveTextField(

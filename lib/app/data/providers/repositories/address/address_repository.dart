@@ -47,6 +47,23 @@ class AddressRepository {
     }
   }
 
+  Stream<List<CityModel>> getCities(String departmentId) async* {
+    try {
+      Stream<QuerySnapshot> snapshots = _firebaseFirestore
+          .collection('departments')
+          .doc(departmentId)
+          .collection('cities')
+          .orderBy('name', descending: false)
+          .snapshots();
+
+      yield* snapshots.map((snapshot) {
+        return snapshot.docs.map((doc) => CityModel.fromDocument(doc)).toList();
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
   Stream<List<AddressModel>> getUserAddress() async* {
     Map<String, String> userData = getUidAndEmail();
     String uid = userData['uid'] ?? '';

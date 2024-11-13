@@ -32,9 +32,17 @@ class NewAddressController extends GetxController {
   final RxList<DepartmentModel> _departmentsList = <DepartmentModel>[].obs;
   List<DepartmentModel> get departmentsList => _departmentsList.toList();
 
+  final RxList<CityModel> _cityList = <CityModel>[].obs;
+  List<CityModel> get cityList => _cityList.toList();
+
   RxnString departmentSelected = RxnString();
   String? _departmentError;
   String? get departmentError => _departmentError;
+
+  RxnString citySelected = RxnString();
+  String? _cityError;
+  String? get cityError => _cityError;
+
   FormGroup buildForm() => fb.group(<String, Object>{
         Fields.name.name: FormControl<String>(
           validators: [
@@ -61,6 +69,15 @@ class NewAddressController extends GetxController {
   @override
   void onInit() {
     _departmentsList.bindStream(_repository.getDepartments());
+
+    departmentSelected.listen((departmentId) {
+      if (departmentId != null && departmentId.isNotEmpty) {
+        _cityList.bindStream(_repository.getCities(departmentId));
+      } else {
+        _cityList.clear();
+      }
+    });
+
     super.onInit();
   }
 
@@ -76,6 +93,20 @@ class NewAddressController extends GetxController {
 
   void onDepartmentSelected(String? value) {
     departmentSelected.value = value ?? '';
+    citySelected.value = null;
+    fetchCities(value);
+  }
+
+  void fetchCities(String? departmentId) {
+    if (departmentId != null) {
+      _cityList.bindStream(_repository.getCities(departmentId));
+    } else {
+      _cityList.clear();
+    }
+  }
+
+  void onCitySelected(String? value) {
+    citySelected.value = value ?? '';
   }
 
   Future<void> sendForm(Map<String, Object?> data) async {
