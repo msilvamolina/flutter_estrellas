@@ -58,7 +58,7 @@ class NewAddressView extends GetView<NewAddressController> {
                             keyboardType: TextInputType.text,
                             label: 'Nombre completo',
                             hintText: 'Como está en tu documento',
-                            isSubmited: controller.formIsSubmitted,
+                            // isSubmited: controller.formIsSubmitted,
                           ),
                           const SizedBox(height: 22),
                           CustomTextInput(
@@ -67,7 +67,7 @@ class NewAddressView extends GetView<NewAddressController> {
                             keyboardType: TextInputType.phone,
                             label: 'Celular',
                             hintText: 'Ingresa el número de celular',
-                            isSubmited: controller.formIsSubmitted,
+                            // isSubmited: controller.formIsSubmitted,
                           ),
                           const SizedBox(height: 22),
                           Padding(

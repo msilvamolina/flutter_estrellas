@@ -14,14 +14,14 @@ class CustomTextInput extends StatelessWidget {
     this.keyboardType = TextInputType.text,
     this.hintText,
     this.autofocus = false,
-    this.isSubmited = false,
+    // this.isSubmited = false,
     this.validationMessages,
     super.key,
   });
 
   final String formControlName;
   final bool autofocus;
-  final bool isSubmited;
+  // final bool isSubmited;
   final String label;
   final String? hintText;
   final TextInputType keyboardType;
@@ -44,7 +44,7 @@ class CustomTextInput extends StatelessWidget {
         text: label,
         hintText: hintText,
         control: control!,
-        isSubmited: isSubmited,
+        // isSubmited: isSubmited,
       ),
       validationMessages: validationMessages ??
           {
