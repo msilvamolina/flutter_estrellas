@@ -31,7 +31,7 @@ class SelectCityView extends GetView<SelectCityController> {
                     title: Padding(
                       padding: const EdgeInsets.all(8),
                       child: Text(
-                        controller.data[index].name,
+                        controller.data[index].name ?? '',
                         style: TypographyStyle.bodyBlackLarge,
                       ),
                     ),

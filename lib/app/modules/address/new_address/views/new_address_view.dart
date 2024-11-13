@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_estrellas/app/components/buttons/buttons.dart';
+import 'package:flutter_estrellas/app/data/models/city/department/department_model.dart';
 
 import 'package:get/get.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
+import '../../../../components/dropdown/dropdown.dart';
 import '../../../../themes/input_decoration.dart';
 import '../../../../themes/styles/typography.dart';
 import '../controllers/new_address_controller.dart';
@@ -69,6 +71,22 @@ class NewAddressView extends GetView<NewAddressController> {
                           keyboardType: TextInputType.text,
                           decoration: CustomInputDecoration.inputDecoration(
                             text: "Direccion",
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        Obx(
+                          () => DropDown(
+                            error: controller.productsError,
+                            selectedValue: controller.productSelected,
+                            values: controller.listProducts
+                                .map(
+                                  (DepartmentModel value) => OptionDropDown(
+                                    text: value.name,
+                                    value: value.dropiId.toString(),
+                                  ),
+                                )
+                                .toList(),
+                            onChanged: controller.onDepartmentSelected,
                           ),
                         ),
                         const SizedBox(height: 16),

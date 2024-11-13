@@ -6,7 +6,7 @@ import 'package:reactive_forms/reactive_forms.dart';
 
 import '../../../../app/controllers/main_controller.dart';
 import '../../../../data/models/city/city/city.dart';
-import '../../../../data/models/city/department/department.dart';
+import '../../../../data/models/city/department/department_model.dart';
 import '../../../../data/models/provider/provider/provider_model.dart';
 import '../../../../routes/app_pages.dart';
 
@@ -62,6 +62,7 @@ class NewAddressController extends GetxController {
     }
   }
 
+  void onDepartmentSelected(String? value) {}
   Future<void> sendForm(Map<String, Object?> data) async {
     if (_cityModel == null) {
       Get.snackbar('Error', "Tienes que elegir una ciudad");

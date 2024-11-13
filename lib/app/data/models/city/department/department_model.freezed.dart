@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'city.dart';
+part of 'department_model.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,66 +14,57 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-CityModel _$CityModelFromJson(Map<String, dynamic> json) {
-  return _CityModel.fromJson(json);
+DepartmentModel _$DepartmentModelFromJson(Map<String, dynamic> json) {
+  return _DepartmentModel.fromJson(json);
 }
 
 /// @nodoc
-mixin _$CityModel {
+mixin _$DepartmentModel {
   @JsonKey(name: 'dropi_id')
   int get dropiId => throw _privateConstructorUsedError;
-  @JsonKey(name: 'department_id')
-  int get departmenId => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
 
-  /// Serializes this CityModel to a JSON map.
+  /// Serializes this DepartmentModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
-  /// Create a copy of CityModel
+  /// Create a copy of DepartmentModel
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $CityModelCopyWith<CityModel> get copyWith =>
+  $DepartmentModelCopyWith<DepartmentModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $CityModelCopyWith<$Res> {
-  factory $CityModelCopyWith(CityModel value, $Res Function(CityModel) then) =
-      _$CityModelCopyWithImpl<$Res, CityModel>;
+abstract class $DepartmentModelCopyWith<$Res> {
+  factory $DepartmentModelCopyWith(
+          DepartmentModel value, $Res Function(DepartmentModel) then) =
+      _$DepartmentModelCopyWithImpl<$Res, DepartmentModel>;
   @useResult
-  $Res call(
-      {@JsonKey(name: 'dropi_id') int dropiId,
-      @JsonKey(name: 'department_id') int departmenId,
-      String name});
+  $Res call({@JsonKey(name: 'dropi_id') int dropiId, String name});
 }
 
 /// @nodoc
-class _$CityModelCopyWithImpl<$Res, $Val extends CityModel>
-    implements $CityModelCopyWith<$Res> {
-  _$CityModelCopyWithImpl(this._value, this._then);
+class _$DepartmentModelCopyWithImpl<$Res, $Val extends DepartmentModel>
+    implements $DepartmentModelCopyWith<$Res> {
+  _$DepartmentModelCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of CityModel
+  /// Create a copy of DepartmentModel
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? dropiId = null,
-    Object? departmenId = null,
     Object? name = null,
   }) {
     return _then(_value.copyWith(
       dropiId: null == dropiId
           ? _value.dropiId
           : dropiId // ignore: cast_nullable_to_non_nullable
-              as int,
-      departmenId: null == departmenId
-          ? _value.departmenId
-          : departmenId // ignore: cast_nullable_to_non_nullable
               as int,
       name: null == name
           ? _value.name
@@ -84,44 +75,36 @@ class _$CityModelCopyWithImpl<$Res, $Val extends CityModel>
 }
 
 /// @nodoc
-abstract class _$$CityModelImplCopyWith<$Res>
-    implements $CityModelCopyWith<$Res> {
-  factory _$$CityModelImplCopyWith(
-          _$CityModelImpl value, $Res Function(_$CityModelImpl) then) =
-      __$$CityModelImplCopyWithImpl<$Res>;
+abstract class _$$DepartmentModelImplCopyWith<$Res>
+    implements $DepartmentModelCopyWith<$Res> {
+  factory _$$DepartmentModelImplCopyWith(_$DepartmentModelImpl value,
+          $Res Function(_$DepartmentModelImpl) then) =
+      __$$DepartmentModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {@JsonKey(name: 'dropi_id') int dropiId,
-      @JsonKey(name: 'department_id') int departmenId,
-      String name});
+  $Res call({@JsonKey(name: 'dropi_id') int dropiId, String name});
 }
 
 /// @nodoc
-class __$$CityModelImplCopyWithImpl<$Res>
-    extends _$CityModelCopyWithImpl<$Res, _$CityModelImpl>
-    implements _$$CityModelImplCopyWith<$Res> {
-  __$$CityModelImplCopyWithImpl(
-      _$CityModelImpl _value, $Res Function(_$CityModelImpl) _then)
+class __$$DepartmentModelImplCopyWithImpl<$Res>
+    extends _$DepartmentModelCopyWithImpl<$Res, _$DepartmentModelImpl>
+    implements _$$DepartmentModelImplCopyWith<$Res> {
+  __$$DepartmentModelImplCopyWithImpl(
+      _$DepartmentModelImpl _value, $Res Function(_$DepartmentModelImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of CityModel
+  /// Create a copy of DepartmentModel
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? dropiId = null,
-    Object? departmenId = null,
     Object? name = null,
   }) {
-    return _then(_$CityModelImpl(
+    return _then(_$DepartmentModelImpl(
       dropiId: null == dropiId
           ? _value.dropiId
           : dropiId // ignore: cast_nullable_to_non_nullable
-              as int,
-      departmenId: null == departmenId
-          ? _value.departmenId
-          : departmenId // ignore: cast_nullable_to_non_nullable
               as int,
       name: null == name
           ? _value.name
@@ -133,82 +116,74 @@ class __$$CityModelImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$CityModelImpl implements _CityModel {
-  const _$CityModelImpl(
-      {@JsonKey(name: 'dropi_id') required this.dropiId,
-      @JsonKey(name: 'department_id') required this.departmenId,
-      required this.name});
+class _$DepartmentModelImpl extends _DepartmentModel {
+  const _$DepartmentModelImpl(
+      {@JsonKey(name: 'dropi_id') required this.dropiId, required this.name})
+      : super._();
 
-  factory _$CityModelImpl.fromJson(Map<String, dynamic> json) =>
-      _$$CityModelImplFromJson(json);
+  factory _$DepartmentModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$DepartmentModelImplFromJson(json);
 
   @override
   @JsonKey(name: 'dropi_id')
   final int dropiId;
   @override
-  @JsonKey(name: 'department_id')
-  final int departmenId;
-  @override
   final String name;
 
   @override
   String toString() {
-    return 'CityModel(dropiId: $dropiId, departmenId: $departmenId, name: $name)';
+    return 'DepartmentModel(dropiId: $dropiId, name: $name)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$CityModelImpl &&
+            other is _$DepartmentModelImpl &&
             (identical(other.dropiId, dropiId) || other.dropiId == dropiId) &&
-            (identical(other.departmenId, departmenId) ||
-                other.departmenId == departmenId) &&
             (identical(other.name, name) || other.name == name));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, dropiId, departmenId, name);
+  int get hashCode => Object.hash(runtimeType, dropiId, name);
 
-  /// Create a copy of CityModel
+  /// Create a copy of DepartmentModel
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$CityModelImplCopyWith<_$CityModelImpl> get copyWith =>
-      __$$CityModelImplCopyWithImpl<_$CityModelImpl>(this, _$identity);
+  _$$DepartmentModelImplCopyWith<_$DepartmentModelImpl> get copyWith =>
+      __$$DepartmentModelImplCopyWithImpl<_$DepartmentModelImpl>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$CityModelImplToJson(
+    return _$$DepartmentModelImplToJson(
       this,
     );
   }
 }
 
-abstract class _CityModel implements CityModel {
-  const factory _CityModel(
+abstract class _DepartmentModel extends DepartmentModel {
+  const factory _DepartmentModel(
       {@JsonKey(name: 'dropi_id') required final int dropiId,
-      @JsonKey(name: 'department_id') required final int departmenId,
-      required final String name}) = _$CityModelImpl;
+      required final String name}) = _$DepartmentModelImpl;
+  const _DepartmentModel._() : super._();
 
-  factory _CityModel.fromJson(Map<String, dynamic> json) =
-      _$CityModelImpl.fromJson;
+  factory _DepartmentModel.fromJson(Map<String, dynamic> json) =
+      _$DepartmentModelImpl.fromJson;
 
   @override
   @JsonKey(name: 'dropi_id')
   int get dropiId;
   @override
-  @JsonKey(name: 'department_id')
-  int get departmenId;
-  @override
   String get name;
 
-  /// Create a copy of CityModel
+  /// Create a copy of DepartmentModel
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$CityModelImplCopyWith<_$CityModelImpl> get copyWith =>
+  _$$DepartmentModelImplCopyWith<_$DepartmentModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
