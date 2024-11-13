@@ -43,6 +43,9 @@ class NewAddressController extends GetxController {
   String? _cityError;
   String? get cityError => _cityError;
 
+  bool _formIsSubmitted = false;
+  bool get formIsSubmitted => _formIsSubmitted;
+
   FormGroup buildForm() => fb.group(<String, Object>{
         Fields.name.name: FormControl<String>(
           validators: [

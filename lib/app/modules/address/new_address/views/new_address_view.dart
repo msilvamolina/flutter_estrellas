@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
 import '../../../../components/dropdown/dropdown.dart';
+import '../../../../components/inputs/text_input.dart';
 import '../../../../themes/input_decoration.dart';
 import '../../../../themes/styles/colors.dart';
 import '../../../../themes/styles/typography.dart';
@@ -51,23 +52,24 @@ class NewAddressView extends GetView<NewAddressController> {
                             style: TypographyStyle.bodyBlackLarge2,
                           ),
                           const SizedBox(height: 28),
-                          ReactiveTextField(
+                          CustomTextInput(
+                            autofocus: false,
                             formControlName: Fields.name.name,
                             keyboardType: TextInputType.text,
-                            decoration: CustomInputDecoration.inputDecoration(
-                              text: "Nombre completo",
-                              hintText: 'Como está en tu documento',
-                            ),
+                            label: 'Nombre completo',
+                            hintText: 'Como está en tu documento',
+                            isSubmited: controller.formIsSubmitted,
                           ),
                           const SizedBox(height: 22),
-                          ReactiveTextField(
+                          CustomTextInput(
+                            autofocus: false,
                             formControlName: Fields.phone.name,
                             keyboardType: TextInputType.phone,
-                            decoration: CustomInputDecoration.inputDecoration(
-                              text: "Celular",
-                              hintText: 'Ingresa el número de celular',
-                            ),
+                            label: 'Celular',
+                            hintText: 'Ingresa el número de celular',
+                            isSubmited: controller.formIsSubmitted,
                           ),
+                          const SizedBox(height: 22),
                           Padding(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 18, vertical: 8),
