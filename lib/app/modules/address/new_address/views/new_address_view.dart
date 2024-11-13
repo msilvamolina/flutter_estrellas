@@ -51,10 +51,6 @@ class NewAddressView extends GetView<NewAddressController> {
                             totalSteps: 2,
                           ),
                           const SizedBox(height: 16),
-                          // Text(
-                          //   form.findControl(path).toString(),
-                          //   style: TypographyStyle.bodyBlackLarge2,
-                          // ),
                           const SizedBox(height: 16),
                           Text(
                             'Datos de la persona que recibe',
@@ -200,7 +196,6 @@ class NewAddressView extends GetView<NewAddressController> {
                               ],
                             ),
                           ),
-
                           const SizedBox(height: 26),
                           ReactiveFormConsumer(
                             builder: (context, form, child) => Button(

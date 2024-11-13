@@ -3,21 +3,20 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
-class AuthLayout extends StatefulWidget {
-  const AuthLayout({
+import '../../themes/styles/colors.dart';
+
+class LoaderLayout extends StatefulWidget {
+  const LoaderLayout({
     required this.child,
-    this.showBackground = true,
-    this.showInteriorBackground = true,
     super.key,
   });
   final Widget child;
-  final bool showBackground;
-  final bool showInteriorBackground;
+
   @override
   _AuthLayoutState createState() => _AuthLayoutState();
 }
 
-class _AuthLayoutState extends State<AuthLayout> {
+class _AuthLayoutState extends State<LoaderLayout> {
   double _circle1TopInitial = -100;
   double _circle1TopFinal = 80;
 
@@ -72,17 +71,14 @@ class _AuthLayoutState extends State<AuthLayout> {
     double verticalHalf = screenHeight * 0.7;
     bool isMobile = screenWidth < 480;
 
-    Color backgroundColor = Theme.of(context).colorScheme.surface;
-    return Scaffold(
-      body: Stack(
+    return Material(
+      color: white,
+      child: Stack(
         children: [
           Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [
-                  backgroundColor,
-                  backgroundColor,
-                ],
+                colors: [],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
@@ -111,51 +107,27 @@ class _AuthLayoutState extends State<AuthLayout> {
                 filter:
                     ImageFilter.blur(sigmaX: 5000, sigmaY: 5000), // Desenfoque
                 child: Container(
-                  decoration: BoxDecoration(
-                    color: backgroundColor
-                        .withOpacity(0.2), // Fondo semi-transparente
-                    borderRadius: BorderRadius.circular(
-                        isMobile ? 0 : 20), // Bordes redondeados
-                    border: Border.all(
-                      width: 2,
-                      color: backgroundColor
-                          .withOpacity(0.3), // Borde semi-transparente
-                    ),
-                  ),
-                  child: widget.showBackground
-                      ? Center(
-                          child: Container(
-                            margin: EdgeInsets.all(isMobile ? 0 : 60),
-                            width: double.infinity, // Escalar para pantalla
-                            height: double.infinity,
-                            // Escalar para pantalla
-                            constraints: BoxConstraints(maxWidth: 480),
-                            child: ClipRRect(
-                              borderRadius:
-                                  BorderRadius.circular(isMobile ? 0 : 20),
-                              child: BackdropFilter(
-                                filter: ImageFilter.blur(
-                                    sigmaX: 5000, sigmaY: 5000),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: backgroundColor
-                                        .withOpacity(isMobile ? 1 : 0.2),
-                                    borderRadius: BorderRadius.circular(
-                                        isMobile ? 0 : 20),
-                                    border: Border.all(
-                                      width: 2,
-                                      color: backgroundColor.withOpacity(
-                                          0.3), // Borde semi-transparente
-                                    ),
-                                  ),
-                                  child: widget.child,
-                                ),
-                              ),
+                    decoration: BoxDecoration(),
+                    child: Center(
+                      child: Container(
+                        margin: EdgeInsets.all(isMobile ? 0 : 60),
+                        width: double.infinity, // Escalar para pantalla
+                        height: double.infinity,
+                        // Escalar para pantalla
+                        constraints: BoxConstraints(maxWidth: 480),
+                        child: ClipRRect(
+                          borderRadius:
+                              BorderRadius.circular(isMobile ? 0 : 20),
+                          child: BackdropFilter(
+                            filter:
+                                ImageFilter.blur(sigmaX: 5000, sigmaY: 5000),
+                            child: Container(
+                              child: widget.child,
                             ),
                           ),
-                        )
-                      : widget.child,
-                ),
+                        ),
+                      ),
+                    )),
               ),
             ),
           ),

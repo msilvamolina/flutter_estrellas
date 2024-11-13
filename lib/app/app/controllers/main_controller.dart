@@ -229,6 +229,7 @@ class MainController extends GetxController {
 
   void showLoader({String? title, String? message}) {
     showDialog(
+      useSafeArea: false,
       barrierColor: Colors.transparent,
       context: Get.context!,
       builder: (BuildContext context) {

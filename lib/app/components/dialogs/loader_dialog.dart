@@ -6,6 +6,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../themes/styles/colors.dart';
+import '../layouts/auth_layout.dart';
+import '../layouts/loader_layout.dart';
 
 class LoaderDialog extends StatelessWidget {
   const LoaderDialog({super.key, this.title, this.message});
@@ -15,8 +17,7 @@ class LoaderDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: white,
+    return LoaderLayout(
       child: AbsorbPointer(
         absorbing: true,
         child: Center(
