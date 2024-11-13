@@ -122,11 +122,11 @@ class NewAddressController extends GetxController {
     String phone = data[Fields.phone.name].toString();
     String notes = data[Fields.notes.name].toString();
 
-    print('hola!');
-    // mainController.showLoader(
-    //   title: 'Guardando...',
-    //   message: 'Por favor espere',
-    // );
+    mainController.showLoader(
+      title: 'Guardando...',
+      message: 'Por favor espere',
+    );
+
     // Either<String, Unit> response = await _repository.addAddress(
     //   fullname: name,
     //   city: _cityModel!,
