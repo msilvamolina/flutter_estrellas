@@ -91,27 +91,27 @@ class AddressRepository {
     required String address,
     required String notes,
     required CityModel city,
+    required DepartmentModel department,
+    required bool save,
   }) async {
     Map<String, String> userData = getUidAndEmail();
     String uid = userData['uid'] ?? '';
-    String email = userData['email'] ?? '';
     String addressId = Uuid().v4();
     try {
       await _firebaseFirestore
           .collection('users')
           .doc(uid)
-          .collection('address')
+          .collection('addresses')
           .doc(addressId)
           .set({
         'id': addressId,
         'fullname': fullname,
         'phone': phone,
+        'save': save,
         'notes': notes,
         'address': address,
         'city': city.toJson(),
-        'isAnonymous': false,
-        'createdBy': email,
-        'createdByUserId': uid,
+        'department': department.toJson(),
         'createdAt': DateTime.now(),
       });
       return right(unit);

@@ -8,6 +8,7 @@ import 'package:reactive_phone_form_field/reactive_phone_form_field.dart';
 import '../../../../app/controllers/main_controller.dart';
 import '../../../../data/models/city/city/city_model.dart';
 import '../../../../data/models/city/department/department_model.dart';
+import '../../../../data/models/product_variant/product_variant_model.dart';
 import '../../../../data/models/provider/provider/provider_model.dart';
 import '../../../../routes/app_pages.dart';
 
@@ -112,40 +113,69 @@ class NewAddressController extends GetxController {
     citySelected.value = value ?? '';
   }
 
+  CityModel? getCityById(String id) {
+    CityModel? option =
+        cityList.firstWhereOrNull((element) => element.id == id);
+
+    return option;
+  }
+
+  DepartmentModel? getDepartmentById(String id) {
+    DepartmentModel? option = departmentsList
+        .firstWhereOrNull((element) => element.dropiId.toString() == id);
+
+    return option;
+  }
+
   Future<void> sendForm(Map<String, Object?> data) async {
     if (departmentSelected.value == null) {
       departmentError.value = 'Elige un departamento';
+      return;
+    }
+
+    DepartmentModel? _departmentModel =
+        getDepartmentById(departmentSelected.value!);
+
+    if (_departmentModel == null) {
+      cityError.value = 'Elige un departamento válido';
       return;
     }
     if (citySelected.value == null) {
       cityError.value = 'Elige una ciudad';
       return;
     }
+
+    CityModel? _cityModel = getCityById(citySelected.value!);
+
+    if (_cityModel == null) {
+      cityError.value = 'Elige una ciudad válida';
+      return;
+    }
+
     String name = data[Fields.name.name].toString();
     String address = data[Fields.address.name].toString();
     String phone = data[Fields.phone.name].toString();
     String notes = data[Fields.notes.name].toString();
-
+  
     mainController.showLoader(
-      title: 'Estamos validando tu pedido',
+      title: 'Verificando dirección',
     );
 
-    Future.delayed(Duration(seconds: 4), () {
+    Either<String, Unit> response = await _repository.addAddress(
+      fullname: name,
+      city: _cityModel,
+      department: _departmentModel,
+      address: address,
+      phone: phone,
+      notes: notes,
+      save: saveAddress.value,
+    );
+    Get.back();
+    response.fold((failure) {
+      Snackbars.error(failure);
+    }, (provider) async {
       Get.back();
+      Snackbars.success('Dirección agregada correctamente');
     });
-    // Either<String, Unit> response = await _repository.addAddress(
-    //   fullname: name,
-    //   city: _cityModel!,
-    //   address: address,
-    //   phone: phone,
-    //   notes: notes,
-    // );
-    // Get.back();
-    // response.fold((failure) {
-    //   Snackbars.error(failure);
-    // }, (provider) async {
-    //   Get.back();
-    //   Snackbars.success('Dirección agregada correctamente');
-    // });
   }
 }
