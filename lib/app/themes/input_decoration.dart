@@ -103,6 +103,7 @@ class CustomInputDecoration {
     Color borderColor =
         mainController.isThemeModeDark ? secondaryBase : secondaryBase;
 
+    Color borderColorGrey = neutral600;
     Color errorColor = mainController.isThemeModeDark ? error500 : error900;
 
     bool showErrors = isSubmited && control.invalid && control.hasErrors;
@@ -146,15 +147,15 @@ class CustomInputDecoration {
         borderRadius: BorderRadius.circular(12),
       ),
       enabledBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: borderColor, width: 2.0),
+        borderSide: BorderSide(color: borderColorGrey, width: 1),
         borderRadius: BorderRadius.circular(12),
       ),
       focusedBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: borderColor, width: 2.0),
+        borderSide: BorderSide(color: borderColor, width: 2),
         borderRadius: BorderRadius.circular(12),
       ),
       border: OutlineInputBorder(
-        borderSide: BorderSide(color: borderColor, width: 2.0),
+        borderSide: BorderSide(color: borderColorGrey, width: 1),
         borderRadius: BorderRadius.circular(12),
       ),
       errorStyle: TextStyle(
