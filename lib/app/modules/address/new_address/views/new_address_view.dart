@@ -63,21 +63,15 @@ class NewAddressView extends GetView<NewAddressController> {
                             keyboardType: TextInputType.text,
                             label: 'Nombre completo',
                             hintText: 'Como está en tu documento',
-                            // control: form.findControl(),
-                            // isSubmited: controller.formIsSubmitted,
                           ),
                           const SizedBox(height: 22),
                           CustomTextInput(
                             autofocus: false,
                             formControlName: Fields.phone.name,
-
                             keyboardType: TextInputType.phone,
                             label: 'Celular',
                             hintText: 'Ingresa el número de celular',
-
-                            // isSubmited: controller.formIsSubmitted,
                           ),
-                          const SizedBox(height: 22),
                           Padding(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 18, vertical: 8),
