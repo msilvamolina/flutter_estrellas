@@ -76,7 +76,8 @@ class NewAddressView extends GetView<NewAddressController> {
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 18, vertical: 8),
                             child: Text(
-                                'Te llamaremos si tenemos problemas en el envío'),
+                              'Te llamaremos si tenemos problemas en el envío',
+                            ),
                           ),
                           const SizedBox(height: 16),
                           Text(
@@ -86,6 +87,7 @@ class NewAddressView extends GetView<NewAddressController> {
                           const SizedBox(height: 16),
                           Obx(
                             () => DropDown(
+                              label: 'Departamento',
                               error: controller.departmentError,
                               selectedValue:
                                   controller.departmentSelected.value,
@@ -104,6 +106,7 @@ class NewAddressView extends GetView<NewAddressController> {
                           Obx(
                             () => controller.cityList.isNotEmpty
                                 ? DropDown(
+                                    label: 'Ciudad o municipio',
                                     error: controller.cityError,
                                     selectedValue:
                                         controller.citySelected.value,
