@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_estrellas/app/components/buttons/buttons.dart';
 import 'package:flutter_estrellas/app/data/models/city/city/city_model.dart';
 import 'package:flutter_estrellas/app/data/models/city/department/department_model.dart';
+import 'package:flutter_estrellas/app/libraries/icons/icons_font.dart';
+import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
 import 'package:reactive_forms/reactive_forms.dart';
@@ -127,10 +129,35 @@ class NewAddressView extends GetView<NewAddressController> {
                             autofocus: false,
                             formControlName: Fields.address.name,
                             keyboardType: TextInputType.text,
-                            label: 'Direccion',
+                            label: 'Dirección',
                             hintText: 'Ingresa la dirección',
                           ),
-                          const SizedBox(height: 26),
+                          const SizedBox(height: 10),
+                          Obx(
+                            () => InkWell(
+                              onTap: controller.onSaveAddressChanged,
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 16),
+                                child: Row(
+                                  children: [
+                                    SvgPicture.asset(
+                                      controller.saveAddress.value
+                                          ? 'assets/svg/CheckboxActive.svg'
+                                          : 'assets/svg/Checkbox.svg',
+                                      width: 20,
+                                    ),
+                                    SizedBox(width: 10),
+                                    Text(
+                                      'Guardar dirección',
+                                      style: TypographyStyle.bodyRegularLarge,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 16),
                           CustomTextInput(
                             autofocus: false,
                             maxLines: 6,
@@ -141,8 +168,37 @@ class NewAddressView extends GetView<NewAddressController> {
                                 'Ingresa una descripción de la dirección o indicaciones de entrega',
                           ),
                           const SizedBox(height: 16),
-                          Text(
-                              'Al Continuar, aceptas los Términos y condiciones y la Política de privacidad de Estrellas.'),
+                          RichText(
+                            textAlign: TextAlign.start,
+                            text: TextSpan(
+                              text: 'Al continuar, aceptas los ',
+                              style: TypographyStyle.bodyRegularMedium
+                                  .copyWith(color: neutral800),
+                              children: <TextSpan>[
+                                TextSpan(
+                                  text: 'Términos y condiciones',
+                                  style: TypographyStyle.bodyRegularMedium
+                                      .copyWith(color: secondaryBase),
+                                ),
+                                TextSpan(
+                                  text: ' y la ',
+                                  style: TypographyStyle.bodyRegularMedium
+                                      .copyWith(color: neutral800),
+                                ),
+                                TextSpan(
+                                  text: 'Política de privacidad',
+                                  style: TypographyStyle.bodyRegularMedium
+                                      .copyWith(color: secondaryBase),
+                                ),
+                                TextSpan(
+                                  text: ' de Estrellas.',
+                                  style: TypographyStyle.bodyRegularMedium
+                                      .copyWith(color: neutral800),
+                                ),
+                              ],
+                            ),
+                          ),
+
                           const SizedBox(height: 26),
                           ReactiveFormConsumer(
                             builder: (context, form, child) => Button(

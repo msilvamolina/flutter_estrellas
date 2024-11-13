@@ -46,6 +46,8 @@ class NewAddressController extends GetxController {
   bool _formIsSubmitted = false;
   bool get formIsSubmitted => _formIsSubmitted;
 
+  RxBool saveAddress = true.obs;
+
   FormGroup buildForm() => fb.group(<String, Object>{
         Fields.name.name: FormControl<String>(
           validators: [
@@ -92,6 +94,10 @@ class NewAddressController extends GetxController {
 
       update(['view']);
     }
+  }
+
+  void onSaveAddressChanged() {
+    saveAddress.value = !saveAddress.value;
   }
 
   void onDepartmentSelected(String? value) {
