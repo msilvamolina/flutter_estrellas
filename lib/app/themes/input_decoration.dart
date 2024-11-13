@@ -108,6 +108,8 @@ class CustomInputDecoration {
 
     bool showErrors = isSubmited && control.invalid && control.hasErrors;
     return InputDecoration(
+      contentPadding: EdgeInsets.symmetric(
+          vertical: 20.0, horizontal: 16), // Aumenta la altura
       label: Container(
         padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
         decoration: BoxDecoration(
@@ -126,6 +128,7 @@ class CustomInputDecoration {
       ),
       floatingLabelBehavior: FloatingLabelBehavior.always,
       hintText: hintText,
+      hintStyle: TypographyStyle.bodyRegularLarge,
       prefixIcon: icon != null
           ? Icon(
               icon,
