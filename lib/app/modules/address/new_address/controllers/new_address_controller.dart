@@ -66,13 +66,6 @@ class NewAddressController extends GetxController {
             PhoneValidators.valid,
           ],
         ),
-        // Fields.phone.name: FormControl<String>(
-        //   validators: [
-        //     Validators.required,
-        //     Validators.number(),
-        //     Validators.minLength(4),
-        //   ],
-        // ),
       });
 
   @override
@@ -134,10 +127,12 @@ class NewAddressController extends GetxController {
     String notes = data[Fields.notes.name].toString();
 
     mainController.showLoader(
-      title: 'Guardando...',
-      message: 'Por favor espere',
+      title: 'Estamos validando tu pedido',
     );
 
+    Future.delayed(Duration(seconds: 2), () {
+      Get.back();
+    });
     // Either<String, Unit> response = await _repository.addAddress(
     //   fullname: name,
     //   city: _cityModel!,
