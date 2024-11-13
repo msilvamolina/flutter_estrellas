@@ -32,106 +32,111 @@ class NewAddressView extends GetView<NewAddressController> {
               id: 'view',
               builder: (_) {
                 return SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Datos de la persona que recibe',
-                          style: TypographyStyle.bodyBlackLarge,
-                        ),
-                        const SizedBox(height: 16),
-                        ReactiveTextField(
-                          formControlName: Fields.name.name,
-                          keyboardType: TextInputType.text,
-                          decoration: CustomInputDecoration.inputDecoration(
-                            text: "Nombre completo",
-                            hintText: 'Como está en tu documento',
+                  child: SafeArea(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Datos de la persona que recibe',
+                            style: TypographyStyle.bodyBlackLarge,
                           ),
-                        ),
-                        const SizedBox(height: 16),
-                        ReactiveTextField(
-                          formControlName: Fields.phone.name,
-                          keyboardType: TextInputType.phone,
-                          decoration: CustomInputDecoration.inputDecoration(
-                            text: "Celular",
-                            hintText: 'Ingresa el número de celular',
+                          const SizedBox(height: 16),
+                          ReactiveTextField(
+                            formControlName: Fields.name.name,
+                            keyboardType: TextInputType.text,
+                            decoration: CustomInputDecoration.inputDecoration(
+                              text: "Nombre completo",
+                              hintText: 'Como está en tu documento',
+                            ),
                           ),
-                        ),
-                        Text('Te llamaremos si tenemos problemas en el envío'),
-                        const SizedBox(height: 16),
-                        Text(
-                          'Lugar de envío',
-                          style: TypographyStyle.bodyBlackLarge,
-                        ),
-                        const SizedBox(height: 16),
-                        const SizedBox(height: 16),
-                        ReactiveTextField(
-                          formControlName: Fields.address.name,
-                          keyboardType: TextInputType.text,
-                          decoration: CustomInputDecoration.inputDecoration(
-                            text: "Direccion",
+                          const SizedBox(height: 16),
+                          ReactiveTextField(
+                            formControlName: Fields.phone.name,
+                            keyboardType: TextInputType.phone,
+                            decoration: CustomInputDecoration.inputDecoration(
+                              text: "Celular",
+                              hintText: 'Ingresa el número de celular',
+                            ),
                           ),
-                        ),
-                        const SizedBox(height: 16),
-                        Obx(
-                          () => DropDown(
-                            error: controller.departmentError,
-                            selectedValue: controller.departmentSelected.value,
-                            values: controller.departmentsList
-                                .map(
-                                  (DepartmentModel value) => OptionDropDown(
-                                    text: value.name,
-                                    value: value.dropiId.toString(),
-                                  ),
-                                )
-                                .toList(),
-                            onChanged: controller.onDepartmentSelected,
+                          Text(
+                              'Te llamaremos si tenemos problemas en el envío'),
+                          const SizedBox(height: 16),
+                          Text(
+                            'Lugar de envío',
+                            style: TypographyStyle.bodyBlackLarge,
                           ),
-                        ),
-                        const SizedBox(height: 16),
-                        Obx(
-                          () => controller.cityList.isNotEmpty
-                              ? DropDown(
-                                  error: controller.cityError,
-                                  selectedValue: controller.citySelected.value,
-                                  values: controller.cityList
-                                      .map(
-                                        (CityModel value) => OptionDropDown(
-                                          text: value.name ?? '',
-                                          value: value.id.toString(),
-                                        ),
-                                      )
-                                      .toList(),
-                                  onChanged: controller.onCitySelected,
-                                )
-                              : SizedBox.shrink(),
-                        ),
-                        const SizedBox(height: 16),
-                        ReactiveTextField(
-                          formControlName: Fields.notes.name,
-                          keyboardType: TextInputType.text,
-                          maxLines: 8,
-                          decoration: CustomInputDecoration.inputDecoration(
-                              text: "Referencias adicionales",
-                              hintText:
-                                  'Ingresa una descripción de la dirección o indicaciones de entrega'),
-                        ),
-                        const SizedBox(height: 16),
-                        Text(
-                            'Al Continuar, aceptas los Términos y condiciones y la Política de privacidad de Estrellas.'),
-                        const SizedBox(height: 26),
-                        ReactiveFormConsumer(
-                          builder: (context, form, child) => Button(
-                            label: 'Continuar',
-                            style: ButtonStyles.primary,
-                            onPressed: (form.valid)
-                                ? () => controller.sendForm(form.value)
-                                : null,
+                          const SizedBox(height: 16),
+                          const SizedBox(height: 16),
+                          Obx(
+                            () => DropDown(
+                              error: controller.departmentError,
+                              selectedValue:
+                                  controller.departmentSelected.value,
+                              values: controller.departmentsList
+                                  .map(
+                                    (DepartmentModel value) => OptionDropDown(
+                                      text: value.name,
+                                      value: value.dropiId.toString(),
+                                    ),
+                                  )
+                                  .toList(),
+                              onChanged: controller.onDepartmentSelected,
+                            ),
                           ),
-                        ),
-                      ],
+                          const SizedBox(height: 16),
+                          Obx(
+                            () => controller.cityList.isNotEmpty
+                                ? DropDown(
+                                    error: controller.cityError,
+                                    selectedValue:
+                                        controller.citySelected.value,
+                                    values: controller.cityList
+                                        .map(
+                                          (CityModel value) => OptionDropDown(
+                                            text: value.name ?? '',
+                                            value: value.id.toString(),
+                                          ),
+                                        )
+                                        .toList(),
+                                    onChanged: controller.onCitySelected,
+                                  )
+                                : SizedBox.shrink(),
+                          ),
+                          const SizedBox(height: 26),
+                          ReactiveTextField(
+                            formControlName: Fields.address.name,
+                            keyboardType: TextInputType.text,
+                            decoration: CustomInputDecoration.inputDecoration(
+                              text: "Direccion",
+                            ),
+                          ),
+                          const SizedBox(height: 26),
+                          ReactiveTextField(
+                            formControlName: Fields.notes.name,
+                            keyboardType: TextInputType.text,
+                            maxLines: 8,
+                            decoration: CustomInputDecoration.inputDecoration(
+                                text: "Referencias adicionales",
+                                hintText:
+                                    'Ingresa una descripción de la dirección o indicaciones de entrega'),
+                          ),
+                          const SizedBox(height: 16),
+                          Text(
+                              'Al Continuar, aceptas los Términos y condiciones y la Política de privacidad de Estrellas.'),
+                          const SizedBox(height: 26),
+                          ReactiveFormConsumer(
+                            builder: (context, form, child) => Button(
+                              label: 'Continuar',
+                              style: ButtonStyles.primary,
+                              onPressed: (form.valid)
+                                  ? () => controller.sendForm(form.value)
+                                  : null,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 );
