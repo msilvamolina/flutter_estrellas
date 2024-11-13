@@ -77,7 +77,7 @@ class NewAddressView extends GetView<NewAddressController> {
                         Obx(
                           () => DropDown(
                             error: controller.departmentError,
-                            selectedValue: controller.departmentSelected,
+                            selectedValue: controller.departmentSelected.value,
                             values: controller.departmentsList
                                 .map(
                                   (DepartmentModel value) => OptionDropDown(

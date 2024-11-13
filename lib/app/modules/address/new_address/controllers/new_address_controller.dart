@@ -32,9 +32,7 @@ class NewAddressController extends GetxController {
   final RxList<DepartmentModel> _departmentsList = <DepartmentModel>[].obs;
   List<DepartmentModel> get departmentsList => _departmentsList.toList();
 
-  String? _departmentSelected;
-  String? get departmentSelected => _departmentSelected;
-
+  RxnString departmentSelected = RxnString();
   String? _departmentError;
   String? get departmentError => _departmentError;
   FormGroup buildForm() => fb.group(<String, Object>{
@@ -76,7 +74,10 @@ class NewAddressController extends GetxController {
     }
   }
 
-  void onDepartmentSelected(String? value) {}
+  void onDepartmentSelected(String? value) {
+    departmentSelected.value = value ?? '';
+  }
+
   Future<void> sendForm(Map<String, Object?> data) async {
     if (_cityModel == null) {
       Get.snackbar('Error', "Tienes que elegir una ciudad");
