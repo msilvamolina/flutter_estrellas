@@ -10,6 +10,7 @@ import '../../../../components/dropdown/dropdown.dart';
 import '../../../../themes/input_decoration.dart';
 import '../../../../themes/styles/typography.dart';
 import '../controllers/new_address_controller.dart';
+import '../../../../components/step_indicator/step_indicator.dart';
 
 class NewAddressView extends GetView<NewAddressController> {
   const NewAddressView({super.key});
@@ -38,11 +39,16 @@ class NewAddressView extends GetView<NewAddressController> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          StepIndicator(
+                            currentStep: 1,
+                            totalSteps: 2,
+                          ),
+                          const SizedBox(height: 16),
                           Text(
                             'Datos de la persona que recibe',
                             style: TypographyStyle.bodyBlackLarge,
                           ),
-                          const SizedBox(height: 16),
+                          const SizedBox(height: 22),
                           ReactiveTextField(
                             formControlName: Fields.name.name,
                             keyboardType: TextInputType.text,
@@ -60,6 +66,7 @@ class NewAddressView extends GetView<NewAddressController> {
                               hintText: 'Ingresa el número de celular',
                             ),
                           ),
+                          const SizedBox(height: 8),
                           Text(
                               'Te llamaremos si tenemos problemas en el envío'),
                           const SizedBox(height: 16),
