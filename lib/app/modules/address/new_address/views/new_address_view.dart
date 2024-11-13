@@ -10,6 +10,7 @@ import 'package:reactive_forms/reactive_forms.dart';
 import 'package:reactive_phone_form_field/reactive_phone_form_field.dart';
 
 import '../../../../components/dropdown/dropdown.dart';
+import '../../../../components/inputs/phone_input.dart';
 import '../../../../components/inputs/text_input.dart';
 import '../../../../themes/input_decoration.dart';
 import '../../../../themes/styles/colors.dart';
@@ -68,34 +69,13 @@ class NewAddressView extends GetView<NewAddressController> {
                             hintText: 'Como está en tu documento',
                           ),
                           const SizedBox(height: 22),
-                          ReactivePhoneFormField<PhoneNumber>(
+                          CustomPhoneInput(
+                            autofocus: false,
                             formControlName: Fields.phone.name,
-                            focusNode: FocusNode(),
-                            valueAccessor: PhoneNumberValueAccessor(),
-                            validationMessages: {
-                              ...PhoneValidationMessage
-                                  .localizedValidationMessages(
-                                context,
-                              ),
-                            },
-                            decoration: InputDecoration(
-                              labelText: 'Celular',
-                              border: OutlineInputBorder(),
-                            ),
-                            countrySelectorNavigator:
-                                CountrySelectorNavigator.dialog(
-                              searchBoxTextStyle:
-                                  TypographyStyle.bodyRegularLarge,
-                              countries: [IsoCode.CO],
-                            ),
+                            keyboardType: TextInputType.phone,
+                            label: 'Celular',
+                            hintText: 'Ingresa el número de celular',
                           ),
-                          // CustomTextInput(
-                          //   autofocus: false,
-                          //   formControlName: Fields.phone.name,
-                          //   keyboardType: TextInputType.phone,
-                          //   label: 'Celular',
-                          //   hintText: 'Ingresa el número de celular',
-                          // ),
                           Padding(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 18, vertical: 8),
