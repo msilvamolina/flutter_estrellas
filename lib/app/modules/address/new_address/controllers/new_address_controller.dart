@@ -130,7 +130,7 @@ class NewAddressController extends GetxController {
       title: 'Estamos validando tu pedido',
     );
 
-    Future.delayed(Duration(seconds: 2), () {
+    Future.delayed(Duration(seconds: 4), () {
       Get.back();
     });
     // Either<String, Unit> response = await _repository.addAddress(
