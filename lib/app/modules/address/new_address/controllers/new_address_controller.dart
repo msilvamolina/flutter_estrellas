@@ -23,11 +23,6 @@ enum Fields {
 class NewAddressController extends GetxController {
   MainController mainController = Get.find();
   final AddressRepository _repository = AddressRepository();
-  DepartmentModel? _departmentModel;
-  DepartmentModel? get departmentModel => _departmentModel;
-
-  CityModel? _cityModel;
-  CityModel? get cityModel => _cityModel;
 
   final RxList<DepartmentModel> _departmentsList = <DepartmentModel>[].obs;
   List<DepartmentModel> get departmentsList => _departmentsList.toList();
@@ -36,12 +31,10 @@ class NewAddressController extends GetxController {
   List<CityModel> get cityList => _cityList.toList();
 
   RxnString departmentSelected = RxnString();
-  String? _departmentError;
-  String? get departmentError => _departmentError;
+  RxnString departmentError = RxnString();
 
   RxnString citySelected = RxnString();
-  String? _cityError;
-  String? get cityError => _cityError;
+  RxnString cityError = RxnString();
 
   bool _formIsSubmitted = false;
   bool get formIsSubmitted => _formIsSubmitted;
@@ -86,21 +79,12 @@ class NewAddressController extends GetxController {
     super.onInit();
   }
 
-  Future<void> pickCity() async {
-    final result = await Get.toNamed(Routes.SELECT_DEPARTMENT);
-    if (result != null) {
-      _departmentModel = result[0];
-      _cityModel = result[1];
-
-      update(['view']);
-    }
-  }
-
   void onSaveAddressChanged() {
     saveAddress.value = !saveAddress.value;
   }
 
   void onDepartmentSelected(String? value) {
+    departmentError.value = null;
     if (value != null) {
       departmentSelected.value = value;
       citySelected.value = null;
@@ -120,12 +104,17 @@ class NewAddressController extends GetxController {
   }
 
   void onCitySelected(String? value) {
+    cityError.value = null;
     citySelected.value = value ?? '';
   }
 
   Future<void> sendForm(Map<String, Object?> data) async {
-    if (_cityModel == null) {
-      Get.snackbar('Error', "Tienes que elegir una ciudad");
+    if (departmentSelected.value == null) {
+      departmentError.value = 'Elige un departamento';
+      return;
+    }
+    if (citySelected.value == null) {
+      cityError.value = 'Elige una ciudad';
       return;
     }
     String name = data[Fields.name.name].toString();
@@ -133,23 +122,24 @@ class NewAddressController extends GetxController {
     String phone = data[Fields.phone.name].toString();
     String notes = data[Fields.notes.name].toString();
 
-    mainController.showLoader(
-      title: 'Guardando...',
-      message: 'Por favor espere',
-    );
-    Either<String, Unit> response = await _repository.addAddress(
-      fullname: name,
-      city: _cityModel!,
-      address: address,
-      phone: phone,
-      notes: notes,
-    );
-    Get.back();
-    response.fold((failure) {
-      Snackbars.error(failure);
-    }, (provider) async {
-      Get.back();
-      Snackbars.success('Dirección agregada correctamente');
-    });
+    print('hola!');
+    // mainController.showLoader(
+    //   title: 'Guardando...',
+    //   message: 'Por favor espere',
+    // );
+    // Either<String, Unit> response = await _repository.addAddress(
+    //   fullname: name,
+    //   city: _cityModel!,
+    //   address: address,
+    //   phone: phone,
+    //   notes: notes,
+    // );
+    // Get.back();
+    // response.fold((failure) {
+    //   Snackbars.error(failure);
+    // }, (provider) async {
+    //   Get.back();
+    //   Snackbars.success('Dirección agregada correctamente');
+    // });
   }
 }

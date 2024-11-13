@@ -90,7 +90,7 @@ class NewAddressView extends GetView<NewAddressController> {
                           Obx(
                             () => DropDown(
                               label: 'Departamento',
-                              error: controller.departmentError,
+                              error: controller.departmentError.value,
                               selectedValue:
                                   controller.departmentSelected.value,
                               values: controller.departmentsList
@@ -109,7 +109,7 @@ class NewAddressView extends GetView<NewAddressController> {
                             () => controller.cityList.isNotEmpty
                                 ? DropDown(
                                     label: 'Ciudad o municipio',
-                                    error: controller.cityError,
+                                    error: controller.cityError.value,
                                     selectedValue:
                                         controller.citySelected.value,
                                     values: controller.cityList

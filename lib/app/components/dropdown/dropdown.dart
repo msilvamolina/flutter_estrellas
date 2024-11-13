@@ -65,7 +65,8 @@ class DropDown extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 4),
               decoration: BoxDecoration(
                 border: Border.all(
-                    color: error != null ? errorColor : neutral600, width: 1),
+                    color: error != null ? errorColor : neutral600,
+                    width: error != null ? 2 : 1),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: DropdownButton<String>(
@@ -74,9 +75,14 @@ class DropDown extends StatelessWidget {
                 isExpanded: true,
                 icon: Padding(
                   padding: const EdgeInsets.only(right: 8),
-                  child: Icon(
-                    EstrellasIcons.arrowBottom,
-                  ),
+                  child: error == null
+                      ? Icon(
+                          EstrellasIcons.arrowBottom,
+                        )
+                      : Icon(
+                          Icons.error,
+                          color: errorColor,
+                        ),
                 ),
                 underline: const SizedBox.shrink(),
                 alignment: AlignmentDirectional.bottomEnd,
@@ -142,11 +148,11 @@ class DropDown extends StatelessWidget {
         ),
         if (error != null)
           Padding(
-            padding: const EdgeInsets.only(top: 6),
+            padding: const EdgeInsets.only(top: 6, left: 16),
             child: Text(
               error!,
               style:
-                  TypographyStyle.bodyRegularSmall.copyWith(color: errorColor),
+                  TypographyStyle.bodyRegularMedium.copyWith(color: errorColor),
             ),
           )
       ],
