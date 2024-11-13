@@ -106,7 +106,7 @@ class CustomInputDecoration {
     Color borderColorGrey = neutral600;
     Color errorColor = mainController.isThemeModeDark ? error500 : error900;
 
-    bool showErrors = control.touched && control.invalid && control.hasErrors;
+    bool showErrors = control.invalid && control.touched;
     return InputDecoration(
       contentPadding: EdgeInsets.symmetric(
           vertical: 20.0, horizontal: 16), // Aumenta la altura

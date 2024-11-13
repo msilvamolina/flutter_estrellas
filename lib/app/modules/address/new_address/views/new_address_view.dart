@@ -47,6 +47,11 @@ class NewAddressView extends GetView<NewAddressController> {
                             totalSteps: 2,
                           ),
                           const SizedBox(height: 16),
+                          // Text(
+                          //   form.findControl(path).toString(),
+                          //   style: TypographyStyle.bodyBlackLarge2,
+                          // ),
+                          const SizedBox(height: 16),
                           Text(
                             'Datos de la persona que recibe',
                             style: TypographyStyle.bodyBlackLarge2,
@@ -58,15 +63,18 @@ class NewAddressView extends GetView<NewAddressController> {
                             keyboardType: TextInputType.text,
                             label: 'Nombre completo',
                             hintText: 'Como está en tu documento',
+                            // control: form.findControl(),
                             // isSubmited: controller.formIsSubmitted,
                           ),
                           const SizedBox(height: 22),
                           CustomTextInput(
                             autofocus: false,
                             formControlName: Fields.phone.name,
+
                             keyboardType: TextInputType.phone,
                             label: 'Celular',
                             hintText: 'Ingresa el número de celular',
+
                             // isSubmited: controller.formIsSubmitted,
                           ),
                           const SizedBox(height: 22),
