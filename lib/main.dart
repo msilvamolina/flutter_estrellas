@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:reactive_phone_form_field/reactive_phone_form_field.dart';
 import 'app/app/layout/remote_config/remote_config_layout.dart';
 import 'app/config/firebase_config.dart';
 import 'app/routes/app_pages.dart';
@@ -82,9 +83,15 @@ class MyApp extends StatelessWidget {
     FlutterNativeSplash.remove();
     return GetMaterialApp(
       navigatorObservers: [routeObserver],
-
+      localizationsDelegates: const [
+        ...PhoneFieldLocalization.delegates,
+      ],
+      supportedLocales: const [
+        Locale('es', ''),
+      ],
       title: "Estrellas",
       locale: const Locale('es'),
+
       fallbackLocale: const Locale('es'),
       debugShowCheckedModeBanner: false,
       theme: theme.light(),

@@ -3,6 +3,7 @@ import 'package:flutter_estrellas/app/components/snackbars/snackbars.dart';
 import 'package:flutter_estrellas/app/data/providers/repositories/address/address_repository.dart';
 import 'package:get/get.dart';
 import 'package:reactive_forms/reactive_forms.dart';
+import 'package:reactive_phone_form_field/reactive_phone_form_field.dart';
 
 import '../../../../app/controllers/main_controller.dart';
 import '../../../../data/models/city/city/city_model.dart';
@@ -55,13 +56,23 @@ class NewAddressController extends GetxController {
           ],
         ),
         Fields.notes.name: FormControl<String>(),
-        Fields.phone.name: FormControl<String>(
+        Fields.phone.name: FormControl<PhoneNumber>(
+          value: const PhoneNumber(
+            isoCode: IsoCode.CO,
+            nsn: '',
+          ),
           validators: [
-            Validators.required,
-            Validators.number(),
-            Validators.minLength(4),
+            PhoneValidators.required,
+            PhoneValidators.valid,
           ],
         ),
+        // Fields.phone.name: FormControl<String>(
+        //   validators: [
+        //     Validators.required,
+        //     Validators.number(),
+        //     Validators.minLength(4),
+        //   ],
+        // ),
       });
 
   @override
