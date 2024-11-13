@@ -84,6 +84,20 @@ abstract class TypographyStyle {
     letterSpacing: 0,
     fontWeight: FontWeight.w500,
   );
+
+  static TextStyle bodyBlackLarge2 = textStyle.copyWith(
+    fontSize: _h4MobileSize,
+    height: 1.36,
+    letterSpacing: 0,
+    fontWeight: FontWeight.w500,
+  );
+
+  static TextStyle bodyBlackLarge3 = textStyle.copyWith(
+    fontSize: _h3MobileSize,
+    height: 1.36,
+    letterSpacing: 0,
+    fontWeight: FontWeight.w500,
+  );
   static TextStyle bodyBlackMedium = textStyle.copyWith(
     fontSize: _bodyMediumSize,
     height: 1.36,

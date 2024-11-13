@@ -8,6 +8,7 @@ import 'package:reactive_forms/reactive_forms.dart';
 
 import '../../../../components/dropdown/dropdown.dart';
 import '../../../../themes/input_decoration.dart';
+import '../../../../themes/styles/colors.dart';
 import '../../../../themes/styles/typography.dart';
 import '../controllers/new_address_controller.dart';
 import '../../../../components/step_indicator/step_indicator.dart';
@@ -16,16 +17,17 @@ class NewAddressView extends GetView<NewAddressController> {
   const NewAddressView({super.key});
   @override
   Widget build(BuildContext context) {
-    Color primary = Theme.of(context).colorScheme.primary;
-
     return ReactiveFormBuilder(
         form: controller.buildForm,
         builder: (context, form, child) {
           return Scaffold(
+            backgroundColor: white,
             appBar: AppBar(
+              backgroundColor: white,
+              surfaceTintColor: white,
               title: Text(
                 'Domicilio',
-                style: TypographyStyle.bodyBlackLarge,
+                style: TypographyStyle.bodyBlackLarge2,
               ),
               centerTitle: true,
             ),
@@ -46,9 +48,9 @@ class NewAddressView extends GetView<NewAddressController> {
                           const SizedBox(height: 16),
                           Text(
                             'Datos de la persona que recibe',
-                            style: TypographyStyle.bodyBlackLarge,
+                            style: TypographyStyle.bodyBlackLarge2,
                           ),
-                          const SizedBox(height: 22),
+                          const SizedBox(height: 28),
                           ReactiveTextField(
                             formControlName: Fields.name.name,
                             keyboardType: TextInputType.text,
@@ -57,7 +59,7 @@ class NewAddressView extends GetView<NewAddressController> {
                               hintText: 'Como está en tu documento',
                             ),
                           ),
-                          const SizedBox(height: 16),
+                          const SizedBox(height: 22),
                           ReactiveTextField(
                             formControlName: Fields.phone.name,
                             keyboardType: TextInputType.phone,
@@ -66,15 +68,17 @@ class NewAddressView extends GetView<NewAddressController> {
                               hintText: 'Ingresa el número de celular',
                             ),
                           ),
-                          const SizedBox(height: 8),
-                          Text(
-                              'Te llamaremos si tenemos problemas en el envío'),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 18, vertical: 8),
+                            child: Text(
+                                'Te llamaremos si tenemos problemas en el envío'),
+                          ),
                           const SizedBox(height: 16),
                           Text(
                             'Lugar de envío',
-                            style: TypographyStyle.bodyBlackLarge,
+                            style: TypographyStyle.bodyBlackLarge2,
                           ),
-                          const SizedBox(height: 16),
                           const SizedBox(height: 16),
                           Obx(
                             () => DropDown(
@@ -123,7 +127,7 @@ class NewAddressView extends GetView<NewAddressController> {
                           ReactiveTextField(
                             formControlName: Fields.notes.name,
                             keyboardType: TextInputType.text,
-                            maxLines: 8,
+                            maxLines: 6,
                             decoration: CustomInputDecoration.inputDecoration(
                                 text: "Referencias adicionales",
                                 hintText:
