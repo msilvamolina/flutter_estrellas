@@ -95,9 +95,14 @@ class NewAddressController extends GetxController {
   }
 
   void onDepartmentSelected(String? value) {
-    departmentSelected.value = value ?? '';
-    citySelected.value = null;
-    fetchCities(value);
+    if (value != null) {
+      departmentSelected.value = value;
+      citySelected.value = null;
+      fetchCities(value);
+    } else {
+      departmentSelected.value = null;
+      citySelected.value = null;
+    }
   }
 
   void fetchCities(String? departmentId) {
