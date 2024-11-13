@@ -123,22 +123,22 @@ class NewAddressView extends GetView<NewAddressController> {
                                 : SizedBox.shrink(),
                           ),
                           const SizedBox(height: 26),
-                          ReactiveTextField(
+                          CustomTextInput(
+                            autofocus: false,
                             formControlName: Fields.address.name,
                             keyboardType: TextInputType.text,
-                            decoration: CustomInputDecoration.inputDecoration(
-                              text: "Direccion",
-                            ),
+                            label: 'Direccion',
+                            hintText: 'Ingresa la dirección',
                           ),
                           const SizedBox(height: 26),
-                          ReactiveTextField(
+                          CustomTextInput(
+                            autofocus: false,
+                            maxLines: 6,
                             formControlName: Fields.notes.name,
                             keyboardType: TextInputType.text,
-                            maxLines: 6,
-                            decoration: CustomInputDecoration.inputDecoration(
-                                text: "Referencias adicionales",
-                                hintText:
-                                    'Ingresa una descripción de la dirección o indicaciones de entrega'),
+                            label: 'Referencias adicionales',
+                            hintText:
+                                'Ingresa una descripción de la dirección o indicaciones de entrega',
                           ),
                           const SizedBox(height: 16),
                           Text(

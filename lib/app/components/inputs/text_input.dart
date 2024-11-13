@@ -13,6 +13,7 @@ class CustomTextInput extends StatelessWidget {
     required this.label,
     this.keyboardType = TextInputType.text,
     this.hintText,
+    this.maxLines,
     this.autofocus = false,
     this.validationMessages,
     super.key,
@@ -23,6 +24,7 @@ class CustomTextInput extends StatelessWidget {
   final String label;
   final String? hintText;
   final TextInputType keyboardType;
+  final int? maxLines;
   final Map<String, String Function(Object)>? validationMessages;
   @override
   Widget build(BuildContext context) {
@@ -35,6 +37,7 @@ class CustomTextInput extends StatelessWidget {
 
     return ReactiveTextField(
       autofocus: autofocus,
+      maxLines: maxLines,
       formControlName: formControlName,
       keyboardType: keyboardType,
       cursorColor: labelBackgroundColor,
