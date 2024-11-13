@@ -76,9 +76,9 @@ class NewAddressView extends GetView<NewAddressController> {
                         const SizedBox(height: 16),
                         Obx(
                           () => DropDown(
-                            error: controller.productsError,
-                            selectedValue: controller.productSelected,
-                            values: controller.listProducts
+                            error: controller.departmentError,
+                            selectedValue: controller.departmentSelected,
+                            values: controller.departmentsList
                                 .map(
                                   (DepartmentModel value) => OptionDropDown(
                                     text: value.name,

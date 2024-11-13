@@ -7,7 +7,7 @@ import 'package:flutter_estrellas/app/data/models/product_firebase_lite/product_
 import 'package:get/get.dart';
 import 'package:uuid/uuid.dart';
 
-import '../../../models/city/city/city.dart';
+import '../../../models/city/city/city_model.dart';
 import '../../../models/user_product/user_product_model.dart';
 
 class AddressRepository {
@@ -31,14 +31,10 @@ class AddressRepository {
   }
 
   Stream<List<DepartmentModel>> getDepartments() async* {
-    Map<String, String> userData = getUidAndEmail();
-    String uid = userData['uid'] ?? '';
     try {
       Stream<QuerySnapshot> snapshots = _firebaseFirestore
-          .collection('users')
-          .doc(uid)
-          .collection('address')
-          .orderBy('createdAt', descending: true)
+          .collection('departments')
+          .orderBy('name', descending: false)
           .snapshots();
 
       yield* snapshots.map((snapshot) {

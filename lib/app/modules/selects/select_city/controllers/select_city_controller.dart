@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:get/get.dart';
 
-import '../../../../data/models/city/city/city.dart';
+import '../../../../data/models/city/city/city_model.dart';
 import '../../../../data/models/city/department/department_model.dart';
 import '../../../../data/providers/repositories/selects/select_city_repository.dart';
 

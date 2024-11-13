@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
 import '../../../../app/controllers/main_controller.dart';
-import '../../../../data/models/city/city/city.dart';
+import '../../../../data/models/city/city/city_model.dart';
 import '../../../../data/models/city/department/department_model.dart';
 import '../../../../data/models/provider/provider/provider_model.dart';
 import '../../../../routes/app_pages.dart';
@@ -29,6 +29,14 @@ class NewAddressController extends GetxController {
   CityModel? _cityModel;
   CityModel? get cityModel => _cityModel;
 
+  final RxList<DepartmentModel> _departmentsList = <DepartmentModel>[].obs;
+  List<DepartmentModel> get departmentsList => _departmentsList.toList();
+
+  String? _departmentSelected;
+  String? get departmentSelected => _departmentSelected;
+
+  String? _departmentError;
+  String? get departmentError => _departmentError;
   FormGroup buildForm() => fb.group(<String, Object>{
         Fields.name.name: FormControl<String>(
           validators: [
@@ -51,6 +59,12 @@ class NewAddressController extends GetxController {
           ],
         ),
       });
+
+  @override
+  void onInit() {
+    _departmentsList.bindStream(_repository.getDepartments());
+    super.onInit();
+  }
 
   Future<void> pickCity() async {
     final result = await Get.toNamed(Routes.SELECT_DEPARTMENT);
