@@ -154,9 +154,11 @@ class NewAddressController extends GetxController {
 
     String name = data[Fields.name.name].toString();
     String address = data[Fields.address.name].toString();
-    String phone = data[Fields.phone.name].toString();
+    // String phone = data[Fields.phone.name].toString();
     String notes = data[Fields.notes.name].toString();
-  
+
+    PhoneNumber phone = data[Fields.phone.name] as PhoneNumber;
+
     mainController.showLoader(
       title: 'Verificando dirección',
     );

@@ -5,6 +5,7 @@ import 'package:flutter_estrellas/app/data/models/address/address_model.dart';
 import 'package:flutter_estrellas/app/data/models/city/department/department_model.dart';
 import 'package:flutter_estrellas/app/data/models/product_firebase_lite/product_firebase_lite.dart';
 import 'package:get/get.dart';
+import 'package:reactive_phone_form_field/reactive_phone_form_field.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../../models/city/city/city_model.dart';
@@ -87,7 +88,7 @@ class AddressRepository {
 
   Future<Either<String, Unit>> addAddress({
     required String fullname,
-    required String phone,
+    required PhoneNumber phone,
     required String address,
     required String notes,
     required CityModel city,
@@ -106,7 +107,11 @@ class AddressRepository {
           .set({
         'id': addressId,
         'fullname': fullname,
-        'phone': phone,
+        'phone': {
+          'number': phone.nsn.toString(),
+          'countryCode': phone.countryCode.toString(),
+          'isoCode': phone.isoCode.name.toString(),
+        },
         'save': save,
         'notes': notes,
         'address': address,
