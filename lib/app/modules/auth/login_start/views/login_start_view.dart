@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_estrellas/app/libraries/icons/icons_font.dart';
 import 'package:flutter_estrellas/app/themes/styles/typography.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
 
@@ -14,6 +15,26 @@ class LoginStartView extends GetView<LoginStartController> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
+      bottomNavigationBar: Container(
+        color: white,
+        child: SafeArea(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                '¿Ya tienes cuenta?',
+                style: TypographyStyle.bodyRegularLarge,
+              ),
+              Button(
+                onPressed: () {},
+                label: 'Inicia sesión',
+                style: ButtonStyles.secondaryLink,
+              ),
+            ],
+          ),
+        ),
+      ),
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
@@ -49,7 +70,16 @@ class LoginStartView extends GetView<LoginStartController> {
             Padding(
               padding: const EdgeInsets.all(16),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Center(child: SvgPicture.asset('assets/svg/logo.svg')),
+                  SizedBox(height: 66),
+                  Text(
+                    '¡Te damos la bienvenida\na Estrellas!',
+                    style: TypographyStyle.bodyBlackLarge3
+                        .copyWith(fontWeight: FontWeight.w600),
+                  ),
+                  SizedBox(height: 26),
                   Button(
                     style: ButtonStyles.secondary,
                     onPressed: () {},
@@ -79,10 +109,38 @@ class LoginStartView extends GetView<LoginStartController> {
                     ),
                     label: 'Continuar con Apple',
                   ),
+                  SizedBox(height: 26),
+                  Stack(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 1),
+                        child: Divider(
+                          color: neutral300,
+                          thickness: 2,
+                        ),
+                      ),
+                      Center(
+                        child: Container(
+                          padding: EdgeInsets.symmetric(horizontal: 16),
+                          color: white,
+                          child: Text(
+                            'O',
+                            style: TypographyStyle.bodyBlackMedium
+                                .copyWith(color: neutral700),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 26),
+                  Button(
+                    style: ButtonStyles.primary,
+                    onPressed: () {},
+                    label: 'Continuar con correo',
+                  ),
                 ],
               ),
             ),
-            SizedBox(height: 16),
           ],
         ),
       ),
