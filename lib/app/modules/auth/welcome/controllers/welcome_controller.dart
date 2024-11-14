@@ -46,4 +46,12 @@ class WelcomeController extends GetxController {
   void onPageChanged(int? value) {
     currentStep.value = value ?? 1;
   }
+
+  void skip() {
+    print('skip');
+  }
+
+  void next() {
+    print('next');
+  }
 }
