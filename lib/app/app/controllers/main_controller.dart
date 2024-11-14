@@ -231,4 +231,12 @@ class MainController extends GetxController {
       },
     );
   }
+
+  void actionNeedLogin(Function() action) {
+    if (_userStatus == UserStatus.notLogged) {
+      Get.toNamed(Routes.LOGIN_START);
+    } else {
+      action();
+    }
+  }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_estrellas/app/app/controllers/main_controller.dart';
 import 'package:flutter_estrellas/app/routes/app_pages.dart';
 import 'package:get/get.dart';
 
@@ -17,6 +18,7 @@ class Bottombar extends StatelessWidget {
   final bool isDarkTheme;
   @override
   Widget build(BuildContext context) {
+    MainController mainController = Get.find<MainController>();
     return SafeArea(
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 16),
@@ -58,12 +60,14 @@ class Bottombar extends StatelessWidget {
               iconActive: EstrellasIcons.walletFill,
               isActive: viewSelected == 1,
               onTap: () {
-                String route = Routes.WALLET;
-                if (viewSelected == 0) {
-                  Get.toNamed(route);
-                } else {
-                  Get.offNamed(route);
-                }
+                mainController.actionNeedLogin(() {
+                  String route = Routes.WALLET;
+                  if (viewSelected == 0) {
+                    Get.toNamed(route);
+                  } else {
+                    Get.offNamed(route);
+                  }
+                });
               },
             ),
             buttonCard(
@@ -73,12 +77,14 @@ class Bottombar extends StatelessWidget {
               iconActive: EstrellasIcons.searchFill,
               isActive: viewSelected == 2,
               onTap: () {
-                String route = Routes.SEARCH;
-                if (viewSelected == 0) {
-                  Get.toNamed(route);
-                } else {
-                  Get.offNamed(route);
-                }
+                mainController.actionNeedLogin(() {
+                  String route = Routes.SEARCH;
+                  if (viewSelected == 0) {
+                    Get.toNamed(route);
+                  } else {
+                    Get.offNamed(route);
+                  }
+                });
               },
             ),
             buttonCard(
@@ -88,12 +94,14 @@ class Bottombar extends StatelessWidget {
               iconActive: EstrellasIcons.storefrontFill,
               isActive: viewSelected == 3,
               onTap: () {
-                String route = Routes.STORE;
-                if (viewSelected == 0) {
-                  Get.toNamed(route);
-                } else {
-                  Get.offNamed(route);
-                }
+                mainController.actionNeedLogin(() {
+                  String route = Routes.STORE;
+                  if (viewSelected == 0) {
+                    Get.toNamed(route);
+                  } else {
+                    Get.offNamed(route);
+                  }
+                });
               },
             ),
             buttonCard(
@@ -103,12 +111,14 @@ class Bottombar extends StatelessWidget {
               iconActive: EstrellasIcons.userCircle1,
               isActive: viewSelected == 4,
               onTap: () {
-                String route = Routes.ACCOUNT;
-                if (viewSelected == 0) {
-                  Get.toNamed(route);
-                } else {
-                  Get.offNamed(route);
-                }
+                mainController.actionNeedLogin(() {
+                  String route = Routes.ACCOUNT;
+                  if (viewSelected == 0) {
+                    Get.toNamed(route);
+                  } else {
+                    Get.offNamed(route);
+                  }
+                });
               },
             ),
           ],
