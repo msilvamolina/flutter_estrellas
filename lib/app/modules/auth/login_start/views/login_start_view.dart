@@ -6,6 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
 
+import '../../../../components/appbar/login_appbar.dart';
 import '../../../../components/buttons/buttons.dart';
 import '../../../../themes/styles/colors.dart';
 import '../controllers/login_start_controller.dart';
@@ -36,32 +37,7 @@ class LoginStartView extends GetView<LoginStartController> {
           ),
         ),
       ),
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        title: const Text(''),
-        centerTitle: true,
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 16),
-            child: GestureDetector(
-              onTap: () {},
-              child: Row(
-                children: [
-                  Text(
-                    'Ayuda',
-                    style: TypographyStyle.bodyRegularLarge,
-                  ),
-                  Icon(
-                    EstrellasIcons.question,
-                    size: 30,
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
+      appBar: LoginAppbar(),
       body: Container(
         color: white,
         child: Column(
