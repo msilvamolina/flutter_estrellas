@@ -32,6 +32,7 @@ abstract class Routes {
   static const LOGIN_START = _Paths.LOGIN_START;
   static const NEW_LOGIN = _Paths.NEW_LOGIN;
   static const NEW_REGISTER = _Paths.NEW_REGISTER;
+  static const EMAIL_VERIFICATION = _Paths.EMAIL_VERIFICATION;
 }
 
 abstract class _Paths {
@@ -65,4 +66,5 @@ abstract class _Paths {
   static const LOGIN_START = '/login-start';
   static const NEW_LOGIN = '/new-login';
   static const NEW_REGISTER = '/new-register';
+  static const EMAIL_VERIFICATION = '/email-verification';
 }

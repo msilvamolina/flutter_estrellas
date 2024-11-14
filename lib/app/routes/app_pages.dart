@@ -22,6 +22,10 @@ import '../modules/auth/login/bindings/login_binding.dart';
 import '../modules/auth/login/views/login_view.dart';
 import '../modules/auth/login_start/bindings/login_start_binding.dart';
 import '../modules/auth/login_start/views/login_start_view.dart';
+import '../modules/auth/new_login/bindings/new_login_binding.dart';
+import '../modules/auth/new_login/views/new_login_view.dart';
+import '../modules/auth/new_register/bindings/new_register_binding.dart';
+import '../modules/auth/new_register/views/new_register_view.dart';
 import '../modules/auth/register/bindings/register_binding.dart';
 import '../modules/auth/register/views/register_view.dart';
 import '../modules/auth/register_basic_data/bindings/register_basic_data_binding.dart';
@@ -32,6 +36,8 @@ import '../modules/auth/welcome/bindings/welcome_binding.dart';
 import '../modules/auth/welcome/views/welcome_view.dart';
 import '../modules/cart/bindings/cart_binding.dart';
 import '../modules/cart/views/cart_view.dart';
+import '../modules/auth/email_verification/bindings/email_verification_binding.dart';
+import '../modules/auth/email_verification/views/email_verification_view.dart';
 import '../modules/main/account/bindings/account_binding.dart';
 import '../modules/main/account/views/account_view.dart';
 import '../modules/main/home/bindings/home_binding.dart';
@@ -42,10 +48,6 @@ import '../modules/main/store/bindings/store_binding.dart';
 import '../modules/main/store/views/store_view.dart';
 import '../modules/main/wallet/bindings/wallet_binding.dart';
 import '../modules/main/wallet/views/wallet_view.dart';
-import '../modules/auth/new_login/bindings/new_login_binding.dart';
-import '../modules/auth/new_login/views/new_login_view.dart';
-import '../modules/auth/new_register/bindings/new_register_binding.dart';
-import '../modules/auth/new_register/views/new_register_view.dart';
 import '../modules/order/order_success/bindings/order_success_binding.dart';
 import '../modules/order/order_success/views/order_success_view.dart';
 import '../modules/product_details/bindings/product_details_binding.dart';
@@ -220,6 +222,11 @@ class AppPages {
       name: _Paths.NEW_REGISTER,
       page: () => const NewRegisterView(),
       binding: NewRegisterBinding(),
+    ),
+    GetPage(
+      name: _Paths.EMAIL_VERIFICATION,
+      page: () => const EmailVerificationView(),
+      binding: EmailVerificationBinding(),
     ),
   ];
 }
