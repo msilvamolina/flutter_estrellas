@@ -11,6 +11,7 @@ class SecondaryButton extends StatelessWidget {
     required this.label,
     required this.isLoaderButton,
     this.isLoading,
+    this.image,
     super.key,
   });
 
@@ -18,7 +19,7 @@ class SecondaryButton extends StatelessWidget {
   final String label;
   final bool isLoaderButton;
   final bool? isLoading;
-
+  final Widget? image;
   @override
   Widget build(BuildContext context) {
     MainController mainController = Get.find<MainController>();
@@ -69,6 +70,14 @@ class SecondaryButton extends StatelessWidget {
             return shadowColor;
           },
         ),
+        overlayColor: MaterialStateProperty.resolveWith<Color?>(
+          (Set<MaterialState> states) {
+            if (states.contains(MaterialState.pressed)) {
+              return secondaryLight;
+            }
+            return secondaryLight;
+          },
+        ),
       ),
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
@@ -78,7 +87,7 @@ class SecondaryButton extends StatelessWidget {
                 ? Text(
                     label,
                     textAlign: TextAlign.center,
-                    style: TypographyStyle.bodyBlackLarge,
+                    style: TypographyStyle.bodyBlackLarge2,
                   )
                 : Center(
                     child: SizedBox(
@@ -90,11 +99,26 @@ class SecondaryButton extends StatelessWidget {
                               AlwaysStoppedAnimation<Color>(loaderColor)),
                     ),
                   )
-            : Text(
-                label,
-                textAlign: TextAlign.center,
-                style: TypographyStyle.bodyBlackLarge,
-              ),
+            : image != null
+                ? Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      image!,
+                      Spacer(),
+                      Text(
+                        label,
+                        textAlign: TextAlign.center,
+                        style: TypographyStyle.bodyBlackLarge2,
+                      ),
+                      Spacer(),
+                    ],
+                  )
+                : Text(
+                    label,
+                    textAlign: TextAlign.center,
+                    style: TypographyStyle.bodyBlackLarge2,
+                  ),
       ),
     );
   }

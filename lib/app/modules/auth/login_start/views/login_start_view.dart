@@ -4,6 +4,7 @@ import 'package:flutter_estrellas/app/themes/styles/typography.dart';
 
 import 'package:get/get.dart';
 
+import '../../../../components/buttons/buttons.dart';
 import '../../../../themes/styles/colors.dart';
 import '../controllers/login_start_controller.dart';
 
@@ -44,6 +45,44 @@ class LoginStartView extends GetView<LoginStartController> {
         child: Column(
           children: [
             Image.asset('assets/images/login-background.png'),
+            SizedBox(height: 48),
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                children: [
+                  Button(
+                    style: ButtonStyles.secondary,
+                    onPressed: () {},
+                    image: Image.asset(
+                      'assets/images/icon-google.png',
+                      width: 24,
+                    ),
+                    label: 'Continuar con Google',
+                  ),
+                  SizedBox(height: 26),
+                  Button(
+                    style: ButtonStyles.secondary,
+                    onPressed: () {},
+                    image: Image.asset(
+                      'assets/images/icon-facebook.png',
+                      width: 24,
+                    ),
+                    label: 'Continuar con Facebook',
+                  ),
+                  SizedBox(height: 26),
+                  Button(
+                    style: ButtonStyles.secondary,
+                    onPressed: () {},
+                    image: Image.asset(
+                      'assets/images/icon-apple.png',
+                      width: 20,
+                    ),
+                    label: 'Continuar con Apple',
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 16),
           ],
         ),
       ),

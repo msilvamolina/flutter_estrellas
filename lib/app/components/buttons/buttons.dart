@@ -20,12 +20,14 @@ class Button extends StatelessWidget {
     required this.style,
     this.label,
     this.child,
+    this.image,
     super.key,
   });
 
   final Function()? onPressed;
   final String? label;
   final Widget? child;
+  final Widget? image;
   final ButtonStyles style;
 
   @override
@@ -39,6 +41,7 @@ class Button extends StatelessWidget {
         );
       case ButtonStyles.secondary:
         return SecondaryButton(
+          image: image,
           onPressed: onPressed,
           label: label!,
           isLoaderButton: false,
