@@ -90,14 +90,41 @@ class EmailVerificationView extends GetView<EmailVerificationController> {
                           },
                         ),
                         SizedBox(height: 26),
-                        Text(
-                          'Puedes pedir otro código en 0:00s',
-                          style: TypographyStyle.bodyRegularLarge.copyWith(),
-                        ),
-                        SizedBox(height: 26),
-                        Text(
-                          '¿No te llegó el código? Volver a enviar',
-                          style: TypographyStyle.bodyRegularLarge.copyWith(),
+                        Obx(
+                          () => AnimatedCrossFade(
+                            duration: Duration(milliseconds: 300),
+                            crossFadeState:
+                                !controller.isCountdownComplete.value
+                                    ? CrossFadeState.showFirst
+                                    : CrossFadeState.showSecond,
+                            firstChild: Container(
+                              width: double.infinity,
+                              child: Text(
+                                'Puedes pedir otro código en ${controller.timeLeft.value}',
+                                textAlign: TextAlign.start,
+                                style:
+                                    TypographyStyle.bodyRegularLarge.copyWith(),
+                              ),
+                            ),
+                            secondChild: Container(
+                              width: double.infinity,
+                              child: Row(
+                                children: [
+                                  Text(
+                                    '¿No te llegó el código?',
+                                    textAlign: TextAlign.start,
+                                    style: TypographyStyle.bodyRegularLarge
+                                        .copyWith(),
+                                  ),
+                                  Button(
+                                    onPressed: controller.tryAgain,
+                                    style: ButtonStyles.secondaryLink,
+                                    label: 'Volver a enviar',
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
                         ),
                         SizedBox(height: 16),
                       ],
