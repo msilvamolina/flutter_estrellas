@@ -71,7 +71,12 @@ class OrderSuccessView extends GetView<OrderSuccessController> {
                   SizedBox(height: 22),
                   Button(
                     label: 'Entendido',
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.offNamedUntil(
+                        Routes.HOME,
+                        (route) => route.isFirst,
+                      );
+                    },
                     style: ButtonStyles.primary,
                   ),
                 ],
