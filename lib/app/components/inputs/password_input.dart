@@ -72,7 +72,7 @@ class PasswordInput extends StatelessWidget {
             ValidationMessage.mustMatch: (error) =>
                 'Las contraseñas no coinciden',
             'invalidPassword': (error) =>
-                'Las contraseña no cumple con los criterios',
+                'La contraseña no cumple con los criterios',
           },
     );
   }

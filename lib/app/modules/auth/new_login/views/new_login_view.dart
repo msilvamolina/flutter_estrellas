@@ -21,6 +21,29 @@ class NewLoginView extends GetView<NewLoginController> {
         backgroundColor: white,
         appBar: LoginAppbar(),
         extendBodyBehindAppBar: true,
+        bottomNavigationBar: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Center(
+                  child: Button(
+                    label: 'Olvidé mi contraseña',
+                    onPressed: () {},
+                    style: ButtonStyles.secondaryLink,
+                  ),
+                ),
+                Button(
+                  label: 'Continuar',
+                  onPressed: () {},
+                  style: ButtonStyles.primary,
+                ),
+              ],
+            ),
+          ),
+        ),
         body: ReactiveFormBuilder(
           form: controller.buildForm,
           builder: (context, form, child) {
@@ -82,19 +105,6 @@ class NewLoginView extends GetView<NewLoginController> {
                           ),
                         ),
                         SizedBox(height: 16),
-                        Center(
-                          child: Button(
-                            label: 'Olvidé mi contraseña',
-                            onPressed: () {},
-                            style: ButtonStyles.secondaryLink,
-                          ),
-                        ),
-                        SizedBox(height: 16),
-                        Button(
-                          label: 'Continuar',
-                          onPressed: () {},
-                          style: ButtonStyles.primary,
-                        ),
                       ],
                     ),
                   ),
