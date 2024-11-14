@@ -35,6 +35,7 @@ class NewLoginView extends GetView<NewLoginController> {
                     style: ButtonStyles.secondaryLink,
                   ),
                 ),
+                SizedBox(height: 16),
                 Button(
                   label: 'Continuar',
                   onPressed: () {},
