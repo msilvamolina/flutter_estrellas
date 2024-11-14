@@ -71,6 +71,8 @@ class _PasswordInputState extends State<PasswordInput> {
                 'Ingrese un correo electrónico válido.',
             ValidationMessage.number: (error) =>
                 'Sólo puedes ingresar números.',
+            ValidationMessage.mustMatch: (error) =>
+                'Las contraseñas no coinciden',
           },
     );
   }

@@ -138,12 +138,13 @@ class CustomInputDecoration {
             )
           : null,
 
-      suffixIcon: (showErrors)
-          ? Icon(
-              Icons.error,
-              color: errorColor,
-            )
-          : suffixIcon,
+      suffixIcon: suffixIcon ??
+          ((showErrors)
+              ? Icon(
+                  Icons.error,
+                  color: errorColor,
+                )
+              : null),
       errorBorder: OutlineInputBorder(
         borderSide: BorderSide(color: errorColor, width: 2.0),
         borderRadius: BorderRadius.circular(12),
