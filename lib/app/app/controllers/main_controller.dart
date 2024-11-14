@@ -49,12 +49,22 @@ class MainController extends GetxController {
   String? _token;
   String? get token => _token;
 
+  bool _showSwipeUpVideo = true;
+  bool get showSwipeUpVideo => _showSwipeUpVideo;
+
   void setToken(String value) {
     _token = value;
   }
 
   void setDropiMessage(String message) {
     dropiMessage.value = message;
+  }
+
+  void removeSwipeUp() {
+    if (_showSwipeUpVideo) {
+      _showSwipeUpVideo = false;
+      localStorage.setSwipeUpVideo(false);
+    }
   }
 
   void setDropiDialog(bool value) {
@@ -69,6 +79,7 @@ class MainController extends GetxController {
   @override
   Future<void> onInit() async {
     _isWelcome = await localStorage.getWelcome();
+    _showSwipeUpVideo = await localStorage.getSwipeUpVideo();
     // checkTheme();
 
     super.onInit();

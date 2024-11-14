@@ -82,6 +82,7 @@ class _HomeViewState extends State<HomeView> {
                   setState(() {
                     pageSelected = value;
                   });
+                  controller.mainController.removeSwipeUp();
                 },
                 itemBuilder: (context, index) => VideoCard(
                   videoPostModel: controller.list[index],
