@@ -8,6 +8,7 @@ import '../../../../components/appbar/login_appbar.dart';
 import '../../../../components/buttons/buttons.dart';
 import '../../../../components/inputs/password_input.dart';
 import '../../../../components/inputs/text_input.dart';
+import '../../../../routes/app_pages.dart';
 import '../../../../themes/styles/colors.dart';
 import '../../../../themes/styles/typography.dart';
 import '../controllers/new_register_controller.dart';
@@ -28,7 +29,7 @@ class NewRegisterView extends GetView<NewRegisterController> {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Button(
               label: 'Continuar',
-              onPressed: () {},
+              onPressed: () => Get.toNamed(Routes.EMAIL_VERIFICATION),
               style: ButtonStyles.primary,
             ),
           ),
