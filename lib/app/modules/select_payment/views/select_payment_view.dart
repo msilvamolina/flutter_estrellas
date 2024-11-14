@@ -2,8 +2,13 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
+import '../../../components/appbar/estrellas_appbar.dart';
+import '../../../components/buttons/buttons.dart';
+import '../../../components/step_indicator/step_indicator.dart';
+import '../../../routes/app_pages.dart';
 import '../../../themes/styles/colors.dart';
 import '../../../themes/styles/typography.dart';
+import '../../cart/widget/cart_price_bottom_sheet.dart';
 import '../controllers/select_payment_controller.dart';
 
 class SelectPaymentView extends GetView<SelectPaymentController> {
@@ -11,53 +16,61 @@ class SelectPaymentView extends GetView<SelectPaymentController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Método de pago'),
-        centerTitle: true,
+      backgroundColor: white,
+      appBar: EstrellasAppbar(
+        title: 'Método de pago',
       ),
-      bottomNavigationBar: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: ElevatedButton(
-            onPressed: () {
-              controller.confirmBuy();
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: controller.mainController.isThemeModeDark
-                  ? primaryDark
-                  : primaryBase,
-              foregroundColor: controller.mainController.isThemeModeDark
-                  ? Colors.white
-                  : Colors.black,
-              side: BorderSide(
-                color: controller.mainController.isThemeModeDark
-                    ? primaryBase
-                    : Colors.black, // Color del borde
-                width: 1, // Ancho del borde
-              ),
-            ),
-            child: Container(
-              padding: EdgeInsets.all(8),
-              width: double.infinity,
-              child: Text(
-                'Confirmar pago',
-                textAlign: TextAlign.center,
-                style: TypographyStyle.bodyRegularLarge
-                    .copyWith(fontWeight: FontWeight.w400),
-              ),
-            ),
-          ),
-        ),
+      bottomNavigationBar: Obx(
+        () => controller.userProductController.listProductCart.isNotEmpty
+            ? SafeArea(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Obx(
+                        () => CartPriceBottomBar(
+                          productsPoints:
+                              controller.userProductController.cartPoints.value,
+                          productsQuantity: controller
+                              .userProductController.cartQuantity.value,
+                          productsPrices:
+                              controller.userProductController.cartPrices.value,
+                          productsShipping: 0,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: Button(
+                          onPressed: () {},
+                          label: 'Confirmar compra',
+                          style: ButtonStyles.primary,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              )
+            : SizedBox.shrink(),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
+            StepIndicator(
+              currentStep: 2,
+              totalSteps: 2,
+            ),
+            SizedBox(height: 26),
             Card(
+              color: neutral100,
+              elevation: 0,
               child: ListTile(
                 onTap: () {},
                 leading: CircleAvatar(child: Icon(Icons.money)),
-                title: Text('Pago contraentrega'),
+                title: Text('Pago contra entrega'),
                 trailing: Icon(Icons.check_box),
               ),
             )

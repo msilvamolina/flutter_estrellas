@@ -11,15 +11,6 @@ class CartController extends GetxController {
   UserProductController userProductController =
       Get.find<UserProductController>();
 
-  double _prices = 0;
-  double get prices => _prices;
-
-  int _points = 0;
-  int get points => _points;
-
-  int _quantity = 0;
-  int get quantity => _quantity;
-
   @override
   void onReady() {
     calculateProducts();
@@ -49,18 +40,22 @@ class CartController extends GetxController {
 
   void calculateProducts() {
     if (userProductController.listProductCart.isNotEmpty) {
-      _quantity = 0;
-      _prices = 0;
-      _points = 0;
+      userProductController.cartQuantity.value = 0;
+      userProductController.cartPrices.value = 0;
+      userProductController.cartPoints.value = 0;
+
       for (UserProductCartModel element
           in userProductController.listProductCart) {
         int _productQuantity = getQuantity(element);
         double _productPrice = element.price * _productQuantity;
         int _elementPoints = element.points * _productQuantity;
 
-        _quantity = _quantity + _productQuantity;
-        _prices = _prices + _productPrice;
-        _points = _points + _elementPoints;
+        userProductController.cartQuantity.value =
+            userProductController.cartQuantity.value + _productQuantity;
+        userProductController.cartPrices.value =
+            userProductController.cartPrices.value + _productPrice;
+        userProductController.cartPoints.value =
+            userProductController.cartPoints.value + _elementPoints;
       }
       update(['prices_bottombar']);
     }

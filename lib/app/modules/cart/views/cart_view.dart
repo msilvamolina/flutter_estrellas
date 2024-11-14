@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_estrellas/app/app/controllers/user_product_controller.dart';
 import 'package:flutter_estrellas/app/routes/app_pages.dart';
 
 import 'package:get/get.dart';
@@ -34,16 +35,16 @@ class CartView extends GetView<CartController> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      GetBuilder<CartController>(
-                        id: 'prices_bottombar',
-                        builder: (_) {
-                          return CartPriceBottomBar(
-                            productsPoints: controller.points,
-                            productsQuantity: controller.quantity,
-                            productsPrices: controller.prices,
-                            productsShipping: 0,
-                          );
-                        },
+                      Obx(
+                        () => CartPriceBottomBar(
+                          productsPoints:
+                              controller.userProductController.cartPoints.value,
+                          productsQuantity: controller
+                              .userProductController.cartQuantity.value,
+                          productsPrices:
+                              controller.userProductController.cartPrices.value,
+                          productsShipping: 0,
+                        ),
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16),

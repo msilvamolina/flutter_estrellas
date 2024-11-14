@@ -56,6 +56,10 @@ class UserProductController extends GetxController {
 
   bool addCatalogFormIsSubmitted = false;
 
+  Rx<double> cartPrices = 0.0.obs;
+  RxInt cartPoints = 0.obs;
+  RxInt cartQuantity = 0.obs;
+
   FormGroup addCatalogForm() => fb.group(<String, Object>{
         Fields.addCatalogName.name: FormControl<String>(
           validators: [
