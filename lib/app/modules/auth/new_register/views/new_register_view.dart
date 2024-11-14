@@ -77,6 +77,7 @@ class NewRegisterView extends GetView<NewRegisterController> {
                       Obx(
                         () => PasswordInput(
                           autofocus: false,
+                          onChanged: controller.onPasswordChanged,
                           isObscure: controller.isObscure.value,
                           obscurePressed: controller.obscurePressed,
                           formControlName: Fields.password.name,

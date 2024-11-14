@@ -8,7 +8,7 @@ import 'package:reactive_forms/reactive_forms.dart';
 
 import '../../themes/styles/colors.dart';
 
-class PasswordInput extends StatefulWidget {
+class PasswordInput extends StatelessWidget {
   const PasswordInput({
     required this.formControlName,
     required this.label,
@@ -16,6 +16,7 @@ class PasswordInput extends StatefulWidget {
     required this.obscurePressed,
     this.keyboardType = TextInputType.text,
     this.hintText,
+    this.onChanged,
     this.autofocus = false,
     this.validationMessages,
     super.key,
@@ -24,6 +25,7 @@ class PasswordInput extends StatefulWidget {
   final String formControlName;
   final bool autofocus;
   final String label;
+  final Function(dynamic)? onChanged;
   final bool isObscure;
   final Function() obscurePressed;
   final String? hintText;
@@ -31,38 +33,34 @@ class PasswordInput extends StatefulWidget {
   final Map<String, String Function(Object)>? validationMessages;
 
   @override
-  State<PasswordInput> createState() => _PasswordInputState();
-}
-
-class _PasswordInputState extends State<PasswordInput> {
-  @override
   Widget build(BuildContext context) {
-    MainController mainController = Get.find<MainController>();
-    Color labelBackgroundColor =
+    final MainController mainController = Get.find<MainController>();
+    final Color labelBackgroundColor =
         !mainController.isThemeModeDark ? secondaryDark : secondaryLight;
 
-    final control = ReactiveForm.of(context)!
-        .findControl(widget.formControlName) as FormControl?;
+    final control =
+        ReactiveForm.of(context)!.findControl(formControlName) as FormControl?;
 
     return ReactiveTextField(
-      obscureText: widget.isObscure,
-      autofocus: widget.autofocus,
-      formControlName: widget.formControlName,
-      keyboardType: widget.keyboardType,
+      onChanged: onChanged,
+      obscureText: isObscure,
+      autofocus: autofocus,
+      formControlName: formControlName,
+      keyboardType: keyboardType,
       cursorColor: labelBackgroundColor,
       decoration: CustomInputDecoration.inputDecorationControl(
-        text: widget.label,
-        hintText: widget.hintText,
+        text: label,
+        hintText: hintText,
         control: control!,
         suffixIcon: IconButton(
-          onPressed: () => widget.obscurePressed(),
+          onPressed: obscurePressed,
           icon: Icon(
-            widget.isObscure ? EstrellasIcons.eyeOff : EstrellasIcons.eye,
+            isObscure ? EstrellasIcons.eyeOff : EstrellasIcons.eye,
             size: 34,
           ),
         ),
       ),
-      validationMessages: widget.validationMessages ??
+      validationMessages: validationMessages ??
           {
             ValidationMessage.required: (error) => 'Este campo es obligatorio.',
             ValidationMessage.minLength: (error) =>
