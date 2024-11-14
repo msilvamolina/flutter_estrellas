@@ -45,7 +45,7 @@ class SelectPaymentView extends GetView<SelectPaymentController> {
                         padding: const EdgeInsets.symmetric(horizontal: 16),
                         child: Button(
                           onPressed: () {},
-                          label: 'Confirmar compra',
+                          label: 'Confirmar pago',
                           style: ButtonStyles.primary,
                         ),
                       ),
