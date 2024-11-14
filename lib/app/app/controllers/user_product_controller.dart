@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_estrellas/app/app/bottom_sheets/modal_bottom_sheet/example_bottomsheet.dart';
+import 'package:flutter_estrellas/app/app/controllers/main_controller.dart';
 import 'package:flutter_estrellas/app/components/bottom_sheets/bottomsheets.dart';
 import 'package:flutter_estrellas/app/components/snackbars/snackbars.dart';
 import 'package:flutter_estrellas/app/data/models/product_firebase_lite/product_firebase_lite.dart';
@@ -26,6 +27,7 @@ enum Fields {
 }
 
 class UserProductController extends GetxController {
+  MainController mainController = Get.find<MainController>();
   UserProductsRepository userProductRepository = UserProductsRepository();
   final RxList<UserProductCartModel> _listProductCart =
       <UserProductCartModel>[].obs;
@@ -96,6 +98,18 @@ class UserProductController extends GetxController {
     //   } else {
     //     _uniqueProduct = null;
     //   }
+  }
+
+  void productFavoriteButton(VideoPostModel videoPostModel) {
+    mainController.actionNeedLogin(() => productFavoriteAction(videoPostModel));
+  }
+
+  void productFavoriteAction(VideoPostModel videoPostModel) {
+    if (isProductInFavorites(videoPostModel)) {
+      removeFromFavorites(videoPostModel);
+    } else {
+      addToFavorites(videoPostModel);
+    }
   }
 
   Future<void> addToFavorites(VideoPostModel? videoPostModel) async {

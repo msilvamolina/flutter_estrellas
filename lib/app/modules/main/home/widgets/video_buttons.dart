@@ -72,11 +72,7 @@ class _VideoButtonsState extends State<VideoButtons> {
             builder: (_) {
               return buttonCard(
                 onTap: () => userProductController
-                        .isProductInFavorites(widget.videoPostModel)
-                    ? userProductController
-                        .removeFromFavorites(widget.videoPostModel)
-                    : userProductController
-                        .addToFavorites(widget.videoPostModel),
+                    .productFavoriteButton(widget.videoPostModel),
                 image: userProductController
                         .isProductInFavorites(widget.videoPostModel)
                     ? 'assets/svg/HeartColor.svg'
