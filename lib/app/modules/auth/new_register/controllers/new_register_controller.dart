@@ -42,10 +42,10 @@ class NewRegisterController extends GetxController {
   RxBool isObscure = true.obs;
   RxBool isObscure2 = true.obs;
 
-  RxBool hasBetween8and20characters = false.obs;
-  RxBool hasCapitalLetter = false.obs;
-  RxBool hasNumber = false.obs;
-  RxBool hasSpecialCharacters = false.obs;
+  RxnBool hasBetween8and20characters = RxnBool();
+  RxnBool hasCapitalLetter = RxnBool();
+  RxnBool hasNumber = RxnBool();
+  RxnBool hasSpecialCharacters = RxnBool();
 
   void onPasswordChanged(dynamic v) {
     String value = v.value.toString();
@@ -62,10 +62,10 @@ class NewRegisterController extends GetxController {
   }
 
   void resetValidation() {
-    hasBetween8and20characters.value = false;
-    hasCapitalLetter.value = false;
-    hasNumber.value = false;
-    hasSpecialCharacters.value = false;
+    hasBetween8and20characters.value = null;
+    hasCapitalLetter.value = null;
+    hasNumber.value = null;
+    hasSpecialCharacters.value = null;
   }
 
   void obscurePressed() {
