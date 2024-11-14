@@ -6,9 +6,11 @@ import 'package:reactive_forms/reactive_forms.dart';
 import '../../../../components/appbar/login_appbar.dart';
 import '../../../../components/buttons/buttons.dart';
 import '../../../../components/inputs/text_input.dart';
+import '../../../../components/step_indicator/step_indicator.dart';
 import '../../../../themes/styles/colors.dart';
 import '../../../../themes/styles/typography.dart';
 import '../controllers/email_verification_controller.dart';
+import '../widgets/custom_pin_input_code.dart';
 
 class EmailVerificationView extends GetView<EmailVerificationController> {
   const EmailVerificationView({super.key});
@@ -24,7 +26,7 @@ class EmailVerificationView extends GetView<EmailVerificationController> {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Button(
-              label: 'Continuar',
+              label: 'Verificar código',
               onPressed: () {},
               style: ButtonStyles.primary,
             ),
@@ -54,6 +56,10 @@ class EmailVerificationView extends GetView<EmailVerificationController> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       mainAxisSize: MainAxisSize.min,
                       children: [
+                        StepIndicator(
+                          currentStep: 2,
+                          totalSteps: 3,
+                        ),
                         Spacer(),
                         Image.asset(
                           image,
@@ -61,23 +67,39 @@ class EmailVerificationView extends GetView<EmailVerificationController> {
                         ),
                         SizedBox(height: 20),
                         Text(
-                          '¡Bienvenido de vuelta!',
+                          'Validación de cuenta',
                           style: TypographyStyle.bodyBlackLarge.copyWith(
-                              fontWeight: FontWeight.w600, fontSize: 18),
+                              fontWeight: FontWeight.w600, fontSize: 20),
                         ),
                         SizedBox(height: 8),
                         Text(
-                          'Inicia sesión para continuar explorando',
+                          'Te enviamos un código de 5 dígitos a daldana@gmail.com',
                           style: TypographyStyle.bodyRegularLarge.copyWith(),
                         ),
                         SizedBox(height: 26),
-                        CustomTextInput(
-                          autofocus: false,
-                          formControlName: Fields.email.name,
-                          keyboardType: TextInputType.emailAddress,
-                          label: 'Correo',
-                          hintText: 'Ingresa tu correo',
+                        CustomPinInputCode(
+                          length: 6,
+                          validator: (value) {
+                            return value == '123456' ? null : 'Código inválido';
+                          },
+                          onCompleted: (pin) {
+                            print('Código ingresado: $pin');
+                          },
+                          onChanged: (value) {
+                            print('Cambio en el código: $value');
+                          },
                         ),
+                        SizedBox(height: 26),
+                        Text(
+                          'Puedes pedir otro código en 0:00s',
+                          style: TypographyStyle.bodyRegularLarge.copyWith(),
+                        ),
+                        SizedBox(height: 26),
+                        Text(
+                          '¿No te llegó el código? Volver a enviar',
+                          style: TypographyStyle.bodyRegularLarge.copyWith(),
+                        ),
+                        SizedBox(height: 16),
                       ],
                     ),
                   ),

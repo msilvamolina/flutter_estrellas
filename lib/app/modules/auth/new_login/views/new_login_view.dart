@@ -54,7 +54,7 @@ class NewLoginView extends GetView<NewLoginController> {
                         Text(
                           '¡Bienvenido de vuelta!',
                           style: TypographyStyle.bodyBlackLarge.copyWith(
-                              fontWeight: FontWeight.w600, fontSize: 18),
+                              fontWeight: FontWeight.w600, fontSize: 20),
                         ),
                         SizedBox(height: 8),
                         Text(
