@@ -11,6 +11,7 @@ import '../../../../components/inputs/text_input.dart';
 import '../../../../themes/styles/colors.dart';
 import '../../../../themes/styles/typography.dart';
 import '../controllers/new_register_controller.dart';
+import '../widgets/check_password_card.dart';
 
 class NewRegisterView extends GetView<NewRegisterController> {
   const NewRegisterView({super.key});
@@ -35,68 +36,71 @@ class NewRegisterView extends GetView<NewRegisterController> {
         body: ReactiveFormBuilder(
           form: controller.buildForm,
           builder: (context, form, child) {
-            return SafeArea(
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    StepIndicator(
-                      currentStep: 1,
-                      totalSteps: 3,
-                    ),
-                    SizedBox(height: 24),
-                    Image.asset(
-                      image,
-                      width: 100,
-                    ),
-                    SizedBox(height: 20),
-                    Text(
-                      '¡Regístrate y comienza!',
-                      style: TypographyStyle.bodyBlackLarge
-                          .copyWith(fontWeight: FontWeight.w600, fontSize: 20),
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      'Crea tu cuenta de forma sencilla',
-                      style: TypographyStyle.bodyRegularLarge.copyWith(),
-                    ),
-                    SizedBox(height: 26),
-                    CustomTextInput(
-                      autofocus: false,
-                      formControlName: Fields.email.name,
-                      keyboardType: TextInputType.emailAddress,
-                      label: 'Correo',
-                      hintText: 'Ingresa tu correo',
-                    ),
-                    SizedBox(height: 28),
-                    Obx(
-                      () => PasswordInput(
-                        autofocus: false,
-                        isObscure: controller.isObscure.value,
-                        obscurePressed: controller.obscurePressed,
-                        formControlName: Fields.password.name,
-                        keyboardType: TextInputType.text,
-                        label: 'Contraseña',
-                        hintText: 'Ingresa tu contraseña',
+            return SingleChildScrollView(
+              child: SafeArea(
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      StepIndicator(
+                        currentStep: 1,
+                        totalSteps: 3,
                       ),
-                    ),
-                    SizedBox(height: 28),
-                    Obx(
-                      () => PasswordInput(
-                        autofocus: false,
-                        isObscure: controller.isObscure2.value,
-                        obscurePressed: controller.obscure2Pressed,
-                        formControlName: Fields.passwordConfirmation.name,
-                        keyboardType: TextInputType.text,
-                        label: 'Confirma la contraseña',
-                        hintText: 'Ingresa tu contraseña',
+                      SizedBox(height: 24),
+                      Image.asset(
+                        image,
+                        width: 100,
                       ),
-                    ),
-                    SizedBox(height: 16),
-                  ],
+                      SizedBox(height: 20),
+                      Text(
+                        '¡Regístrate y comienza!',
+                        style: TypographyStyle.bodyBlackLarge.copyWith(
+                            fontWeight: FontWeight.w600, fontSize: 20),
+                      ),
+                      SizedBox(height: 8),
+                      Text(
+                        'Crea tu cuenta de forma sencilla',
+                        style: TypographyStyle.bodyRegularLarge.copyWith(),
+                      ),
+                      SizedBox(height: 26),
+                      CustomTextInput(
+                        autofocus: false,
+                        formControlName: Fields.email.name,
+                        keyboardType: TextInputType.emailAddress,
+                        label: 'Correo',
+                        hintText: 'Ingresa tu correo',
+                      ),
+                      SizedBox(height: 28),
+                      Obx(
+                        () => PasswordInput(
+                          autofocus: false,
+                          isObscure: controller.isObscure.value,
+                          obscurePressed: controller.obscurePressed,
+                          formControlName: Fields.password.name,
+                          keyboardType: TextInputType.text,
+                          label: 'Contraseña',
+                          hintText: 'Ingresa tu contraseña',
+                        ),
+                      ),
+                      SizedBox(height: 28),
+                      Obx(
+                        () => PasswordInput(
+                          autofocus: false,
+                          isObscure: controller.isObscure2.value,
+                          obscurePressed: controller.obscure2Pressed,
+                          formControlName: Fields.passwordConfirmation.name,
+                          keyboardType: TextInputType.text,
+                          label: 'Confirma la contraseña',
+                          hintText: 'Ingresa tu contraseña',
+                        ),
+                      ),
+                      SizedBox(height: 24),
+                      CheckPasswordCard(),
+                    ],
+                  ),
                 ),
               ),
             );
