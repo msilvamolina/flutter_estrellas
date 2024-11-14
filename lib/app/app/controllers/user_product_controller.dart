@@ -112,6 +112,18 @@ class UserProductController extends GetxController {
     }
   }
 
+  void productCatalogButton(VideoPostModel videoPostModel) {
+    mainController.actionNeedLogin(() => productCatalogAction(videoPostModel));
+  }
+
+  void productCatalogAction(VideoPostModel videoPostModel) {
+    if (isProductInCatalogPrivate(videoPostModel)) {
+      showBottomSheetCatalog(videoPostModel);
+    } else {
+      onPressedSaveButton(videoPostModel);
+    }
+  }
+
   Future<void> addToFavorites(VideoPostModel? videoPostModel) async {
     if (videoPostModel == null) {
       return;

@@ -39,12 +39,7 @@ class _VideoButtonsState extends State<VideoButtons> {
             builder: (_) {
               return buttonCard(
                 onTap: () => userProductController
-                        .isProductInCatalogPrivate(widget.videoPostModel)
-                    ? userProductController
-                        .showBottomSheetCatalog(widget.videoPostModel)
-                    : userProductController.onPressedSaveButton(
-                        widget.videoPostModel,
-                      ),
+                    .productCatalogButton(widget.videoPostModel),
                 iconSize: userProductController
                         .isProductInCatalogPrivate(widget.videoPostModel)
                     ? 22
