@@ -73,6 +73,7 @@ class SelectPaymentController extends GetxController {
   }
 
   void confirmBuy() {
+    buyMultipleProducts();
     // if (userProductController.uniqueProduct != null) {
     //   buyUniqueProducts(userProductController.uniqueProduct!);
     // } else {
@@ -82,8 +83,7 @@ class SelectPaymentController extends GetxController {
 
   void buyUniqueProducts(UserProductModel product) async {
     mainController.showLoader(
-      title: 'Procesando...',
-      message: 'Por favor espere',
+      title: 'Estamos procesando tu compra',
     );
 
     Either<String, Unit> response =
@@ -114,8 +114,7 @@ class SelectPaymentController extends GetxController {
     }
 
     mainController.showLoader(
-      title: 'Procesando...',
-      message: 'Por favor espere',
+      title: 'Estamos procesando tu compra',
     );
 
     Either<String, Unit> response = await ordersRepository.createMultipleOrder(

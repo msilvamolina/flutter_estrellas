@@ -94,17 +94,14 @@ class OrdersRepository {
       };
 
       Map<String, dynamic> body = {
-        // "city_id": address.city['dropi_id'],
-        "city_id": "1222",
-        "department_id": "81",
-
+        "city_id": address.city?.dropiId ?? '',
+        "department_id": address.department?.dropiId ?? '',
         "client_direction": address.address,
         "client_email": email,
         "client_name": address.fullname,
         "client_notes": address.notes,
-        "client_phone": "3127559567",
+        "client_phone": address.phone,
         "client_surname": address.fullname,
-        // "department_id": address.city['department_id'],
         "catalogue": catalogue,
         "user_id": "6463b06a7420bf4da4c1ecef",
       };
