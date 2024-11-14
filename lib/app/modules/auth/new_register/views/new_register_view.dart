@@ -100,6 +100,7 @@ class NewRegisterView extends GetView<NewRegisterController> {
                       ),
                       SizedBox(height: 24),
                       CheckPasswordCard(),
+                      SizedBox(height: 48),
                     ],
                   ),
                 ),
