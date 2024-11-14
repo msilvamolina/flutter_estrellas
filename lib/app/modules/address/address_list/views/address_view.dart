@@ -18,10 +18,10 @@ class AddressView extends GetView<AddressController> {
       appBar: EstrellasAppbar(
         title: 'Mis domicilios',
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => Get.toNamed(Routes.NEW_ADDRESS),
-        child: Icon(Icons.add),
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () => Get.toNamed(Routes.NEW_ADDRESS),
+      //   child: Icon(Icons.add),
+      // ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16),
@@ -41,12 +41,17 @@ class AddressView extends GetView<AddressController> {
                         shrinkWrap: true,
                         itemCount: controller.list.length,
                         itemBuilder: (context, index) {
-                          return AddressCard(
-                            isSelected: controller.selectedAddress.value ==
-                                controller.list[index].id,
-                            isMain: controller.mainAddress.value ==
-                                controller.list[index].id,
-                            address: controller.list[index],
+                          return GestureDetector(
+                            onTap: () => controller
+                                .selectAddress(controller.list[index]),
+                            child: Obx(() => AddressCard(
+                                  isSelected:
+                                      controller.selectedAddress.value ==
+                                          controller.list[index],
+                                  isMain: controller.mainAddress.value ==
+                                      controller.list[index],
+                                  address: controller.list[index],
+                                )),
                           );
                         },
                         separatorBuilder: (context, index) =>

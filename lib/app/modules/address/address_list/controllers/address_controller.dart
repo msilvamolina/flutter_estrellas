@@ -14,12 +14,17 @@ class AddressController extends GetxController {
   final RxList<AddressModel> _list = <AddressModel>[].obs;
   List<AddressModel> get list => _list.toList();
 
-  RxnString selectedAddress = RxnString();
-  RxnString mainAddress = RxnString();
+  Rxn<AddressModel> selectedAddress = Rxn<AddressModel>();
+  Rxn<AddressModel> mainAddress = Rxn<AddressModel>();
 
   @override
   void onInit() {
     _list.bindStream(_repository.getUserAddress());
     super.onInit();
+  }
+
+  void selectAddress(AddressModel address) {
+    selectedAddress.value = address;
+    mainAddress.value = address;
   }
 }
