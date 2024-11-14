@@ -42,49 +42,51 @@ class SelectPaymentView extends GetView<SelectPaymentController> {
                           productsShipping: 0,
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        child: Button(
-                          onPressed: () {},
-                          label: 'Confirmar pago',
-                          style: ButtonStyles.primary,
-                        ),
-                      ),
+                      Obx(() => Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
+                            child: Button(
+                              onPressed:
+                                  controller.selectedPayment.value != null
+                                      ? controller.confirmBuy
+                                      : null,
+                              label: 'Confirmar pago',
+                              style: ButtonStyles.primary,
+                            ),
+                          )),
                     ],
                   ),
                 ),
               )
             : SizedBox.shrink(),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            StepIndicator(
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: StepIndicator(
               currentStep: 2,
               totalSteps: 2,
             ),
-            SizedBox(height: 26),
-            Expanded(
-              child: ListView.separated(
-                itemCount: controller.paymentsList.length,
-                itemBuilder: (context, index) {
-                  return Obx(
-                    () => PaymentTypeCard(
-                      onTap: () => controller
-                          .selectedPayment(controller.paymentsList[index].id),
-                      isSelected: controller.paymentsList[index].id ==
-                          controller.selectedPayment.value,
-                      paymentsTypesModel: controller.paymentsList[index],
-                    ),
-                  );
-                },
-                separatorBuilder: (context, index) =>
-                    const SizedBox(height: 10),
-              ),
-            )
-          ],
-        ),
+          ),
+          SizedBox(height: 10),
+          Expanded(
+            child: ListView.separated(
+              itemCount: controller.paymentsList.length,
+              itemBuilder: (context, index) {
+                return Obx(
+                  () => PaymentTypeCard(
+                    onTap: () => controller
+                        .selectedPayment(controller.paymentsList[index].id),
+                    isSelected: controller.paymentsList[index].id ==
+                        controller.selectedPayment.value,
+                    paymentsTypesModel: controller.paymentsList[index],
+                  ),
+                );
+              },
+              separatorBuilder: (context, index) => const SizedBox(height: 18),
+            ),
+          )
+        ],
       ),
     );
   }

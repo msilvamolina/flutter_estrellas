@@ -71,13 +71,14 @@ class SelectPaymentController extends GetxController {
   void onSelectedPayment(String id) {
     selectedPayment.value = id;
   }
-  // void confirmBuy() {
-  //   if (userProductController.uniqueProduct != null) {
-  //     buyUniqueProducts(userProductController.uniqueProduct!);
-  //   } else {
-  //     buyMultipleProducts();
-  //   }
-  // }
+
+  void confirmBuy() {
+    // if (userProductController.uniqueProduct != null) {
+    //   buyUniqueProducts(userProductController.uniqueProduct!);
+    // } else {
+    //   buyMultipleProducts();
+    // }
+  }
 
   void buyUniqueProducts(UserProductModel product) async {
     mainController.showLoader(
