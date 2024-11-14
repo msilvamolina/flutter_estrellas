@@ -3,6 +3,7 @@ import 'package:reactive_forms/reactive_forms.dart';
 
 import '../../../../app/controllers/main_controller.dart';
 import '../../../../data/providers/repositories/auth/auth_repository.dart';
+import '../validator/custom_password_validator.dart';
 
 enum Fields {
   email('email'),
@@ -28,6 +29,9 @@ class NewRegisterController extends GetxController {
             Validators.required,
             Validators.minLength(8),
           ],
+          asyncValidators: [
+            CustomPasswordRegisterAsyncValidator(controller: this),
+          ],
         ),
         Fields.passwordConfirmation.name: FormControl<String>(
           validators: [
@@ -46,6 +50,7 @@ class NewRegisterController extends GetxController {
   RxnBool hasCapitalLetter = RxnBool();
   RxnBool hasNumber = RxnBool();
   RxnBool hasSpecialCharacters = RxnBool();
+  RxBool hasAllValidatorsOK = false.obs;
 
   void onPasswordChanged(dynamic v) {
     String value = v.value.toString();
@@ -59,6 +64,11 @@ class NewRegisterController extends GetxController {
     hasNumber.value = value.contains(RegExp(r'[0-9]'));
     hasSpecialCharacters.value =
         value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'));
+
+    hasAllValidatorsOK.value = (hasBetween8and20characters.value ?? false) &&
+        (hasCapitalLetter.value ?? false) &&
+        (hasNumber.value ?? false) &&
+        (hasSpecialCharacters.value ?? false);
   }
 
   void resetValidation() {

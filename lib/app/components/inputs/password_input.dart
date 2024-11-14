@@ -71,6 +71,8 @@ class PasswordInput extends StatelessWidget {
                 'Sólo puedes ingresar números.',
             ValidationMessage.mustMatch: (error) =>
                 'Las contraseñas no coinciden',
+            'invalidPassword': (error) =>
+                'Las contraseña no cumple con los criterios',
           },
     );
   }
