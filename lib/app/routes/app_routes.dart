@@ -29,6 +29,7 @@ abstract class Routes {
   static const ABOUT = _Paths.ABOUT;
   static const PROFILE = _Paths.PROFILE;
   static const VIDEO_LIST = _Paths.VIDEO_LIST;
+  static const LOGIN_START = _Paths.LOGIN_START;
 }
 
 abstract class _Paths {
@@ -59,4 +60,5 @@ abstract class _Paths {
   static const ABOUT = '/about';
   static const PROFILE = '/profile';
   static const VIDEO_LIST = '/video-list';
+  static const LOGIN_START = '/login-start';
 }

@@ -30,6 +30,8 @@ import '../modules/auth/welcome/bindings/welcome_binding.dart';
 import '../modules/auth/welcome/views/welcome_view.dart';
 import '../modules/cart/bindings/cart_binding.dart';
 import '../modules/cart/views/cart_view.dart';
+import '../modules/auth/login_start/bindings/login_start_binding.dart';
+import '../modules/auth/login_start/views/login_start_view.dart';
 import '../modules/main/account/bindings/account_binding.dart';
 import '../modules/main/account/views/account_view.dart';
 import '../modules/main/home/bindings/home_binding.dart';
@@ -42,7 +44,6 @@ import '../modules/main/wallet/bindings/wallet_binding.dart';
 import '../modules/main/wallet/views/wallet_view.dart';
 import '../modules/order/order_success/bindings/order_success_binding.dart';
 import '../modules/order/order_success/views/order_success_view.dart';
-
 import '../modules/product_details/bindings/product_details_binding.dart';
 import '../modules/product_details/views/product_details_view.dart';
 import '../modules/select_payment/bindings/select_payment_binding.dart';
@@ -199,6 +200,12 @@ class AppPages {
       name: _Paths.VIDEO_LIST,
       page: () => const VideoListView(),
       binding: VideoListBinding(),
+    ),
+    GetPage(
+      name: _Paths.LOGIN_START,
+      page: () => const LoginStartView(),
+      binding: LoginStartBinding(),
+      transition: Transition.downToUp,
     ),
   ];
 }
