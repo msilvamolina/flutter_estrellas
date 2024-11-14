@@ -3,6 +3,7 @@ import 'package:flutter_estrellas/app/modules/address/address_list/widget/addres
 
 import 'package:get/get.dart';
 
+import '../../../../components/appbar/estrellas_appbar.dart';
 import '../../../../routes/app_pages.dart';
 import '../../../../themes/styles/colors.dart';
 import '../../../../themes/styles/typography.dart';
@@ -13,9 +14,9 @@ class AddressView extends GetView<AddressController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Mis domicilios'),
-        centerTitle: true,
+      backgroundColor: white,
+      appBar: EstrellasAppbar(
+        title: 'Mis domicilios',
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => Get.toNamed(Routes.NEW_ADDRESS),

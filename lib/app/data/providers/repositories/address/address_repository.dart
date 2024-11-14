@@ -72,8 +72,9 @@ class AddressRepository {
       Stream<QuerySnapshot> snapshots = _firebaseFirestore
           .collection('users')
           .doc(uid)
-          .collection('address')
+          .collection('addresses')
           .orderBy('createdAt', descending: true)
+          .where('save', isEqualTo: true)
           .snapshots();
 
       yield* snapshots.map((snapshot) {

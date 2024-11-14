@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:reactive_phone_form_field/reactive_phone_form_field.dart';
 
+import '../../../../components/appbar/estrellas_appbar.dart';
 import '../../../../components/dropdown/dropdown.dart';
 import '../../../../components/inputs/phone_input.dart';
 import '../../../../components/inputs/text_input.dart';
@@ -27,14 +28,8 @@ class NewAddressView extends GetView<NewAddressController> {
         builder: (context, form, child) {
           return Scaffold(
             backgroundColor: white,
-            appBar: AppBar(
-              backgroundColor: white,
-              surfaceTintColor: white,
-              title: Text(
-                'Domicilio',
-                style: TypographyStyle.bodyBlackLarge2,
-              ),
-              centerTitle: true,
+            appBar: EstrellasAppbar(
+              title: 'Domicilio',
             ),
             body: GetBuilder<NewAddressController>(
               id: 'view',
