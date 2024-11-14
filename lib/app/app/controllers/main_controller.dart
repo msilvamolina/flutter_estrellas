@@ -81,7 +81,7 @@ class MainController extends GetxController {
 
   @override
   void onReady() async {
-    checkUser();
+    // checkUser();
     super.onReady();
   }
 
@@ -103,30 +103,10 @@ class MainController extends GetxController {
 
     update(['login']);
 
-    if (!kIsWeb) {
-      if (_userStatus == UserStatus.notLogged) {
-        if (!_isWelcome) {
-          Get.offAllNamed(Routes.WELCOME);
-        } else {
-          Get.offAllNamed(Routes.LOGIN);
-        }
-      }
-      if (_userStatus == UserStatus.needBasicData) {
-        Get.offAllNamed(Routes.REGISTER_BASIC_DATA);
-      }
-      if (_userStatus == UserStatus.full) {
-        Get.offAllNamed(Routes.HOME);
-      }
+    if (!_isWelcome) {
+      Get.offAllNamed(Routes.WELCOME);
     } else {
-      if (_userStatus == UserStatus.needBasicData) {
-        openRegisterBasicDataDialog();
-      }
-      if (_userStatus == UserStatus.full) {
-        if (login) {
-          String name = userData!.firstName;
-          Snackbars.success('Hola $name!');
-        }
-      }
+      Get.offAllNamed(Routes.HOME);
     }
   }
 
