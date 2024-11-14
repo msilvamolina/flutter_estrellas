@@ -72,8 +72,20 @@ class SelectPaymentController extends GetxController {
     selectedPayment.value = id;
   }
 
-  void confirmBuy() {
-    buyMultipleProducts();
+  Future<void> confirmBuy() async {
+    mainController.showLoader(
+      title: 'Estamos procesando tu compra',
+    );
+
+    // Either<String, Unit> response =
+    //     await ordersRepository.createOrder(product: product, address: address);
+
+    await Future.delayed(Duration(seconds: 1));
+    Get.back();
+
+    Get.offAndToNamed(Routes.ORDER_SUCCESS);
+    // buyUniqueProducts();
+    // buyMultipleProducts();
     // if (userProductController.uniqueProduct != null) {
     //   buyUniqueProducts(userProductController.uniqueProduct!);
     // } else {
@@ -86,15 +98,19 @@ class SelectPaymentController extends GetxController {
       title: 'Estamos procesando tu compra',
     );
 
-    Either<String, Unit> response =
-        await ordersRepository.createOrder(product: product, address: address);
+    // Either<String, Unit> response =
+    //     await ordersRepository.createOrder(product: product, address: address);
 
+    await Future.delayed(Duration(seconds: 1));
     Get.back();
-    response.fold((failure) {
-      Snackbars.error(failure);
-    }, (_) {
-      Get.offAndToNamed(Routes.ORDER_SUCCESS);
-    });
+
+    Get.offAndToNamed(Routes.ORDER_SUCCESS);
+
+    // response.fold((failure) {
+    //   Snackbars.error(failure);
+    // }, (_) {
+    //   Get.offAndToNamed(Routes.ORDER_SUCCESS);
+    // });
   }
 
   void buyMultipleProducts() async {
