@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_estrellas/app/themes/styles/typography.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:lottie/lottie.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../themes/styles/colors.dart';
@@ -24,14 +25,17 @@ class LoaderDialog extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Shimmer.fromColors(
-                baseColor: primaryBase,
-                highlightColor: primaryLight,
-                child: SvgPicture.asset(
-                  'assets/svg/loader.svg',
-                  width: 100,
-                ),
+              Lottie.asset(
+                'assets/lotties/Loader.json',
               ),
+              // Shimmer.fromColors(
+              //   baseColor: primaryBase,
+              //   highlightColor: primaryLight,
+              //   child: SvgPicture.asset(
+              //     'assets/svg/loader.svg',
+              //     width: 100,
+              //   ),
+              // ),
               if (title != null)
                 Padding(
                   padding: const EdgeInsets.only(top: 8),

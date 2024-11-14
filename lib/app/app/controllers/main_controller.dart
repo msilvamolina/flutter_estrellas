@@ -81,7 +81,7 @@ class MainController extends GetxController {
 
   @override
   void onReady() async {
-    // checkUser();
+    checkUser();
     super.onReady();
   }
 
@@ -129,6 +129,8 @@ class MainController extends GetxController {
     _userStatus = UserStatus.loading;
     update(['login']);
     userRepository.signOut();
+    localStorage.setWelcome(false);
+    _isWelcome = false;
     Future.delayed(Duration(milliseconds: 500), () {
       _userStatus = UserStatus.notLogged;
       update(['login']);

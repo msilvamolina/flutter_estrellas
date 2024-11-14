@@ -3,6 +3,7 @@ import 'package:flutter_estrellas/app/app/controllers/main_controller.dart';
 import 'package:flutter_estrellas/app/data/models/carrousel/carrousel_model.dart';
 import 'package:get/get.dart';
 
+import '../../../../data/providers/local/local_storage.dart';
 import '../../../../routes/app_pages.dart';
 
 class WelcomeController extends GetxController {
@@ -13,6 +14,8 @@ class WelcomeController extends GetxController {
 
   RxInt currentStep = 0.obs;
   PageController pageController = PageController();
+
+  LocalStorage localStorage = Get.find();
 
   @override
   void onInit() {
@@ -61,6 +64,7 @@ class WelcomeController extends GetxController {
   }
 
   void skip() {
+    localStorage.setWelcome(true);
     Get.offAndToNamed(Routes.HOME);
   }
 }
