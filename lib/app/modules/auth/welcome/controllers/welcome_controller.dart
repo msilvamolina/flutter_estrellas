@@ -19,7 +19,7 @@ class WelcomeController extends GetxController {
         id: 0,
         title: '¡Te damos la bienvenida!',
         subtitle: 'Descubre productos exclusivos para comprar y vender',
-        image: 'assets/images/welcome1.png',
+        image: 'assets/images/welcome-step-1.png',
       ),
     );
     _list.add(
@@ -28,7 +28,7 @@ class WelcomeController extends GetxController {
         title: 'Comparte, conecta, vende',
         subtitle:
             'Crea tu tienda digital, comparte y deja que tus productos se vendan por sí solos.',
-        image: 'assets/images/welcome2.png',
+        image: 'assets/images/welcome-step-2.png',
       ),
     );
     _list.add(
@@ -36,7 +36,7 @@ class WelcomeController extends GetxController {
         id: 2,
         title: '¡Gana más con menos esfuerzo!',
         subtitle: 'Gana puntos y canjéalos por beneficios y premios.',
-        image: 'assets/images/welcome3.png',
+        image: 'assets/images/welcome-step-3.png',
       ),
     );
 
