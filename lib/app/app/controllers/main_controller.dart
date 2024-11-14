@@ -52,6 +52,8 @@ class MainController extends GetxController {
   bool _showSwipeUpVideo = true;
   bool get showSwipeUpVideo => _showSwipeUpVideo;
 
+  RxBool isUserLogged = false.obs;
+
   void setToken(String value) {
     _token = value;
   }
@@ -100,6 +102,7 @@ class MainController extends GetxController {
     _userStatus = UserStatus.loading;
     update(['login']);
     bool isAuthenticated = userRepository.isUserLogged();
+    isUserLogged.value = isAuthenticated;
 
     if (isAuthenticated) {
       _userData = await userRepository.getUserDataFirebase();

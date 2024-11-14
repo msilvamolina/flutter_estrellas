@@ -47,19 +47,24 @@ class _HomeViewState extends State<HomeView> {
                       size: 40,
                     ),
                   ),
-                  Positioned(
-                    right: 6,
-                    top: 8,
-                    child: CircleAvatar(
-                      radius: 9,
-                      backgroundColor: error900,
-                      child: Text(
-                        controller.userProductController.listProductCart.length
-                            .toString(),
-                        style: TypographyStyle.bodyBlackSmall
-                            .copyWith(color: white, fontSize: 12),
-                      ),
-                    ),
+                  Obx(
+                    () => controller.mainController.isUserLogged.value
+                        ? Positioned(
+                            right: 6,
+                            top: 8,
+                            child: CircleAvatar(
+                              radius: 9,
+                              backgroundColor: error900,
+                              child: Text(
+                                controller.userProductController.listProductCart
+                                    .length
+                                    .toString(),
+                                style: TypographyStyle.bodyBlackSmall
+                                    .copyWith(color: white, fontSize: 12),
+                              ),
+                            ),
+                          )
+                        : SizedBox.shrink(),
                   ),
                 ],
               );
