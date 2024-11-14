@@ -22,22 +22,39 @@ class AddressView extends GetView<AddressController> {
         onPressed: () => Get.toNamed(Routes.NEW_ADDRESS),
         child: Icon(Icons.add),
       ),
-      body: Obx(
-        () => controller.list.isNotEmpty
-            ? ListView.separated(
-                itemCount: controller.list.length,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: AddressCard(
-                      address: controller.list[index],
-                    ),
-                  );
-                },
-                separatorBuilder: (context, index) =>
-                    const SizedBox(height: 10),
-              )
-            : Center(child: const Text('no data')),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text(
+                'Lugar de envío',
+                style: TypographyStyle.bodyBlackLarge2,
+              ),
+              SizedBox(height: 16),
+              Obx(
+                () => controller.list.isNotEmpty
+                    ? ListView.separated(
+                        physics: NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: controller.list.length,
+                        itemBuilder: (context, index) {
+                          return AddressCard(
+                            address: controller.list[index],
+                          );
+                        },
+                        separatorBuilder: (context, index) =>
+                            const SizedBox(height: 10),
+                      )
+                    : Center(child: const Text('no data')),
+              ),
+              Text('Lugar de envío'),
+              SizedBox(height: 80),
+            ],
+          ),
+        ),
       ),
     );
   }

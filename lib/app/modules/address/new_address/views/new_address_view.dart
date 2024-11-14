@@ -45,8 +45,7 @@ class NewAddressView extends GetView<NewAddressController> {
                             currentStep: 1,
                             totalSteps: 2,
                           ),
-                          const SizedBox(height: 16),
-                          const SizedBox(height: 16),
+                          const SizedBox(height: 32),
                           Text(
                             'Datos de la persona que recibe',
                             style: TypographyStyle.bodyBlackLarge2,
