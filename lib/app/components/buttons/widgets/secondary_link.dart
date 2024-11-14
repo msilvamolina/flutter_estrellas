@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import '../../../themes/styles/colors.dart';
 import '../../../themes/styles/typography.dart';
 
-class SecondaryTextbutton extends StatelessWidget {
-  const SecondaryTextbutton({
+class SecondaryLink extends StatelessWidget {
+  const SecondaryLink({
     required this.label,
     required this.onPressed,
     super.key,
@@ -24,8 +24,9 @@ class SecondaryTextbutton extends StatelessWidget {
       onPressed: onPressed,
       child: Text(
         label,
-        style: TypographyStyle.bodyBlackMedium.copyWith(
+        style: TypographyStyle.bodyBlackLarge.copyWith(
           color: secondaryBase,
+          decoration: TextDecoration.underline,
         ),
       ),
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_estrellas/app/components/buttons/buttons.dart';
 import 'package:flutter_estrellas/app/modules/address/address_list/widget/address_card.dart';
 
 import 'package:get/get.dart';
@@ -18,10 +19,20 @@ class AddressView extends GetView<AddressController> {
       appBar: EstrellasAppbar(
         title: 'Mis domicilios',
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () => Get.toNamed(Routes.NEW_ADDRESS),
-      //   child: Icon(Icons.add),
-      // ),
+      bottomNavigationBar: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Obx(
+            () => Button(
+              onPressed: controller.selectedAddress.value != null
+                  ? controller.goToSelectectPayment
+                  : null,
+              label: 'Continuar',
+              style: ButtonStyles.primary,
+            ),
+          ),
+        ),
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16),
@@ -59,8 +70,14 @@ class AddressView extends GetView<AddressController> {
                       )
                     : Center(child: const Text('no data')),
               ),
-              Text('Lugar de envío'),
-              SizedBox(height: 80),
+              Center(
+                child: Button(
+                  onPressed: () => Get.toNamed(Routes.NEW_ADDRESS),
+                  style: ButtonStyles.secondaryLink,
+                  label: 'Agregar nuevo domicilio',
+                ),
+              ),
+              SizedBox(height: 140),
             ],
           ),
         ),

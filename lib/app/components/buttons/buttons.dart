@@ -4,11 +4,13 @@ import 'package:flutter_estrellas/app/components/buttons/widgets/secondary_textb
 import 'widgets/primary_button.dart';
 import 'widgets/secondary_button.dart';
 import 'widgets/secondary_circle_button.dart';
+import 'widgets/secondary_link.dart';
 
 enum ButtonStyles {
   primary,
   secondary,
   secondaryText,
+  secondaryLink,
   secondaryCirlce,
 }
 
@@ -43,6 +45,11 @@ class Button extends StatelessWidget {
         );
       case ButtonStyles.secondaryText:
         return SecondaryTextbutton(
+          onPressed: onPressed,
+          label: label!,
+        );
+      case ButtonStyles.secondaryLink:
+        return SecondaryLink(
           onPressed: onPressed,
           label: label!,
         );
