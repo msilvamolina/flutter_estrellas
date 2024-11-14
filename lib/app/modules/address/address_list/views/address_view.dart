@@ -42,6 +42,10 @@ class AddressView extends GetView<AddressController> {
                         itemCount: controller.list.length,
                         itemBuilder: (context, index) {
                           return AddressCard(
+                            isSelected: controller.selectedAddress.value ==
+                                controller.list[index].id,
+                            isMain: controller.mainAddress.value ==
+                                controller.list[index].id,
                             address: controller.list[index],
                           );
                         },

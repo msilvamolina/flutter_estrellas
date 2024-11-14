@@ -14,6 +14,9 @@ class AddressController extends GetxController {
   final RxList<AddressModel> _list = <AddressModel>[].obs;
   List<AddressModel> get list => _list.toList();
 
+  RxnString selectedAddress = RxnString();
+  RxnString mainAddress = RxnString();
+
   @override
   void onInit() {
     _list.bindStream(_repository.getUserAddress());
