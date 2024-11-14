@@ -85,7 +85,7 @@ class _VideoButtonsState extends State<VideoButtons> {
         SizedBox(height: 22),
         buttonCard(
           onTap: () =>
-              userProductController.goToBuyUniqueProduct(widget.videoPostModel),
+              userProductController.goToSellProduct(widget.videoPostModel),
           image: 'assets/svg/logo.svg',
           label: 'Vender',
           isLogo: true,

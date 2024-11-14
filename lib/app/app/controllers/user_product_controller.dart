@@ -90,6 +90,12 @@ class UserProductController extends GetxController {
     Get.toNamed(Routes.ADDRESS);
   }
 
+  void goToSellProduct(VideoPostModel? videoPostModel) {
+    mainController.actionNeedLogin(() => goToSellProductAction(videoPostModel));
+  }
+
+  void goToSellProductAction(VideoPostModel? videoPostModel) {}
+
   void setUniqueProduct(VideoPostModel? videoPostModel) {
     //   if (videoPostModel != null) {
     //     UserProductModel unique = UserProductModel(
