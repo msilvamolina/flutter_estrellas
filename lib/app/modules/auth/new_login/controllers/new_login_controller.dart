@@ -17,6 +17,7 @@ class NewLoginController extends GetxController {
 
   MainController mainController = Get.find();
 
+  RxBool isObscure = true.obs;
   FormGroup buildForm() => fb.group(<String, Object>{
         Fields.email.name: FormControl<String>(
           validators: [
@@ -31,4 +32,8 @@ class NewLoginController extends GetxController {
           ],
         ),
       });
+
+  void obscurePressed() {
+    isObscure.value = !isObscure.value;
+  }
 }

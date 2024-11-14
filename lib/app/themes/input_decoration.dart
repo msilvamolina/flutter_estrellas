@@ -12,6 +12,7 @@ class CustomInputDecoration {
     String? hintText,
     IconData? icon,
     bool? isThemeModeDark,
+    Widget? suffixIcon,
   }) {
     MainController mainController = Get.find<MainController>();
     Color labelBackgroundColor =
@@ -86,6 +87,7 @@ class CustomInputDecoration {
     IconData? icon,
     bool? isThemeModeDark,
     bool isSubmited = false,
+    Widget? suffixIcon,
     required FormControl control,
   }) {
     MainController mainController = Get.find<MainController>();
@@ -135,12 +137,13 @@ class CustomInputDecoration {
               color: borderColor,
             )
           : null,
+
       suffixIcon: (showErrors)
           ? Icon(
               Icons.error,
               color: errorColor,
             )
-          : null,
+          : suffixIcon,
       errorBorder: OutlineInputBorder(
         borderSide: BorderSide(color: errorColor, width: 2.0),
         borderRadius: BorderRadius.circular(12),

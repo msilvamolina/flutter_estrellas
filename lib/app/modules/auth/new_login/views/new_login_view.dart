@@ -70,12 +70,16 @@ class NewLoginView extends GetView<NewLoginController> {
                           hintText: 'Ingresa tu correo',
                         ),
                         SizedBox(height: 28),
-                        PasswordInput(
-                          autofocus: false,
-                          formControlName: Fields.password.name,
-                          keyboardType: TextInputType.text,
-                          label: 'Contraseña',
-                          hintText: 'Ingresa tu contraseña',
+                        Obx(
+                          () => PasswordInput(
+                            autofocus: false,
+                            isObscure: controller.isObscure.value,
+                            obscurePressed: controller.obscurePressed,
+                            formControlName: Fields.password.name,
+                            keyboardType: TextInputType.text,
+                            label: 'Contraseña',
+                            hintText: 'Ingresa tu contraseña',
+                          ),
                         ),
                         SizedBox(height: 16),
                         Center(
