@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_estrellas/app/libraries/icons/icons_font.dart';
+import 'package:flutter_estrellas/app/routes/app_pages.dart';
 import 'package:flutter_estrellas/app/themes/styles/typography.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -27,7 +28,7 @@ class LoginStartView extends GetView<LoginStartController> {
                 style: TypographyStyle.bodyRegularLarge,
               ),
               Button(
-                onPressed: () {},
+                onPressed: () => Get.toNamed(Routes.NEW_LOGIN),
                 label: 'Inicia sesión',
                 style: ButtonStyles.secondaryLink,
               ),
@@ -135,7 +136,7 @@ class LoginStartView extends GetView<LoginStartController> {
                   SizedBox(height: 26),
                   Button(
                     style: ButtonStyles.primary,
-                    onPressed: () {},
+                    onPressed: () => Get.toNamed(Routes.NEW_REGISTER),
                     label: 'Continuar con correo',
                   ),
                 ],

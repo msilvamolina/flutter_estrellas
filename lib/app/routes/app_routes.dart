@@ -30,6 +30,8 @@ abstract class Routes {
   static const PROFILE = _Paths.PROFILE;
   static const VIDEO_LIST = _Paths.VIDEO_LIST;
   static const LOGIN_START = _Paths.LOGIN_START;
+  static const NEW_LOGIN = _Paths.NEW_LOGIN;
+  static const NEW_REGISTER = _Paths.NEW_REGISTER;
 }
 
 abstract class _Paths {
@@ -61,4 +63,6 @@ abstract class _Paths {
   static const PROFILE = '/profile';
   static const VIDEO_LIST = '/video-list';
   static const LOGIN_START = '/login-start';
+  static const NEW_LOGIN = '/new-login';
+  static const NEW_REGISTER = '/new-register';
 }
