@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_estrellas/app/themes/styles/typography.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../../../data/models/payments_types/payments_types_model.dart';
 import '../../../themes/styles/colors.dart';
 
 class PaymentTypeCard extends StatelessWidget {
-  const PaymentTypeCard({required this.paymentsTypesModel, super.key});
+  const PaymentTypeCard({
+    required this.paymentsTypesModel,
+    required this.isSelected,
+    this.onTap,
+    super.key,
+  });
 
   final PaymentsTypesModel paymentsTypesModel;
+  final bool isSelected;
+  final Function()? onTap;
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -16,7 +24,7 @@ class PaymentTypeCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8),
         child: ListTile(
-          onTap: () {},
+          onTap: onTap,
           leading: Container(
             width: 46,
             height: 46,
@@ -42,7 +50,12 @@ class PaymentTypeCard extends StatelessWidget {
             paymentsTypesModel.title,
             style: TypographyStyle.bodyBlackLarge,
           ),
-          trailing: Icon(Icons.check_box),
+          trailing: SvgPicture.asset(
+            isSelected
+                ? 'assets/svg/CheckboxActive.svg'
+                : 'assets/svg/Checkbox.svg',
+            width: 18,
+          ),
         ),
       ),
     );

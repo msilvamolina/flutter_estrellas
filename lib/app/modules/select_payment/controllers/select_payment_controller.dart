@@ -24,6 +24,8 @@ class SelectPaymentController extends GetxController {
   List<PaymentsTypesModel> _paymentsList = [];
   List<PaymentsTypesModel> get paymentsList => _paymentsList;
 
+  RxnString selectedPayment = RxnString();
+
   @override
   void onInit() {
     address = Get.arguments as AddressModel;
@@ -66,6 +68,9 @@ class SelectPaymentController extends GetxController {
     super.onInit();
   }
 
+  void onSelectedPayment(String id) {
+    selectedPayment.value = id;
+  }
   // void confirmBuy() {
   //   if (userProductController.uniqueProduct != null) {
   //     buyUniqueProducts(userProductController.uniqueProduct!);

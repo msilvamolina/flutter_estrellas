@@ -69,8 +69,14 @@ class SelectPaymentView extends GetView<SelectPaymentController> {
               child: ListView.separated(
                 itemCount: controller.paymentsList.length,
                 itemBuilder: (context, index) {
-                  return PaymentTypeCard(
-                    paymentsTypesModel: controller.paymentsList[index],
+                  return Obx(
+                    () => PaymentTypeCard(
+                      onTap: () => controller
+                          .selectedPayment(controller.paymentsList[index].id),
+                      isSelected: controller.paymentsList[index].id ==
+                          controller.selectedPayment.value,
+                      paymentsTypesModel: controller.paymentsList[index],
+                    ),
                   );
                 },
                 separatorBuilder: (context, index) =>
