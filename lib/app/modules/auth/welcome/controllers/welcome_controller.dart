@@ -3,6 +3,8 @@ import 'package:flutter_estrellas/app/app/controllers/main_controller.dart';
 import 'package:flutter_estrellas/app/data/models/carrousel/carrousel_model.dart';
 import 'package:get/get.dart';
 
+import '../../../../routes/app_pages.dart';
+
 class WelcomeController extends GetxController {
   MainController mainController = Get.find();
 
@@ -47,11 +49,18 @@ class WelcomeController extends GetxController {
     currentStep.value = value ?? 1;
   }
 
-  void skip() {
-    print('skip');
+  void next() {
+    currentStep.value++;
+
+    if (currentStep.value == _list.length) {
+      skip();
+    } else {
+      pageController.animateToPage(currentStep.value,
+          duration: Duration(milliseconds: 200), curve: Curves.linear);
+    }
   }
 
-  void next() {
-    print('next');
+  void skip() {
+    Get.offAndToNamed(Routes.HOME);
   }
 }
