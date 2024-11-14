@@ -109,7 +109,7 @@ class _CustomPinInputCodeState extends State<CustomPinInputCode> {
               color: fillColor,
               borderRadius: BorderRadius.circular(16),
               border: Border.all(
-                  color: focusedBorderColor,
+                  color: primaryDark,
                   width: 1.5), // Borde de ancho 1.5 en enviado
             ),
           ),
