@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_estrellas/app/app/controllers/main_controller.dart';
 import 'package:flutter_estrellas/app/app/controllers/user_product_controller.dart';
+import 'package:flutter_estrellas/app/routes/app_pages.dart';
 import 'package:get/get.dart';
 
 import '../../../../data/models/videos/video_post_model.dart';
@@ -20,5 +21,9 @@ class HomeController extends GetxController {
   void onInit() {
     _list.bindStream(_repository.getVideos());
     super.onInit();
+  }
+
+  void goToCart() {
+    mainController.actionNeedLogin(() => Get.toNamed(Routes.CART));
   }
 }

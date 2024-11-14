@@ -35,19 +35,19 @@ class _HomeViewState extends State<HomeView> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         actions: [
-          Stack(
-            children: [
-              IconButton(
-                onPressed: () => Get.toNamed(Routes.CART),
-                icon: Icon(
-                  EstrellasIcons.shoppingCartSimpleFill,
-                  color: white,
-                  size: 40,
-                ),
-              ),
-              GetX<HomeController>(
-                builder: (controller) {
-                  return Positioned(
+          GetX<HomeController>(
+            builder: (controller) {
+              return Stack(
+                children: [
+                  IconButton(
+                    onPressed: controller.goToCart,
+                    icon: Icon(
+                      EstrellasIcons.shoppingCartSimpleFill,
+                      color: white,
+                      size: 40,
+                    ),
+                  ),
+                  Positioned(
                     right: 6,
                     top: 8,
                     child: CircleAvatar(
@@ -60,10 +60,10 @@ class _HomeViewState extends State<HomeView> {
                             .copyWith(color: white, fontSize: 12),
                       ),
                     ),
-                  );
-                },
-              ),
-            ],
+                  ),
+                ],
+              );
+            },
           ),
         ],
       ),
