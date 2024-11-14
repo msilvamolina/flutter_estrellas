@@ -83,7 +83,10 @@ class SelectPaymentController extends GetxController {
     await Future.delayed(Duration(seconds: 1));
     Get.back();
 
-    Get.offAndToNamed(Routes.ORDER_SUCCESS);
+    Get.offNamedUntil(
+      Routes.ORDER_SUCCESS,
+      (route) => route.isFirst,
+    );
     // buyUniqueProducts();
     // buyMultipleProducts();
     // if (userProductController.uniqueProduct != null) {
