@@ -5,33 +5,10 @@ import 'package:reactive_forms/reactive_forms.dart';
 import '../../../../app/controllers/main_controller.dart';
 import '../../../../data/providers/repositories/auth/auth_repository.dart';
 
-enum Fields {
-  email('email'),
-  password('password');
-
-  const Fields(this.name);
-  final String name;
-}
-
 class EmailVerificationController extends GetxController {
   final AuthRepository _authRepository = AuthRepository();
 
   MainController mainController = Get.find();
-
-  FormGroup buildForm() => fb.group(<String, Object>{
-        Fields.email.name: FormControl<String>(
-          validators: [
-            Validators.required,
-            Validators.email,
-          ],
-        ),
-        Fields.password.name: FormControl<String>(
-          validators: [
-            Validators.required,
-            Validators.minLength(8),
-          ],
-        ),
-      });
 
   RxString timeLeft = '02:00'.obs; // Tiempo restante en formato MM:SS
   RxBool isCountdownComplete = false.obs; // Indica si el tiempo ha llegado a 0
