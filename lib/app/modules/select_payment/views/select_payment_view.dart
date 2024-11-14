@@ -10,6 +10,7 @@ import '../../../themes/styles/colors.dart';
 import '../../../themes/styles/typography.dart';
 import '../../cart/widget/cart_price_bottom_sheet.dart';
 import '../controllers/select_payment_controller.dart';
+import '../widgets/payment_type_card.dart';
 
 class SelectPaymentView extends GetView<SelectPaymentController> {
   const SelectPaymentView({super.key});
@@ -64,14 +65,16 @@ class SelectPaymentView extends GetView<SelectPaymentController> {
               totalSteps: 2,
             ),
             SizedBox(height: 26),
-            Card(
-              color: neutral100,
-              elevation: 0,
-              child: ListTile(
-                onTap: () {},
-                leading: CircleAvatar(child: Icon(Icons.money)),
-                title: Text('Pago contra entrega'),
-                trailing: Icon(Icons.check_box),
+            Expanded(
+              child: ListView.separated(
+                itemCount: controller.paymentsList.length,
+                itemBuilder: (context, index) {
+                  return PaymentTypeCard(
+                    paymentsTypesModel: controller.paymentsList[index],
+                  );
+                },
+                separatorBuilder: (context, index) =>
+                    const SizedBox(height: 10),
               ),
             )
           ],

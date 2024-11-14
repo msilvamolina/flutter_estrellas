@@ -1,7 +1,10 @@
 import 'package:dartz/dartz.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_estrellas/app/components/snackbars/snackbars.dart';
 import 'package:flutter_estrellas/app/data/models/address/address_model.dart';
+import 'package:flutter_estrellas/app/data/models/payments_types/payments_types_model.dart';
 import 'package:flutter_estrellas/app/data/providers/repositories/orders/orders_repository.dart';
+import 'package:flutter_estrellas/app/libraries/icons/icons_font.dart';
 import 'package:get/get.dart';
 
 import '../../../app/controllers/main_controller.dart';
@@ -17,19 +20,59 @@ class SelectPaymentController extends GetxController {
       Get.find<UserProductController>();
   OrdersRepository ordersRepository = OrdersRepository();
   late AddressModel address;
+
+  List<PaymentsTypesModel> _paymentsList = [];
+  List<PaymentsTypesModel> get paymentsList => _paymentsList;
+
   @override
   void onInit() {
     address = Get.arguments as AddressModel;
+
+    _paymentsList.add(
+      PaymentsTypesModel(
+        id: '0',
+        title: 'Pago contra entrega',
+        icon: EstrellasIcons.moneyWavy,
+      ),
+    );
+    _paymentsList.add(
+      PaymentsTypesModel(
+        id: '1',
+        title: 'Crédito Addi',
+        image: 'assets/images/addi.png',
+      ),
+    );
+    _paymentsList.add(
+      PaymentsTypesModel(
+        id: '2',
+        title: 'Tranferencia PSE',
+        image: 'assets/images/pse.png',
+      ),
+    );
+    _paymentsList.add(
+      PaymentsTypesModel(
+        id: '3',
+        title: 'Agregar tarjeta crédito',
+        icon: EstrellasIcons.creditCard,
+      ),
+    );
+    _paymentsList.add(
+      PaymentsTypesModel(
+        id: '4',
+        title: 'Agregar tarjeta débito',
+        icon: EstrellasIcons.creditCard,
+      ),
+    );
     super.onInit();
   }
 
-  void confirmBuy() {
-    if (userProductController.uniqueProduct != null) {
-      buyUniqueProducts(userProductController.uniqueProduct!);
-    } else {
-      buyMultipleProducts();
-    }
-  }
+  // void confirmBuy() {
+  //   if (userProductController.uniqueProduct != null) {
+  //     buyUniqueProducts(userProductController.uniqueProduct!);
+  //   } else {
+  //     buyMultipleProducts();
+  //   }
+  // }
 
   void buyUniqueProducts(UserProductModel product) async {
     mainController.showLoader(
