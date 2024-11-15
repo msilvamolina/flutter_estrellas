@@ -1,7 +1,10 @@
+import 'package:dartz/dartz.dart';
+import 'package:flutter_estrellas/app/routes/app_pages.dart';
 import 'package:get/get.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
 import '../../../../app/controllers/main_controller.dart';
+import '../../../../components/snackbars/snackbars.dart';
 import '../../../../data/providers/repositories/auth/auth_repository.dart';
 import '../validator/custom_password_validator.dart';
 
@@ -89,5 +92,34 @@ class NewRegisterController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+  }
+
+  Future<void> sendForm(Map<String, Object?> data) async {
+    String email = data[Fields.email.name].toString();
+    String password = data[Fields.password.name].toString();
+    mainController.showLoader(
+      title: '',
+    );
+    Either<String, Unit> authFailureOrSuccessOption =
+        await _authRepository.createUserWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
+
+    Get.back();
+
+    authFailureOrSuccessOption.fold(
+      (failure) => Snackbars.error(failure),
+      (_) {
+        Get.back();
+        Get.offNamedUntil(
+          Routes.EMAIL_VERIFICATION,
+          (route) =>
+              route.settings.name ==
+              Routes
+                  .EMAIL_VERIFICATION, // Cambia Routes.HOME por la ruta que deseas mantener.
+        );
+      },
+    );
   }
 }
