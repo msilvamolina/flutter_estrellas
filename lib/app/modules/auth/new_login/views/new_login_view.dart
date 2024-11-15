@@ -17,38 +17,42 @@ class NewLoginView extends GetView<NewLoginController> {
   @override
   Widget build(BuildContext context) {
     String image = 'assets/images/auth.png';
-    return Scaffold(
-        backgroundColor: white,
-        appBar: LoginAppbar(),
-        extendBodyBehindAppBar: true,
-        bottomNavigationBar: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Center(
-                  child: Button(
-                    label: 'Olvidé mi contraseña',
-                    onPressed: () {},
-                    style: ButtonStyles.secondaryLink,
-                  ),
+    return ReactiveFormBuilder(
+        form: controller.buildForm,
+        builder: (context, form, child) {
+          return Scaffold(
+            backgroundColor: white,
+            appBar: LoginAppbar(),
+            extendBodyBehindAppBar: true,
+            bottomNavigationBar: SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Center(
+                      child: Button(
+                        label: 'Olvidé mi contraseña',
+                        onPressed: () {},
+                        style: ButtonStyles.secondaryLink,
+                      ),
+                    ),
+                    SizedBox(height: 16),
+                    ReactiveFormConsumer(
+                      builder: (context, form, child) => Button(
+                        label: 'Continuar',
+                        onPressed: (form.valid)
+                            ? () => controller.sendForm(form.value)
+                            : null,
+                        style: ButtonStyles.primary,
+                      ),
+                    ),
+                  ],
                 ),
-                SizedBox(height: 16),
-                Button(
-                  label: 'Continuar',
-                  onPressed: () {},
-                  style: ButtonStyles.primary,
-                ),
-              ],
+              ),
             ),
-          ),
-        ),
-        body: ReactiveFormBuilder(
-          form: controller.buildForm,
-          builder: (context, form, child) {
-            return SafeArea(
+            body: SafeArea(
               child: Stack(
                 children: [
                   Positioned(
@@ -111,8 +115,8 @@ class NewLoginView extends GetView<NewLoginController> {
                   ),
                 ],
               ),
-            );
-          },
-        ));
+            ),
+          );
+        });
   }
 }
