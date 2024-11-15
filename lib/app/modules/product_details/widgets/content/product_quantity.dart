@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import '../../../../app/bottom_sheets/select_variant_size.dart';
 import '../../../../components/bottom_sheets/bottomsheets.dart';
 import '../../../../components/bottom_sheets/types.dart';
+import '../../../../components/fields/quantity.dart';
 import '../../../../data/models/product_variant/product_variant_model.dart';
 import '../../controllers/product_details_controller.dart';
 import 'product_card_container.dart';
@@ -29,37 +30,11 @@ class ProductQuantity extends StatelessWidget {
                       .copyWith(color: neutral700),
                 ),
                 Spacer(),
-                Container(
-                  decoration: BoxDecoration(
-                    color: white,
-                    border: Border.all(
-                        color: neutral950, width: 1), // Borde verde de 2px
-                    borderRadius: BorderRadius.all(
-                        Radius.circular(12)), // Misma curvatura del ClipRRect
-                  ),
-                  padding: EdgeInsets.symmetric(horizontal: 4, vertical: 2),
-                  child: Row(
-                    children: [
-                      ButtonCircleSvg(
-                        assetName: 'assets/svg/minus-icon.svg',
-                        width: 24,
-                        onTap: controller.minusQuantity,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 12),
-                        child: Text(
-                          controller.quantity.toString(),
-                          style: TypographyStyle.bodyRegularLarge
-                              .copyWith(color: neutral700),
-                        ),
-                      ),
-                      ButtonCircleSvg(
-                        assetName: 'assets/svg/add-icon.svg',
-                        width: 24,
-                        onTap: controller.addQuantity,
-                      ),
-                    ],
-                  ),
+                FieldQuantity(
+                  value: controller.quantity,
+                  addFunction: controller.addQuantity,
+                  minusFunction: controller.minusQuantity,
+                  maxValue: controller.stock,
                 ),
               ],
             ),

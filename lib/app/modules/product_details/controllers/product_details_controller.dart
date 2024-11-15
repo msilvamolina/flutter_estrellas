@@ -93,7 +93,7 @@ class ProductDetailsController extends GetxController {
     _price = productLite.price ?? 0;
     _suggestedPrice = productLite.suggestedPrice ?? 0;
     _points = productLite.points ?? 0;
-    _stock = 1;
+    _stock = productLite.stock ?? 1;
     _quantity = 1;
     update(['product_price', 'content_product', 'product_quantity']);
   }
