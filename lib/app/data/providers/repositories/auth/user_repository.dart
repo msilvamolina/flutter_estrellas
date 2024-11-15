@@ -52,6 +52,19 @@ class UserRepository {
     }
   }
 
+  Future<bool> isEmailVerified() async {
+    User? currentUser = _firebaseAuth.currentUser;
+
+    if (currentUser != null) {
+      await currentUser
+          .reload(); // Recargar la información del usuario desde Firebase
+      return currentUser
+          .emailVerified; // Devuelve el estado de verificación del email
+    }
+
+    return false; // No hay usuario logueado
+  }
+
   Future<UserData?> getUserDataFirebase() async {
     User currentUser = _firebaseAuth.currentUser!;
     String email = currentUser.email!;

@@ -20,6 +20,7 @@ enum UserStatus {
   loading,
   notLogged,
   needBasicData,
+  needVerifyEmail,
   full,
 }
 
@@ -105,11 +106,17 @@ class MainController extends GetxController {
     isUserLogged.value = isAuthenticated;
 
     if (isAuthenticated) {
-      _userData = await userRepository.getUserDataFirebase();
-      if (userData != null) {
-        _userStatus = UserStatus.full;
+      bool isEmailVerified = await userRepository.isEmailVerified();
+
+      if (isEmailVerified) {
+        _userData = await userRepository.getUserDataFirebase();
+        if (userData != null) {
+          _userStatus = UserStatus.full;
+        } else {
+          _userStatus = UserStatus.needBasicData;
+        }
       } else {
-        _userStatus = UserStatus.needBasicData;
+        _userStatus = UserStatus.needVerifyEmail;
       }
     } else {
       _userStatus = UserStatus.notLogged;
@@ -117,10 +124,14 @@ class MainController extends GetxController {
 
     update(['login']);
 
-    if (!_isWelcome) {
-      Get.offAllNamed(Routes.WELCOME);
+    if (_userStatus == UserStatus.needVerifyEmail) {
+      Get.offAllNamed(Routes.EMAIL_VERIFICATION);
     } else {
-      Get.offAllNamed(Routes.HOME);
+      if (!_isWelcome) {
+        Get.offAllNamed(Routes.WELCOME);
+      } else {
+        Get.offAllNamed(Routes.HOME);
+      }
     }
   }
 
