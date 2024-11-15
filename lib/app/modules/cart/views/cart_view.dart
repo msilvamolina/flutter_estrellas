@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_estrellas/app/app/controllers/user_product_controller.dart';
+import 'package:flutter_estrellas/app/components/appbar/estrellas_appbar.dart';
 import 'package:flutter_estrellas/app/routes/app_pages.dart';
 
 import 'package:get/get.dart';
@@ -9,6 +10,7 @@ import '../../../themes/styles/colors.dart';
 import '../../../themes/styles/typography.dart';
 import '../controllers/cart_controller.dart';
 import '../widget/cart_card.dart';
+import '../widget/cart_empty_state.dart';
 import '../widget/cart_price_bottom_sheet.dart';
 
 class CartView extends GetView<CartController> {
@@ -17,14 +19,7 @@ class CartView extends GetView<CartController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: white,
-      appBar: AppBar(
-        backgroundColor: white,
-        title: Text(
-          'Carrito',
-          style: TypographyStyle.bodyBlackLarge,
-        ),
-        centerTitle: true,
-      ),
+      appBar: EstrellasAppbar(title: 'Carrito'),
       bottomNavigationBar: Obx(
         () => controller.userProductController.listProductCart.isNotEmpty
             ? SafeArea(
@@ -78,7 +73,7 @@ class CartView extends GetView<CartController> {
                   ),
                 ),
               )
-            : Center(child: const Text('no data')),
+            : CartEmptyState(),
       ),
     );
   }
