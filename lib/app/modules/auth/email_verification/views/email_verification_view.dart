@@ -18,7 +18,18 @@ class EmailVerificationView extends GetView<EmailVerificationController> {
     String image = 'assets/images/chat.png';
     return Scaffold(
       backgroundColor: white,
-      appBar: LoginAppbar(),
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        title: const Text(''),
+        actions: [
+          Button(
+            onPressed: controller.signOut,
+            style: ButtonStyles.secondaryText,
+            label: 'Salir',
+          )
+        ],
+      ),
       extendBodyBehindAppBar: true,
       bottomNavigationBar: SafeArea(
         child: Padding(

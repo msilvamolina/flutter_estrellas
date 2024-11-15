@@ -3,4 +3,5 @@ enum BottomSheetTypes {
   catalog,
   selectSize,
   signOut,
+  authSignOut,
 }

@@ -1,14 +1,16 @@
 import 'dart:async';
 import 'package:get/get.dart';
 import '../../../../app/controllers/main_controller.dart';
+import '../../../../components/bottom_sheets/bottomsheets.dart';
+import '../../../../components/bottom_sheets/types.dart';
 import '../../../../data/providers/repositories/auth/auth_repository.dart';
 import '../../../../routes/app_pages.dart';
+import '../../../main/account/controllers/account_controller.dart';
 
 class EmailVerificationController extends GetxController {
   final AuthRepository _authRepository = AuthRepository();
 
   MainController mainController = Get.find();
-
   RxString timeLeft = '02:00'.obs; // Tiempo restante en formato MM:SS
   RxBool isCountdownComplete = false.obs; // Indica si el tiempo ha llegado a 0
   Timer? _timer; // Timer para la cuenta regresiva
@@ -75,6 +77,10 @@ class EmailVerificationController extends GetxController {
 
     _authRepository.sendEmailVerification(); // Envía el correo de verificación
     startEmailVerificationCheck(); // Comienza a escuchar la verificación del email
+  }
+
+  Future<void> signOut() async {
+    Bottomsheets.staticBottomSheet(BottomSheetTypes.authSignOut);
   }
 
   void tryAgain() {

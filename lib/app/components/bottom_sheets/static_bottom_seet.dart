@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_estrellas/app/app/controllers/main_controller.dart';
 import 'package:get/get.dart';
 
+import '../../app/bottom_sheets/auth_signout_bottomsheet.dart';
 import '../../app/bottom_sheets/catalogs_bottomsheet.dart';
 import '../../app/bottom_sheets/new_catalog_bottomsheet.dart';
 import '../../app/bottom_sheets/select_variant_size.dart';
@@ -36,6 +37,8 @@ class StaticBottomSeet extends StatelessWidget {
       case BottomSheetTypes.signOut:
         return SignOutBottomsheet();
 
+      case BottomSheetTypes.authSignOut:
+        return AuthSignOutBottomsheet();
       default:
         return SizedBox.shrink();
     }
