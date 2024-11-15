@@ -67,9 +67,22 @@ class EmailVerificationView extends GetView<EmailVerificationController> {
                         .copyWith(fontWeight: FontWeight.w600, fontSize: 20),
                   ),
                   SizedBox(height: 8),
-                  Text(
-                    'Te enviamos un código de 5 dígitos a daldana@gmail.com',
-                    style: TypographyStyle.bodyRegularLarge.copyWith(),
+                  Obx(
+                    () => RichText(
+                      textAlign: TextAlign.start,
+                      text: TextSpan(
+                        text: 'Te enviamos un código de 5 dígitos a ',
+                        style: TypographyStyle.bodyRegularLarge
+                            .copyWith(color: neutral800),
+                        children: <TextSpan>[
+                          TextSpan(
+                            text: '${controller.userEmail}',
+                            style: TypographyStyle.bodyBlackLarge
+                                .copyWith(color: secondaryBase),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                   SizedBox(height: 26),
                   CustomPinInputCode(
@@ -93,10 +106,20 @@ class EmailVerificationView extends GetView<EmailVerificationController> {
                           : CrossFadeState.showSecond,
                       firstChild: Container(
                         width: double.infinity,
-                        child: Text(
-                          'Puedes pedir otro código en ${controller.timeLeft.value}',
+                        child: RichText(
                           textAlign: TextAlign.start,
-                          style: TypographyStyle.bodyRegularLarge.copyWith(),
+                          text: TextSpan(
+                            text: 'Puedes pedir otro código en ',
+                            style: TypographyStyle.bodyRegularLarge
+                                .copyWith(color: neutral800),
+                            children: <TextSpan>[
+                              TextSpan(
+                                text: '${controller.timeLeft.value}s',
+                                style: TypographyStyle.bodyBlackLarge
+                                    .copyWith(color: secondaryBase),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                       secondChild: Container(

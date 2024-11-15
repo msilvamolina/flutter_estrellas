@@ -36,6 +36,18 @@ class AuthRepository {
     }
   }
 
+  Future<String?> getUserEmail() async {
+    try {
+      if (_firebaseAuth.currentUser == null) {
+        return null;
+      }
+      String? email = await _firebaseAuth.currentUser!.email;
+      return email;
+    } on FirebaseAuthException catch (e) {
+      return null;
+    }
+  }
+
   /// Envía un email de verificación
   Future<Either<String, Unit>> sendEmailVerification() async {
     try {

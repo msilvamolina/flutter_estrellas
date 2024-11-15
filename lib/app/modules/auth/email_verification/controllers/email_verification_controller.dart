@@ -15,6 +15,7 @@ class EmailVerificationController extends GetxController {
   Timer? _verificationTimer; // Timer para verificar el estado de email
   RxBool isEmailVerified = false.obs;
 
+  RxnString userEmail = RxnString();
   void startCountdown() {
     _timer?.cancel(); // Cancelar cualquier timer existente
     int countdownTime = 120; // Tiempo inicial en segundos (2 minutos)
@@ -61,14 +62,17 @@ class EmailVerificationController extends GetxController {
   }
 
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
+
     startCountdown(); // Inicia la cuenta regresiva
   }
 
   @override
-  void onReady() {
+  void onReady() async {
     super.onReady();
+    userEmail.value = await _authRepository.getUserEmail();
+
     _authRepository.sendEmailVerification(); // Envía el correo de verificación
     startEmailVerificationCheck(); // Comienza a escuchar la verificación del email
   }
