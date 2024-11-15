@@ -7,6 +7,7 @@ import '../../../../themes/styles/colors.dart';
 import '../../../../themes/styles/typography.dart';
 import '../../widgets/bottombar.dart';
 import '../controllers/home_controller.dart';
+import '../widgets/cart_badget.dart';
 import '../widgets/video_card.dart';
 
 class HomeView extends StatefulWidget {
@@ -35,36 +36,7 @@ class _HomeViewState extends State<HomeView> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         actions: [
-          GetX<HomeController>(
-            builder: (controller) {
-              return Stack(
-                children: [
-                  IconButton(
-                    onPressed: controller.goToCart,
-                    icon: Icon(
-                      EstrellasIcons.shoppingCartSimpleFill,
-                      color: white,
-                      size: 40,
-                    ),
-                  ),
-                  Positioned(
-                    right: 6,
-                    top: 8,
-                    child: CircleAvatar(
-                      radius: 9,
-                      backgroundColor: error900,
-                      child: Text(
-                        controller.userProductController.listProductCart.length
-                            .toString(),
-                        style: TypographyStyle.bodyBlackSmall
-                            .copyWith(color: white, fontSize: 12),
-                      ),
-                    ),
-                  )
-                ],
-              );
-            },
-          ),
+          CartBadget(),
         ],
       ),
       body: Container(

@@ -57,8 +57,9 @@ class _VideoButtonsState extends State<VideoButtons> {
             }),
         SizedBox(height: 22),
         buttonCard(
-            onTap: () => Get.toNamed(Routes.PRODUCT_DETAILS,
-                arguments: widget.videoPostModel),
+            onTap: () => userProductController.mainController.actionNeedLogin(
+                () => Get.toNamed(Routes.PRODUCT_DETAILS,
+                    arguments: widget.videoPostModel)),
             image: 'assets/svg/InfoFill.svg',
             label: 'Info'),
         SizedBox(height: 22),
