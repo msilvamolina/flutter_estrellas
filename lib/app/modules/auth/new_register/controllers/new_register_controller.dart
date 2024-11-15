@@ -112,13 +112,7 @@ class NewRegisterController extends GetxController {
       (failure) => Snackbars.error(failure),
       (_) {
         Get.back();
-        Get.offNamedUntil(
-          Routes.EMAIL_VERIFICATION,
-          (route) =>
-              route.settings.name ==
-              Routes
-                  .EMAIL_VERIFICATION, // Cambia Routes.HOME por la ruta que deseas mantener.
-        );
+        mainController.checkUser(login: true);
       },
     );
   }
