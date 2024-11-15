@@ -150,10 +150,10 @@ class MainController extends GetxController {
     return isThemeModeDark ? Icons.light_mode : Icons.dark_mode;
   }
 
-  void signOut() {
+  void signOut() async {
     _userStatus = UserStatus.loading;
     update(['login']);
-    userRepository.signOut();
+    await userRepository.signOut();
     localStorage.setWelcome(false);
     _isWelcome = false;
     Future.delayed(Duration(milliseconds: 500), () {

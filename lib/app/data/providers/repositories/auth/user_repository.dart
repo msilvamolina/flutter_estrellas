@@ -16,6 +16,7 @@ class UserRepository {
   Future<void> signOut() async {
     if (_firebaseAuth.currentUser != null) {
       _firebaseAuth.signOut();
+
       _localStorage.cleanAll();
     }
   }
