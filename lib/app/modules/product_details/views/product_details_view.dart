@@ -46,7 +46,8 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                 Expanded(
                   child: Button(
                     style: ButtonStyles.primary,
-                    onPressed: () {},
+                    onPressed: () => controller.userProductController
+                        .goToBuyUniqueProduct(controller.videoPostModel),
                     label: 'Comprar',
                   ),
                 ),

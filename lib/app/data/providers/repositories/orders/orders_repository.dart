@@ -64,16 +64,19 @@ class OrdersRepository {
       dynamic json = jsonDecode(response.body);
 
       if (!json['ok']) {
-        return left(json['data'].toString());
+        if (json['data'] != null) {
+          return left(json['data'].toString());
+        } else if (json['errors'] != null) {
+          return left(json['errors'].toString());
+        }
       }
-
       return right(json['data'].toString());
     } catch (e) {
       return left(e.toString());
     }
   }
 
-  Future<Either<String, Unit>> createMultipleOrder({
+  Future<Either<String, String>> createMultipleOrder({
     required dynamic products,
     required AddressModel address,
   }) async {
@@ -88,13 +91,13 @@ class OrdersRepository {
       };
 
       Map<String, dynamic> body = {
-        "city_id": address.city?.dropiId ?? '',
-        "department_id": address.department?.dropiId ?? '',
+        "city_id": address.city?.dropiId,
+        "department_id": address.department?.dropiId,
         "client_direction": address.address,
         "client_email": email,
         "client_name": address.fullname,
         "client_notes": address.notes,
-        "client_phone": address.phone,
+        "client_phone": address.phone!.number,
         "client_surname": address.fullname,
         "catalogue": catalogue,
         "user_id": "6463b06a7420bf4da4c1ecef",
@@ -109,11 +112,16 @@ class OrdersRepository {
 
       dynamic json = jsonDecode(response.body);
 
+      print('json $json');
       if (!json['ok']) {
-        return left(json['data']);
+        if (json['data'] != null) {
+          return left(json['data'].toString());
+        } else if (json['errors'] != null) {
+          return left(json['errors'].toString());
+        }
       }
 
-      return right(unit);
+      return right(json['data'].toString());
     } catch (e) {
       print('error: $e');
       return left(e.toString());
