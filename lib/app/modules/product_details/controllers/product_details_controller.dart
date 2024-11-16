@@ -144,9 +144,8 @@ class ProductDetailsController extends GetxController {
         Snackbars.error(failure);
       },
       (_) {
-        String message = 'removido de tu carrito';
-        Snackbars.productSnackbar(videoPostModel.product!,
-            '${videoPostModel.product!.name} $message');
+        Snackbars.success('${productLite.name ?? ''} removido de tu carrito');
+
         update(['product_cart_icon']);
       },
     );
