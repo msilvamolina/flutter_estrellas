@@ -83,11 +83,15 @@ class UserProductController extends GetxController {
   }
 
   void goToBuyUniqueProduct(VideoPostModel? videoPostModel) {
-    mainController.actionNeedLogin(() => setUniqueProduct(videoPostModel));
+    mainController
+        .actionNeedLogin(() => goToBuyUniqueProductAction(videoPostModel));
   }
 
   void goToBuyUniqueProductAction(VideoPostModel? videoPostModel) {
     setUniqueProduct(videoPostModel);
+    cartPoints.value = videoPostModel?.product?.points ?? 0;
+    cartPrices.value = videoPostModel?.product?.price ?? 0;
+    cartQuantity.value = 1;
     Get.toNamed(Routes.ADDRESS);
   }
 
@@ -110,7 +114,6 @@ class UserProductController extends GetxController {
         stock: videoPostModel.product?.stock ?? 1,
       );
       _uniqueProduct = unique;
-      Get.toNamed(Routes.ADDRESS);
     } else {
       _uniqueProduct = null;
     }
