@@ -121,10 +121,12 @@ class SelectPaymentController extends GetxController {
     Either<String, String> response = await ordersRepository
         .createMultipleOrder(products: products, address: address);
 
-    Get.back();
     response.fold((failure) {
+      Get.back();
       Get.toNamed(Routes.ORDER_ERROR, arguments: failure);
-    }, (orderNumber) {
+    }, (orderNumber) async {
+      await userProductController.clearCart();
+      Get.back();
       Get.offAndToNamed(Routes.ORDER_SUCCESS, arguments: orderNumber);
     });
   }

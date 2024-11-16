@@ -320,4 +320,27 @@ class UserProductsRepository {
       return left(e.code);
     }
   }
+
+  Future<Either<String, Unit>> clearCart() async {
+    Map<String, String> userData = getUidAndEmail();
+    String uid = userData['uid'] ?? '';
+
+    try {
+      // Obtén todos los documentos de la colección
+      QuerySnapshot snapshot = await _firebaseFirestore
+          .collection('users')
+          .doc(uid)
+          .collection('video_cart')
+          .get();
+
+      // Elimina cada documento de la colección
+      for (QueryDocumentSnapshot doc in snapshot.docs) {
+        await doc.reference.delete();
+      }
+
+      return right(unit);
+    } on FirebaseException catch (e) {
+      return left(e.code);
+    }
+  }
 }

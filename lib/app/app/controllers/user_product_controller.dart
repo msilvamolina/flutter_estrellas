@@ -95,6 +95,10 @@ class UserProductController extends GetxController {
     Get.toNamed(Routes.ADDRESS);
   }
 
+  Future<void> clearCart() async {
+    await userProductRepository.clearCart();
+  }
+
   void goToSellProduct(VideoPostModel? videoPostModel) {
     mainController.actionNeedLogin(() => goToSellProductAction(videoPostModel));
   }
