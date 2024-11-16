@@ -21,8 +21,6 @@ UserProductCartModel _$UserProductCartModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$UserProductCartModel {
   String get id => throw _privateConstructorUsedError;
-  String get createdBy => throw _privateConstructorUsedError;
-  String get createdByUserId => throw _privateConstructorUsedError;
   double get price => throw _privateConstructorUsedError;
   double get suggestedPrice => throw _privateConstructorUsedError;
   int get points => throw _privateConstructorUsedError;
@@ -51,8 +49,6 @@ abstract class $UserProductCartModelCopyWith<$Res> {
   @useResult
   $Res call(
       {String id,
-      String createdBy,
-      String createdByUserId,
       double price,
       double suggestedPrice,
       int points,
@@ -83,8 +79,6 @@ class _$UserProductCartModelCopyWithImpl<$Res,
   @override
   $Res call({
     Object? id = null,
-    Object? createdBy = null,
-    Object? createdByUserId = null,
     Object? price = null,
     Object? suggestedPrice = null,
     Object? points = null,
@@ -98,14 +92,6 @@ class _$UserProductCartModelCopyWithImpl<$Res,
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      createdBy: null == createdBy
-          ? _value.createdBy
-          : createdBy // ignore: cast_nullable_to_non_nullable
-              as String,
-      createdByUserId: null == createdByUserId
-          ? _value.createdByUserId
-          : createdByUserId // ignore: cast_nullable_to_non_nullable
               as String,
       price: null == price
           ? _value.price
@@ -182,8 +168,6 @@ abstract class _$$UserProductCartModelImplCopyWith<$Res>
   @useResult
   $Res call(
       {String id,
-      String createdBy,
-      String createdByUserId,
       double price,
       double suggestedPrice,
       int points,
@@ -213,8 +197,6 @@ class __$$UserProductCartModelImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
-    Object? createdBy = null,
-    Object? createdByUserId = null,
     Object? price = null,
     Object? suggestedPrice = null,
     Object? points = null,
@@ -228,14 +210,6 @@ class __$$UserProductCartModelImplCopyWithImpl<$Res>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      createdBy: null == createdBy
-          ? _value.createdBy
-          : createdBy // ignore: cast_nullable_to_non_nullable
-              as String,
-      createdByUserId: null == createdByUserId
-          ? _value.createdByUserId
-          : createdByUserId // ignore: cast_nullable_to_non_nullable
               as String,
       price: null == price
           ? _value.price
@@ -278,8 +252,6 @@ class __$$UserProductCartModelImplCopyWithImpl<$Res>
 class _$UserProductCartModelImpl extends _UserProductCartModel {
   const _$UserProductCartModelImpl(
       {required this.id,
-      required this.createdBy,
-      required this.createdByUserId,
       required this.price,
       required this.suggestedPrice,
       required this.points,
@@ -295,10 +267,6 @@ class _$UserProductCartModelImpl extends _UserProductCartModel {
 
   @override
   final String id;
-  @override
-  final String createdBy;
-  @override
-  final String createdByUserId;
   @override
   final double price;
   @override
@@ -318,7 +286,7 @@ class _$UserProductCartModelImpl extends _UserProductCartModel {
 
   @override
   String toString() {
-    return 'UserProductCartModel(id: $id, createdBy: $createdBy, createdByUserId: $createdByUserId, price: $price, suggestedPrice: $suggestedPrice, points: $points, stock: $stock, quantity: $quantity, video: $video, productCombination: $productCombination, createdAt: $createdAt)';
+    return 'UserProductCartModel(id: $id, price: $price, suggestedPrice: $suggestedPrice, points: $points, stock: $stock, quantity: $quantity, video: $video, productCombination: $productCombination, createdAt: $createdAt)';
   }
 
   @override
@@ -327,10 +295,6 @@ class _$UserProductCartModelImpl extends _UserProductCartModel {
         (other.runtimeType == runtimeType &&
             other is _$UserProductCartModelImpl &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.createdBy, createdBy) ||
-                other.createdBy == createdBy) &&
-            (identical(other.createdByUserId, createdByUserId) ||
-                other.createdByUserId == createdByUserId) &&
             (identical(other.price, price) || other.price == price) &&
             (identical(other.suggestedPrice, suggestedPrice) ||
                 other.suggestedPrice == suggestedPrice) &&
@@ -347,19 +311,8 @@ class _$UserProductCartModelImpl extends _UserProductCartModel {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      createdBy,
-      createdByUserId,
-      price,
-      suggestedPrice,
-      points,
-      stock,
-      quantity,
-      video,
-      productCombination,
-      createdAt);
+  int get hashCode => Object.hash(runtimeType, id, price, suggestedPrice,
+      points, stock, quantity, video, productCombination, createdAt);
 
   /// Create a copy of UserProductCartModel
   /// with the given fields replaced by the non-null parameter values.
@@ -382,8 +335,6 @@ class _$UserProductCartModelImpl extends _UserProductCartModel {
 abstract class _UserProductCartModel extends UserProductCartModel {
   const factory _UserProductCartModel(
       {required final String id,
-      required final String createdBy,
-      required final String createdByUserId,
       required final double price,
       required final double suggestedPrice,
       required final int points,
@@ -399,10 +350,6 @@ abstract class _UserProductCartModel extends UserProductCartModel {
 
   @override
   String get id;
-  @override
-  String get createdBy;
-  @override
-  String get createdByUserId;
   @override
   double get price;
   @override

@@ -15,8 +15,6 @@ abstract class UserProductCartModel implements _$UserProductCartModel {
 
   const factory UserProductCartModel({
     required String id,
-    required String createdBy,
-    required String createdByUserId,
     required double price,
     required double suggestedPrice,
     required int points,

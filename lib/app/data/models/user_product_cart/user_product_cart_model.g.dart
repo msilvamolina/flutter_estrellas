@@ -10,8 +10,6 @@ _$UserProductCartModelImpl _$$UserProductCartModelImplFromJson(
         Map<String, dynamic> json) =>
     _$UserProductCartModelImpl(
       id: json['id'] as String,
-      createdBy: json['createdBy'] as String,
-      createdByUserId: json['createdByUserId'] as String,
       price: (json['price'] as num).toDouble(),
       suggestedPrice: (json['suggestedPrice'] as num).toDouble(),
       points: (json['points'] as num).toInt(),
@@ -31,8 +29,6 @@ Map<String, dynamic> _$$UserProductCartModelImplToJson(
         _$UserProductCartModelImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'createdBy': instance.createdBy,
-      'createdByUserId': instance.createdByUserId,
       'price': instance.price,
       'suggestedPrice': instance.suggestedPrice,
       'points': instance.points,

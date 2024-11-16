@@ -11,6 +11,7 @@ import 'package:flutter_estrellas/app/data/models/video_model.dart';
 import 'package:flutter_estrellas/app/data/providers/repositories/user_products/user_products_repository.dart';
 import 'package:get/get.dart';
 import 'package:reactive_forms/reactive_forms.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../components/bottom_sheets/types.dart';
 import '../../data/models/user_product/user_product_model.dart';
@@ -46,8 +47,8 @@ class UserProductController extends GetxController {
   final RxList<UserCatalogModel> _listUserCatalogs = <UserCatalogModel>[].obs;
   List<UserCatalogModel> get listUserCatalogs => _listUserCatalogs.toList();
 
-  UserProductModel? _uniqueProduct;
-  UserProductModel? get uniqueProduct => _uniqueProduct;
+  UserProductCartModel? _uniqueProduct;
+  UserProductCartModel? get uniqueProduct => _uniqueProduct;
   bool _addCatalogIsLoading = false;
   bool get addCatalogIsLoading => _addCatalogIsLoading;
 
@@ -97,17 +98,22 @@ class UserProductController extends GetxController {
   void goToSellProductAction(VideoPostModel? videoPostModel) {}
 
   void setUniqueProduct(VideoPostModel? videoPostModel) {
-    //   if (videoPostModel != null) {
-    //     UserProductModel unique = UserProductModel(
-    //       quantity: 1,
-    //       createdBy: 'martin@gmail.com',
-    //       createdByUserId: 'asdasd',
-    //       video: videoPostModel,
-    //     );
-    //     _uniqueProduct = unique;
-    //   } else {
-    //     _uniqueProduct = null;
-    //   }
+    if (videoPostModel != null) {
+      String id = Uuid().v4();
+      UserProductCartModel unique = UserProductCartModel(
+        id: id,
+        quantity: 1,
+        video: videoPostModel,
+        price: videoPostModel.product?.price ?? 0,
+        suggestedPrice: videoPostModel.product?.suggestedPrice ?? 0,
+        points: videoPostModel.product?.points ?? 0,
+        stock: videoPostModel.product?.stock ?? 1,
+      );
+      _uniqueProduct = unique;
+      Get.toNamed(Routes.ADDRESS);
+    } else {
+      _uniqueProduct = null;
+    }
   }
 
   void productFavoriteButton(VideoPostModel videoPostModel) {
