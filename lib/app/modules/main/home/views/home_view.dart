@@ -34,6 +34,7 @@ class _HomeViewState extends State<HomeView> {
       ),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
+        surfaceTintColor: Colors.transparent,
         elevation: 0,
         actions: [
           CartBadget(),
