@@ -13,6 +13,7 @@ class CartEmptyState extends StatelessWidget {
   Widget build(BuildContext context) {
     String image = 'assets/images/cart.png';
     return Scaffold(
+      backgroundColor: white,
       body: SafeArea(
         child: Stack(
           children: [
