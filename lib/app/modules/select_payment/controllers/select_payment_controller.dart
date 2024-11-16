@@ -83,37 +83,35 @@ class SelectPaymentController extends GetxController {
     await Future.delayed(Duration(seconds: 1));
     Get.back();
 
-    Get.offNamedUntil(
-      Routes.ORDER_SUCCESS,
-      (route) => route.isFirst,
-    );
+    // Get.offNamedUntil(
+    //   Routes.ORDER_SUCCESS,
+    //   (route) => route.isFirst,
+    // );
     // buyUniqueProducts();
     // buyMultipleProducts();
-    // if (userProductController.uniqueProduct != null) {
-    //   buyUniqueProducts(userProductController.uniqueProduct!);
-    // } else {
-    //   buyMultipleProducts();
-    // }
+    if (userProductController.uniqueProduct != null) {
+      buyUniqueProducts(userProductController.uniqueProduct!);
+    } else {
+      buyMultipleProducts();
+    }
   }
 
-  void buyUniqueProducts(UserProductModel product) async {
+  void buyUniqueProducts(UserProductCartModel product) async {
     mainController.showLoader(
       title: 'Estamos procesando tu compra',
     );
 
-    // Either<String, Unit> response =
-    //     await ordersRepository.createOrder(product: product, address: address);
+    Either<String, Unit> response =
+        await ordersRepository.createOrder(product: product, address: address);
 
     await Future.delayed(Duration(seconds: 1));
     Get.back();
 
-    Get.offAndToNamed(Routes.ORDER_SUCCESS);
-
-    // response.fold((failure) {
-    //   Snackbars.error(failure);
-    // }, (_) {
-    //   Get.offAndToNamed(Routes.ORDER_SUCCESS);
-    // });
+    response.fold((failure) {
+      Get.toNamed(Routes.ORDER_ERROR, arguments: failure);
+    }, (_) {
+      Get.offAndToNamed(Routes.ORDER_SUCCESS);
+    });
   }
 
   void buyMultipleProducts() async {

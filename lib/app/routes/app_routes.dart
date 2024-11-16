@@ -33,6 +33,7 @@ abstract class Routes {
   static const NEW_LOGIN = _Paths.NEW_LOGIN;
   static const NEW_REGISTER = _Paths.NEW_REGISTER;
   static const EMAIL_VERIFICATION = _Paths.EMAIL_VERIFICATION;
+  static const ORDER_ERROR = _Paths.ORDER_ERROR;
 }
 
 abstract class _Paths {
@@ -67,4 +68,5 @@ abstract class _Paths {
   static const NEW_LOGIN = '/new-login';
   static const NEW_REGISTER = '/new-register';
   static const EMAIL_VERIFICATION = '/email-verification';
+  static const ORDER_ERROR = '/order-error';
 }

@@ -16,6 +16,8 @@ import '../modules/address/address_list/bindings/address_binding.dart';
 import '../modules/address/address_list/views/address_view.dart';
 import '../modules/address/new_address/bindings/new_address_binding.dart';
 import '../modules/address/new_address/views/new_address_view.dart';
+import '../modules/auth/email_verification/bindings/email_verification_binding.dart';
+import '../modules/auth/email_verification/views/email_verification_view.dart';
 import '../modules/auth/forgot_password/bindings/forgot_password_binding.dart';
 import '../modules/auth/forgot_password/views/forgot_password_view.dart';
 import '../modules/auth/login/bindings/login_binding.dart';
@@ -36,8 +38,6 @@ import '../modules/auth/welcome/bindings/welcome_binding.dart';
 import '../modules/auth/welcome/views/welcome_view.dart';
 import '../modules/cart/bindings/cart_binding.dart';
 import '../modules/cart/views/cart_view.dart';
-import '../modules/auth/email_verification/bindings/email_verification_binding.dart';
-import '../modules/auth/email_verification/views/email_verification_view.dart';
 import '../modules/main/account/bindings/account_binding.dart';
 import '../modules/main/account/views/account_view.dart';
 import '../modules/main/home/bindings/home_binding.dart';
@@ -50,6 +50,8 @@ import '../modules/main/wallet/bindings/wallet_binding.dart';
 import '../modules/main/wallet/views/wallet_view.dart';
 import '../modules/order/order_success/bindings/order_success_binding.dart';
 import '../modules/order/order_success/views/order_success_view.dart';
+import '../modules/order/order_error/bindings/order_error_binding.dart';
+import '../modules/order/order_error/views/order_error_view.dart';
 import '../modules/product_details/bindings/product_details_binding.dart';
 import '../modules/product_details/views/product_details_view.dart';
 import '../modules/select_payment/bindings/select_payment_binding.dart';
@@ -227,6 +229,11 @@ class AppPages {
       name: _Paths.EMAIL_VERIFICATION,
       page: () => const EmailVerificationView(),
       binding: EmailVerificationBinding(),
+    ),
+    GetPage(
+      name: _Paths.ORDER_ERROR,
+      page: () => const OrderErrorView(),
+      binding: OrderErrorBinding(),
     ),
   ];
 }
