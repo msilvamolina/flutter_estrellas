@@ -15,7 +15,7 @@ class OrdersView extends GetView<OrdersController> {
       ),
       body: const Center(
         child: Text(
-          'OrdersView is working',
+          'OrdersView is working 22',
           style: TextStyle(fontSize: 20),
         ),
       ),
