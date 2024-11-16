@@ -8,8 +8,6 @@ import '../modules/account/bank_accounts/bindings/bank_accounts_binding.dart';
 import '../modules/account/bank_accounts/views/bank_accounts_view.dart';
 import '../modules/account/favorites/bindings/favorites_binding.dart';
 import '../modules/account/favorites/views/favorites_view.dart';
-import '../modules/order/orders/bindings/orders_binding.dart';
-import '../modules/order/orders/views/orders_view.dart';
 import '../modules/account/profile/bindings/profile_binding.dart';
 import '../modules/account/profile/views/profile_view.dart';
 import '../modules/address/address_list/bindings/address_binding.dart';
@@ -52,6 +50,10 @@ import '../modules/order/order_error/bindings/order_error_binding.dart';
 import '../modules/order/order_error/views/order_error_view.dart';
 import '../modules/order/order_success/bindings/order_success_binding.dart';
 import '../modules/order/order_success/views/order_success_view.dart';
+import '../modules/order/orders/bindings/orders_binding.dart';
+import '../modules/order/orders/views/orders_view.dart';
+import '../modules/order/order_details/bindings/order_details_binding.dart';
+import '../modules/order/order_details/views/order_details_view.dart';
 import '../modules/product_details/bindings/product_details_binding.dart';
 import '../modules/product_details/views/product_details_view.dart';
 import '../modules/select_payment/bindings/select_payment_binding.dart';
@@ -234,6 +236,11 @@ class AppPages {
       name: _Paths.ORDER_ERROR,
       page: () => const OrderErrorView(),
       binding: OrderErrorBinding(),
+    ),
+    GetPage(
+      name: _Paths.ORDER_DETAILS,
+      page: () => const OrderDetailsView(),
+      binding: OrderDetailsBinding(),
     ),
   ];
 }

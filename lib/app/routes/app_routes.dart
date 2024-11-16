@@ -35,6 +35,7 @@ abstract class Routes {
   static const EMAIL_VERIFICATION = _Paths.EMAIL_VERIFICATION;
   static const ORDER_ERROR = _Paths.ORDER_ERROR;
   static const ORDERS_LIST = _Paths.ORDERS_LIST;
+  static const ORDER_DETAILS = _Paths.ORDER_DETAILS;
 }
 
 abstract class _Paths {
@@ -71,4 +72,5 @@ abstract class _Paths {
   static const EMAIL_VERIFICATION = '/email-verification';
   static const ORDER_ERROR = '/order-error';
   static const ORDERS_LIST = '/orders-list';
+  static const ORDER_DETAILS = '/order-details';
 }

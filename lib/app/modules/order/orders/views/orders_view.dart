@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_estrellas/app/components/appbar/estrellas_appbar.dart';
 
 import 'package:get/get.dart';
 
@@ -9,10 +10,7 @@ class OrdersView extends GetView<OrdersController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('OrdersView'),
-        centerTitle: true,
-      ),
+      appBar: EstrellasAppbar(title: 'Órdenes'),
       body: const Center(
         child: Text(
           'OrdersView is working 22',
