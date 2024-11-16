@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_estrellas/app/app/controllers/user_product_controller.dart';
 import 'package:flutter_estrellas/app/libraries/icons/icons_font.dart';
 import 'package:flutter_estrellas/app/themes/styles/colors.dart';
 import 'package:flutter_estrellas/app/themes/styles/typography.dart';
@@ -80,13 +81,23 @@ class ProductContentProduct extends StatelessWidget {
                     ),
                   ),
                   Spacer(),
-                  ButtonCircleSvg(
-                    assetName: controller.isLiked
-                        ? 'assets/svg/HeartColor.svg'
-                        : 'assets/svg/Heart.svg',
-                    color: !controller.isLiked ? neutral700 : null,
-                    onTap: () {},
-                    width: 28,
+                  GetBuilder<UserProductController>(
+                    id: 'product_favorite_icon',
+                    builder: (_) {
+                      return ButtonCircleSvg(
+                        assetName: controller.userProductController
+                                .isProductInFavorites(controller.videoPostModel)
+                            ? 'assets/svg/HeartColor.svg'
+                            : 'assets/svg/Heart.svg',
+                        color: !controller.userProductController
+                                .isProductInFavorites(controller.videoPostModel)
+                            ? neutral700
+                            : null,
+                        onTap: () => controller.userProductController
+                            .productFavoriteAction(controller.videoPostModel),
+                        width: 28,
+                      );
+                    },
                   ),
                   ButtonCircleSvg(
                     assetName: 'assets/svg/Comment.svg',

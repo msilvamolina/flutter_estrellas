@@ -21,6 +21,7 @@ class ProductDetailsController extends GetxController {
   final ProductsRepository _repository = ProductsRepository();
   final UserProductsRepository _userProductsRepository =
       UserProductsRepository();
+
   UserProductController userProductController =
       Get.find<UserProductController>();
 
@@ -53,9 +54,6 @@ class ProductDetailsController extends GetxController {
   ProductVariantModel? get userProductVariantSize => _userProductVariantSize;
 
   ProductVariantCombinationModel? _productVariantCombination;
-
-  bool _isLiked = true;
-  bool get isLiked => _isLiked;
 
   bool _isInCart = true;
   bool get isInCart => _isInCart;
