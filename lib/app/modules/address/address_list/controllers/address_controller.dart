@@ -21,15 +21,12 @@ class AddressController extends GetxController {
   @override
   void onInit() {
     _list.bindStream(_repository.getUserAddress());
+    ever<List<AddressModel>>(_list, (addressList) {
+      if (addressList.isEmpty) {
+        Get.offNamed(Routes.NEW_ADDRESS);
+      }
+    });
     super.onInit();
-  }
-
-  @override
-  void onReady() {
-    if (_list.isEmpty) {
-      Get.offNamed(Routes.NEW_ADDRESS);
-    }
-    super.onReady();
   }
 
   void selectAddress(AddressModel address) {
