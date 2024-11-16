@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_estrellas/app/components/snackbars/snackbars.dart';
+import 'package:flutter_estrellas/app/data/models/address/address_model.dart';
 import 'package:flutter_estrellas/app/data/providers/repositories/address/address_repository.dart';
 import 'package:get/get.dart';
 import 'package:reactive_forms/reactive_forms.dart';
@@ -8,8 +9,6 @@ import 'package:reactive_phone_form_field/reactive_phone_form_field.dart';
 import '../../../../app/controllers/main_controller.dart';
 import '../../../../data/models/city/city/city_model.dart';
 import '../../../../data/models/city/department/department_model.dart';
-import '../../../../data/models/product_variant/product_variant_model.dart';
-import '../../../../data/models/provider/provider/provider_model.dart';
 import '../../../../routes/app_pages.dart';
 
 enum Fields {
@@ -163,7 +162,7 @@ class NewAddressController extends GetxController {
       title: 'Verificando dirección',
     );
 
-    Either<String, Unit> response = await _repository.addAddress(
+    Either<String, AddressModel> response = await _repository.addAddress(
       fullname: name,
       city: _cityModel,
       department: _departmentModel,
@@ -175,9 +174,10 @@ class NewAddressController extends GetxController {
     Get.back();
     response.fold((failure) {
       Snackbars.error(failure);
-    }, (provider) async {
-      Get.back();
+    }, (AddressModel addressModel) async {
       Snackbars.success('Dirección agregada correctamente');
+
+      Get.offNamed(Routes.SELECT_PAYMENT, arguments: addressModel);
     });
   }
 }

@@ -24,6 +24,14 @@ class AddressController extends GetxController {
     super.onInit();
   }
 
+  @override
+  void onReady() {
+    if (_list.isEmpty) {
+      Get.offNamed(Routes.NEW_ADDRESS);
+    }
+    super.onReady();
+  }
+
   void selectAddress(AddressModel address) {
     selectedAddress.value = address;
     mainAddress.value = address;

@@ -9,6 +9,7 @@ import 'package:reactive_phone_form_field/reactive_phone_form_field.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../../models/city/city/city_model.dart';
+import '../../../models/phone/phone_model.dart';
 import '../../../models/user_product/user_product_model.dart';
 
 class AddressRepository {
@@ -87,7 +88,7 @@ class AddressRepository {
     }
   }
 
-  Future<Either<String, Unit>> addAddress({
+  Future<Either<String, AddressModel>> addAddress({
     required String fullname,
     required PhoneNumber phone,
     required String address,
@@ -120,7 +121,21 @@ class AddressRepository {
         'department': department.toJson(),
         'createdAt': DateTime.now(),
       });
-      return right(unit);
+
+      AddressModel addressModel = AddressModel(
+        id: addressId,
+        fullname: fullname,
+        phone: PhoneModel(
+          number: phone.nsn.toString(),
+          countryCode: phone.countryCode.toString(),
+          isoCode: phone.isoCode.name.toString(),
+        ),
+        notes: notes,
+        address: address,
+        city: city,
+        department: department,
+      );
+      return right(addressModel);
     } on FirebaseException catch (e) {
       return left(e.code);
     }
