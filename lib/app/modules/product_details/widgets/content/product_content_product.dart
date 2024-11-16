@@ -117,7 +117,10 @@ class ProductContentProduct extends StatelessWidget {
                                 .isProductInCart(controller.videoPostModel)
                             ? neutral700
                             : null,
-                        onTap: controller.addToCart,
+                        onTap: !controller.userProductController
+                                .isProductInCart(controller.videoPostModel)
+                            ? controller.addToCart
+                            : controller.removeFromCart,
                         width: 26,
                       );
                     },

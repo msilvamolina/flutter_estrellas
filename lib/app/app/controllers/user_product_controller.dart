@@ -332,6 +332,12 @@ class UserProductController extends GetxController {
     return option != null;
   }
 
+  UserProductCartModel? getProductInCart(VideoPostModel? videoPostModel) {
+    UserProductCartModel? option = _listProductCart
+        .firstWhereOrNull((element) => element.video?.id == videoPostModel?.id);
+    return option;
+  }
+
   bool isProductInCatalogPrivate(VideoPostModel? videoPostModel) {
     UserProductModel? option = _listProductCatalogPrivate
         .firstWhereOrNull((element) => element.video?.id == videoPostModel?.id);

@@ -14,6 +14,7 @@ import '../../../data/models/product_firebase_lite/product_firebase_lite.dart';
 import '../../../data/models/product_image/product_image_model.dart';
 import '../../../data/models/product_variant/product_variant_model.dart';
 import '../../../data/models/product_variant_combination/product_variant_combination_model.dart';
+import '../../../data/models/user_product_cart/user_product_cart_model.dart';
 import '../../../data/models/videos/video_post_model.dart';
 
 class ProductDetailsController extends GetxController {
@@ -124,6 +125,29 @@ class ProductDetailsController extends GetxController {
       (_) {
         update(['product_cart_icon']);
         Snackbars.success('${productLite.name ?? ''} agregado a tu carrito');
+      },
+    );
+  }
+
+  Future<void> removeFromCart() async {
+    UserProductCartModel? cart =
+        userProductController.getProductInCart(videoPostModel);
+
+    if (cart == null) {
+      return;
+    }
+    Either<String, Unit> response =
+        await _userProductsRepository.removeFromCart(cart: cart);
+
+    response.fold(
+      (failure) {
+        Snackbars.error(failure);
+      },
+      (_) {
+        String message = 'removido de tu carrito';
+        Snackbars.productSnackbar(videoPostModel.product!,
+            '${videoPostModel.product!.name} $message');
+        update(['product_cart_icon']);
       },
     );
   }
