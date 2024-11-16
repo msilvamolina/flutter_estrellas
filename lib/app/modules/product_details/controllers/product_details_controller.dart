@@ -122,6 +122,7 @@ class ProductDetailsController extends GetxController {
         Snackbars.error(failure);
       },
       (_) {
+        update(['product_cart_icon']);
         Snackbars.success('${productLite.name ?? ''} agregado a tu carrito');
       },
     );

@@ -105,13 +105,22 @@ class ProductContentProduct extends StatelessWidget {
                     onTap: () {},
                     width: 22,
                   ),
-                  ButtonCircleSvg(
-                    assetName: controller.isInCart
-                        ? 'assets/svg/CartColor.svg'
-                        : 'assets/svg/Cart.svg',
-                    color: !controller.isInCart ? neutral700 : null,
-                    onTap: controller.addToCart,
-                    width: 26,
+                  GetBuilder<ProductDetailsController>(
+                    id: 'product_cart_icon',
+                    builder: (_) {
+                      return ButtonCircleSvg(
+                        assetName: controller.userProductController
+                                .isProductInCart(controller.videoPostModel)
+                            ? 'assets/svg/CartColor.svg'
+                            : 'assets/svg/Cart.svg',
+                        color: !controller.userProductController
+                                .isProductInCart(controller.videoPostModel)
+                            ? neutral700
+                            : null,
+                        onTap: controller.addToCart,
+                        width: 26,
+                      );
+                    },
                   ),
                 ],
               ),
