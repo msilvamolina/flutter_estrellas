@@ -28,6 +28,7 @@ mixin _$ProductFirebaseLiteModel {
   int? get externalId => throw _privateConstructorUsedError;
   int? get stock => throw _privateConstructorUsedError;
   String? get type => throw _privateConstructorUsedError;
+  String? get description => throw _privateConstructorUsedError;
   double? get price => throw _privateConstructorUsedError;
   bool? get active => throw _privateConstructorUsedError;
   int? get points => throw _privateConstructorUsedError;
@@ -57,6 +58,7 @@ abstract class $ProductFirebaseLiteModelCopyWith<$Res> {
       int? externalId,
       int? stock,
       String? type,
+      String? description,
       double? price,
       bool? active,
       int? points,
@@ -86,6 +88,7 @@ class _$ProductFirebaseLiteModelCopyWithImpl<$Res,
     Object? externalId = freezed,
     Object? stock = freezed,
     Object? type = freezed,
+    Object? description = freezed,
     Object? price = freezed,
     Object? active = freezed,
     Object? points = freezed,
@@ -116,6 +119,10 @@ class _$ProductFirebaseLiteModelCopyWithImpl<$Res,
       type: freezed == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
+              as String?,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
               as String?,
       price: freezed == price
           ? _value.price
@@ -157,6 +164,7 @@ abstract class _$$ProductFirebaseLiteModelImplCopyWith<$Res>
       int? externalId,
       int? stock,
       String? type,
+      String? description,
       double? price,
       bool? active,
       int? points,
@@ -185,6 +193,7 @@ class __$$ProductFirebaseLiteModelImplCopyWithImpl<$Res>
     Object? externalId = freezed,
     Object? stock = freezed,
     Object? type = freezed,
+    Object? description = freezed,
     Object? price = freezed,
     Object? active = freezed,
     Object? points = freezed,
@@ -215,6 +224,10 @@ class __$$ProductFirebaseLiteModelImplCopyWithImpl<$Res>
       type: freezed == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
+              as String?,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
               as String?,
       price: freezed == price
           ? _value.price
@@ -250,6 +263,7 @@ class _$ProductFirebaseLiteModelImpl extends _ProductFirebaseLiteModel {
       this.externalId,
       this.stock,
       this.type,
+      this.description,
       this.price,
       this.active,
       this.points,
@@ -274,6 +288,8 @@ class _$ProductFirebaseLiteModelImpl extends _ProductFirebaseLiteModel {
   @override
   final String? type;
   @override
+  final String? description;
+  @override
   final double? price;
   @override
   final bool? active;
@@ -286,7 +302,7 @@ class _$ProductFirebaseLiteModelImpl extends _ProductFirebaseLiteModel {
 
   @override
   String toString() {
-    return 'ProductFirebaseLiteModel(id: $id, name: $name, provider: $provider, externalId: $externalId, stock: $stock, type: $type, price: $price, active: $active, points: $points, suggestedPrice: $suggestedPrice, thumbnail: $thumbnail)';
+    return 'ProductFirebaseLiteModel(id: $id, name: $name, provider: $provider, externalId: $externalId, stock: $stock, type: $type, description: $description, price: $price, active: $active, points: $points, suggestedPrice: $suggestedPrice, thumbnail: $thumbnail)';
   }
 
   @override
@@ -301,6 +317,8 @@ class _$ProductFirebaseLiteModelImpl extends _ProductFirebaseLiteModel {
                 other.externalId == externalId) &&
             (identical(other.stock, stock) || other.stock == stock) &&
             (identical(other.type, type) || other.type == type) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
             (identical(other.price, price) || other.price == price) &&
             (identical(other.active, active) || other.active == active) &&
             (identical(other.points, points) || other.points == points) &&
@@ -320,6 +338,7 @@ class _$ProductFirebaseLiteModelImpl extends _ProductFirebaseLiteModel {
       externalId,
       stock,
       type,
+      description,
       price,
       active,
       points,
@@ -351,6 +370,7 @@ abstract class _ProductFirebaseLiteModel extends ProductFirebaseLiteModel {
       final int? externalId,
       final int? stock,
       final String? type,
+      final String? description,
       final double? price,
       final bool? active,
       final int? points,
@@ -374,6 +394,8 @@ abstract class _ProductFirebaseLiteModel extends ProductFirebaseLiteModel {
   int? get stock;
   @override
   String? get type;
+  @override
+  String? get description;
   @override
   double? get price;
   @override

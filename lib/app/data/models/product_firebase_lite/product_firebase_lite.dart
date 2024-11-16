@@ -18,6 +18,7 @@ abstract class ProductFirebaseLiteModel implements _$ProductFirebaseLiteModel {
     int? externalId,
     int? stock,
     String? type,
+    String? description,
     double? price,
     bool? active,
     int? points,

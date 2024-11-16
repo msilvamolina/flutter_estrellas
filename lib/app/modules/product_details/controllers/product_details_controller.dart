@@ -27,7 +27,10 @@ class ProductDetailsController extends GetxController {
   late VideoPostModel videoPostModel;
 
   late ProductFirebaseLiteModel productLite;
-  Rxn<ProductFirebaseModel> product = Rxn<ProductFirebaseModel>();
+
+  ProductFirebaseModel? product;
+
+  // Rxn<ProductFirebaseModel> product = Rxn<ProductFirebaseModel>();
 
   final RxList<ProductImageModel> _listImages = <ProductImageModel>[].obs;
   List<ProductImageModel> get listImages => _listImages.toList();
@@ -71,11 +74,11 @@ class ProductDetailsController extends GetxController {
 
   int _points = 0;
   int get points => _points;
+
   @override
   void onInit() {
     videoPostModel = Get.arguments as VideoPostModel;
     productLite = videoPostModel.product!;
-    product.bindStream(_repository.getProduct(productId: productLite.id));
     _listImages
         .bindStream(_repository.getProductImages(productId: productLite.id));
     _listVariants.bindStream(_repository.getAllProductVariants(
@@ -87,6 +90,13 @@ class ProductDetailsController extends GetxController {
 
     resetPrice();
     super.onInit();
+  }
+
+  @override
+  Future<void> onReady() async {
+    product = await _repository.getProduct(productId: productLite.id);
+
+    update(['product_info']);
   }
 
   void resetPrice() {
