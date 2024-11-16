@@ -61,7 +61,7 @@ class OrderSuccessView extends GetView<OrderSuccessController> {
                           .copyWith(color: neutral800),
                       children: <TextSpan>[
                         TextSpan(
-                          text: '440987766',
+                          text: controller.orderNumber,
                           style: TypographyStyle.bodyRegularLarge
                               .copyWith(color: secondaryBase),
                         ),

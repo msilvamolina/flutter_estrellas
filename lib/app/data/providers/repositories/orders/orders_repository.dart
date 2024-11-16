@@ -31,7 +31,7 @@ class OrdersRepository {
     }
   }
 
-  Future<Either<String, Unit>> createOrder({
+  Future<Either<String, String>> createOrder({
     required UserProductCartModel product,
     required AddressModel address,
   }) async {
@@ -63,12 +63,11 @@ class OrdersRepository {
 
       dynamic json = jsonDecode(response.body);
 
-      print('json $json');
       if (!json['ok']) {
         return left(json['data'].toString());
       }
 
-      return right(unit);
+      return right(json['data'].toString());
     } catch (e) {
       return left(e.toString());
     }

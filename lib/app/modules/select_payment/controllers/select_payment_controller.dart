@@ -101,7 +101,7 @@ class SelectPaymentController extends GetxController {
       title: 'Estamos procesando tu compra',
     );
 
-    Either<String, Unit> response =
+    Either<String, String> response =
         await ordersRepository.createOrder(product: product, address: address);
 
     await Future.delayed(Duration(seconds: 1));
@@ -109,8 +109,8 @@ class SelectPaymentController extends GetxController {
 
     response.fold((failure) {
       Get.toNamed(Routes.ORDER_ERROR, arguments: failure);
-    }, (_) {
-      Get.offAndToNamed(Routes.ORDER_SUCCESS);
+    }, (orderNumber) {
+      Get.offAndToNamed(Routes.ORDER_SUCCESS, arguments: orderNumber);
     });
   }
 
