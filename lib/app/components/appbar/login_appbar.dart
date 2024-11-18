@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../libraries/icons/icons_font.dart';
+import '../../themes/styles/colors.dart';
 import '../../themes/styles/typography.dart';
 
 class LoginAppbar extends StatelessWidget implements PreferredSizeWidget {
@@ -10,7 +11,8 @@ class LoginAppbar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       elevation: 0,
-      backgroundColor: Colors.transparent,
+      backgroundColor: white,
+      surfaceTintColor: white,
       title: const Text(''),
       actions: [
         Padding(

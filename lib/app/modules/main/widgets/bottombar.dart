@@ -89,7 +89,7 @@ class Bottombar extends StatelessWidget {
             ),
             buttonCard(
               isDarkTheme: isDarkTheme,
-              label: 'Tienda',
+              label: 'Catálogo',
               icon: EstrellasIcons.storefront,
               iconActive: EstrellasIcons.storefrontFill,
               isActive: viewSelected == 3,
