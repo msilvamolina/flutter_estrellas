@@ -3,55 +3,62 @@ import 'package:package_info_plus/package_info_plus.dart';
 enum Env { dev, qa, prod }
 
 class Environment {
-  Environment._constructor();
+  Environment._privateConstructor();
 
-  static final Environment instance = Environment._constructor();
+  static final Environment instance = Environment._privateConstructor();
 
-  String? _version;
-  String? _fullVersion;
-  String? _packageVersion;
+  late final String fullVersion;
+  late final String version;
+  late final String packageVersion;
 
-  String? get fullVersion => _fullVersion;
-  String? get version => _version;
-  String? get packageVersion => _packageVersion;
+  String? userCustomerApi;
+  String? passwordCustomerApi;
+  String? bearerTokenCustomerApi;
 
-  String? _userCustomerApi;
-  String? _passwordCustomerApi;
-  String? _bearerTokenCustomerApi;
+  late final Env currentEnv;
+  late final Map<String, dynamic> deviceInfo;
 
-  String? get userCustomerApi => _userCustomerApi;
-  String? get passwordCustomerApi => _passwordCustomerApi;
-  String? get bearerTokenCustomerApi => _bearerTokenCustomerApi;
-
-  late Env _currentEnv;
-  Env get currentEnv => _currentEnv;
-  Map<String, dynamic>? _deviceData;
-  Map<String, dynamic>? get deviceInfo => _deviceData;
-
+  /// Inicializa el entorno basado en la configuración proporcionada
   Future<void> init({String env = ''}) async {
+    try {
+      // Obtener información del paquete
+      final packageInfo = await PackageInfo.fromPlatform();
+
+      // Configurar el entorno basado en el nombre del paquete o el argumento
+      currentEnv = _determineEnvironment(env, packageInfo.packageName);
+
+      // Configurar versiones
+      fullVersion = '${packageInfo.version} (${packageInfo.buildNumber})';
+      version = packageInfo.version;
+      packageVersion = packageInfo.version;
+
+      // Inicializar valores predeterminados para API si es necesario
+      userCustomerApi ??= '';
+      passwordCustomerApi ??= '';
+      bearerTokenCustomerApi ??= '';
+    } catch (e) {
+      // Lanzar excepciones con contexto útil
+      throw Exception('Error al inicializar el entorno: $e');
+    }
+  }
+
+  /// Determina el entorno basado en el nombre del paquete o el argumento `env`
+  Env _determineEnvironment(String env, String packageName) {
     if (env.isNotEmpty) {
-      _currentEnv = env == 'prod'
+      return env == 'prod'
           ? Env.prod
           : env == 'dev'
               ? Env.dev
               : Env.qa;
-    } else {
-      try {
-        PackageInfo packageInfo = await PackageInfo.fromPlatform();
-        if (packageInfo.packageName == 'app.estrellas') {
-          _currentEnv = Env.prod;
-        } else if (packageInfo.packageName == 'app.estrellas.dev') {
-          _currentEnv = Env.dev;
-        } else {
-          _currentEnv = Env.qa;
-        }
-      } on Exception catch (_) {
-        rethrow;
-      }
     }
-    PackageInfo _packageInfo = await PackageInfo.fromPlatform();
-    _fullVersion = '${_packageInfo.version} (${_packageInfo.buildNumber})';
-    _version = _packageInfo.version;
-    _packageVersion = _packageInfo.version;
+
+    // Fallback a los nombres de paquete
+    if (packageName == 'app.estrellas') {
+      return Env.prod;
+    } else if (packageName == 'app.estrellas.dev') {
+      return Env.dev;
+    } else {
+      return Env.qa;
+    }
   }
 }

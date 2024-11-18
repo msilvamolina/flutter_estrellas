@@ -3,12 +3,14 @@ import 'dart:io';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:reactive_phone_form_field/reactive_phone_form_field.dart';
+
 import 'app/app/layout/remote_config/remote_config_layout.dart';
 import 'app/config/firebase_config.dart';
 import 'app/routes/app_pages.dart';
@@ -20,18 +22,25 @@ import 'app/themes/theme.dart';
 void main() async {
   const String flavor = String.fromEnvironment('flavor', defaultValue: '');
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+
+  // Mantener el splash screen visible
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+
+  // Inicializar entorno y almacenamiento local
   await Environment.instance.init(env: flavor);
   await GetStorage.init();
-  await initFirebase();
 
+  // Inicializar Firebase y Remote Config
+  await initFirebase();
+  await initRemoteConfig();
+
+  // Inicializar dependencias
   DependecyInjection.init();
 
+  // Manejo global de errores
   runZonedGuarded(
     () {
-      runApp(
-        const MyApp(),
-      );
+      runApp(const MyApp());
     },
     (Object error, StackTrace stackTrace) {
       FirebaseCrashlytics.instance.recordError(error, stackTrace);
@@ -39,6 +48,7 @@ void main() async {
   );
 }
 
+/// Inicialización de Firebase
 Future<void> initFirebase() async {
   FirebaseOptions? firebaseOptions;
   if (kIsWeb) {
@@ -66,8 +76,28 @@ Future<void> initFirebase() async {
       trackingId: firebaseConfig['trackingId'],
       storageBucket: firebaseConfig['storageBucket'],
     );
+  } else if (Platform.isIOS) {
+    // Usar el archivo GoogleService-Info.plist para iOS
+    await Firebase.initializeApp();
+    return;
   }
+
   await Firebase.initializeApp(options: firebaseOptions);
+}
+
+/// Inicialización de Firebase Remote Config
+Future<void> initRemoteConfig() async {
+  final FirebaseRemoteConfig remoteConfig = FirebaseRemoteConfig.instance;
+
+  try {
+    await remoteConfig.setDefaults({});
+    await remoteConfig.fetchAndActivate();
+    print('Remote Config inicializado correctamente.');
+  } catch (e) {
+    print('Error inicializando Remote Config: $e');
+    FirebaseCrashlytics.instance.recordError(e, StackTrace.current,
+        reason: "Error en initRemoteConfig");
+  }
 }
 
 final RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
@@ -80,7 +110,9 @@ class MyApp extends StatelessWidget {
     TextTheme textTheme = createTextTheme(context, "Montserrat", "Montserrat");
     MaterialTheme theme = MaterialTheme(textTheme);
 
+    // Quitar el splash screen después de cargar todo
     FlutterNativeSplash.remove();
+
     return GetMaterialApp(
       navigatorObservers: [routeObserver],
       localizationsDelegates: const [
@@ -91,7 +123,6 @@ class MyApp extends StatelessWidget {
       ],
       title: "Estrellas",
       locale: const Locale('es'),
-
       fallbackLocale: const Locale('es'),
       debugShowCheckedModeBanner: false,
       theme: theme.light(),
