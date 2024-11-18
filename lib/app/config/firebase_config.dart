@@ -29,6 +29,16 @@ const Map<String, dynamic> firebaseConfigDevAndroid = <String, dynamic>{
   'storageBucket': 'estrellas-dev-ecd61.appspot.com',
 };
 
+const Map<String, dynamic> firebaseConfigDevIOS = <String, dynamic>{
+  'apiKey': 'AIzaSyDHHht_6tXufxbq0C_Puji6XstH3Y4NEv4',
+  'appId': '1:802823199567:ios:dc8680d7821d8a785e033a',
+  'messagingSenderId': '802823199567',
+  'projectId': 'estrellas-dev-ecd61',
+  'databaseURL': '',
+  'measurementId': '',
+  'trackingId': '',
+  'storageBucket': 'estrellas-dev-ecd61.appspot.com',
+};
 const Map<String, dynamic> firebaseConfigProdAndroid = <String, dynamic>{
   'apiKey': 'AIzaSyCTuK3quSjQbtYsj0HKlQ94h17MAeJ6c4g',
   'appId': '1:345787762684:android:8affe83949138e37711479',

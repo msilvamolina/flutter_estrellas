@@ -66,6 +66,17 @@ Future<void> initFirebase() async {
       trackingId: firebaseConfig['trackingId'],
       storageBucket: firebaseConfig['storageBucket'],
     );
+  } else if (Platform.isIOS) {
+    Map<String, dynamic>? firebaseConfig = firebaseConfigDevIOS;
+
+    firebaseOptions = FirebaseOptions(
+      apiKey: firebaseConfig['apiKey']!,
+      appId: firebaseConfig['appId']!,
+      messagingSenderId: firebaseConfig['messagingSenderId']!,
+      projectId: firebaseConfig['projectId']!,
+      databaseURL: firebaseConfig['databaseURL'],
+      storageBucket: firebaseConfig['storageBucket'],
+    );
   }
   await Firebase.initializeApp(options: firebaseOptions);
 }
