@@ -24,8 +24,6 @@ mixin _$VideoPostModel {
   String get id => throw _privateConstructorUsedError;
   String get thumbnail => throw _privateConstructorUsedError;
   String get videoUrl => throw _privateConstructorUsedError;
-  String get createdByEmail => throw _privateConstructorUsedError;
-  String get createdById => throw _privateConstructorUsedError;
   ProductFirebaseLiteModel? get product => throw _privateConstructorUsedError;
 
   /// Serializes this VideoPostModel to a JSON map.
@@ -49,8 +47,6 @@ abstract class $VideoPostModelCopyWith<$Res> {
       String id,
       String thumbnail,
       String videoUrl,
-      String createdByEmail,
-      String createdById,
       ProductFirebaseLiteModel? product});
 
   $ProductFirebaseLiteModelCopyWith<$Res>? get product;
@@ -75,8 +71,6 @@ class _$VideoPostModelCopyWithImpl<$Res, $Val extends VideoPostModel>
     Object? id = null,
     Object? thumbnail = null,
     Object? videoUrl = null,
-    Object? createdByEmail = null,
-    Object? createdById = null,
     Object? product = freezed,
   }) {
     return _then(_value.copyWith(
@@ -95,14 +89,6 @@ class _$VideoPostModelCopyWithImpl<$Res, $Val extends VideoPostModel>
       videoUrl: null == videoUrl
           ? _value.videoUrl
           : videoUrl // ignore: cast_nullable_to_non_nullable
-              as String,
-      createdByEmail: null == createdByEmail
-          ? _value.createdByEmail
-          : createdByEmail // ignore: cast_nullable_to_non_nullable
-              as String,
-      createdById: null == createdById
-          ? _value.createdById
-          : createdById // ignore: cast_nullable_to_non_nullable
               as String,
       product: freezed == product
           ? _value.product
@@ -139,8 +125,6 @@ abstract class _$$VideoPostModelImplCopyWith<$Res>
       String id,
       String thumbnail,
       String videoUrl,
-      String createdByEmail,
-      String createdById,
       ProductFirebaseLiteModel? product});
 
   @override
@@ -164,8 +148,6 @@ class __$$VideoPostModelImplCopyWithImpl<$Res>
     Object? id = null,
     Object? thumbnail = null,
     Object? videoUrl = null,
-    Object? createdByEmail = null,
-    Object? createdById = null,
     Object? product = freezed,
   }) {
     return _then(_$VideoPostModelImpl(
@@ -185,14 +167,6 @@ class __$$VideoPostModelImplCopyWithImpl<$Res>
           ? _value.videoUrl
           : videoUrl // ignore: cast_nullable_to_non_nullable
               as String,
-      createdByEmail: null == createdByEmail
-          ? _value.createdByEmail
-          : createdByEmail // ignore: cast_nullable_to_non_nullable
-              as String,
-      createdById: null == createdById
-          ? _value.createdById
-          : createdById // ignore: cast_nullable_to_non_nullable
-              as String,
       product: freezed == product
           ? _value.product
           : product // ignore: cast_nullable_to_non_nullable
@@ -209,8 +183,6 @@ class _$VideoPostModelImpl extends _VideoPostModel {
       required this.id,
       required this.thumbnail,
       required this.videoUrl,
-      required this.createdByEmail,
-      required this.createdById,
       this.product})
       : super._();
 
@@ -226,15 +198,11 @@ class _$VideoPostModelImpl extends _VideoPostModel {
   @override
   final String videoUrl;
   @override
-  final String createdByEmail;
-  @override
-  final String createdById;
-  @override
   final ProductFirebaseLiteModel? product;
 
   @override
   String toString() {
-    return 'VideoPostModel(name: $name, id: $id, thumbnail: $thumbnail, videoUrl: $videoUrl, createdByEmail: $createdByEmail, createdById: $createdById, product: $product)';
+    return 'VideoPostModel(name: $name, id: $id, thumbnail: $thumbnail, videoUrl: $videoUrl, product: $product)';
   }
 
   @override
@@ -248,17 +216,13 @@ class _$VideoPostModelImpl extends _VideoPostModel {
                 other.thumbnail == thumbnail) &&
             (identical(other.videoUrl, videoUrl) ||
                 other.videoUrl == videoUrl) &&
-            (identical(other.createdByEmail, createdByEmail) ||
-                other.createdByEmail == createdByEmail) &&
-            (identical(other.createdById, createdById) ||
-                other.createdById == createdById) &&
             (identical(other.product, product) || other.product == product));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, name, id, thumbnail, videoUrl,
-      createdByEmail, createdById, product);
+  int get hashCode =>
+      Object.hash(runtimeType, name, id, thumbnail, videoUrl, product);
 
   /// Create a copy of VideoPostModel
   /// with the given fields replaced by the non-null parameter values.
@@ -283,8 +247,6 @@ abstract class _VideoPostModel extends VideoPostModel {
       required final String id,
       required final String thumbnail,
       required final String videoUrl,
-      required final String createdByEmail,
-      required final String createdById,
       final ProductFirebaseLiteModel? product}) = _$VideoPostModelImpl;
   const _VideoPostModel._() : super._();
 
@@ -299,10 +261,6 @@ abstract class _VideoPostModel extends VideoPostModel {
   String get thumbnail;
   @override
   String get videoUrl;
-  @override
-  String get createdByEmail;
-  @override
-  String get createdById;
   @override
   ProductFirebaseLiteModel? get product;
 

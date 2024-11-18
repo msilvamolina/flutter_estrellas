@@ -12,7 +12,6 @@ _$UserCatalogModelImpl _$$UserCatalogModelImplFromJson(
       id: json['id'] as String,
       name: json['name'] as String,
       imageUrl: json['imageUrl'] as String,
-      createdByUserId: json['createdByUserId'] as String,
       videos: (json['videos'] as List<dynamic>?)
           ?.map((e) => VideoPostModel.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -24,6 +23,5 @@ Map<String, dynamic> _$$UserCatalogModelImplToJson(
       'id': instance.id,
       'name': instance.name,
       'imageUrl': instance.imageUrl,
-      'createdByUserId': instance.createdByUserId,
       'videos': instance.videos,
     };

@@ -23,7 +23,6 @@ mixin _$UserCatalogModel {
   String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get imageUrl => throw _privateConstructorUsedError;
-  String get createdByUserId => throw _privateConstructorUsedError;
   List<VideoPostModel>? get videos => throw _privateConstructorUsedError;
 
   /// Serializes this UserCatalogModel to a JSON map.
@@ -43,11 +42,7 @@ abstract class $UserCatalogModelCopyWith<$Res> {
       _$UserCatalogModelCopyWithImpl<$Res, UserCatalogModel>;
   @useResult
   $Res call(
-      {String id,
-      String name,
-      String imageUrl,
-      String createdByUserId,
-      List<VideoPostModel>? videos});
+      {String id, String name, String imageUrl, List<VideoPostModel>? videos});
 }
 
 /// @nodoc
@@ -68,7 +63,6 @@ class _$UserCatalogModelCopyWithImpl<$Res, $Val extends UserCatalogModel>
     Object? id = null,
     Object? name = null,
     Object? imageUrl = null,
-    Object? createdByUserId = null,
     Object? videos = freezed,
   }) {
     return _then(_value.copyWith(
@@ -83,10 +77,6 @@ class _$UserCatalogModelCopyWithImpl<$Res, $Val extends UserCatalogModel>
       imageUrl: null == imageUrl
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
-              as String,
-      createdByUserId: null == createdByUserId
-          ? _value.createdByUserId
-          : createdByUserId // ignore: cast_nullable_to_non_nullable
               as String,
       videos: freezed == videos
           ? _value.videos
@@ -105,11 +95,7 @@ abstract class _$$UserCatalogModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String id,
-      String name,
-      String imageUrl,
-      String createdByUserId,
-      List<VideoPostModel>? videos});
+      {String id, String name, String imageUrl, List<VideoPostModel>? videos});
 }
 
 /// @nodoc
@@ -128,7 +114,6 @@ class __$$UserCatalogModelImplCopyWithImpl<$Res>
     Object? id = null,
     Object? name = null,
     Object? imageUrl = null,
-    Object? createdByUserId = null,
     Object? videos = freezed,
   }) {
     return _then(_$UserCatalogModelImpl(
@@ -143,10 +128,6 @@ class __$$UserCatalogModelImplCopyWithImpl<$Res>
       imageUrl: null == imageUrl
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
-              as String,
-      createdByUserId: null == createdByUserId
-          ? _value.createdByUserId
-          : createdByUserId // ignore: cast_nullable_to_non_nullable
               as String,
       videos: freezed == videos
           ? _value._videos
@@ -163,7 +144,6 @@ class _$UserCatalogModelImpl extends _UserCatalogModel {
       {required this.id,
       required this.name,
       required this.imageUrl,
-      required this.createdByUserId,
       final List<VideoPostModel>? videos})
       : _videos = videos,
         super._();
@@ -177,8 +157,6 @@ class _$UserCatalogModelImpl extends _UserCatalogModel {
   final String name;
   @override
   final String imageUrl;
-  @override
-  final String createdByUserId;
   final List<VideoPostModel>? _videos;
   @override
   List<VideoPostModel>? get videos {
@@ -191,7 +169,7 @@ class _$UserCatalogModelImpl extends _UserCatalogModel {
 
   @override
   String toString() {
-    return 'UserCatalogModel(id: $id, name: $name, imageUrl: $imageUrl, createdByUserId: $createdByUserId, videos: $videos)';
+    return 'UserCatalogModel(id: $id, name: $name, imageUrl: $imageUrl, videos: $videos)';
   }
 
   @override
@@ -203,15 +181,13 @@ class _$UserCatalogModelImpl extends _UserCatalogModel {
             (identical(other.name, name) || other.name == name) &&
             (identical(other.imageUrl, imageUrl) ||
                 other.imageUrl == imageUrl) &&
-            (identical(other.createdByUserId, createdByUserId) ||
-                other.createdByUserId == createdByUserId) &&
             const DeepCollectionEquality().equals(other._videos, _videos));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, id, name, imageUrl,
-      createdByUserId, const DeepCollectionEquality().hash(_videos));
+      const DeepCollectionEquality().hash(_videos));
 
   /// Create a copy of UserCatalogModel
   /// with the given fields replaced by the non-null parameter values.
@@ -235,7 +211,6 @@ abstract class _UserCatalogModel extends UserCatalogModel {
       {required final String id,
       required final String name,
       required final String imageUrl,
-      required final String createdByUserId,
       final List<VideoPostModel>? videos}) = _$UserCatalogModelImpl;
   const _UserCatalogModel._() : super._();
 
@@ -248,8 +223,6 @@ abstract class _UserCatalogModel extends UserCatalogModel {
   String get name;
   @override
   String get imageUrl;
-  @override
-  String get createdByUserId;
   @override
   List<VideoPostModel>? get videos;
 
