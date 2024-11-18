@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_estrellas/app/components/appbar/estrellas_appbar.dart';
+import 'package:flutter_estrellas/app/components/buttons/buttons.dart';
+import 'package:flutter_estrellas/app/routes/app_pages.dart';
 
 import 'package:get/get.dart';
 
@@ -11,10 +13,16 @@ class OrdersView extends GetView<OrdersController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: EstrellasAppbar(title: 'Órdenes'),
-      body: const Center(
-        child: Text(
-          'OrdersView is working 22',
-          style: TextStyle(fontSize: 20),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Button(
+            label: 'Ordenes',
+            onPressed: () {
+              Get.toNamed(Routes.ORDER_DETAILS);
+            },
+            style: ButtonStyles.secondary,
+          ),
         ),
       ),
     );
