@@ -4,4 +4,5 @@ enum BottomSheetTypes {
   selectSize,
   signOut,
   authSignOut,
+  deleteProductsInCatalog,
 }

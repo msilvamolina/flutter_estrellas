@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../../../components/bottom_sheets/bottomsheets.dart';
+import '../../../components/bottom_sheets/types.dart';
 import '../../../data/models/user_catalog/user_catalog_model.dart';
 import '../../../data/models/videos/video_post_model.dart';
 
@@ -47,5 +49,13 @@ class CatalogDetailsController extends GetxController {
     }
 
     update(['view']);
+  }
+
+  void showDeleteBottomBar() {
+    Bottomsheets.staticBottomSheet(BottomSheetTypes.deleteProductsInCatalog);
+  }
+
+  void deleteProductsInCatalog() {
+    print('deleteProductsInCatalog');
   }
 }

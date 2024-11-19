@@ -40,7 +40,6 @@ class CatalogSelectBottombar extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 8),
               child: ListTile(
-                onTap: () {},
                 leading: Container(
                   width: 46,
                   height: 46,
@@ -55,10 +54,13 @@ class CatalogSelectBottombar extends StatelessWidget {
                   style: TypographyStyle.bodyBlackLarge,
                   textAlign: TextAlign.center,
                 ),
-                trailing: Icon(
-                  EstrellasIcons.trash,
-                  size: 34,
-                  color: error900,
+                trailing: GestureDetector(
+                  onTap: controller.showDeleteBottomBar,
+                  child: Icon(
+                    EstrellasIcons.trash,
+                    size: 34,
+                    color: error900,
+                  ),
                 ),
               ),
             ),
