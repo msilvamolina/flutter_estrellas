@@ -9,6 +9,7 @@ import '../../../../libraries/icons/icons_font.dart';
 import '../../../../themes/styles/colors.dart';
 import '../../widgets/bottombar.dart';
 import '../controllers/store_controller.dart';
+import '../widgets/catalog_card.dart';
 
 class StoreView extends GetView<StoreController> {
   const StoreView({super.key});
@@ -37,28 +38,21 @@ class StoreView extends GetView<StoreController> {
         isDarkTheme: false,
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
+        padding: const EdgeInsets.all(8),
         child: Obx(
           () => controller.userProductController.listUserCatalogs.isNotEmpty
-              ? GridView.count(
-                  crossAxisCount: 2, // Número de columnas
-                  mainAxisSpacing: 2, // Espaciado entre filas
-                  crossAxisSpacing: 2, // Espaciado entre columnas
-                  children: List.generate(
-                    controller.userProductController.listUserCatalogs.length,
-                    (index) {
-                      return Card(
-                        child: Padding(
-                          padding: const EdgeInsets.all(16),
-                          child: Text(
-                            controller
-                                .userProductController.listUserCatalogs[index]
-                                .toString(),
-                          ),
-                        ),
-                      );
-                    },
-                  ),
+              ? MasonryGridView.count(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 2,
+                  crossAxisSpacing: 2,
+                  itemCount:
+                      controller.userProductController.listUserCatalogs.length,
+                  itemBuilder: (context, index) {
+                    return CatalogCard(
+                      catalogModel: controller
+                          .userProductController.listUserCatalogs[index],
+                    );
+                  },
                 )
               : Center(child: const Text('no data')),
         ),

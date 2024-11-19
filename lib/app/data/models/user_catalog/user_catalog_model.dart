@@ -15,7 +15,7 @@ abstract class UserCatalogModel implements _$UserCatalogModel {
   const factory UserCatalogModel({
     required String id,
     required String name,
-    required String imageUrl,
+    String? imageUrl,
     List<VideoPostModel>? videos,
   }) = _UserCatalogModel;
 

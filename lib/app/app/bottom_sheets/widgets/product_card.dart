@@ -8,14 +8,14 @@ import '../../../themes/styles/typography.dart';
 class ProductCard extends StatefulWidget {
   const ProductCard({
     super.key,
-    required this.imageUrl,
+    this.imageUrl,
     required this.title,
     required this.message,
     required this.isProductoInCatalog,
     required this.addFunction,
     required this.removeFunction,
   });
-  final String imageUrl;
+  final String? imageUrl;
   final String title;
   final String message;
   final bool isProductoInCatalog;
@@ -44,12 +44,18 @@ class _ProductCardState extends State<ProductCard> {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(8),
-            child: Image.network(
-              widget.imageUrl,
-              width: 54,
-              height: 54,
-              fit: BoxFit.cover,
-            ),
+            child: widget.imageUrl != null
+                ? Image.network(
+                    widget.imageUrl!,
+                    width: 54,
+                    height: 54,
+                    fit: BoxFit.cover,
+                  )
+                : Image.asset(
+                    'assets/images/catalog.png',
+                    width: 54,
+                    height: 54,
+                  ),
           ),
           SizedBox(width: 16),
           Expanded(
