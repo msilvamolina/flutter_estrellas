@@ -319,8 +319,13 @@ class UserProductController extends GetxController {
       },
       (_) {
         String message = 'Guardado en';
-        Snackbars.productSnackbar(
-            _productCatalogBottomSheet!.product!, '$message $name');
+
+        if (_productCatalogBottomSheet?.product != null) {
+          Snackbars.productSnackbar(
+              _productCatalogBottomSheet!.product!, '$message $name');
+        } else {
+          Snackbars.success('Se creó un nuevo catálogo');
+        }
       },
     );
   }
