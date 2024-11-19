@@ -2,17 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_estrellas/app/components/appbar/estrellas_appbar.dart';
 import 'package:flutter_estrellas/app/components/buttons/buttons.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
 
 import '../../../components/cards/video_product_card.dart';
 import '../../../routes/app_pages.dart';
+import '../../../themes/styles/colors.dart';
 import '../controllers/catalog_details_controller.dart';
 
 class CatalogDetailsView extends GetView<CatalogDetailsController> {
   const CatalogDetailsView({super.key});
   @override
   Widget build(BuildContext context) {
+    double size = MediaQuery.of(context).size.width / 2;
+
     return GetBuilder<CatalogDetailsController>(
       id: 'view',
       builder: (_) {
@@ -36,12 +40,39 @@ class CatalogDetailsView extends GetView<CatalogDetailsController> {
               itemCount: controller.catalogModel.videos!.length,
               itemBuilder: (context, index) {
                 return GestureDetector(
-                  onTap: () => Get.toNamed(
-                    Routes.PRODUCT_DETAILS,
-                    arguments: controller.catalogModel.videos![index],
-                  ),
-                  child: VideoProductCard(
-                    videoProductModel: controller.catalogModel.videos![index],
+                  onTap: () {
+                    if (controller.isSelectMode) {
+                    } else {
+                      Get.toNamed(
+                        Routes.PRODUCT_DETAILS,
+                        arguments: controller.catalogModel.videos![index],
+                      );
+                    }
+                  },
+                  child: Stack(
+                    children: [
+                      VideoProductCard(
+                        videoProductModel:
+                            controller.catalogModel.videos![index],
+                      ),
+                      if (controller.isSelectMode)
+                        Positioned(
+                          top: size - 68,
+                          right: 14,
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: white,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(12))),
+                            margin: EdgeInsets.all(8),
+                            padding: EdgeInsets.all(16),
+                            child: SvgPicture.asset(
+                              'assets/svg/CheckboxActive.svg',
+                              width: 22,
+                            ),
+                          ),
+                        ),
+                    ],
                   ),
                 );
               },
