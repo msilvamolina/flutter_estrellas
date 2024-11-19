@@ -42,6 +42,8 @@ class CatalogDetailsView extends GetView<CatalogDetailsController> {
                 return GestureDetector(
                   onTap: () {
                     if (controller.isSelectMode) {
+                      controller.onProductPressed(
+                          controller.catalogModel.videos![index]);
                     } else {
                       Get.toNamed(
                         Routes.PRODUCT_DETAILS,
@@ -67,7 +69,10 @@ class CatalogDetailsView extends GetView<CatalogDetailsController> {
                             margin: EdgeInsets.all(8),
                             padding: EdgeInsets.all(16),
                             child: SvgPicture.asset(
-                              'assets/svg/CheckboxActive.svg',
+                              controller.isProductInCatalog(
+                                      controller.catalogModel.videos![index])
+                                  ? 'assets/svg/CheckboxActive.svg'
+                                  : 'assets/svg/Checkbox.svg',
                               width: 22,
                             ),
                           ),
