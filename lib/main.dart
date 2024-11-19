@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
-import 'package:firebase_remote_config/firebase_remote_config.dart';
+// import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -20,19 +20,14 @@ import 'app/themes/text_theme.dart';
 import 'app/themes/theme.dart';
 
 void main() async {
-  const String flavor = String.fromEnvironment('flavor', defaultValue: '');
-  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-
-  // Mantener el splash screen visible
-  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-
-  // Inicializar entorno y almacenamiento local
-  await Environment.instance.init(env: flavor);
   await GetStorage.init();
+  const String flavor = String.fromEnvironment('flavor', defaultValue: '');
+
+  await Environment.instance.init(env: flavor);
 
   // Inicializar Firebase y Remote Config
   await initFirebase();
-  await initRemoteConfig();
+  // await initRemoteConfig();
 
   // Inicializar dependencias
   DependecyInjection.init();
@@ -86,19 +81,19 @@ Future<void> initFirebase() async {
 }
 
 /// Inicialización de Firebase Remote Config
-Future<void> initRemoteConfig() async {
-  final FirebaseRemoteConfig remoteConfig = FirebaseRemoteConfig.instance;
+// Future<void> initRemoteConfig() async {
+//   final FirebaseRemoteConfig remoteConfig = FirebaseRemoteConfig.instance;
 
-  try {
-    await remoteConfig.setDefaults({});
-    await remoteConfig.fetchAndActivate();
-    print('Remote Config inicializado correctamente.');
-  } catch (e) {
-    print('Error inicializando Remote Config: $e');
-    FirebaseCrashlytics.instance.recordError(e, StackTrace.current,
-        reason: "Error en initRemoteConfig");
-  }
-}
+//   try {
+//     await remoteConfig.setDefaults({});
+//     await remoteConfig.fetchAndActivate();
+//     print('Remote Config inicializado correctamente.');
+//   } catch (e) {
+//     print('Error inicializando Remote Config: $e');
+//     FirebaseCrashlytics.instance.recordError(e, StackTrace.current,
+//         reason: "Error en initRemoteConfig");
+//   }
+// }
 
 final RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
 
@@ -131,7 +126,7 @@ class MyApp extends StatelessWidget {
       // themeMode: ThemeService.getThemeMode(),
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
-      builder: (context, child) => RemoteConfigLayout(child: child!),
+      // builder: (context, child) => RemoteConfigLayout(child: child!),
     );
   }
 }
