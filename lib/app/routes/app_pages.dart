@@ -36,6 +36,8 @@ import '../modules/auth/welcome/bindings/welcome_binding.dart';
 import '../modules/auth/welcome/views/welcome_view.dart';
 import '../modules/cart/bindings/cart_binding.dart';
 import '../modules/cart/views/cart_view.dart';
+import '../modules/catalog_details/bindings/catalog_details_binding.dart';
+import '../modules/catalog_details/views/catalog_details_view.dart';
 import '../modules/main/account/bindings/account_binding.dart';
 import '../modules/main/account/views/account_view.dart';
 import '../modules/main/home/bindings/home_binding.dart';
@@ -46,14 +48,14 @@ import '../modules/main/store/bindings/store_binding.dart';
 import '../modules/main/store/views/store_view.dart';
 import '../modules/main/wallet/bindings/wallet_binding.dart';
 import '../modules/main/wallet/views/wallet_view.dart';
+import '../modules/order/order_details/bindings/order_details_binding.dart';
+import '../modules/order/order_details/views/order_details_view.dart';
 import '../modules/order/order_error/bindings/order_error_binding.dart';
 import '../modules/order/order_error/views/order_error_view.dart';
 import '../modules/order/order_success/bindings/order_success_binding.dart';
 import '../modules/order/order_success/views/order_success_view.dart';
 import '../modules/order/orders/bindings/orders_binding.dart';
 import '../modules/order/orders/views/orders_view.dart';
-import '../modules/order/order_details/bindings/order_details_binding.dart';
-import '../modules/order/order_details/views/order_details_view.dart';
 import '../modules/product_details/bindings/product_details_binding.dart';
 import '../modules/product_details/views/product_details_view.dart';
 import '../modules/select_payment/bindings/select_payment_binding.dart';
@@ -241,6 +243,11 @@ class AppPages {
       name: _Paths.ORDER_DETAILS,
       page: () => const OrderDetailsView(),
       binding: OrderDetailsBinding(),
+    ),
+    GetPage(
+      name: _Paths.CATALOG_DETAILS,
+      page: () => const CatalogDetailsView(),
+      binding: CatalogDetailsBinding(),
     ),
   ];
 }
