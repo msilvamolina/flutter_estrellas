@@ -10,6 +10,7 @@ import '../../../../themes/styles/colors.dart';
 import '../../widgets/bottombar.dart';
 import '../controllers/store_controller.dart';
 import '../widgets/catalog_card.dart';
+import '../widgets/catalog_empty_state.dart';
 
 class StoreView extends GetView<StoreController> {
   const StoreView({super.key});
@@ -21,17 +22,21 @@ class StoreView extends GetView<StoreController> {
         title: 'Mís catálogos',
         withBackButton: false,
       ),
-      floatingActionButton: Button(
-        onPressed: controller.openAddCatalogBottomSheet,
-        style: ButtonStyles.secondaryCirlce,
-        child: CircleAvatar(
-          backgroundColor: primaryBase,
-          radius: 24,
-          child: Icon(
-            Icons.add,
-            size: 32,
-          ),
-        ),
+      floatingActionButton: Obx(
+        () => controller.userProductController.listUserCatalogs.isNotEmpty
+            ? Button(
+                onPressed: controller.openAddCatalogBottomSheet,
+                style: ButtonStyles.secondaryCirlce,
+                child: CircleAvatar(
+                  backgroundColor: primaryBase,
+                  radius: 24,
+                  child: Icon(
+                    Icons.add,
+                    size: 32,
+                  ),
+                ),
+              )
+            : SizedBox.shrink(),
       ),
       bottomNavigationBar: Bottombar(
         viewSelected: 3,
@@ -54,7 +59,7 @@ class StoreView extends GetView<StoreController> {
                     );
                   },
                 )
-              : Center(child: const Text('no data')),
+              : CatalogEmptyState(),
         ),
       ),
     );
