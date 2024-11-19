@@ -28,14 +28,39 @@ class ProductCard extends StatefulWidget {
 
 class _ProductCardState extends State<ProductCard> {
   bool isLoading = false;
-  @override
-  Widget build(BuildContext context) {
-    void setLoading() {
+
+  void _setLoading(bool value) {
+    if (mounted) {
       setState(() {
-        isLoading = true;
+        isLoading = value;
       });
     }
+  }
 
+  Future<void> _handleAddFunction() async {
+    if (widget.addFunction != null) {
+      _setLoading(true);
+      try {
+        widget.addFunction!();
+      } finally {
+        _setLoading(false);
+      }
+    }
+  }
+
+  Future<void> _handleRemoveFunction() async {
+    if (widget.removeFunction != null) {
+      _setLoading(true);
+      try {
+        widget.removeFunction!();
+      } finally {
+        _setLoading(false);
+      }
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 0, bottom: 24, left: 16, right: 0),
       child: Row(
@@ -57,7 +82,7 @@ class _ProductCardState extends State<ProductCard> {
                     height: 54,
                   ),
           ),
-          SizedBox(width: 16),
+          const SizedBox(width: 16),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -76,43 +101,37 @@ class _ProductCardState extends State<ProductCard> {
               ],
             ),
           ),
-          !isLoading
-              ? (widget.isProductoInCatalog
-                  ? Button(
-                      style: ButtonStyles.secondaryCirlce,
-                      child: SvgPicture.asset(
-                        'assets/svg/catalog.svg',
-                        width: 16,
-                      ),
-                      onPressed: widget.addFunction != null
-                          ? () {
-                              setLoading();
-                              widget.removeFunction!();
-                            }
-                          : null,
-                    )
-                  : Button(
-                      style: ButtonStyles.secondaryCirlce,
-                      child: SvgPicture.asset('assets/svg/PlusCircle.svg',
-                          width: 26, color: secondaryBase),
-                      onPressed: widget.removeFunction != null
-                          ? () {
-                              setLoading();
-                              widget.addFunction!();
-                            }
-                          : null,
-                    ))
-              : Padding(
-                  padding: const EdgeInsets.only(right: 16),
-                  child: SizedBox(
-                    width: 20,
-                    height: 20,
-                    child: CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(secondaryBase),
-                      strokeWidth: 2.0,
+          if (!isLoading)
+            widget.isProductoInCatalog
+                ? Button(
+                    style: ButtonStyles.secondaryCirlce,
+                    child: SvgPicture.asset(
+                      'assets/svg/catalog.svg',
+                      width: 16,
                     ),
-                  ),
+                    onPressed: _handleRemoveFunction,
+                  )
+                : Button(
+                    style: ButtonStyles.secondaryCirlce,
+                    child: SvgPicture.asset(
+                      'assets/svg/PlusCircle.svg',
+                      width: 26,
+                      color: secondaryBase,
+                    ),
+                    onPressed: _handleAddFunction,
+                  )
+          else
+            const Padding(
+              padding: EdgeInsets.only(right: 16),
+              child: SizedBox(
+                width: 20,
+                height: 20,
+                child: CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(secondaryBase),
+                  strokeWidth: 2.0,
                 ),
+              ),
+            ),
         ],
       ),
     );

@@ -29,27 +29,38 @@ class _CartCardState extends State<CartCard> {
   Timer? _timer;
 
   void _startCountdown(CartController controller) {
+    if (!mounted) return;
+
     setState(() {
       _isDeleted = true;
       _countdown = 5;
     });
 
-    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (!mounted) {
+        _timer?.cancel();
+        return;
+      }
+
       setState(() {
         _countdown--;
       });
 
       if (_countdown == 0) {
         _timer?.cancel();
-        setState(() {
-          _isDeleted = false;
-        });
+        if (mounted) {
+          setState(() {
+            _isDeleted = false;
+          });
+        }
         controller.removeProduct(widget.userProductCartModel);
       }
     });
   }
 
   void _undoDelete() {
+    if (!mounted) return;
+
     setState(() {
       _isDeleted = false;
     });
@@ -58,7 +69,7 @@ class _CartCardState extends State<CartCard> {
 
   @override
   void dispose() {
-    _timer?.cancel();
+    _timer?.cancel(); // Cancela el timer al salir del widget
     super.dispose();
   }
 
@@ -87,16 +98,17 @@ class _CartCardState extends State<CartCard> {
                   onTap: _undoDelete,
                   child: Container(
                     color: Colors.white,
-                    padding: EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(16),
                     child: Column(
                       children: [
-                        Icon(EstrellasIcons.check, color: success500, size: 36),
+                        const Icon(EstrellasIcons.check,
+                            color: success500, size: 36),
                         Text(
                           'Eliminado',
                           style: TypographyStyle.bodyBlackLarge
                               .copyWith(color: neutral950, fontSize: 18),
                         ),
-                        SizedBox(height: 4),
+                        const SizedBox(height: 4),
                         Text(
                           'Toca para deshacer ($_countdown)',
                           style: TypographyStyle.bodyRegularLarge
@@ -123,12 +135,12 @@ class _CartCardState extends State<CartCard> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(
+                            const Icon(
                               EstrellasIcons.trash,
                               color: error500,
                               size: 30,
                             ),
-                            SizedBox(width: 8),
+                            const SizedBox(width: 8),
                             Text(
                               'Eliminar',
                               style: TypographyStyle.bodyRegularLarge
@@ -149,7 +161,7 @@ class _CartCardState extends State<CartCard> {
                           children: [
                             ClipRRect(
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(18)),
+                                  const BorderRadius.all(Radius.circular(18)),
                               child: Image.network(
                                 product.thumbnail ?? '',
                                 width: 60,
@@ -157,7 +169,7 @@ class _CartCardState extends State<CartCard> {
                                 fit: BoxFit.cover,
                               ),
                             ),
-                            SizedBox(width: 16),
+                            const SizedBox(width: 16),
                             Expanded(
                               child: Column(
                                 children: [
@@ -190,7 +202,7 @@ class _CartCardState extends State<CartCard> {
                                               ? VariationWidget(
                                                   variantCombination:
                                                       variantCombination)
-                                              : SizedBox.shrink(),
+                                              : const SizedBox.shrink(),
                                         ),
                                         Text(
                                           'Ganas $profitStr',
@@ -207,13 +219,13 @@ class _CartCardState extends State<CartCard> {
                             ),
                           ],
                         ),
-                        SizedBox(height: 12),
+                        const SizedBox(height: 12),
                         Row(
                           children: [
                             Container(
-                              padding: EdgeInsets.only(
+                              padding: const EdgeInsets.only(
                                   left: 6, right: 12, top: 2, bottom: 3),
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 color: primaryLight,
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(16)),
@@ -221,7 +233,7 @@ class _CartCardState extends State<CartCard> {
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  Icon(EstrellasIcons.medal),
+                                  const Icon(EstrellasIcons.medal),
                                   Text(
                                     '$points puntos',
                                     style: TypographyStyle.bodyBlackMedium,
@@ -229,7 +241,7 @@ class _CartCardState extends State<CartCard> {
                                 ],
                               ),
                             ),
-                            Spacer(),
+                            const Spacer(),
                             FieldQuantity(
                               value: controller
                                   .getQuantity(widget.userProductCartModel),

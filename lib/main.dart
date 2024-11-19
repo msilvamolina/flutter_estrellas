@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -21,15 +20,8 @@ void main() async {
 
   DependecyInjection.init();
 
-  runZonedGuarded(
-    () {
-      runApp(
-        const MyApp(),
-      );
-    },
-    (Object error, StackTrace stackTrace) {
-      FirebaseCrashlytics.instance.recordError(error, stackTrace);
-    },
+  runApp(
+    const MyApp(),
   );
 }
 
@@ -76,7 +68,6 @@ class MyApp extends StatelessWidget {
 
     return GetMaterialApp(
       navigatorObservers: [routeObserver],
-
       title: "Estrellas",
       locale: const Locale('es'),
       fallbackLocale: const Locale('es'),

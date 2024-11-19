@@ -18,13 +18,26 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+  late PageController pageController;
+  int pageSelected = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    pageController = PageController();
+  }
+
+  @override
+  void dispose() {
+    pageController.dispose(); // Asegúrate de liberar el controlador
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     bool isMobile = screenWidth < 480;
 
-    PageController pageController = PageController();
-    int pageSelected = 0;
     return Scaffold(
       extendBodyBehindAppBar: true,
       extendBody: true,
@@ -52,19 +65,23 @@ class _HomeViewState extends State<HomeView> {
                 controller: pageController,
                 scrollDirection: Axis.vertical,
                 onPageChanged: (value) {
-                  setState(() {
-                    pageSelected = value;
-                  });
+                  if (mounted) {
+                    setState(() {
+                      pageSelected = value;
+                    });
+                  }
                   controller.mainController.removeSwipeUp();
                 },
                 itemBuilder: (context, index) => VideoCard(
                   videoPostModel: controller.list[index],
                   onCompleted: () {
-                    pageController.animateToPage(
-                      pageSelected++,
-                      duration: Duration(milliseconds: 200),
-                      curve: Curves.linear,
-                    );
+                    if (pageController.hasClients) {
+                      pageController.animateToPage(
+                        pageSelected + 1, // Asegúrate de sumar 1 correctamente
+                        duration: const Duration(milliseconds: 200),
+                        curve: Curves.linear,
+                      );
+                    }
                   },
                 ),
               );

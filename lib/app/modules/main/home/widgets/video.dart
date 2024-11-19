@@ -42,25 +42,42 @@ class _VideoAppState extends State<VideoApp> with RouteAware {
   @override
   void initState() {
     super.initState();
+
+    // Configuración del controlador de video
     _controller = VideoPlayerController.networkUrl(
-        Uri.parse(widget.videoPostModel.videoUrl))
-      ..initialize().then((_) {
-        setState(() {
-          _controller.setLooping(true);
-          _controller.play();
-        });
+      Uri.parse(widget.videoPostModel.videoUrl),
+    )..initialize().then((_) {
+        if (mounted) {
+          setState(() {
+            _controller.setLooping(true);
+            _controller.play();
+          });
+        }
       });
 
     _controller.setVolume(mainController.withVolume ? 100 : 0);
 
-    // Añade un listener para actualizar el slider
-    _controller.addListener(() {
-      if (_controller.value.isInitialized && _controller.value.isPlaying) {
-        setState(() {
-          _currentSliderValue = _controller.value.position.inSeconds.toDouble();
-        });
-      }
-    });
+    // Listener para actualizar el slider
+    _controller.addListener(_videoListener);
+  }
+
+  void _videoListener() {
+    if (mounted &&
+        _controller.value.isInitialized &&
+        _controller.value.isPlaying) {
+      setState(() {
+        _currentSliderValue = _controller.value.position.inSeconds.toDouble();
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    // Limpieza de recursos
+    _controller.removeListener(_videoListener);
+    _controller.dispose();
+    routeObserver.unsubscribe(this);
+    super.dispose();
   }
 
   @override
@@ -73,19 +90,14 @@ class _VideoAppState extends State<VideoApp> with RouteAware {
   }
 
   @override
-  void dispose() {
-    routeObserver.unsubscribe(this);
-    _controller.dispose();
-    super.dispose();
-  }
-
-  @override
   void didPushNext() {
     if (_controller.value.isPlaying) {
       _controller.pause();
-      setState(() {
-        _isPlaying = false;
-      });
+      if (mounted) {
+        setState(() {
+          _isPlaying = false;
+        });
+      }
     }
   }
 
@@ -93,13 +105,17 @@ class _VideoAppState extends State<VideoApp> with RouteAware {
   void didPopNext() {
     if (!_isPlaying) {
       _controller.play();
-      setState(() {
-        _isPlaying = true;
-      });
+      if (mounted) {
+        setState(() {
+          _isPlaying = true;
+        });
+      }
     }
   }
 
   void onPause() {
+    if (!mounted) return;
+
     setState(() {
       _isPlaying = !_controller.value.isPlaying;
       if (_isPlaying) {
@@ -108,19 +124,22 @@ class _VideoAppState extends State<VideoApp> with RouteAware {
         _controller.pause();
       }
       _iconAnimationIcon = _isPlaying ? Icons.play_arrow : Icons.pause;
-      _currentSliderValue = _controller.value.position.inSeconds.toDouble();
       _iconAnimationShowing = true;
     });
 
-    Future.delayed(Duration(milliseconds: 700), () {
-      setState(() {
-        _iconAnimationShowing = false;
-      });
+    Future.delayed(const Duration(milliseconds: 700), () {
+      if (mounted) {
+        setState(() {
+          _iconAnimationShowing = false;
+        });
+      }
     });
   }
 
   void onVolume() {
     mainController.changeVolume();
+    if (!mounted) return;
+
     setState(() {
       mainController.withVolume
           ? _controller.setVolume(100)
@@ -129,10 +148,13 @@ class _VideoAppState extends State<VideoApp> with RouteAware {
           mainController.withVolume ? Icons.volume_up : Icons.volume_off;
       _iconAnimationShowing = true;
     });
-    Future.delayed(Duration(milliseconds: 700), () {
-      setState(() {
-        _iconAnimationShowing = false;
-      });
+
+    Future.delayed(const Duration(milliseconds: 700), () {
+      if (mounted) {
+        setState(() {
+          _iconAnimationShowing = false;
+        });
+      }
     });
   }
 
@@ -140,7 +162,6 @@ class _VideoAppState extends State<VideoApp> with RouteAware {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     bool isMobile = screenWidth < 480;
-    bool isTablet = screenWidth < 740;
     bool showExpandedVideo = screenWidth < 640;
     bool showButtonsOutside = screenWidth < 840;
 
@@ -164,14 +185,7 @@ class _VideoAppState extends State<VideoApp> with RouteAware {
     );
   }
 
-  Widget videoContent(showButtonsOutside) {
-    bool isIos = false;
-    bool isAndroid = false;
-
-    if (!kIsWeb) {
-      isIos = Platform.isIOS;
-      isAndroid = Platform.isAndroid;
-    }
+  Widget videoContent(bool showButtonsOutside) {
     return Container(
       child: _controller.value.isInitialized
           ? GestureDetector(
@@ -186,18 +200,17 @@ class _VideoAppState extends State<VideoApp> with RouteAware {
                       children: [
                         if (showButtonsOutside)
                           Expanded(
-                              child: Padding(
-                            padding: const EdgeInsets.only(right: 16),
-                            child: VideoButtons(
-                              buttonInsideVideo: true,
-                              videoPostModel: widget.videoPostModel,
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 16),
+                              child: VideoButtons(
+                                buttonInsideVideo: true,
+                                videoPostModel: widget.videoPostModel,
+                              ),
                             ),
-                          ))
+                          )
                         else
                           Spacer(),
-                        VideoLabel(
-                          videoPostModel: widget.videoPostModel,
-                        ),
+                        VideoLabel(videoPostModel: widget.videoPostModel),
                         SliderTheme(
                           data: SliderTheme.of(context).copyWith(
                             thumbShape: SliderComponentShape.noThumb,
@@ -207,30 +220,32 @@ class _VideoAppState extends State<VideoApp> with RouteAware {
                             overlayShape: SliderComponentShape.noOverlay,
                           ),
                           child: Container(
-                            padding: EdgeInsets.symmetric(horizontal: 14),
+                            padding: const EdgeInsets.symmetric(horizontal: 14),
                             child: Slider(
                               value: _currentSliderValue,
                               min: 0.0,
                               max: _controller.value.duration.inSeconds
                                   .toDouble(),
                               onChanged: (value) {
-                                setState(() {
-                                  _currentSliderValue = value;
-                                  _controller
-                                      .seekTo(Duration(seconds: value.toInt()));
-                                });
+                                if (mounted) {
+                                  setState(() {
+                                    _currentSliderValue = value;
+                                    _controller.seekTo(
+                                        Duration(seconds: value.toInt()));
+                                  });
+                                }
                               },
                             ),
                           ),
                         ),
-                        if (widget.bottomSpace) SizedBox(height: 16),
+                        if (widget.bottomSpace) const SizedBox(height: 16),
                       ],
                     ),
                   ),
                   Center(
                     child: AnimatedOpacity(
                       opacity: _iconAnimationShowing ? 0.4 : 0,
-                      duration: Duration(milliseconds: 500),
+                      duration: const Duration(milliseconds: 500),
                       child: Icon(
                         _iconAnimationIcon,
                         size: 140,
@@ -245,8 +260,8 @@ class _VideoAppState extends State<VideoApp> with RouteAware {
               child: CachedNetworkImage(
                 imageUrl: widget.videoPostModel.thumbnail,
                 placeholder: (context, url) =>
-                    Center(child: CircularProgressIndicator()),
-                errorWidget: (context, url, error) => Icon(Icons.error),
+                    const Center(child: CircularProgressIndicator()),
+                errorWidget: (context, url, error) => const Icon(Icons.error),
                 fit: BoxFit.cover,
               ),
             ),

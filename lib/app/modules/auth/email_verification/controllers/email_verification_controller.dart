@@ -5,28 +5,31 @@ import '../../../../components/bottom_sheets/bottomsheets.dart';
 import '../../../../components/bottom_sheets/types.dart';
 import '../../../../data/providers/repositories/auth/auth_repository.dart';
 import '../../../../routes/app_pages.dart';
-import '../../../main/account/controllers/account_controller.dart';
 
 class EmailVerificationController extends GetxController {
   final AuthRepository _authRepository = AuthRepository();
 
-  MainController mainController = Get.find();
-  RxString timeLeft = '02:00'.obs; // Tiempo restante en formato MM:SS
-  RxBool isCountdownComplete = false.obs; // Indica si el tiempo ha llegado a 0
-  Timer? _timer; // Timer para la cuenta regresiva
+  final MainController mainController = Get.find();
+  final RxString timeLeft = '02:00'.obs; // Tiempo restante en formato MM:SS
+  final RxBool isCountdownComplete =
+      false.obs; // Indica si el tiempo ha llegado a 0
+  final RxBool isEmailVerified = false.obs;
+  final RxnString userEmail = RxnString();
+
+  Timer? _countdownTimer; // Timer para la cuenta regresiva
   Timer? _verificationTimer; // Timer para verificar el estado de email
-  RxBool isEmailVerified = false.obs;
 
-  RxnString userEmail = RxnString();
+  /// Inicia la cuenta regresiva de verificación
   void startCountdown() {
-    _timer?.cancel(); // Cancelar cualquier timer existente
-    int countdownTime = 120; // Tiempo inicial en segundos (2 minutos)
+    _countdownTimer?.cancel(); // Cancela cualquier timer existente
+    const int initialTime = 120; // Tiempo inicial en segundos (2 minutos)
+    int countdownTime = initialTime;
 
-    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+    _countdownTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (countdownTime > 0) {
         countdownTime--;
-        int minutes = countdownTime ~/ 60;
-        int seconds = countdownTime % 60;
+        final minutes = countdownTime ~/ 60;
+        final seconds = countdownTime % 60;
         timeLeft.value =
             '${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
       } else {
@@ -37,64 +40,72 @@ class EmailVerificationController extends GetxController {
     });
   }
 
+  /// Inicia la verificación periódica del estado del correo electrónico
   void startEmailVerificationCheck() {
-    _verificationTimer?.cancel(); // Cancelar cualquier timer existente
+    _verificationTimer?.cancel(); // Cancela cualquier timer existente
 
-    _verificationTimer = Timer.periodic(Duration(seconds: 3), (timer) async {
-      final user =
-          _authRepository.getCurrentUser(); // Obtener el usuario actual
-      if (user != null) {
-        await user.reload(); // Recargar los datos del usuario
-        if (user.emailVerified) {
-          isEmailVerified.value = true;
-          timer.cancel();
-          navigateToHome();
+    _verificationTimer =
+        Timer.periodic(const Duration(seconds: 3), (timer) async {
+      try {
+        final user =
+            _authRepository.getCurrentUser(); // Obtener el usuario actual
+        if (user != null) {
+          await user.reload(); // Recarga los datos del usuario
+          if (user.emailVerified) {
+            isEmailVerified.value = true;
+            timer.cancel();
+            navigateToHome();
+          }
         }
+      } catch (e) {
+        timer.cancel(); // Cancela el timer si ocurre un error
+        rethrow;
       }
     });
   }
 
+  /// Navega a la pantalla principal
   void navigateToHome() {
     Get.offNamedUntil(
       Routes.HOME,
-      (route) =>
-          route.settings.name ==
-          Routes.HOME, // Cambia Routes.HOME por la ruta que deseas mantener.
+      (route) => route.settings.name == Routes.HOME,
     );
   }
 
   @override
-  void onInit() async {
+  void onInit() {
     super.onInit();
-
-    startCountdown(); // Inicia la cuenta regresiva
+    startCountdown(); // Inicia la cuenta regresiva al iniciar el controlador
   }
 
   @override
   void onReady() async {
     super.onReady();
     userEmail.value = await _authRepository.getUserEmail();
-
-    _authRepository.sendEmailVerification(); // Envía el correo de verificación
+    await _authRepository
+        .sendEmailVerification(); // Envía el correo de verificación
     startEmailVerificationCheck(); // Comienza a escuchar la verificación del email
   }
 
+  /// Desconectar al usuario
   Future<void> signOut() async {
     Bottomsheets.staticBottomSheet(BottomSheetTypes.authSignOut);
   }
 
+  /// Reintentar el proceso de verificación
   void tryAgain() {
     isCountdownComplete.value = false;
     timeLeft.value = '02:00';
     startCountdown(); // Reinicia la cuenta regresiva
-    _authRepository.sendEmailVerification();
+    _authRepository
+        .sendEmailVerification(); // Reenvía el correo de verificación
     startEmailVerificationCheck(); // Reinicia la verificación
   }
 
   @override
   void onClose() {
-    _timer?.cancel(); // Cancela el timer de cuenta regresiva
-    _verificationTimer?.cancel(); // Cancela el timer de verificación
+    _countdownTimer?.cancel(); // Cancela el temporizador de cuenta regresiva
+    _verificationTimer?.cancel(); // Cancela el temporizador de verificación
     super.onClose();
   }
 }

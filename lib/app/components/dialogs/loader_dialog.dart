@@ -18,47 +18,50 @@ class LoaderDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LoaderLayout(
-      child: AbsorbPointer(
-        absorbing: true,
-        child: Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Lottie.asset(
-                'assets/lotties/Loader.json',
-              ),
-              // Shimmer.fromColors(
-              //   baseColor: primaryBase,
-              //   highlightColor: primaryLight,
-              //   child: SvgPicture.asset(
-              //     'assets/svg/loader.svg',
-              //     width: 100,
-              //   ),
-              // ),
-              if (title != null)
-                Padding(
-                  padding: const EdgeInsets.only(top: 8),
-                  child: Text(
-                    title!,
-                    textAlign: TextAlign.center,
-                    style: TypographyStyle.bodyRegularLarge,
-                  ),
-                ),
-              if (title != null && message != null)
-                Padding(
-                  padding: const EdgeInsets.only(top: 2),
-                  child: Text(
-                    message!,
-                    textAlign: TextAlign.center,
-                    style: TypographyStyle.bodyRegularSmall
-                        .copyWith(fontWeight: FontWeight.w500),
-                  ),
-                ),
-            ],
-          ),
-        ),
-      ),
+    return Center(
+      child: Text('Loader'),
     );
+    // return LoaderLayout(
+    //   child: AbsorbPointer(
+    //     absorbing: true,
+    //     child: Center(
+    //       child: Column(
+    //         mainAxisSize: MainAxisSize.min,
+    //         children: [
+    //           Lottie.asset(
+    //             'assets/lotties/Loader.json',
+    //           ),
+    //           // Shimmer.fromColors(
+    //           //   baseColor: primaryBase,
+    //           //   highlightColor: primaryLight,
+    //           //   child: SvgPicture.asset(
+    //           //     'assets/svg/loader.svg',
+    //           //     width: 100,
+    //           //   ),
+    //           // ),
+    //           if (title != null)
+    //             Padding(
+    //               padding: const EdgeInsets.only(top: 8),
+    //               child: Text(
+    //                 title!,
+    //                 textAlign: TextAlign.center,
+    //                 style: TypographyStyle.bodyRegularLarge,
+    //               ),
+    //             ),
+    //           if (title != null && message != null)
+    //             Padding(
+    //               padding: const EdgeInsets.only(top: 2),
+    //               child: Text(
+    //                 message!,
+    //                 textAlign: TextAlign.center,
+    //                 style: TypographyStyle.bodyRegularSmall
+    //                     .copyWith(fontWeight: FontWeight.w500),
+    //               ),
+    //             ),
+    //         ],
+    //       ),
+    //     ),
+    //   ),
+    // );
   }
 }

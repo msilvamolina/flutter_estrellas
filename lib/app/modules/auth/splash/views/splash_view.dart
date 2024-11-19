@@ -8,8 +8,8 @@ class SplashView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LoaderLayout(
-      child: LoaderDialog(),
+    return Center(
+      child: Text('Loader'),
     );
   }
 }
