@@ -5,8 +5,8 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 import 'package:get/get.dart';
 
+import '../../../../components/cards/video_product_card.dart';
 import '../controllers/favorites_controller.dart';
-import '../widgets/favorites_card.dart';
 
 class FavoritesView extends GetView<FavoritesController> {
   const FavoritesView({super.key});
@@ -39,9 +39,9 @@ class FavoritesView extends GetView<FavoritesController> {
                           index
                         ],
                       ),
-                      child: FavoritesCard(
-                        userProductModel: controller
-                            .userProductController.listProductFavorite[index],
+                      child: VideoProductCard(
+                        videoProductModel: controller.userProductController
+                            .listProductFavorite[index].video!,
                       ),
                     );
                   },
