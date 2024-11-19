@@ -8,11 +8,13 @@ class EstrellasAppbar extends StatelessWidget implements PreferredSizeWidget {
   const EstrellasAppbar({
     required this.title,
     this.withBackButton = true,
+    this.actions,
     super.key,
   });
 
   final String title;
   final bool withBackButton;
+  final List<Widget>? actions;
   @override
   Widget build(BuildContext context) {
     return AppBar(
@@ -24,6 +26,7 @@ class EstrellasAppbar extends StatelessWidget implements PreferredSizeWidget {
         style: TypographyStyle.bodyBlackLarge2,
       ),
       centerTitle: true,
+      actions: actions,
     );
   }
 

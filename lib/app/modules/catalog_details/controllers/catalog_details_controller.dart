@@ -6,6 +6,9 @@ class CatalogDetailsController extends GetxController {
   //TODO: Implement CatalogDetailsController
 
   late UserCatalogModel catalogModel;
+
+  bool _isSelectMode = false;
+  bool get isSelectMode => _isSelectMode;
   @override
   void onInit() {
     catalogModel = Get.arguments as UserCatalogModel;
@@ -20,5 +23,10 @@ class CatalogDetailsController extends GetxController {
   @override
   void onClose() {
     super.onClose();
+  }
+
+  void onPressedSelectMode() {
+    _isSelectMode = !_isSelectMode;
+    update(['view']);
   }
 }
