@@ -72,9 +72,20 @@ Future<void> initFirebase() async {
       storageBucket: firebaseConfig['storageBucket'],
     );
   } else if (Platform.isIOS) {
-    // Usar el archivo GoogleService-Info.plist para iOS
-    await Firebase.initializeApp();
-    return;
+    // // Usar el archivo GoogleService-Info.plist para iOS
+    // await Firebase.initializeApp();
+
+    Map<String, dynamic>? firebaseConfig = firebaseConfigDevIOS;
+    firebaseOptions = FirebaseOptions(
+      apiKey: firebaseConfig['apiKey']!,
+      appId: firebaseConfig['appId']!,
+      messagingSenderId: firebaseConfig['messagingSenderId']!,
+      projectId: firebaseConfig['projectId']!,
+      databaseURL: firebaseConfig['databaseURL'],
+      measurementId: firebaseConfig['measurementId'],
+      trackingId: firebaseConfig['trackingId'],
+      storageBucket: firebaseConfig['storageBucket'],
+    );
   }
 
   await Firebase.initializeApp(options: firebaseOptions);
@@ -104,9 +115,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     TextTheme textTheme = createTextTheme(context, "Montserrat", "Montserrat");
     MaterialTheme theme = MaterialTheme(textTheme);
-
-    // Quitar el splash screen después de cargar todo
-    FlutterNativeSplash.remove();
 
     return GetMaterialApp(
       navigatorObservers: [routeObserver],

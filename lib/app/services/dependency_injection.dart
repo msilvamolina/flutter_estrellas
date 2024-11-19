@@ -11,7 +11,7 @@ import '../app/layout/remote_config/remote_config_controller.dart';
 import '../data/providers/local/local_storage.dart';
 
 class DependecyInjection {
-  static void init() {
+  static void init() async {
     try {
       Get.put<GetStorage>(GetStorage());
       Get.put<LocalStorage>(LocalStorage());
