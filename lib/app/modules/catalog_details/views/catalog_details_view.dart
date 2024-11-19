@@ -10,6 +10,7 @@ import '../../../components/cards/video_product_card.dart';
 import '../../../routes/app_pages.dart';
 import '../../../themes/styles/colors.dart';
 import '../controllers/catalog_details_controller.dart';
+import '../widgets/catalog_select_bottombar.dart';
 
 class CatalogDetailsView extends GetView<CatalogDetailsController> {
   const CatalogDetailsView({super.key});
@@ -31,6 +32,14 @@ class CatalogDetailsView extends GetView<CatalogDetailsController> {
               )
             ],
           ),
+          bottomNavigationBar: controller.isSelectMode
+              ? Padding(
+                  padding: const EdgeInsets.only(bottom: 16),
+                  child: SafeArea(
+                    child: CatalogSelectBottombar(),
+                  ),
+                )
+              : null,
           body: Padding(
             padding: const EdgeInsets.all(8),
             child: MasonryGridView.count(

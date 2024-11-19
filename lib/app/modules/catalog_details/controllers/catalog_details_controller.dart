@@ -41,7 +41,7 @@ class CatalogDetailsController extends GetxController {
 
   void onProductPressed(VideoPostModel catalog) {
     if (isProductInCatalog(catalog)) {
-      catalogSelectedMap[catalog.id] = null;
+      catalogSelectedMap.remove(catalog.id);
     } else {
       catalogSelectedMap[catalog.id] = catalog;
     }
