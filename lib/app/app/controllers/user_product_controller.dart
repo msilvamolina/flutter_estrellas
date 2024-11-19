@@ -377,14 +377,20 @@ class UserProductController extends GetxController {
         newlistProducts.add(element.toDocument());
       }
     }
-
+    String? imageUrl = catalog.imageUrl;
     if (add) {
       newlistProducts.add(videoPostModel.toDocument());
+      if (imageUrl == null || imageUrl == '') {
+        imageUrl = videoPostModel.product?.thumbnail ?? '';
+      }
     }
 
     Either<String, Unit> response =
         await userProductRepository.updateCatalogListProducts(
-            catalogId: catalog.id, videos: newlistProducts);
+      catalogId: catalog.id,
+      videos: newlistProducts,
+      imageUrl: imageUrl!,
+    );
 
     Get.back();
     response.fold(
