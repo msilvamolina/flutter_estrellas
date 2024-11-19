@@ -44,7 +44,7 @@ class _ProductCardState extends State<ProductCard> {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(8),
-            child: widget.imageUrl != null
+            child: widget.imageUrl != ''
                 ? Image.network(
                     widget.imageUrl!,
                     width: 54,
@@ -52,7 +52,7 @@ class _ProductCardState extends State<ProductCard> {
                     fit: BoxFit.cover,
                   )
                 : Image.asset(
-                    'assets/images/catalog.png',
+                    'assets/images/catalog_empty.png',
                     width: 54,
                     height: 54,
                   ),
