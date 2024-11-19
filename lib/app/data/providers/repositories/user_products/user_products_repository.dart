@@ -81,7 +81,7 @@ class UserProductsRepository {
           .collection('users')
           .doc(uid)
           .collection('video_catalogs')
-          // .orderBy('createdAt', descending: true)
+          .orderBy('createdAt', descending: true)
           .snapshots();
 
       yield* snapshots.map((snapshot) {
@@ -208,7 +208,7 @@ class UserProductsRepository {
   }
 
   Future<Either<String, Unit>> createCatalog({
-    required VideoPostModel videoPostModel,
+    VideoPostModel? videoPostModel,
     required String catalogName,
   }) async {
     Map<String, String> userData = getUidAndEmail();
@@ -216,6 +216,15 @@ class UserProductsRepository {
     String email = userData['email'] ?? '';
 
     String id = Uuid().v4();
+
+    String imageUrl = '';
+    List<dynamic> listVideos = [];
+
+    if (videoPostModel != null) {
+      imageUrl = videoPostModel.product!.thumbnail ?? '';
+      listVideos.add(videoPostModel.toDocument());
+    }
+
     try {
       await _firebaseFirestore
           .collection('users')
@@ -225,10 +234,8 @@ class UserProductsRepository {
           .set({
         'id': id,
         'name': catalogName,
-        'imageUrl': videoPostModel.product!.thumbnail,
-        'videos': [
-          videoPostModel.toDocument(),
-        ],
+        'imageUrl': imageUrl,
+        'videos': listVideos,
         'createdBy': email,
         'createdByUserId': uid,
         'createdAt': DateTime.now(),

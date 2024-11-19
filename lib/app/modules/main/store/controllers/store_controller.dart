@@ -21,4 +21,8 @@ class StoreController extends GetxController {
   void onClose() {
     super.onClose();
   }
+
+  void openAddCatalogBottomSheet() {
+    userProductController.openAddCatalogBottomSheet(productNull: true);
+  }
 }

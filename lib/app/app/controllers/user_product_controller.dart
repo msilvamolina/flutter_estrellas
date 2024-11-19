@@ -283,7 +283,10 @@ class UserProductController extends GetxController {
     openAddCatalogBottomSheet();
   }
 
-  Future<void> openAddCatalogBottomSheet() async {
+  Future<void> openAddCatalogBottomSheet({bool productNull = false}) async {
+    if (productNull) {
+      _productCatalogBottomSheet = null;
+    }
     addCatalogFormIsSubmitted = false;
     update(['add_catalog_inputs']);
     Bottomsheets.staticBottomSheet(BottomSheetTypes.newCatalog);
@@ -306,7 +309,7 @@ class UserProductController extends GetxController {
     update(['new_catalog_bottom_sheet']);
 
     Either<String, Unit> response = await userProductRepository.createCatalog(
-        videoPostModel: _productCatalogBottomSheet!, catalogName: name);
+        videoPostModel: _productCatalogBottomSheet, catalogName: name);
 
     _addCatalogIsLoading = false;
     Get.back();

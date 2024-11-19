@@ -29,13 +29,14 @@ class CatalogCard extends StatelessWidget {
                 child: SizedBox(
                   width: size, // Tamaño del cuadrado
                   height: size,
-                  child: catalogModel.imageUrl != null
+                  child: catalogModel.imageUrl != ''
                       ? Image.network(
                           catalogModel.imageUrl!,
                           fit: BoxFit.cover, // Asegura que llene el espacio
                         )
                       : Image.asset(
-                          'assets/images/catalog.png',
+                          'assets/images/catalog_empty.png',
+                          fit: BoxFit.cover, //
                         ),
                 ),
               ),
@@ -60,7 +61,7 @@ class CatalogCard extends StatelessWidget {
             style: TypographyStyle.bodyRegularLarge,
           ),
           Text(
-            '${catalogModel.videos!.length} productos',
+            '${catalogModel.videos?.length ?? 0} productos',
             style: TypographyStyle.bodyRegularMedium,
           ),
           SizedBox(height: 8),

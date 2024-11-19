@@ -22,7 +22,7 @@ class StoreView extends GetView<StoreController> {
         withBackButton: false,
       ),
       floatingActionButton: Button(
-        onPressed: () {},
+        onPressed: controller.openAddCatalogBottomSheet,
         style: ButtonStyles.secondaryCirlce,
         child: CircleAvatar(
           backgroundColor: primaryBase,
