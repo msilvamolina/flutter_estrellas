@@ -5,4 +5,5 @@ enum BottomSheetTypes {
   signOut,
   authSignOut,
   deleteProductsInCatalog,
+  incompleteProfile
 }

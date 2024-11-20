@@ -6,10 +6,12 @@ import 'package:get/get.dart';
 import '../../../themes/styles/typography.dart';
 
 class TitleWithCloseButton extends StatelessWidget {
-  const TitleWithCloseButton({required this.title, this.style, super.key});
+  const TitleWithCloseButton(
+      {required this.title, this.actionClose, this.style, super.key});
 
   final String title;
   final TextStyle? style;
+  final Function()? actionClose;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -28,9 +30,10 @@ class TitleWithCloseButton extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(right: 22),
           child: GestureDetector(
-            onTap: () {
-              Get.back();
-            },
+            onTap: actionClose ??
+                () {
+                  Get.back();
+                },
             child: SvgPicture.asset(
               'assets/svg/close.svg',
               width: 18,

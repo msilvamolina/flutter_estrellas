@@ -19,17 +19,7 @@ class WalletView extends GetView<WalletController> {
         viewSelected: 1,
         isDarkTheme: false,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Center(
-            child: Button(
-          style: ButtonStyles.secondary,
-          label: 'Ordenes',
-          onPressed: () {
-            Get.toNamed(Routes.ORDERS_LIST);
-          },
-        )),
-      ),
+      body: Text('holis'),
     );
   }
 }

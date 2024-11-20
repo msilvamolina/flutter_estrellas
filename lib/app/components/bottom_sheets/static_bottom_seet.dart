@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import '../../app/bottom_sheets/auth_signout_bottomsheet.dart';
 import '../../app/bottom_sheets/catalogs_bottomsheet.dart';
 import '../../app/bottom_sheets/delete_products_catalog_bottomsheet.dart';
+import '../../app/bottom_sheets/incomplete_profile_bottomsheet.dart';
 import '../../app/bottom_sheets/new_catalog_bottomsheet.dart';
 import '../../app/bottom_sheets/select_variant_size.dart';
 import '../../app/bottom_sheets/signout_bottomsheet.dart';
@@ -42,6 +43,8 @@ class StaticBottomSeet extends StatelessWidget {
         return AuthSignOutBottomsheet();
       case BottomSheetTypes.deleteProductsInCatalog:
         return DeleteProductsCatalogBottomsheet();
+      case BottomSheetTypes.incompleteProfile:
+        return IncompleteProfileBottomsheet();
       default:
         return SizedBox.shrink();
     }
