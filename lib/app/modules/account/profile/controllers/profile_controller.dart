@@ -8,6 +8,8 @@ import 'package:get/get.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:reactive_phone_form_field/reactive_phone_form_field.dart';
 
+import '../../../../components/bottom_sheets/bottomsheets.dart';
+import '../../../../components/bottom_sheets/types.dart';
 import '../../../../components/snackbars/snackbars.dart';
 import '../../../../data/providers/repositories/auth/auth_repository.dart';
 import '../../../../utils/utils_image.dart';
@@ -100,6 +102,11 @@ class ProfileController extends GetxController {
     update(['photo_card']);
   }
 
+  Future<bool> onUserBack() async {
+    Bottomsheets.staticBottomSheet(BottomSheetTypes.verifyPhoneBack);
+    return false;
+  }
+
   Future<void> sendForm(Map<String, Object?> data) async {
     String fullname = data[Fields.fullname.name].toString();
     String document = data[Fields.document.name].toString();
@@ -113,7 +120,7 @@ class ProfileController extends GetxController {
     );
 
     bool canContinue = true;
-    if (mainController.userData?.phone?.number != phone.nsn &&
+    if (mainController.userData?.phone?.number != phone.nsn ||
         mainController.userData?.phone?.isoCode != phone.isoCode.name) {
       final result =
           await Get.toNamed(Routes.PHONE_VERIFICATION, arguments: newPhoneData);

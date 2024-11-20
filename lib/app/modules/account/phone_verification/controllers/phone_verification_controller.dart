@@ -131,6 +131,11 @@ class PhoneVerificationController extends GetxController {
     });
   }
 
+  Future<bool> onUserBack() async {
+    Bottomsheets.staticBottomSheet(BottomSheetTypes.verifyPhoneBack);
+    return false;
+  }
+
   Future<void> tryAgain() async {
     isCountdownComplete.value = false;
     timeLeft.value = '02:00';
@@ -142,6 +147,7 @@ class PhoneVerificationController extends GetxController {
   void onClose() {
     _countdownTimer?.cancel();
     _verificationTimer?.cancel();
+    pinController.dispose();
     super.onClose();
   }
 }

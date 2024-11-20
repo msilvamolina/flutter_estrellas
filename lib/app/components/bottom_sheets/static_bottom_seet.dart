@@ -9,6 +9,7 @@ import '../../app/bottom_sheets/incomplete_profile_bottomsheet.dart';
 import '../../app/bottom_sheets/new_catalog_bottomsheet.dart';
 import '../../app/bottom_sheets/select_variant_size.dart';
 import '../../app/bottom_sheets/signout_bottomsheet.dart';
+import '../../app/bottom_sheets/verify_phone_back.dart';
 import 'types.dart';
 
 class StaticBottomSeet extends StatelessWidget {
@@ -41,6 +42,8 @@ class StaticBottomSeet extends StatelessWidget {
 
       case BottomSheetTypes.authSignOut:
         return AuthSignOutBottomsheet();
+      case BottomSheetTypes.verifyPhoneBack:
+        return VerifyPhoneBack();
       case BottomSheetTypes.deleteProductsInCatalog:
         return DeleteProductsCatalogBottomsheet();
       case BottomSheetTypes.incompleteProfile:

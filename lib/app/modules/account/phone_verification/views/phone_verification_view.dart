@@ -14,147 +14,151 @@ class PhoneVerificationView extends GetView<PhoneVerificationController> {
   @override
   Widget build(BuildContext context) {
     String image = 'assets/images/chat.png';
-    return Scaffold(
-      backgroundColor: white,
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        title: const Text(''),
-      ),
-      extendBodyBehindAppBar: true,
-      bottomNavigationBar: GetBuilder<PhoneVerificationController>(
-        id: 'button',
-        builder: (_) {
-          return SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: LoadingButton(
-                isLoading: controller.isButtonLoading,
-                label: 'Verificar código',
-                onPressed: controller.userCode?.length == 6
-                    ? controller.startVerification
-                    : null,
-                style: ButtonStyles.primary,
-              ),
-            ),
-          );
-        },
-      ),
-      body: SafeArea(
-        child: Stack(
-          children: [
-            Positioned(
-              right: -120,
-              top: 40,
-              child: Opacity(
-                opacity: 0.3,
-                child: Image.asset(
-                  image,
-                  width: 320,
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (bool value, _) => controller.onUserBack(),
+      child: Scaffold(
+        backgroundColor: white,
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+          title: const Text(''),
+        ),
+        extendBodyBehindAppBar: true,
+        bottomNavigationBar: GetBuilder<PhoneVerificationController>(
+          id: 'button',
+          builder: (_) {
+            return SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: LoadingButton(
+                  isLoading: controller.isButtonLoading,
+                  label: 'Verificar código',
+                  onPressed: controller.userCode?.length == 6
+                      ? controller.startVerification
+                      : null,
+                  style: ButtonStyles.primary,
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Spacer(),
-                  Image.asset(
+            );
+          },
+        ),
+        body: SafeArea(
+          child: Stack(
+            children: [
+              Positioned(
+                right: -120,
+                top: 40,
+                child: Opacity(
+                  opacity: 0.3,
+                  child: Image.asset(
                     image,
-                    width: 100,
+                    width: 320,
                   ),
-                  SizedBox(height: 20),
-                  Text(
-                    'Validación de celular',
-                    style: TypographyStyle.bodyBlackLarge
-                        .copyWith(fontWeight: FontWeight.w600, fontSize: 20),
-                  ),
-                  SizedBox(height: 8),
-                  RichText(
-                    textAlign: TextAlign.start,
-                    text: TextSpan(
-                      text:
-                          'Te hemos enviado por mensaje de texto un código de 6 dígitos a tu celular ',
-                      style: TypographyStyle.bodyRegularLarge
-                          .copyWith(color: neutral800),
-                      children: <TextSpan>[
-                        TextSpan(
-                          text:
-                              '+${controller.phone.countryCode!} ${controller.phone.number}',
-                          style: TypographyStyle.bodyBlackLarge
-                              .copyWith(color: secondaryBase),
-                        ),
-                      ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Spacer(),
+                    Image.asset(
+                      image,
+                      width: 100,
                     ),
-                  ),
-                  SizedBox(height: 26),
-                  GetBuilder<PhoneVerificationController>(
-                    id: 'phone',
-                    builder: (_) {
-                      return CustomPinInputCode(
-                        pinController: controller.pinController,
-                        length: 6,
-                        validator: (value) {},
-                        onCompleted: (pin) {
-                          print('Código ingresado: ');
-                        },
-                        onChanged: controller.onCodeChanged,
-                      );
-                    },
-                  ),
-                  SizedBox(height: 26),
-                  Obx(
-                    () => AnimatedCrossFade(
-                      duration: Duration(milliseconds: 300),
-                      crossFadeState: !controller.isCountdownComplete.value
-                          ? CrossFadeState.showFirst
-                          : CrossFadeState.showSecond,
-                      firstChild: Container(
-                        width: double.infinity,
-                        child: RichText(
-                          textAlign: TextAlign.start,
-                          text: TextSpan(
-                            text: 'Puedes pedir otro código en ',
-                            style: TypographyStyle.bodyRegularLarge
-                                .copyWith(color: neutral800),
-                            children: <TextSpan>[
-                              TextSpan(
-                                text: '${controller.timeLeft.value}s',
-                                style: TypographyStyle.bodyBlackLarge
-                                    .copyWith(color: secondaryBase),
+                    SizedBox(height: 20),
+                    Text(
+                      'Validación de celular',
+                      style: TypographyStyle.bodyBlackLarge
+                          .copyWith(fontWeight: FontWeight.w600, fontSize: 20),
+                    ),
+                    SizedBox(height: 8),
+                    RichText(
+                      textAlign: TextAlign.start,
+                      text: TextSpan(
+                        text:
+                            'Te hemos enviado por mensaje de texto un código de 6 dígitos a tu celular ',
+                        style: TypographyStyle.bodyRegularLarge
+                            .copyWith(color: neutral800),
+                        children: <TextSpan>[
+                          TextSpan(
+                            text:
+                                '+${controller.phone.countryCode!} ${controller.phone.number}',
+                            style: TypographyStyle.bodyBlackLarge
+                                .copyWith(color: secondaryBase),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 26),
+                    GetBuilder<PhoneVerificationController>(
+                      id: 'phone',
+                      builder: (_) {
+                        return CustomPinInputCode(
+                          pinController: controller.pinController,
+                          length: 6,
+                          validator: (value) {},
+                          onCompleted: (pin) {
+                            print('Código ingresado: ');
+                          },
+                          onChanged: controller.onCodeChanged,
+                        );
+                      },
+                    ),
+                    SizedBox(height: 26),
+                    Obx(
+                      () => AnimatedCrossFade(
+                        duration: Duration(milliseconds: 300),
+                        crossFadeState: !controller.isCountdownComplete.value
+                            ? CrossFadeState.showFirst
+                            : CrossFadeState.showSecond,
+                        firstChild: Container(
+                          width: double.infinity,
+                          child: RichText(
+                            textAlign: TextAlign.start,
+                            text: TextSpan(
+                              text: 'Puedes pedir otro código en ',
+                              style: TypographyStyle.bodyRegularLarge
+                                  .copyWith(color: neutral800),
+                              children: <TextSpan>[
+                                TextSpan(
+                                  text: '${controller.timeLeft.value}s',
+                                  style: TypographyStyle.bodyBlackLarge
+                                      .copyWith(color: secondaryBase),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        secondChild: Container(
+                          width: double.infinity,
+                          child: Row(
+                            children: [
+                              Text(
+                                '¿No te llegó el código?',
+                                textAlign: TextAlign.start,
+                                style:
+                                    TypographyStyle.bodyRegularLarge.copyWith(),
                               ),
+                              Button(
+                                onPressed: controller.tryAgain,
+                                style: ButtonStyles.secondaryLink,
+                                label: 'Volver a enviar',
+                              )
                             ],
                           ),
                         ),
                       ),
-                      secondChild: Container(
-                        width: double.infinity,
-                        child: Row(
-                          children: [
-                            Text(
-                              '¿No te llegó el código?',
-                              textAlign: TextAlign.start,
-                              style:
-                                  TypographyStyle.bodyRegularLarge.copyWith(),
-                            ),
-                            Button(
-                              onPressed: controller.tryAgain,
-                              style: ButtonStyles.secondaryLink,
-                              label: 'Volver a enviar',
-                            )
-                          ],
-                        ),
-                      ),
                     ),
-                  ),
-                  SizedBox(height: 16),
-                ],
+                    SizedBox(height: 16),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
