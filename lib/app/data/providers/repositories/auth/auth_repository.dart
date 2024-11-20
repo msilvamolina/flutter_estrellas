@@ -52,7 +52,19 @@ class AuthRepository {
   Future<void> sendPhoneOTP(PhoneModel phone) async {
     String userPhone = '+${phone.countryCode!}${phone.number}';
 
-    print('send to $userPhone');
+    await FirebaseAuth.instance.verifyPhoneNumber(
+        phoneNumber: userPhone,
+        verificationCompleted: (phoneAuthCredential) {},
+        verificationFailed: (error) {
+          // log(error.toString());
+        },
+        codeSent: (verificationId, forceResendingToken) {
+          print('verificationId $verificationId');
+          print('forceResendingToken $forceResendingToken');
+        },
+        codeAutoRetrievalTimeout: (verificationId) {
+          // log("Auto Retireval timeout");
+        });
   }
 
   /// Envía un email de verificación
