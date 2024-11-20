@@ -111,7 +111,7 @@ class PhoneVerificationController extends GetxController {
     }
     Either<String, Unit> response = await _authRepository.verifyPhoneNumber(
         verificationId: _verificationId!, smsCode: userCode!);
-    Get.back();
+
     response.fold((failure) {
       Snackbars.error(failure);
     }, (_) async {
