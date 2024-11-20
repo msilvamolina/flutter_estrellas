@@ -21,16 +21,11 @@ UserData _$UserDataFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$UserData {
   String get uid => throw _privateConstructorUsedError;
+  String get fullName => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
-  String get username => throw _privateConstructorUsedError;
-  String get firstName => throw _privateConstructorUsedError;
-  String get lastName => throw _privateConstructorUsedError;
-  String get createdBy => throw _privateConstructorUsedError;
-  String? get searchField => throw _privateConstructorUsedError;
-  dynamic get reference => throw _privateConstructorUsedError;
-  String? get defaultCurrency => throw _privateConstructorUsedError;
-  Map<String, dynamic>? get currencies => throw _privateConstructorUsedError;
-  bool get isAnonymous => throw _privateConstructorUsedError;
+  String get document => throw _privateConstructorUsedError;
+  String get phone => throw _privateConstructorUsedError;
+  String? get imageUrl => throw _privateConstructorUsedError;
 
   /// Serializes this UserData to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -49,16 +44,11 @@ abstract class $UserDataCopyWith<$Res> {
   @useResult
   $Res call(
       {String uid,
+      String fullName,
       String email,
-      String username,
-      String firstName,
-      String lastName,
-      String createdBy,
-      String? searchField,
-      dynamic reference,
-      String? defaultCurrency,
-      Map<String, dynamic>? currencies,
-      bool isAnonymous});
+      String document,
+      String phone,
+      String? imageUrl});
 }
 
 /// @nodoc
@@ -77,62 +67,37 @@ class _$UserDataCopyWithImpl<$Res, $Val extends UserData>
   @override
   $Res call({
     Object? uid = null,
+    Object? fullName = null,
     Object? email = null,
-    Object? username = null,
-    Object? firstName = null,
-    Object? lastName = null,
-    Object? createdBy = null,
-    Object? searchField = freezed,
-    Object? reference = freezed,
-    Object? defaultCurrency = freezed,
-    Object? currencies = freezed,
-    Object? isAnonymous = null,
+    Object? document = null,
+    Object? phone = null,
+    Object? imageUrl = freezed,
   }) {
     return _then(_value.copyWith(
       uid: null == uid
           ? _value.uid
           : uid // ignore: cast_nullable_to_non_nullable
               as String,
+      fullName: null == fullName
+          ? _value.fullName
+          : fullName // ignore: cast_nullable_to_non_nullable
+              as String,
       email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
-      username: null == username
-          ? _value.username
-          : username // ignore: cast_nullable_to_non_nullable
+      document: null == document
+          ? _value.document
+          : document // ignore: cast_nullable_to_non_nullable
               as String,
-      firstName: null == firstName
-          ? _value.firstName
-          : firstName // ignore: cast_nullable_to_non_nullable
+      phone: null == phone
+          ? _value.phone
+          : phone // ignore: cast_nullable_to_non_nullable
               as String,
-      lastName: null == lastName
-          ? _value.lastName
-          : lastName // ignore: cast_nullable_to_non_nullable
-              as String,
-      createdBy: null == createdBy
-          ? _value.createdBy
-          : createdBy // ignore: cast_nullable_to_non_nullable
-              as String,
-      searchField: freezed == searchField
-          ? _value.searchField
-          : searchField // ignore: cast_nullable_to_non_nullable
+      imageUrl: freezed == imageUrl
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-      reference: freezed == reference
-          ? _value.reference
-          : reference // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      defaultCurrency: freezed == defaultCurrency
-          ? _value.defaultCurrency
-          : defaultCurrency // ignore: cast_nullable_to_non_nullable
-              as String?,
-      currencies: freezed == currencies
-          ? _value.currencies
-          : currencies // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-      isAnonymous: null == isAnonymous
-          ? _value.isAnonymous
-          : isAnonymous // ignore: cast_nullable_to_non_nullable
-              as bool,
     ) as $Val);
   }
 }
@@ -147,16 +112,11 @@ abstract class _$$UserDataImplCopyWith<$Res>
   @useResult
   $Res call(
       {String uid,
+      String fullName,
       String email,
-      String username,
-      String firstName,
-      String lastName,
-      String createdBy,
-      String? searchField,
-      dynamic reference,
-      String? defaultCurrency,
-      Map<String, dynamic>? currencies,
-      bool isAnonymous});
+      String document,
+      String phone,
+      String? imageUrl});
 }
 
 /// @nodoc
@@ -173,62 +133,37 @@ class __$$UserDataImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? uid = null,
+    Object? fullName = null,
     Object? email = null,
-    Object? username = null,
-    Object? firstName = null,
-    Object? lastName = null,
-    Object? createdBy = null,
-    Object? searchField = freezed,
-    Object? reference = freezed,
-    Object? defaultCurrency = freezed,
-    Object? currencies = freezed,
-    Object? isAnonymous = null,
+    Object? document = null,
+    Object? phone = null,
+    Object? imageUrl = freezed,
   }) {
     return _then(_$UserDataImpl(
       uid: null == uid
           ? _value.uid
           : uid // ignore: cast_nullable_to_non_nullable
               as String,
+      fullName: null == fullName
+          ? _value.fullName
+          : fullName // ignore: cast_nullable_to_non_nullable
+              as String,
       email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
-      username: null == username
-          ? _value.username
-          : username // ignore: cast_nullable_to_non_nullable
+      document: null == document
+          ? _value.document
+          : document // ignore: cast_nullable_to_non_nullable
               as String,
-      firstName: null == firstName
-          ? _value.firstName
-          : firstName // ignore: cast_nullable_to_non_nullable
+      phone: null == phone
+          ? _value.phone
+          : phone // ignore: cast_nullable_to_non_nullable
               as String,
-      lastName: null == lastName
-          ? _value.lastName
-          : lastName // ignore: cast_nullable_to_non_nullable
-              as String,
-      createdBy: null == createdBy
-          ? _value.createdBy
-          : createdBy // ignore: cast_nullable_to_non_nullable
-              as String,
-      searchField: freezed == searchField
-          ? _value.searchField
-          : searchField // ignore: cast_nullable_to_non_nullable
+      imageUrl: freezed == imageUrl
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-      reference: freezed == reference
-          ? _value.reference
-          : reference // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      defaultCurrency: freezed == defaultCurrency
-          ? _value.defaultCurrency
-          : defaultCurrency // ignore: cast_nullable_to_non_nullable
-              as String?,
-      currencies: freezed == currencies
-          ? _value._currencies
-          : currencies // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-      isAnonymous: null == isAnonymous
-          ? _value.isAnonymous
-          : isAnonymous // ignore: cast_nullable_to_non_nullable
-              as bool,
     ));
   }
 }
@@ -238,18 +173,12 @@ class __$$UserDataImplCopyWithImpl<$Res>
 class _$UserDataImpl extends _UserData {
   const _$UserDataImpl(
       {required this.uid,
+      required this.fullName,
       required this.email,
-      required this.username,
-      required this.firstName,
-      required this.lastName,
-      required this.createdBy,
-      this.searchField,
-      this.reference,
-      this.defaultCurrency,
-      final Map<String, dynamic>? currencies,
-      this.isAnonymous = false})
-      : _currencies = currencies,
-        super._();
+      required this.document,
+      required this.phone,
+      this.imageUrl})
+      : super._();
 
   factory _$UserDataImpl.fromJson(Map<String, dynamic> json) =>
       _$$UserDataImplFromJson(json);
@@ -257,38 +186,19 @@ class _$UserDataImpl extends _UserData {
   @override
   final String uid;
   @override
+  final String fullName;
+  @override
   final String email;
   @override
-  final String username;
+  final String document;
   @override
-  final String firstName;
+  final String phone;
   @override
-  final String lastName;
-  @override
-  final String createdBy;
-  @override
-  final String? searchField;
-  @override
-  final dynamic reference;
-  @override
-  final String? defaultCurrency;
-  final Map<String, dynamic>? _currencies;
-  @override
-  Map<String, dynamic>? get currencies {
-    final value = _currencies;
-    if (value == null) return null;
-    if (_currencies is EqualUnmodifiableMapView) return _currencies;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(value);
-  }
-
-  @override
-  @JsonKey()
-  final bool isAnonymous;
+  final String? imageUrl;
 
   @override
   String toString() {
-    return 'UserData(uid: $uid, email: $email, username: $username, firstName: $firstName, lastName: $lastName, createdBy: $createdBy, searchField: $searchField, reference: $reference, defaultCurrency: $defaultCurrency, currencies: $currencies, isAnonymous: $isAnonymous)';
+    return 'UserData(uid: $uid, fullName: $fullName, email: $email, document: $document, phone: $phone, imageUrl: $imageUrl)';
   }
 
   @override
@@ -297,41 +207,20 @@ class _$UserDataImpl extends _UserData {
         (other.runtimeType == runtimeType &&
             other is _$UserDataImpl &&
             (identical(other.uid, uid) || other.uid == uid) &&
+            (identical(other.fullName, fullName) ||
+                other.fullName == fullName) &&
             (identical(other.email, email) || other.email == email) &&
-            (identical(other.username, username) ||
-                other.username == username) &&
-            (identical(other.firstName, firstName) ||
-                other.firstName == firstName) &&
-            (identical(other.lastName, lastName) ||
-                other.lastName == lastName) &&
-            (identical(other.createdBy, createdBy) ||
-                other.createdBy == createdBy) &&
-            (identical(other.searchField, searchField) ||
-                other.searchField == searchField) &&
-            const DeepCollectionEquality().equals(other.reference, reference) &&
-            (identical(other.defaultCurrency, defaultCurrency) ||
-                other.defaultCurrency == defaultCurrency) &&
-            const DeepCollectionEquality()
-                .equals(other._currencies, _currencies) &&
-            (identical(other.isAnonymous, isAnonymous) ||
-                other.isAnonymous == isAnonymous));
+            (identical(other.document, document) ||
+                other.document == document) &&
+            (identical(other.phone, phone) || other.phone == phone) &&
+            (identical(other.imageUrl, imageUrl) ||
+                other.imageUrl == imageUrl));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      uid,
-      email,
-      username,
-      firstName,
-      lastName,
-      createdBy,
-      searchField,
-      const DeepCollectionEquality().hash(reference),
-      defaultCurrency,
-      const DeepCollectionEquality().hash(_currencies),
-      isAnonymous);
+  int get hashCode =>
+      Object.hash(runtimeType, uid, fullName, email, document, phone, imageUrl);
 
   /// Create a copy of UserData
   /// with the given fields replaced by the non-null parameter values.
@@ -352,16 +241,11 @@ class _$UserDataImpl extends _UserData {
 abstract class _UserData extends UserData {
   const factory _UserData(
       {required final String uid,
+      required final String fullName,
       required final String email,
-      required final String username,
-      required final String firstName,
-      required final String lastName,
-      required final String createdBy,
-      final String? searchField,
-      final dynamic reference,
-      final String? defaultCurrency,
-      final Map<String, dynamic>? currencies,
-      final bool isAnonymous}) = _$UserDataImpl;
+      required final String document,
+      required final String phone,
+      final String? imageUrl}) = _$UserDataImpl;
   const _UserData._() : super._();
 
   factory _UserData.fromJson(Map<String, dynamic> json) =
@@ -370,25 +254,15 @@ abstract class _UserData extends UserData {
   @override
   String get uid;
   @override
+  String get fullName;
+  @override
   String get email;
   @override
-  String get username;
+  String get document;
   @override
-  String get firstName;
+  String get phone;
   @override
-  String get lastName;
-  @override
-  String get createdBy;
-  @override
-  String? get searchField;
-  @override
-  dynamic get reference;
-  @override
-  String? get defaultCurrency;
-  @override
-  Map<String, dynamic>? get currencies;
-  @override
-  bool get isAnonymous;
+  String? get imageUrl;
 
   /// Create a copy of UserData
   /// with the given fields replaced by the non-null parameter values.

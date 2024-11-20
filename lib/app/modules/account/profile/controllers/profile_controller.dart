@@ -67,6 +67,7 @@ class ProfileController extends GetxController {
   Future<void> sendForm(Map<String, Object?> data) async {
     String fullname = data[Fields.fullname.name].toString();
     String document = data[Fields.document.name].toString();
+    String email = data[Fields.email.name].toString();
     PhoneNumber phone = data[Fields.phone.name] as PhoneNumber;
 
     // mainController.showLoader(
