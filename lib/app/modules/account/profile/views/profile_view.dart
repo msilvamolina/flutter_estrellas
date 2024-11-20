@@ -12,7 +12,20 @@ class ProfileView extends GetView<ProfileController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: EstrellasAppbar(title: 'Editar perfil'),
-      body: PhotoCardEmpty(),
+      body: Container(
+        padding: EdgeInsets.only(top: 94),
+        width: double.infinity,
+        child: Column(
+          children: [
+            PhotoCardEmpty(
+              isFull: true,
+              // imageUrl: 'assets/images/product.png',
+            ),
+            Text('Andrea Sánchez'),
+            Text('50% completado'),
+          ],
+        ),
+      ),
     );
   }
 }

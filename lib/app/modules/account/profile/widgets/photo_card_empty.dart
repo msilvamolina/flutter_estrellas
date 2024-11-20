@@ -3,24 +3,30 @@ import 'package:flutter_estrellas/app/libraries/icons/icons_font.dart';
 import 'package:flutter_estrellas/app/themes/styles/colors.dart';
 
 class PhotoCardEmpty extends StatelessWidget {
-  const PhotoCardEmpty({super.key});
+  const PhotoCardEmpty({
+    super.key,
+    this.imageUrl,
+    this.networkUrl,
+    this.isFull = false,
+  });
 
+  final bool isFull;
+  final String? imageUrl;
+  final String? networkUrl;
   @override
   Widget build(BuildContext context) {
+    bool isEmpty = imageUrl == null && networkUrl == null;
     return Stack(
       clipBehavior: Clip.none,
       children: [
-        // Contenedor principal con borde personalizado
-
         CustomPaint(
-          size: Size(100, 100), // Tamaño del contenedor
-          painter: VerticalSplitBorderPainter(), // Pintor personalizado
+          size: Size(100, 100),
+          painter: VerticalSplitBorderPainter(isFull: isFull),
           child: Container(
             width: 100,
             height: 100,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(24), // Bordes redondeados
-              // color: Colors.purple.withOpacity(0.1), // Fondo semitransparente
+              borderRadius: BorderRadius.circular(24),
             ),
             alignment: Alignment.center,
             child: Padding(
@@ -30,20 +36,33 @@ class PhotoCardEmpty extends StatelessWidget {
                 height: 100,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  color: white,
+                  color: isEmpty ? white : null,
+                  image: !isEmpty
+                      ? (imageUrl != null
+                          ? DecorationImage(
+                              image: AssetImage(imageUrl!),
+                              fit: BoxFit.cover,
+                            )
+                          : networkUrl != null
+                              ? DecorationImage(
+                                  image: NetworkImage(networkUrl!),
+                                  fit: BoxFit.cover,
+                                )
+                              : null)
+                      : null,
                 ),
                 alignment: Alignment.center,
-                child: Icon(
-                  EstrellasIcons.user,
-                  size: 44,
-                  color: neutral900,
-                ),
+                child: isEmpty
+                    ? Icon(
+                        EstrellasIcons.user,
+                        size: 40,
+                        color: neutral900,
+                      )
+                    : SizedBox.shrink(),
               ),
             ),
           ),
         ),
-
-        // Ícono flotante de cámara
         Positioned(
           top: -10,
           right: -10,
@@ -51,7 +70,7 @@ class PhotoCardEmpty extends StatelessWidget {
             width: 40,
             height: 40,
             decoration: BoxDecoration(
-              color: secondaryLight, // Fondo semitransparente
+              color: secondaryLight,
               borderRadius: BorderRadius.circular(12),
             ),
             child: Center(
@@ -68,13 +87,14 @@ class PhotoCardEmpty extends StatelessWidget {
   }
 }
 
-// Pintor personalizado para dividir el borde verticalmente
 class VerticalSplitBorderPainter extends CustomPainter {
+  const VerticalSplitBorderPainter({required this.isFull});
+
+  final bool isFull;
   @override
   void paint(Canvas canvas, Size size) {
-    final double borderWidth = 4; // Grosor del borde
+    final double borderWidth = 4;
 
-    // Crear el borde redondeado
     final borderRadius = BorderRadius.circular(20);
     final rect = Rect.fromLTWH(0, 0, size.width, size.height);
     final rrect = RRect.fromRectAndRadius(rect, Radius.circular(24));
@@ -84,13 +104,14 @@ class VerticalSplitBorderPainter extends CustomPainter {
       ..strokeWidth = borderWidth;
     canvas.clipRect(Rect.fromLTWH(0, 0, size.width, size.height));
     canvas.drawRRect(rrect, paintRight);
-    // Pintar la mitad izquierda (Color 1)
-    final paintLeft = Paint()
-      ..color = secondaryLight
-      // ..style = PaintingStyle.stroke
-      ..strokeWidth = borderWidth;
-    canvas.clipRect(Rect.fromLTWH(0, 0, size.width / 2, size.height));
-    canvas.drawRRect(rrect, paintLeft);
+
+    if (isFull) {
+      final paintLeft = Paint()
+        ..color = secondaryLight
+        ..strokeWidth = borderWidth;
+      canvas.clipRect(Rect.fromLTWH(0, 0, size.width / 2, size.height));
+      canvas.drawRRect(rrect, paintLeft);
+    }
   }
 
   @override
