@@ -7,16 +7,16 @@ class Environment {
 
   static final Environment instance = Environment._privateConstructor();
 
-  late final String fullVersion;
-  late final String version;
-  late final String packageVersion;
+  String? fullVersion;
+  String? version;
+  String? packageVersion;
 
   String? userCustomerApi;
   String? passwordCustomerApi;
   String? bearerTokenCustomerApi;
 
-  late final Env currentEnv;
-  late final Map<String, dynamic> deviceInfo;
+  Env? currentEnv;
+  Map<String, dynamic>? deviceInfo;
 
   /// Inicializa el entorno basado en la configuración proporcionada
   Future<void> init({String env = ''}) async {

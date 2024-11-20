@@ -95,7 +95,7 @@ class MainController extends GetxController {
 
   @override
   void onReady() async {
-    checkUser();
+    // checkUser();
     super.onReady();
   }
 

@@ -110,21 +110,23 @@ class AccountView extends GetView<AccountController> {
                 ),
                 SizedBox(height: 26),
                 if (Environment.instance.currentEnv != Env.prod) ...[
-                  Text(
-                    Environment.instance.fullVersion.toString(),
-                    style: TypographyStyle.bodyRegularLarge.copyWith(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
+                  if (Environment.instance.fullVersion != null)
+                    Text(
+                      Environment.instance.fullVersion.toString(),
+                      style: TypographyStyle.bodyRegularLarge.copyWith(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
-                  ),
-                  Text(
-                    Environment.instance.currentEnv.toString(),
-                    style: TypographyStyle.bodyRegularLarge.copyWith(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
+                  if (Environment.instance.currentEnv != null)
+                    Text(
+                      Environment.instance.currentEnv.toString(),
+                      style: TypographyStyle.bodyRegularLarge.copyWith(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
-                  ),
-                ] else
+                ] else if (Environment.instance.version != null)
                   Text(
                     Environment.instance.version.toString(),
                     style: TypographyStyle.bodyRegularLarge.copyWith(
