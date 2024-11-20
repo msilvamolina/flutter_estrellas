@@ -89,8 +89,8 @@ class PhoneVerificationController extends GetxController {
   void onReady() async {
     super.onReady();
     // userEmail.value = await _authRepository.getUserEmail();
-    // await _authRepository
-    //     .sendEmailVerification(); // Envía el correo de verificación
+    await _authRepository
+        .sendPhoneOTP(phone); // Envía el correo de verificación
     // startEmailVerificationCheck(); // Comienza a escuchar la verificación del email
   }
 

@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_estrellas/app/data/models/phone/phone_model.dart';
 
 class AuthRepository {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -46,6 +47,12 @@ class AuthRepository {
     } on FirebaseAuthException catch (e) {
       return null;
     }
+  }
+
+  Future<void> sendPhoneOTP(PhoneModel phone) async {
+    String userPhone = '+${phone.countryCode!}${phone.number}';
+
+    print('send to $userPhone');
   }
 
   /// Envía un email de verificación
