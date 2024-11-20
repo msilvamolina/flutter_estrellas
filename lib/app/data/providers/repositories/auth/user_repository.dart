@@ -66,6 +66,16 @@ class UserRepository {
     return false; // No hay usuario logueado
   }
 
+  String? getUserEmail() {
+    if (_firebaseAuth.currentUser != null) {
+      User currentUser = _firebaseAuth.currentUser!;
+      String? email = currentUser.email;
+      return email;
+    }
+
+    return null;
+  }
+
   Future<UserData?> getUserDataFirebase() async {
     User currentUser = _firebaseAuth.currentUser!;
     String email = currentUser.email!;

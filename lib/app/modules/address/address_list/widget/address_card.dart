@@ -60,7 +60,7 @@ class AddressCard extends StatelessWidget {
                   style: TypographyStyle.bodyRegularLarge,
                 ),
                 SizedBox(height: 8),
-                if (address.notes != null)
+                if (address.notes != null && address.notes != 'null')
                   Text(
                     address.notes!,
                     style: TypographyStyle.bodyRegularMedium
