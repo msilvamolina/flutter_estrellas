@@ -5,8 +5,8 @@ import '../controllers/phone_verification_controller.dart';
 class PhoneVerificationBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<PhoneVerificationController>(
-      () => PhoneVerificationController(),
+    Get.put<PhoneVerificationController>(
+      PhoneVerificationController(),
     );
   }
 }
