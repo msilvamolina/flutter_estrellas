@@ -1,9 +1,8 @@
+import 'package:flutter_estrellas/app/app/controllers/main_controller.dart';
 import 'package:get/get.dart';
 
 class WalletController extends GetxController {
-  //TODO: Implement WalletController
-
-  final count = 0.obs;
+  MainController mainController = Get.find<MainController>();
   @override
   void onInit() {
     super.onInit();
@@ -11,13 +10,13 @@ class WalletController extends GetxController {
 
   @override
   void onReady() {
-    super.onReady();
+    if (mainController.userData == null) {
+      print('mostrar bottomsheet');
+    }
   }
 
   @override
   void onClose() {
     super.onClose();
   }
-
-  void increment() => count.value++;
 }
