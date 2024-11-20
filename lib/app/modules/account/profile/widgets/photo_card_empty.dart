@@ -7,65 +7,63 @@ class PhotoCardEmpty extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Stack(
-        clipBehavior: Clip.none,
-        children: [
-          // Contenedor principal con borde personalizado
+    return Stack(
+      clipBehavior: Clip.none,
+      children: [
+        // Contenedor principal con borde personalizado
 
-          CustomPaint(
-            size: Size(100, 100), // Tamaño del contenedor
-            painter: VerticalSplitBorderPainter(), // Pintor personalizado
-            child: Container(
-              width: 100,
-              height: 100,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(24), // Bordes redondeados
-                // color: Colors.purple.withOpacity(0.1), // Fondo semitransparente
-              ),
-              alignment: Alignment.center,
-              child: Padding(
-                padding: const EdgeInsets.all(3.5),
-                child: Container(
-                  width: 100,
-                  height: 100,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: white,
-                  ),
-                  alignment: Alignment.center,
-                  child: Icon(
-                    EstrellasIcons.user,
-                    size: 44,
-                    color: neutral900,
-                  ),
-                ),
-              ),
+        CustomPaint(
+          size: Size(100, 100), // Tamaño del contenedor
+          painter: VerticalSplitBorderPainter(), // Pintor personalizado
+          child: Container(
+            width: 100,
+            height: 100,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(24), // Bordes redondeados
+              // color: Colors.purple.withOpacity(0.1), // Fondo semitransparente
             ),
-          ),
-
-          // Ícono flotante de cámara
-          Positioned(
-            top: -10,
-            right: -10,
-            child: Container(
-              width: 40,
-              height: 40,
-              decoration: BoxDecoration(
-                color: secondaryLight, // Fondo semitransparente
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Center(
+            alignment: Alignment.center,
+            child: Padding(
+              padding: const EdgeInsets.all(3.5),
+              child: Container(
+                width: 100,
+                height: 100,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: white,
+                ),
+                alignment: Alignment.center,
                 child: Icon(
-                  Icons.camera_alt, // Ícono de cámara
-                  size: 20,
+                  EstrellasIcons.user,
+                  size: 44,
                   color: neutral900,
                 ),
               ),
             ),
           ),
-        ],
-      ),
+        ),
+
+        // Ícono flotante de cámara
+        Positioned(
+          top: -10,
+          right: -10,
+          child: Container(
+            width: 40,
+            height: 40,
+            decoration: BoxDecoration(
+              color: secondaryLight, // Fondo semitransparente
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Center(
+              child: Icon(
+                EstrellasIcons.camera,
+                size: 26,
+                color: neutral900,
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

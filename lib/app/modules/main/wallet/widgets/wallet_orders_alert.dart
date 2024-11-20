@@ -39,7 +39,7 @@ class WalletOrdersAlert extends StatelessWidget {
               width: 46,
               height: 46,
               child: Icon(
-                EstrellasIcons.infoFill,
+                EstrellasIcons.receipt,
                 size: 38,
                 color: info500,
               ),
