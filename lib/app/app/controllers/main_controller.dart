@@ -143,6 +143,10 @@ class MainController extends GetxController {
     }
   }
 
+  Future<void> reloadUserData() async {
+    _userData = await userRepository.getUserDataFirebase();
+  }
+
   @override
   void onClose() {
     super.onClose();

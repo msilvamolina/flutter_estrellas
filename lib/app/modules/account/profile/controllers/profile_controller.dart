@@ -113,6 +113,7 @@ class ProfileController extends GetxController {
       response.fold((failure) {
         Snackbars.error(failure);
       }, (_) async {
+        mainController.reloadUserData();
         Snackbars.success('Tu perfil se guardó exitosamente');
       });
     }
