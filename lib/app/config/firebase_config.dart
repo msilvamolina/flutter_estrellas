@@ -20,7 +20,7 @@ const Map<String, dynamic> firebaseConfigProdWeb = <String, dynamic>{
 
 const Map<String, dynamic> firebaseConfigDevAndroid = <String, dynamic>{
   'apiKey': 'AIzaSyBAZAsBDxgIDbxa57os5XVi_q8qIDFpkXY',
-  'appId': '1:802823199567:android:b0e84ca7b5cafb4f5e033a',
+  'appId': '1:802823199567:android:83c9085a1ae419aa5e033a',
   'messagingSenderId': '802823199567',
   'projectId': 'estrellas-dev-ecd61',
   'databaseURL': '',
