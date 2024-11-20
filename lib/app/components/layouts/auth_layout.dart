@@ -7,10 +7,12 @@ class AuthLayout extends StatefulWidget {
   const AuthLayout({
     required this.child,
     this.showBackground = true,
+    this.showInteriorBackground = true,
     super.key,
   });
   final Widget child;
   final bool showBackground;
+  final bool showInteriorBackground;
   @override
   _AuthLayoutState createState() => _AuthLayoutState();
 }
@@ -45,22 +47,18 @@ class _AuthLayoutState extends State<AuthLayout> {
     _circle2Top = _circle2TopInitial;
     _circle2Left = _circle2LeftInitial;
 
-    Timer.periodic(const Duration(seconds: 10), (timer) {
-      setState(() {
-        _circle1Top = _circle1Top == _circle1TopInitial
-            ? _circle1TopFinal
-            : _circle1TopInitial;
-        _circle1Left = _circle1Left == _circle1LeftInitial
-            ? _circle1LeftFinal
-            : _circle1LeftInitial;
-        _circle2Top = _circle2Top == _circle2TopInitial
-            ? _circle2TopFinal
-            : _circle2TopInitial;
-        _circle2Left = _circle2Left == _circle2LeftInitial
-            ? _circle2LeftFinal
-            : _circle2LeftInitial;
-      });
-    });
+    _circle1Top = _circle1Top == _circle1TopInitial
+        ? _circle1TopFinal
+        : _circle1TopInitial;
+    _circle1Left = _circle1Left == _circle1LeftInitial
+        ? _circle1LeftFinal
+        : _circle1LeftInitial;
+    _circle2Top = _circle2Top == _circle2TopInitial
+        ? _circle2TopFinal
+        : _circle2TopInitial;
+    _circle2Left = _circle2Left == _circle2LeftInitial
+        ? _circle2LeftFinal
+        : _circle2LeftInitial;
   }
 
   @override

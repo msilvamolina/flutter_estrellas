@@ -11,19 +11,18 @@ class ProductsRepository {
   ApiServices services = ApiServices();
   final FirebaseFirestore _firebaseFirestore = Get.find<FirebaseFirestore>();
 
-  Stream<ProductFirebaseModel?> getProduct({required String productId}) async* {
+  Future<ProductFirebaseModel?> getProduct({required String productId}) async {
     try {
-      Stream<DocumentSnapshot> snapshot =
-          _firebaseFirestore.collection('products').doc(productId).snapshots();
+      DocumentSnapshot doc =
+          await _firebaseFirestore.collection('products').doc(productId).get();
 
-      yield* snapshot.map((doc) {
-        if (doc.exists) {
-          return ProductFirebaseModel.fromDocument(doc);
-        }
-        return null;
-      });
+      if (doc.exists) {
+        return ProductFirebaseModel.fromDocument(doc);
+      }
+      return null; // El documento no existe
     } catch (e) {
       print(e);
+      return null; // En caso de error, también retornamos null
     }
   }
 

@@ -21,7 +21,7 @@ class VideosRepository {
     try {
       Stream<QuerySnapshot> snapshots = _firebaseFirestore
           .collection('videos')
-          .orderBy('createdAt', descending: true)
+          .orderBy('createdAt', descending: false)
           .snapshots();
 
       yield* snapshots.map((snapshot) {
@@ -121,7 +121,6 @@ class VideosRepository {
           'name': product.name,
           'id': product.id,
           'thumbnail': product.thumbnail,
-          'reference': product.reference,
         }
       });
 

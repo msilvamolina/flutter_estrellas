@@ -24,7 +24,6 @@ mixin _$ProductVariantCombinationModel {
   String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get label => throw _privateConstructorUsedError;
-  String get createdAt => throw _privateConstructorUsedError;
   String? get dropiId => throw _privateConstructorUsedError;
   String? get colorId => throw _privateConstructorUsedError;
   String? get colorName => throw _privateConstructorUsedError;
@@ -39,8 +38,6 @@ mixin _$ProductVariantCombinationModel {
   String? get imageUrl => throw _privateConstructorUsedError;
   int? get color => throw _privateConstructorUsedError;
   String? get searchField => throw _privateConstructorUsedError;
-  dynamic get reference => throw _privateConstructorUsedError;
-  String? get updatedAt => throw _privateConstructorUsedError;
 
   /// Serializes this ProductVariantCombinationModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -64,7 +61,6 @@ abstract class $ProductVariantCombinationModelCopyWith<$Res> {
       {String id,
       String name,
       String label,
-      String createdAt,
       String? dropiId,
       String? colorId,
       String? colorName,
@@ -78,9 +74,7 @@ abstract class $ProductVariantCombinationModelCopyWith<$Res> {
       int? stock,
       String? imageUrl,
       int? color,
-      String? searchField,
-      dynamic reference,
-      String? updatedAt});
+      String? searchField});
 }
 
 /// @nodoc
@@ -102,7 +96,6 @@ class _$ProductVariantCombinationModelCopyWithImpl<$Res,
     Object? id = null,
     Object? name = null,
     Object? label = null,
-    Object? createdAt = null,
     Object? dropiId = freezed,
     Object? colorId = freezed,
     Object? colorName = freezed,
@@ -117,8 +110,6 @@ class _$ProductVariantCombinationModelCopyWithImpl<$Res,
     Object? imageUrl = freezed,
     Object? color = freezed,
     Object? searchField = freezed,
-    Object? reference = freezed,
-    Object? updatedAt = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -132,10 +123,6 @@ class _$ProductVariantCombinationModelCopyWithImpl<$Res,
       label: null == label
           ? _value.label
           : label // ignore: cast_nullable_to_non_nullable
-              as String,
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
               as String,
       dropiId: freezed == dropiId
           ? _value.dropiId
@@ -193,14 +180,6 @@ class _$ProductVariantCombinationModelCopyWithImpl<$Res,
           ? _value.searchField
           : searchField // ignore: cast_nullable_to_non_nullable
               as String?,
-      reference: freezed == reference
-          ? _value.reference
-          : reference // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      updatedAt: freezed == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as String?,
     ) as $Val);
   }
 }
@@ -218,7 +197,6 @@ abstract class _$$ProductVariantCombinationModelImplCopyWith<$Res>
       {String id,
       String name,
       String label,
-      String createdAt,
       String? dropiId,
       String? colorId,
       String? colorName,
@@ -232,9 +210,7 @@ abstract class _$$ProductVariantCombinationModelImplCopyWith<$Res>
       int? stock,
       String? imageUrl,
       int? color,
-      String? searchField,
-      dynamic reference,
-      String? updatedAt});
+      String? searchField});
 }
 
 /// @nodoc
@@ -255,7 +231,6 @@ class __$$ProductVariantCombinationModelImplCopyWithImpl<$Res>
     Object? id = null,
     Object? name = null,
     Object? label = null,
-    Object? createdAt = null,
     Object? dropiId = freezed,
     Object? colorId = freezed,
     Object? colorName = freezed,
@@ -270,8 +245,6 @@ class __$$ProductVariantCombinationModelImplCopyWithImpl<$Res>
     Object? imageUrl = freezed,
     Object? color = freezed,
     Object? searchField = freezed,
-    Object? reference = freezed,
-    Object? updatedAt = freezed,
   }) {
     return _then(_$ProductVariantCombinationModelImpl(
       id: null == id
@@ -285,10 +258,6 @@ class __$$ProductVariantCombinationModelImplCopyWithImpl<$Res>
       label: null == label
           ? _value.label
           : label // ignore: cast_nullable_to_non_nullable
-              as String,
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
               as String,
       dropiId: freezed == dropiId
           ? _value.dropiId
@@ -346,14 +315,6 @@ class __$$ProductVariantCombinationModelImplCopyWithImpl<$Res>
           ? _value.searchField
           : searchField // ignore: cast_nullable_to_non_nullable
               as String?,
-      reference: freezed == reference
-          ? _value.reference
-          : reference // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      updatedAt: freezed == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as String?,
     ));
   }
 }
@@ -366,7 +327,6 @@ class _$ProductVariantCombinationModelImpl
       {required this.id,
       required this.name,
       required this.label,
-      required this.createdAt,
       this.dropiId,
       this.colorId,
       this.colorName,
@@ -380,9 +340,7 @@ class _$ProductVariantCombinationModelImpl
       this.stock,
       this.imageUrl,
       this.color,
-      this.searchField,
-      this.reference,
-      this.updatedAt})
+      this.searchField})
       : super._();
 
   factory _$ProductVariantCombinationModelImpl.fromJson(
@@ -395,8 +353,6 @@ class _$ProductVariantCombinationModelImpl
   final String name;
   @override
   final String label;
-  @override
-  final String createdAt;
   @override
   final String? dropiId;
   @override
@@ -425,14 +381,10 @@ class _$ProductVariantCombinationModelImpl
   final int? color;
   @override
   final String? searchField;
-  @override
-  final dynamic reference;
-  @override
-  final String? updatedAt;
 
   @override
   String toString() {
-    return 'ProductVariantCombinationModel(id: $id, name: $name, label: $label, createdAt: $createdAt, dropiId: $dropiId, colorId: $colorId, colorName: $colorName, colorLabel: $colorLabel, sizeId: $sizeId, sizeName: $sizeName, sizeLabel: $sizeLabel, price: $price, suggestedPrice: $suggestedPrice, points: $points, stock: $stock, imageUrl: $imageUrl, color: $color, searchField: $searchField, reference: $reference, updatedAt: $updatedAt)';
+    return 'ProductVariantCombinationModel(id: $id, name: $name, label: $label, dropiId: $dropiId, colorId: $colorId, colorName: $colorName, colorLabel: $colorLabel, sizeId: $sizeId, sizeName: $sizeName, sizeLabel: $sizeLabel, price: $price, suggestedPrice: $suggestedPrice, points: $points, stock: $stock, imageUrl: $imageUrl, color: $color, searchField: $searchField)';
   }
 
   @override
@@ -443,8 +395,6 @@ class _$ProductVariantCombinationModelImpl
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.label, label) || other.label == label) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt) &&
             (identical(other.dropiId, dropiId) || other.dropiId == dropiId) &&
             (identical(other.colorId, colorId) || other.colorId == colorId) &&
             (identical(other.colorName, colorName) ||
@@ -465,37 +415,30 @@ class _$ProductVariantCombinationModelImpl
                 other.imageUrl == imageUrl) &&
             (identical(other.color, color) || other.color == color) &&
             (identical(other.searchField, searchField) ||
-                other.searchField == searchField) &&
-            const DeepCollectionEquality().equals(other.reference, reference) &&
-            (identical(other.updatedAt, updatedAt) ||
-                other.updatedAt == updatedAt));
+                other.searchField == searchField));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hashAll([
-        runtimeType,
-        id,
-        name,
-        label,
-        createdAt,
-        dropiId,
-        colorId,
-        colorName,
-        colorLabel,
-        sizeId,
-        sizeName,
-        sizeLabel,
-        price,
-        suggestedPrice,
-        points,
-        stock,
-        imageUrl,
-        color,
-        searchField,
-        const DeepCollectionEquality().hash(reference),
-        updatedAt
-      ]);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      name,
+      label,
+      dropiId,
+      colorId,
+      colorName,
+      colorLabel,
+      sizeId,
+      sizeName,
+      sizeLabel,
+      price,
+      suggestedPrice,
+      points,
+      stock,
+      imageUrl,
+      color,
+      searchField);
 
   /// Create a copy of ProductVariantCombinationModel
   /// with the given fields replaced by the non-null parameter values.
@@ -521,7 +464,6 @@ abstract class _ProductVariantCombinationModel
       {required final String id,
       required final String name,
       required final String label,
-      required final String createdAt,
       final String? dropiId,
       final String? colorId,
       final String? colorName,
@@ -535,9 +477,7 @@ abstract class _ProductVariantCombinationModel
       final int? stock,
       final String? imageUrl,
       final int? color,
-      final String? searchField,
-      final dynamic reference,
-      final String? updatedAt}) = _$ProductVariantCombinationModelImpl;
+      final String? searchField}) = _$ProductVariantCombinationModelImpl;
   const _ProductVariantCombinationModel._() : super._();
 
   factory _ProductVariantCombinationModel.fromJson(Map<String, dynamic> json) =
@@ -549,8 +489,6 @@ abstract class _ProductVariantCombinationModel
   String get name;
   @override
   String get label;
-  @override
-  String get createdAt;
   @override
   String? get dropiId;
   @override
@@ -579,10 +517,6 @@ abstract class _ProductVariantCombinationModel
   int? get color;
   @override
   String? get searchField;
-  @override
-  dynamic get reference;
-  @override
-  String? get updatedAt;
 
   /// Create a copy of ProductVariantCombinationModel
   /// with the given fields replaced by the non-null parameter values.

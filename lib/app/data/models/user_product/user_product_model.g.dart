@@ -11,11 +11,10 @@ _$UserProductModelImpl _$$UserProductModelImplFromJson(
     _$UserProductModelImpl(
       createdBy: json['createdBy'] as String,
       createdByUserId: json['createdByUserId'] as String,
-      quantity: (json['quantity'] as num?)?.toInt(),
-      product: json['product'] == null
+      video: json['video'] == null
           ? null
-          : ProductFirebaseLiteModel.fromJson(
-              json['product'] as Map<String, dynamic>),
+          : VideoPostModel.fromJson(json['video'] as Map<String, dynamic>),
+      createdAt: json['createdAt'] as String?,
     );
 
 Map<String, dynamic> _$$UserProductModelImplToJson(
@@ -23,6 +22,6 @@ Map<String, dynamic> _$$UserProductModelImplToJson(
     <String, dynamic>{
       'createdBy': instance.createdBy,
       'createdByUserId': instance.createdByUserId,
-      'quantity': instance.quantity,
-      'product': instance.product,
+      'video': instance.video,
+      'createdAt': instance.createdAt,
     };

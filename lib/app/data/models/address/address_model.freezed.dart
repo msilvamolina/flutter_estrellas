@@ -22,10 +22,11 @@ AddressModel _$AddressModelFromJson(Map<String, dynamic> json) {
 mixin _$AddressModel {
   String get id => throw _privateConstructorUsedError;
   String? get fullname => throw _privateConstructorUsedError;
-  dynamic get city => throw _privateConstructorUsedError;
+  CityModel? get city => throw _privateConstructorUsedError;
+  DepartmentModel? get department => throw _privateConstructorUsedError;
   String? get address => throw _privateConstructorUsedError;
   String? get notes => throw _privateConstructorUsedError;
-  String? get phone => throw _privateConstructorUsedError;
+  PhoneModel? get phone => throw _privateConstructorUsedError;
 
   /// Serializes this AddressModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -46,10 +47,15 @@ abstract class $AddressModelCopyWith<$Res> {
   $Res call(
       {String id,
       String? fullname,
-      dynamic city,
+      CityModel? city,
+      DepartmentModel? department,
       String? address,
       String? notes,
-      String? phone});
+      PhoneModel? phone});
+
+  $CityModelCopyWith<$Res>? get city;
+  $DepartmentModelCopyWith<$Res>? get department;
+  $PhoneModelCopyWith<$Res>? get phone;
 }
 
 /// @nodoc
@@ -70,6 +76,7 @@ class _$AddressModelCopyWithImpl<$Res, $Val extends AddressModel>
     Object? id = null,
     Object? fullname = freezed,
     Object? city = freezed,
+    Object? department = freezed,
     Object? address = freezed,
     Object? notes = freezed,
     Object? phone = freezed,
@@ -86,7 +93,11 @@ class _$AddressModelCopyWithImpl<$Res, $Val extends AddressModel>
       city: freezed == city
           ? _value.city
           : city // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as CityModel?,
+      department: freezed == department
+          ? _value.department
+          : department // ignore: cast_nullable_to_non_nullable
+              as DepartmentModel?,
       address: freezed == address
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
@@ -98,8 +109,50 @@ class _$AddressModelCopyWithImpl<$Res, $Val extends AddressModel>
       phone: freezed == phone
           ? _value.phone
           : phone // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as PhoneModel?,
     ) as $Val);
+  }
+
+  /// Create a copy of AddressModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $CityModelCopyWith<$Res>? get city {
+    if (_value.city == null) {
+      return null;
+    }
+
+    return $CityModelCopyWith<$Res>(_value.city!, (value) {
+      return _then(_value.copyWith(city: value) as $Val);
+    });
+  }
+
+  /// Create a copy of AddressModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $DepartmentModelCopyWith<$Res>? get department {
+    if (_value.department == null) {
+      return null;
+    }
+
+    return $DepartmentModelCopyWith<$Res>(_value.department!, (value) {
+      return _then(_value.copyWith(department: value) as $Val);
+    });
+  }
+
+  /// Create a copy of AddressModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $PhoneModelCopyWith<$Res>? get phone {
+    if (_value.phone == null) {
+      return null;
+    }
+
+    return $PhoneModelCopyWith<$Res>(_value.phone!, (value) {
+      return _then(_value.copyWith(phone: value) as $Val);
+    });
   }
 }
 
@@ -114,10 +167,18 @@ abstract class _$$AddressModelImplCopyWith<$Res>
   $Res call(
       {String id,
       String? fullname,
-      dynamic city,
+      CityModel? city,
+      DepartmentModel? department,
       String? address,
       String? notes,
-      String? phone});
+      PhoneModel? phone});
+
+  @override
+  $CityModelCopyWith<$Res>? get city;
+  @override
+  $DepartmentModelCopyWith<$Res>? get department;
+  @override
+  $PhoneModelCopyWith<$Res>? get phone;
 }
 
 /// @nodoc
@@ -136,6 +197,7 @@ class __$$AddressModelImplCopyWithImpl<$Res>
     Object? id = null,
     Object? fullname = freezed,
     Object? city = freezed,
+    Object? department = freezed,
     Object? address = freezed,
     Object? notes = freezed,
     Object? phone = freezed,
@@ -152,7 +214,11 @@ class __$$AddressModelImplCopyWithImpl<$Res>
       city: freezed == city
           ? _value.city
           : city // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as CityModel?,
+      department: freezed == department
+          ? _value.department
+          : department // ignore: cast_nullable_to_non_nullable
+              as DepartmentModel?,
       address: freezed == address
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
@@ -164,7 +230,7 @@ class __$$AddressModelImplCopyWithImpl<$Res>
       phone: freezed == phone
           ? _value.phone
           : phone // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as PhoneModel?,
     ));
   }
 }
@@ -176,6 +242,7 @@ class _$AddressModelImpl extends _AddressModel {
       {required this.id,
       this.fullname,
       this.city,
+      this.department,
       this.address,
       this.notes,
       this.phone})
@@ -189,17 +256,19 @@ class _$AddressModelImpl extends _AddressModel {
   @override
   final String? fullname;
   @override
-  final dynamic city;
+  final CityModel? city;
+  @override
+  final DepartmentModel? department;
   @override
   final String? address;
   @override
   final String? notes;
   @override
-  final String? phone;
+  final PhoneModel? phone;
 
   @override
   String toString() {
-    return 'AddressModel(id: $id, fullname: $fullname, city: $city, address: $address, notes: $notes, phone: $phone)';
+    return 'AddressModel(id: $id, fullname: $fullname, city: $city, department: $department, address: $address, notes: $notes, phone: $phone)';
   }
 
   @override
@@ -210,7 +279,9 @@ class _$AddressModelImpl extends _AddressModel {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.fullname, fullname) ||
                 other.fullname == fullname) &&
-            const DeepCollectionEquality().equals(other.city, city) &&
+            (identical(other.city, city) || other.city == city) &&
+            (identical(other.department, department) ||
+                other.department == department) &&
             (identical(other.address, address) || other.address == address) &&
             (identical(other.notes, notes) || other.notes == notes) &&
             (identical(other.phone, phone) || other.phone == phone));
@@ -218,8 +289,8 @@ class _$AddressModelImpl extends _AddressModel {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, fullname,
-      const DeepCollectionEquality().hash(city), address, notes, phone);
+  int get hashCode => Object.hash(
+      runtimeType, id, fullname, city, department, address, notes, phone);
 
   /// Create a copy of AddressModel
   /// with the given fields replaced by the non-null parameter values.
@@ -241,10 +312,11 @@ abstract class _AddressModel extends AddressModel {
   const factory _AddressModel(
       {required final String id,
       final String? fullname,
-      final dynamic city,
+      final CityModel? city,
+      final DepartmentModel? department,
       final String? address,
       final String? notes,
-      final String? phone}) = _$AddressModelImpl;
+      final PhoneModel? phone}) = _$AddressModelImpl;
   const _AddressModel._() : super._();
 
   factory _AddressModel.fromJson(Map<String, dynamic> json) =
@@ -255,13 +327,15 @@ abstract class _AddressModel extends AddressModel {
   @override
   String? get fullname;
   @override
-  dynamic get city;
+  CityModel? get city;
+  @override
+  DepartmentModel? get department;
   @override
   String? get address;
   @override
   String? get notes;
   @override
-  String? get phone;
+  PhoneModel? get phone;
 
   /// Create a copy of AddressModel
   /// with the given fields replaced by the non-null parameter values.

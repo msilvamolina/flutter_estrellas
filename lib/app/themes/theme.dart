@@ -25,7 +25,7 @@ class MaterialTheme {
       onError: Color(4294967295),
       errorContainer: Color(4294957781),
       onErrorContainer: Color(4282059014),
-      surface: Color(4294310651),
+      surface: Color(0xFFFFFFFF), // Blanco para Scaffold y fondo principal
       onSurface: Color(4279704862),
       onSurfaceVariant: Color(4282468673),
       outline: Color(4285692272),
@@ -48,11 +48,13 @@ class MaterialTheme {
       onTertiaryFixedVariant: Color(4285282824),
       surfaceDim: Color(4292205532),
       surfaceBright: Color(4294310651),
-      surfaceContainerLowest: Color(4294967295),
-      surfaceContainerLow: Color(4293916150),
-      surfaceContainer: Color(4293521392),
-      surfaceContainerHigh: Color(4293126634),
-      surfaceContainerHighest: Color(4292797413),
+      surfaceContainerLowest: Color(0xFFFFFFFF), // Blanco para Bottom Sheets
+      surfaceContainerLow: Color(0xFFFFFFFF),
+      surfaceContainer: Color(0xFFFFFFFF),
+      surfaceContainerHigh: Color(0xFFFFFFFF),
+      surfaceContainerHighest: Color(0xFFFFFFFF),
+      background: Color(0xFFFFFFFF), // Fondo blanco
+      onBackground: Color(4279704862),
     );
   }
 

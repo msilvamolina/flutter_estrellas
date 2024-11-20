@@ -20,9 +20,7 @@ _$ProviderModelImpl _$$ProviderModelImplFromJson(Map<String, dynamic> json) =>
       phone: json['phone'] as String?,
       isActive: json['isActive'] as bool?,
       porcentage: (json['porcentage'] as num?)?.toInt(),
-      createdAt: json['createdAt'] as String?,
       uploadDate: json['uploadDate'] as String?,
-      updatedAt: json['updatedAt'] as String?,
       avatarUrl: json['avatarUrl'] as String?,
     );
 
@@ -37,8 +35,6 @@ Map<String, dynamic> _$$ProviderModelImplToJson(_$ProviderModelImpl instance) =>
       'phone': instance.phone,
       'isActive': instance.isActive,
       'porcentage': instance.porcentage,
-      'createdAt': instance.createdAt,
       'uploadDate': instance.uploadDate,
-      'updatedAt': instance.updatedAt,
       'avatarUrl': instance.avatarUrl,
     };

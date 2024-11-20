@@ -6,21 +6,10 @@ import '../../../../app/controllers/user_product_controller.dart';
 class OrderSuccessController extends GetxController {
   MainController mainController = Get.find();
 
-  final count = 0.obs;
+  late String orderNumber;
   @override
   void onInit() {
+    orderNumber = Get.arguments as String;
     super.onInit();
   }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
-  void increment() => count.value++;
 }

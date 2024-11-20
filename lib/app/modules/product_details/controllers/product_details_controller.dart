@@ -1,25 +1,38 @@
+import 'package:dartz/dartz.dart';
 import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_estrellas/app/data/models/product/product/product.dart';
 import 'package:flutter_estrellas/app/data/models/product/product_firebase/product_firebase_model.dart';
 import 'package:flutter_estrellas/app/data/providers/repositories/products/products_repository.dart';
+import 'package:flutter_estrellas/app/data/providers/repositories/user_products/user_products_repository.dart';
 import 'package:get/get.dart';
 
 import '../../../app/controllers/main_controller.dart';
 import '../../../app/controllers/user_product_controller.dart';
+import '../../../components/snackbars/snackbars.dart';
 import '../../../data/models/product_firebase_lite/product_firebase_lite.dart';
 import '../../../data/models/product_image/product_image_model.dart';
 import '../../../data/models/product_variant/product_variant_model.dart';
 import '../../../data/models/product_variant_combination/product_variant_combination_model.dart';
+import '../../../data/models/user_product_cart/user_product_cart_model.dart';
+import '../../../data/models/videos/video_post_model.dart';
 
 class ProductDetailsController extends GetxController {
   MainController mainController = Get.find<MainController>();
   final ProductsRepository _repository = ProductsRepository();
+  final UserProductsRepository _userProductsRepository =
+      UserProductsRepository();
+
   UserProductController userProductController =
       Get.find<UserProductController>();
 
+  late VideoPostModel videoPostModel;
+
   late ProductFirebaseLiteModel productLite;
-  Rxn<ProductFirebaseModel> product = Rxn<ProductFirebaseModel>();
+
+  ProductFirebaseModel? product;
+
+  // Rxn<ProductFirebaseModel> product = Rxn<ProductFirebaseModel>();
 
   final RxList<ProductImageModel> _listImages = <ProductImageModel>[].obs;
   List<ProductImageModel> get listImages => _listImages.toList();
@@ -41,8 +54,7 @@ class ProductDetailsController extends GetxController {
   ProductVariantModel? _userProductVariantSize;
   ProductVariantModel? get userProductVariantSize => _userProductVariantSize;
 
-  bool _isLiked = true;
-  bool get isLiked => _isLiked;
+  ProductVariantCombinationModel? _productVariantCombination;
 
   bool _isInCart = true;
   bool get isInCart => _isInCart;
@@ -61,10 +73,11 @@ class ProductDetailsController extends GetxController {
 
   int _points = 0;
   int get points => _points;
+
   @override
   void onInit() {
-    productLite = Get.arguments as ProductFirebaseLiteModel;
-    product.bindStream(_repository.getProduct(productId: productLite.id));
+    videoPostModel = Get.arguments as VideoPostModel;
+    productLite = videoPostModel.product!;
     _listImages
         .bindStream(_repository.getProductImages(productId: productLite.id));
     _listVariants.bindStream(_repository.getAllProductVariants(
@@ -78,13 +91,64 @@ class ProductDetailsController extends GetxController {
     super.onInit();
   }
 
+  @override
+  Future<void> onReady() async {
+    product = await _repository.getProduct(productId: productLite.id);
+
+    update(['product_info']);
+  }
+
   void resetPrice() {
     _price = productLite.price ?? 0;
     _suggestedPrice = productLite.suggestedPrice ?? 0;
     _points = productLite.points ?? 0;
-    _stock = 1;
+    _stock = productLite.stock ?? 1;
     _quantity = 1;
     update(['product_price', 'content_product', 'product_quantity']);
+  }
+
+  Future<void> addToCart() async {
+    Either<String, Unit> response = await _userProductsRepository.addToCart(
+      video: videoPostModel,
+      productVariantCombination: _productVariantCombination,
+      quantity: quantity,
+      price: _price,
+      suggestedPrice: _suggestedPrice,
+      points: _points,
+      stock: _stock,
+    );
+
+    response.fold(
+      (failure) {
+        Snackbars.error(failure);
+      },
+      (_) {
+        update(['product_cart_icon']);
+        Snackbars.success('${productLite.name ?? ''} agregado a tu carrito');
+      },
+    );
+  }
+
+  Future<void> removeFromCart() async {
+    UserProductCartModel? cart =
+        userProductController.getProductInCart(videoPostModel);
+
+    if (cart == null) {
+      return;
+    }
+    Either<String, Unit> response =
+        await _userProductsRepository.removeFromCart(cart: cart);
+
+    response.fold(
+      (failure) {
+        Snackbars.error(failure);
+      },
+      (_) {
+        Snackbars.success('${productLite.name ?? ''} removido de tu carrito');
+
+        update(['product_cart_icon']);
+      },
+    );
   }
 
   void addQuantity() {
@@ -108,14 +172,14 @@ class ProductDetailsController extends GetxController {
   }
 
   void buildVariationPrice() {
-    ProductVariantCombinationModel? combinationModel = getBySizeAndColor(
+    _productVariantCombination = getBySizeAndColor(
         _userProductVariantSize?.id, _userProductVariantColor?.id);
 
-    if (combinationModel != null) {
-      _price = combinationModel.price ?? 0;
-      _suggestedPrice = combinationModel.suggestedPrice ?? 0;
-      _points = combinationModel.points ?? 0;
-      _stock = combinationModel.stock ?? 1;
+    if (_productVariantCombination != null) {
+      _price = _productVariantCombination!.price ?? 0;
+      _suggestedPrice = _productVariantCombination!.suggestedPrice ?? 0;
+      _points = _productVariantCombination!.points ?? 0;
+      _stock = _productVariantCombination!.stock ?? 1;
       _quantity = 1;
       update(['product_price', 'content_product', 'product_quantity']);
     } else {
@@ -123,9 +187,16 @@ class ProductDetailsController extends GetxController {
     }
   }
 
+  void setFirstProductVariationCombination() {
+    _productVariantCombination = getBySizeAndColor(
+        _userProductVariantSize?.id, _userProductVariantColor?.id);
+  }
+
   void setFirstVariantColor(ProductVariantModel value) {
     if (_userProductVariantColor == null) {
       _userProductVariantColor = value;
+      setFirstProductVariationCombination();
+
       update(['product_variant_color']);
     }
   }
@@ -139,6 +210,8 @@ class ProductDetailsController extends GetxController {
   void setFirstVariantSize(ProductVariantModel value) {
     if (_userProductVariantSize == null) {
       _userProductVariantSize = value;
+      setFirstProductVariationCombination();
+
       update(['product_variant_size']);
     }
   }

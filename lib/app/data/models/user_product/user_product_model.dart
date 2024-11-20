@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_estrellas/app/data/models/product_variant_combination/product_variant_combination_model.dart';
+import 'package:flutter_estrellas/app/data/models/videos/video_post_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../helpers/model_helpers.dart';
@@ -14,8 +16,8 @@ abstract class UserProductModel implements _$UserProductModel {
   const factory UserProductModel({
     required String createdBy,
     required String createdByUserId,
-    int? quantity,
-    ProductFirebaseLiteModel? product,
+    VideoPostModel? video,
+    String? createdAt,
   }) = _UserProductModel;
 
   factory UserProductModel.fromJson(Map<String, dynamic> json) =>

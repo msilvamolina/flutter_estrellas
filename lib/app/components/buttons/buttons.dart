@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_estrellas/app/components/buttons/widgets/secondary_textbutton.dart';
 
 import 'widgets/primary_button.dart';
+import 'widgets/secondary_button.dart';
 import 'widgets/secondary_circle_button.dart';
+import 'widgets/secondary_link.dart';
 
 enum ButtonStyles {
   primary,
+  secondary,
   secondaryText,
+  secondaryLink,
   secondaryCirlce,
 }
 
@@ -16,12 +20,14 @@ class Button extends StatelessWidget {
     required this.style,
     this.label,
     this.child,
+    this.image,
     super.key,
   });
 
   final Function()? onPressed;
   final String? label;
   final Widget? child;
+  final Widget? image;
   final ButtonStyles style;
 
   @override
@@ -33,8 +39,20 @@ class Button extends StatelessWidget {
           label: label!,
           isLoaderButton: false,
         );
+      case ButtonStyles.secondary:
+        return SecondaryButton(
+          image: image,
+          onPressed: onPressed,
+          label: label!,
+          isLoaderButton: false,
+        );
       case ButtonStyles.secondaryText:
         return SecondaryTextbutton(
+          onPressed: onPressed,
+          label: label!,
+        );
+      case ButtonStyles.secondaryLink:
+        return SecondaryLink(
           onPressed: onPressed,
           label: label!,
         );

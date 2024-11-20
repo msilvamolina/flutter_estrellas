@@ -4,7 +4,6 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
-import 'package:flutter_estrellas/app/data/models/city/city/city.dart';
 import 'package:flutter_estrellas/app/data/models/product/product/product.dart';
 import 'package:flutter_estrellas/app/data/models/product_image/product_image_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -13,7 +12,8 @@ import 'package:get/instance_manager.dart';
 import 'package:http/http.dart';
 
 import '../../../../services/api_services.dart';
-import '../../../models/city/department/department.dart';
+import '../../../models/city/city/city_model.dart';
+import '../../../models/city/department/department_model.dart';
 import '../../../models/product/product_firebase/product_firebase_model.dart';
 import 'package:path/path.dart';
 import 'package:async/async.dart';

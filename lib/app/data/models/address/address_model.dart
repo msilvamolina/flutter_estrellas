@@ -1,7 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_estrellas/app/data/models/city/city/city_model.dart';
+import 'package:flutter_estrellas/app/data/models/city/department/department_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../helpers/model_helpers.dart';
+import '../phone/phone_model.dart';
 import '../product/product_firebase/product_firebase_model.dart';
 
 part 'address_model.freezed.dart';
@@ -14,10 +17,11 @@ abstract class AddressModel implements _$AddressModel {
   const factory AddressModel({
     required String id,
     String? fullname,
-    dynamic city,
+    CityModel? city,
+    DepartmentModel? department,
     String? address,
     String? notes,
-    String? phone,
+    PhoneModel? phone,
   }) = _AddressModel;
 
   factory AddressModel.fromJson(Map<String, dynamic> json) =>

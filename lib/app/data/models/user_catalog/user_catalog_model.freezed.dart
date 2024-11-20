@@ -22,11 +22,8 @@ UserCatalogModel _$UserCatalogModelFromJson(Map<String, dynamic> json) {
 mixin _$UserCatalogModel {
   String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
-  String get imageUrl => throw _privateConstructorUsedError;
-  String get createdBy => throw _privateConstructorUsedError;
-  String get createdByUserId => throw _privateConstructorUsedError;
-  List<ProductFirebaseLiteModel>? get products =>
-      throw _privateConstructorUsedError;
+  String? get imageUrl => throw _privateConstructorUsedError;
+  List<VideoPostModel>? get videos => throw _privateConstructorUsedError;
 
   /// Serializes this UserCatalogModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -45,12 +42,7 @@ abstract class $UserCatalogModelCopyWith<$Res> {
       _$UserCatalogModelCopyWithImpl<$Res, UserCatalogModel>;
   @useResult
   $Res call(
-      {String id,
-      String name,
-      String imageUrl,
-      String createdBy,
-      String createdByUserId,
-      List<ProductFirebaseLiteModel>? products});
+      {String id, String name, String? imageUrl, List<VideoPostModel>? videos});
 }
 
 /// @nodoc
@@ -70,10 +62,8 @@ class _$UserCatalogModelCopyWithImpl<$Res, $Val extends UserCatalogModel>
   $Res call({
     Object? id = null,
     Object? name = null,
-    Object? imageUrl = null,
-    Object? createdBy = null,
-    Object? createdByUserId = null,
-    Object? products = freezed,
+    Object? imageUrl = freezed,
+    Object? videos = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -84,22 +74,14 @@ class _$UserCatalogModelCopyWithImpl<$Res, $Val extends UserCatalogModel>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      imageUrl: null == imageUrl
+      imageUrl: freezed == imageUrl
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
-              as String,
-      createdBy: null == createdBy
-          ? _value.createdBy
-          : createdBy // ignore: cast_nullable_to_non_nullable
-              as String,
-      createdByUserId: null == createdByUserId
-          ? _value.createdByUserId
-          : createdByUserId // ignore: cast_nullable_to_non_nullable
-              as String,
-      products: freezed == products
-          ? _value.products
-          : products // ignore: cast_nullable_to_non_nullable
-              as List<ProductFirebaseLiteModel>?,
+              as String?,
+      videos: freezed == videos
+          ? _value.videos
+          : videos // ignore: cast_nullable_to_non_nullable
+              as List<VideoPostModel>?,
     ) as $Val);
   }
 }
@@ -113,12 +95,7 @@ abstract class _$$UserCatalogModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String id,
-      String name,
-      String imageUrl,
-      String createdBy,
-      String createdByUserId,
-      List<ProductFirebaseLiteModel>? products});
+      {String id, String name, String? imageUrl, List<VideoPostModel>? videos});
 }
 
 /// @nodoc
@@ -136,10 +113,8 @@ class __$$UserCatalogModelImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? name = null,
-    Object? imageUrl = null,
-    Object? createdBy = null,
-    Object? createdByUserId = null,
-    Object? products = freezed,
+    Object? imageUrl = freezed,
+    Object? videos = freezed,
   }) {
     return _then(_$UserCatalogModelImpl(
       id: null == id
@@ -150,22 +125,14 @@ class __$$UserCatalogModelImplCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      imageUrl: null == imageUrl
+      imageUrl: freezed == imageUrl
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
-              as String,
-      createdBy: null == createdBy
-          ? _value.createdBy
-          : createdBy // ignore: cast_nullable_to_non_nullable
-              as String,
-      createdByUserId: null == createdByUserId
-          ? _value.createdByUserId
-          : createdByUserId // ignore: cast_nullable_to_non_nullable
-              as String,
-      products: freezed == products
-          ? _value._products
-          : products // ignore: cast_nullable_to_non_nullable
-              as List<ProductFirebaseLiteModel>?,
+              as String?,
+      videos: freezed == videos
+          ? _value._videos
+          : videos // ignore: cast_nullable_to_non_nullable
+              as List<VideoPostModel>?,
     ));
   }
 }
@@ -176,11 +143,9 @@ class _$UserCatalogModelImpl extends _UserCatalogModel {
   const _$UserCatalogModelImpl(
       {required this.id,
       required this.name,
-      required this.imageUrl,
-      required this.createdBy,
-      required this.createdByUserId,
-      final List<ProductFirebaseLiteModel>? products})
-      : _products = products,
+      this.imageUrl,
+      final List<VideoPostModel>? videos})
+      : _videos = videos,
         super._();
 
   factory _$UserCatalogModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -191,24 +156,20 @@ class _$UserCatalogModelImpl extends _UserCatalogModel {
   @override
   final String name;
   @override
-  final String imageUrl;
+  final String? imageUrl;
+  final List<VideoPostModel>? _videos;
   @override
-  final String createdBy;
-  @override
-  final String createdByUserId;
-  final List<ProductFirebaseLiteModel>? _products;
-  @override
-  List<ProductFirebaseLiteModel>? get products {
-    final value = _products;
+  List<VideoPostModel>? get videos {
+    final value = _videos;
     if (value == null) return null;
-    if (_products is EqualUnmodifiableListView) return _products;
+    if (_videos is EqualUnmodifiableListView) return _videos;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
   }
 
   @override
   String toString() {
-    return 'UserCatalogModel(id: $id, name: $name, imageUrl: $imageUrl, createdBy: $createdBy, createdByUserId: $createdByUserId, products: $products)';
+    return 'UserCatalogModel(id: $id, name: $name, imageUrl: $imageUrl, videos: $videos)';
   }
 
   @override
@@ -220,17 +181,13 @@ class _$UserCatalogModelImpl extends _UserCatalogModel {
             (identical(other.name, name) || other.name == name) &&
             (identical(other.imageUrl, imageUrl) ||
                 other.imageUrl == imageUrl) &&
-            (identical(other.createdBy, createdBy) ||
-                other.createdBy == createdBy) &&
-            (identical(other.createdByUserId, createdByUserId) ||
-                other.createdByUserId == createdByUserId) &&
-            const DeepCollectionEquality().equals(other._products, _products));
+            const DeepCollectionEquality().equals(other._videos, _videos));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, imageUrl, createdBy,
-      createdByUserId, const DeepCollectionEquality().hash(_products));
+  int get hashCode => Object.hash(runtimeType, id, name, imageUrl,
+      const DeepCollectionEquality().hash(_videos));
 
   /// Create a copy of UserCatalogModel
   /// with the given fields replaced by the non-null parameter values.
@@ -253,10 +210,8 @@ abstract class _UserCatalogModel extends UserCatalogModel {
   const factory _UserCatalogModel(
       {required final String id,
       required final String name,
-      required final String imageUrl,
-      required final String createdBy,
-      required final String createdByUserId,
-      final List<ProductFirebaseLiteModel>? products}) = _$UserCatalogModelImpl;
+      final String? imageUrl,
+      final List<VideoPostModel>? videos}) = _$UserCatalogModelImpl;
   const _UserCatalogModel._() : super._();
 
   factory _UserCatalogModel.fromJson(Map<String, dynamic> json) =
@@ -267,13 +222,9 @@ abstract class _UserCatalogModel extends UserCatalogModel {
   @override
   String get name;
   @override
-  String get imageUrl;
+  String? get imageUrl;
   @override
-  String get createdBy;
-  @override
-  String get createdByUserId;
-  @override
-  List<ProductFirebaseLiteModel>? get products;
+  List<VideoPostModel>? get videos;
 
   /// Create a copy of UserCatalogModel
   /// with the given fields replaced by the non-null parameter values.

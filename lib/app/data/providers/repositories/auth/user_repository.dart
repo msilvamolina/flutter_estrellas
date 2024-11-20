@@ -16,6 +16,7 @@ class UserRepository {
   Future<void> signOut() async {
     if (_firebaseAuth.currentUser != null) {
       _firebaseAuth.signOut();
+
       _localStorage.cleanAll();
     }
   }
@@ -50,6 +51,19 @@ class UserRepository {
     } on FirebaseException catch (e) {
       return left(e.code);
     }
+  }
+
+  Future<bool> isEmailVerified() async {
+    User? currentUser = _firebaseAuth.currentUser;
+
+    if (currentUser != null) {
+      await currentUser
+          .reload(); // Recargar la información del usuario desde Firebase
+      return currentUser
+          .emailVerified; // Devuelve el estado de verificación del email
+    }
+
+    return false; // No hay usuario logueado
   }
 
   Future<UserData?> getUserDataFirebase() async {

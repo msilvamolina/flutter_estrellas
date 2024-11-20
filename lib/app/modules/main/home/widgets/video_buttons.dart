@@ -38,32 +38,28 @@ class _VideoButtonsState extends State<VideoButtons> {
             id: 'product_catalog_icon',
             builder: (_) {
               return buttonCard(
-                onTap: () => userProductController.isProductInCatalogPrivate(
-                        widget.videoPostModel.product)
-                    ? userProductController
-                        .showBottomSheetCatalog(widget.videoPostModel.product)
-                    : userProductController.onPressedSaveButton(
-                        widget.videoPostModel.product,
-                      ),
-                iconSize: userProductController.isProductInCatalogPrivate(
-                        widget.videoPostModel.product)
+                onTap: () => userProductController
+                    .productCatalogButton(widget.videoPostModel),
+                iconSize: userProductController
+                        .isProductInCatalogPrivate(widget.videoPostModel)
                     ? 22
                     : 34,
-                image: userProductController.isProductInCatalogPrivate(
-                        widget.videoPostModel.product)
+                image: userProductController
+                        .isProductInCatalogPrivate(widget.videoPostModel)
                     ? 'assets/svg/catalog.svg'
                     : 'assets/svg/SaveFIll.svg',
                 label: 'Guardar',
-                colorIcon: userProductController.isProductInCatalogPrivate(
-                        widget.videoPostModel.product)
+                colorIcon: userProductController
+                        .isProductInCatalogPrivate(widget.videoPostModel)
                     ? null
                     : white,
               );
             }),
         SizedBox(height: 22),
         buttonCard(
-            onTap: () => Get.toNamed(Routes.PRODUCT_DETAILS,
-                arguments: widget.videoPostModel.product),
+            onTap: () => userProductController.mainController.actionNeedLogin(
+                () => Get.toNamed(Routes.PRODUCT_DETAILS,
+                    arguments: widget.videoPostModel)),
             image: 'assets/svg/InfoFill.svg',
             label: 'Info'),
         SizedBox(height: 22),
@@ -72,29 +68,25 @@ class _VideoButtonsState extends State<VideoButtons> {
             builder: (_) {
               return buttonCard(
                 onTap: () => userProductController
-                        .isProductInFavorites(widget.videoPostModel.product)
-                    ? userProductController
-                        .removeFromFavorites(widget.videoPostModel.product)
-                    : userProductController
-                        .addToFavorites(widget.videoPostModel.product),
-                image: 'assets/svg/HeartFill.svg',
-                label: '220',
-                colorIcon: userProductController
-                        .isProductInFavorites(widget.videoPostModel.product)
-                    ? error900
-                    : white,
+                    .productFavoriteButton(widget.videoPostModel),
+                image: userProductController
+                        .isProductInFavorites(widget.videoPostModel)
+                    ? 'assets/svg/HeartColor.svg'
+                    : 'assets/svg/HeartFill.svg',
+                label: '0',
+                colorIcon: null,
               );
             }),
         SizedBox(height: 22),
         buttonCard(
             onTap: () => userProductController
-                .goToBuyUniqueProduct(widget.videoPostModel.product),
+                .goToBuyUniqueProduct(widget.videoPostModel),
             image: 'assets/svg/ShoppingBagFill.svg',
             label: 'Comprar'),
         SizedBox(height: 22),
         buttonCard(
-          onTap: () => userProductController
-              .goToBuyUniqueProduct(widget.videoPostModel.product),
+          onTap: () =>
+              userProductController.goToSellProduct(widget.videoPostModel),
           image: 'assets/svg/logo.svg',
           label: 'Vender',
           isLogo: true,

@@ -1,9 +1,14 @@
+import 'package:flutter_estrellas/app/app/controllers/main_controller.dart';
+import 'package:flutter_estrellas/app/modules/main/home/controllers/home_controller.dart';
 import 'package:get/get.dart';
 
-class AccountController extends GetxController {
-  //TODO: Implement AccountController
+import '../../../../components/bottom_sheets/bottomsheets.dart';
+import '../../../../components/bottom_sheets/types.dart';
 
-  final count = 0.obs;
+class AccountController extends GetxController {
+  MainController mainController = Get.find<MainController>();
+  HomeController homeController = Get.find<HomeController>();
+
   @override
   void onInit() {
     super.onInit();
@@ -14,10 +19,7 @@ class AccountController extends GetxController {
     super.onReady();
   }
 
-  @override
-  void onClose() {
-    super.onClose();
+  Future<void> signOut() async {
+    Bottomsheets.staticBottomSheet(BottomSheetTypes.signOut);
   }
-
-  void increment() => count.value++;
 }

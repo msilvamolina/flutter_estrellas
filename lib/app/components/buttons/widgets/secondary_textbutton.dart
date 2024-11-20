@@ -24,7 +24,9 @@ class SecondaryTextbutton extends StatelessWidget {
       onPressed: onPressed,
       child: Text(
         label,
-        style: TypographyStyle.bodyBlackMedium.copyWith(color: secondaryBase),
+        style: TypographyStyle.bodyBlackMedium.copyWith(
+          color: secondaryBase,
+        ),
       ),
     );
   }

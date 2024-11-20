@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_estrellas/app/data/models/videos/video_post_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../helpers/model_helpers.dart';
@@ -15,9 +16,7 @@ abstract class UserCatalogModel implements _$UserCatalogModel {
     required String id,
     required String name,
     required String imageUrl,
-    required String createdBy,
-    required String createdByUserId,
-    List<ProductFirebaseLiteModel>? products,
+    List<VideoPostModel>? videos,
   }) = _UserCatalogModel;
 
   factory UserCatalogModel.fromJson(Map<String, dynamic> json) =>

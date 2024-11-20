@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_estrellas/app/app/controllers/user_product_controller.dart';
 import 'package:flutter_estrellas/app/data/models/product_firebase_lite/product_firebase_lite.dart';
 import 'package:flutter_estrellas/app/data/models/user_catalog/user_catalog_model.dart';
+import 'package:flutter_estrellas/app/data/models/videos/video_post_model.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
@@ -21,8 +22,7 @@ class CatalogsBottomsheet extends StatelessWidget {
     return GetBuilder<UserProductController>(
       id: 'catalog_bottom_sheet',
       builder: (controller) {
-        ProductFirebaseLiteModel product =
-            controller.productCatalogBottomSheet!;
+        VideoPostModel videoPostModel = controller.productCatalogBottomSheet!;
         return ListView(
           controller: scrollController,
           children: [
@@ -34,15 +34,16 @@ class CatalogsBottomsheet extends StatelessWidget {
                 children: [
                   TitleWithCloseButton(title: ''),
                   ProductCard(
-                    imageUrl: product.thumbnail ?? '',
-                    title: product.name ?? '',
+                    imageUrl: videoPostModel.product?.thumbnail ?? '',
+                    title: videoPostModel.product?.name ?? '',
                     message: 'Guardado en privado',
                     isProductoInCatalog:
-                        controller.isProductInCatalogPrivate(product),
-                    addFunction: () => controller.onPressedSaveButton(product,
+                        controller.isProductInCatalogPrivate(videoPostModel),
+                    addFunction: () => controller.onPressedSaveButton(
+                        videoPostModel,
                         openBottomSheet: false),
                     removeFunction: () =>
-                        controller.removeFromCatalogPrivate(product),
+                        controller.removeFromCatalogPrivate(videoPostModel),
                   ),
                   SizedBox(height: 6),
                   DottedLine(
@@ -81,17 +82,17 @@ class CatalogsBottomsheet extends StatelessWidget {
                         imageUrl: element.imageUrl,
                         title: element.name,
                         message:
-                            '${element.products?.length ?? 0} ${(element.products?.length ?? 0) == 1 ? 'Producto' : 'Productos'}',
-                        isProductoInCatalog:
-                            controller.isProductoInCatalog(element, product),
+                            '${element.videos?.length ?? 0} ${(element.videos?.length ?? 0) == 1 ? 'Producto' : 'Productos'}',
+                        isProductoInCatalog: controller.isProductoInCatalog(
+                            element, videoPostModel),
                         addFunction: () => controller.addProductToCatalog(
                           element,
-                          product,
+                          videoPostModel,
                           true,
                         ),
                         removeFunction: () => controller.addProductToCatalog(
                           element,
-                          product,
+                          videoPostModel,
                           false,
                         ),
                       ),

@@ -12,6 +12,7 @@ class CustomInputDecoration {
     String? hintText,
     IconData? icon,
     bool? isThemeModeDark,
+    Widget? suffixIcon,
   }) {
     MainController mainController = Get.find<MainController>();
     Color labelBackgroundColor =
@@ -86,6 +87,7 @@ class CustomInputDecoration {
     IconData? icon,
     bool? isThemeModeDark,
     bool isSubmited = false,
+    Widget? suffixIcon,
     required FormControl control,
   }) {
     MainController mainController = Get.find<MainController>();
@@ -103,10 +105,13 @@ class CustomInputDecoration {
     Color borderColor =
         mainController.isThemeModeDark ? secondaryBase : secondaryBase;
 
+    Color borderColorGrey = neutral600;
     Color errorColor = mainController.isThemeModeDark ? error500 : error900;
 
-    bool showErrors = isSubmited && control.invalid && control.hasErrors;
+    bool showErrors = control.invalid && control.touched;
     return InputDecoration(
+      contentPadding: EdgeInsets.symmetric(
+          vertical: 20.0, horizontal: 16), // Aumenta la altura
       label: Container(
         padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
         decoration: BoxDecoration(
@@ -125,18 +130,21 @@ class CustomInputDecoration {
       ),
       floatingLabelBehavior: FloatingLabelBehavior.always,
       hintText: hintText,
+      hintStyle: TypographyStyle.bodyRegularLarge,
       prefixIcon: icon != null
           ? Icon(
               icon,
               color: borderColor,
             )
           : null,
-      suffixIcon: (showErrors)
-          ? Icon(
-              Icons.error,
-              color: errorColor,
-            )
-          : null,
+
+      suffixIcon: suffixIcon ??
+          ((showErrors)
+              ? Icon(
+                  Icons.error,
+                  color: errorColor,
+                )
+              : null),
       errorBorder: OutlineInputBorder(
         borderSide: BorderSide(color: errorColor, width: 2.0),
         borderRadius: BorderRadius.circular(12),
@@ -146,15 +154,15 @@ class CustomInputDecoration {
         borderRadius: BorderRadius.circular(12),
       ),
       enabledBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: borderColor, width: 2.0),
+        borderSide: BorderSide(color: borderColorGrey, width: 1),
         borderRadius: BorderRadius.circular(12),
       ),
       focusedBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: borderColor, width: 2.0),
+        borderSide: BorderSide(color: borderColor, width: 2),
         borderRadius: BorderRadius.circular(12),
       ),
       border: OutlineInputBorder(
-        borderSide: BorderSide(color: borderColor, width: 2.0),
+        borderSide: BorderSide(color: borderColorGrey, width: 1),
         borderRadius: BorderRadius.circular(12),
       ),
       errorStyle: TextStyle(

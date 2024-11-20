@@ -5,6 +5,7 @@ import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_estrellas/app/data/models/address/address_model.dart';
 import 'package:flutter_estrellas/app/data/models/user_product/user_product_model.dart';
+import 'package:flutter_estrellas/app/data/models/user_product_cart/user_product_cart_model.dart';
 import 'package:get/instance_manager.dart';
 
 import '../../../../services/api_services.dart';
@@ -30,8 +31,8 @@ class OrdersRepository {
     }
   }
 
-  Future<Either<String, Unit>> createOrder({
-    required UserProductModel product,
+  Future<Either<String, String>> createOrder({
+    required UserProductCartModel product,
     required AddressModel address,
   }) async {
     String url = 'api/orders/create-order';
@@ -40,21 +41,16 @@ class OrdersRepository {
     String email = userData['email'] ?? '';
     try {
       Map<String, dynamic> body = {
-        // "city_id": address.city['dropi_id'],
-        "city_id": "1222",
-        "department_id": "81",
-
+        "city_id": address.city?.dropiId,
+        "department_id": address.department?.dropiId,
         "client_direction": address.address,
         "client_email": email,
         "client_name": address.fullname,
         "client_notes": address.notes,
         "client_phone": "3127559567",
-        "client_quantity": '1',
-
+        "client_quantity": product.quantity.toString(),
         "client_surname": address.fullname,
-        // "department_id": address.city['department_id'],
-        "product_id": product.product!.id,
-
+        "product_id": product.video?.product?.id,
         "user_id": "6463b06a7420bf4da4c1ecef",
       };
 
@@ -67,19 +63,20 @@ class OrdersRepository {
 
       dynamic json = jsonDecode(response.body);
 
-      print('json $json');
       if (!json['ok']) {
-        return left(json['data']);
+        if (json['data'] != null) {
+          return left(json['data'].toString());
+        } else if (json['errors'] != null) {
+          return left(json['errors'].toString());
+        }
       }
-
-      return right(unit);
+      return right(json['data'].toString());
     } catch (e) {
-      print('error: e');
       return left(e.toString());
     }
   }
 
-  Future<Either<String, Unit>> createMultipleOrder({
+  Future<Either<String, String>> createMultipleOrder({
     required dynamic products,
     required AddressModel address,
   }) async {
@@ -94,17 +91,14 @@ class OrdersRepository {
       };
 
       Map<String, dynamic> body = {
-        // "city_id": address.city['dropi_id'],
-        "city_id": "1222",
-        "department_id": "81",
-
+        "city_id": address.city?.dropiId,
+        "department_id": address.department?.dropiId,
         "client_direction": address.address,
         "client_email": email,
         "client_name": address.fullname,
         "client_notes": address.notes,
-        "client_phone": "3127559567",
+        "client_phone": address.phone!.number,
         "client_surname": address.fullname,
-        // "department_id": address.city['department_id'],
         "catalogue": catalogue,
         "user_id": "6463b06a7420bf4da4c1ecef",
       };
@@ -118,11 +112,16 @@ class OrdersRepository {
 
       dynamic json = jsonDecode(response.body);
 
+      print('json $json');
       if (!json['ok']) {
-        return left(json['data']);
+        if (json['data'] != null) {
+          return left(json['data'].toString());
+        } else if (json['errors'] != null) {
+          return left(json['errors'].toString());
+        }
       }
 
-      return right(unit);
+      return right(json['data'].toString());
     } catch (e) {
       print('error: $e');
       return left(e.toString());

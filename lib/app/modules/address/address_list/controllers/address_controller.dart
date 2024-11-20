@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import '../../../../app/controllers/main_controller.dart';
 import '../../../../app/controllers/user_product_controller.dart';
 import '../../../../data/providers/repositories/address/address_repository.dart';
+import '../../../../routes/app_pages.dart';
 
 class AddressController extends GetxController {
   MainController mainController = Get.find();
@@ -14,9 +15,26 @@ class AddressController extends GetxController {
   final RxList<AddressModel> _list = <AddressModel>[].obs;
   List<AddressModel> get list => _list.toList();
 
+  Rxn<AddressModel> selectedAddress = Rxn<AddressModel>();
+  Rxn<AddressModel> mainAddress = Rxn<AddressModel>();
+
   @override
   void onInit() {
     _list.bindStream(_repository.getUserAddress());
+    ever<List<AddressModel>>(_list, (addressList) {
+      if (addressList.isEmpty) {
+        Get.offNamed(Routes.NEW_ADDRESS);
+      }
+    });
     super.onInit();
+  }
+
+  void selectAddress(AddressModel address) {
+    selectedAddress.value = address;
+    mainAddress.value = address;
+  }
+
+  void goToSelectectPayment() {
+    Get.toNamed(Routes.SELECT_PAYMENT, arguments: selectedAddress.value);
   }
 }

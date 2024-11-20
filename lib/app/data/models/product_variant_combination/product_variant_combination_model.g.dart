@@ -12,7 +12,6 @@ _$ProductVariantCombinationModelImpl
           id: json['id'] as String,
           name: json['name'] as String,
           label: json['label'] as String,
-          createdAt: json['createdAt'] as String,
           dropiId: json['dropiId'] as String?,
           colorId: json['colorId'] as String?,
           colorName: json['colorName'] as String?,
@@ -27,8 +26,6 @@ _$ProductVariantCombinationModelImpl
           imageUrl: json['imageUrl'] as String?,
           color: (json['color'] as num?)?.toInt(),
           searchField: json['searchField'] as String?,
-          reference: json['reference'],
-          updatedAt: json['updatedAt'] as String?,
         );
 
 Map<String, dynamic> _$$ProductVariantCombinationModelImplToJson(
@@ -37,7 +34,6 @@ Map<String, dynamic> _$$ProductVariantCombinationModelImplToJson(
       'id': instance.id,
       'name': instance.name,
       'label': instance.label,
-      'createdAt': instance.createdAt,
       'dropiId': instance.dropiId,
       'colorId': instance.colorId,
       'colorName': instance.colorName,
@@ -52,6 +48,4 @@ Map<String, dynamic> _$$ProductVariantCombinationModelImplToJson(
       'imageUrl': instance.imageUrl,
       'color': instance.color,
       'searchField': instance.searchField,
-      'reference': instance.reference,
-      'updatedAt': instance.updatedAt,
     };

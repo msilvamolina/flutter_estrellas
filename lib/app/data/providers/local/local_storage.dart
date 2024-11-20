@@ -4,6 +4,7 @@ class LocalStorage {
   final GetStorage _getStorage = GetStorage();
   static const USERKEY = "USERKEY";
   static const welcomeKey = "WELCOMEKEY";
+  static const swipeUpKey = "SWIPEUPKEY";
 
   Future<void> cleanAll() async {
     await _getStorage.remove(USERKEY);
@@ -17,5 +18,14 @@ class LocalStorage {
 
   Future<void> setWelcome(bool value) async {
     await _getStorage.write(welcomeKey, value);
+  }
+
+  Future<bool> getSwipeUpVideo() async {
+    final value = await _getStorage.read(swipeUpKey) ?? true;
+    return value;
+  }
+
+  Future<void> setSwipeUpVideo(bool value) async {
+    await _getStorage.write(swipeUpKey, value);
   }
 }

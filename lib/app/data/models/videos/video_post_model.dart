@@ -16,32 +16,22 @@ abstract class VideoPostModel implements _$VideoPostModel {
   const factory VideoPostModel({
     required String name,
     required String id,
-    required String createdAt,
     required String thumbnail,
     required String videoUrl,
-    required String createdByEmail,
-    required String createdById,
     ProductFirebaseLiteModel? product,
-    String? searchField,
-    dynamic reference,
-    String? updatedAt,
   }) = _VideoPostModel;
 
   factory VideoPostModel.fromJson(Map<String, dynamic> json) =>
       _$VideoPostModelFromJson(json);
 
-  factory VideoPostModel.fromDocument(DocumentSnapshot doc) {
-    VideoPostModel data =
-        VideoPostModel.fromJson(ModelHelpers.fromDocument(doc.data()!));
-    String searchField = data.name;
+  factory VideoPostModel.fromDocument(DocumentSnapshot doc) =>
+      VideoPostModel.fromJson(ModelHelpers.fromDocument(doc.data()!));
 
-    return data.copyWith(
-      reference: doc.reference,
-      searchField: FriendlyHelpers.friendlySearchField(searchField),
-    );
+  Map<String, dynamic> toDocument() {
+    dynamic videoJson = toJson();
+    videoJson['product'] = product!.toJson();
+    return videoJson;
   }
-
-  Map<String, dynamic> toDocument() => ModelHelpers.toDocument(toJson());
 
   static Future<VideoPostModel?> fromReference(dynamic reference) async {
     try {

@@ -37,8 +37,6 @@ mixin _$ProductModel {
   int? get points => throw _privateConstructorUsedError;
   double? get suggestedPrice => throw _privateConstructorUsedError;
   String? get thumbnail => throw _privateConstructorUsedError;
-  String? get createdAt => throw _privateConstructorUsedError;
-  String? get uploadDate => throw _privateConstructorUsedError;
 
   /// Serializes this ProductModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -72,9 +70,7 @@ abstract class $ProductModelCopyWith<$Res> {
       bool? isPercentage,
       int? points,
       double? suggestedPrice,
-      String? thumbnail,
-      String? createdAt,
-      String? uploadDate});
+      String? thumbnail});
 
   $ProductProviderModelCopyWith<$Res>? get provider;
   $ProductCategoryModelCopyWith<$Res>? get category;
@@ -111,8 +107,6 @@ class _$ProductModelCopyWithImpl<$Res, $Val extends ProductModel>
     Object? points = freezed,
     Object? suggestedPrice = freezed,
     Object? thumbnail = freezed,
-    Object? createdAt = freezed,
-    Object? uploadDate = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -179,14 +173,6 @@ class _$ProductModelCopyWithImpl<$Res, $Val extends ProductModel>
           ? _value.thumbnail
           : thumbnail // ignore: cast_nullable_to_non_nullable
               as String?,
-      createdAt: freezed == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as String?,
-      uploadDate: freezed == uploadDate
-          ? _value.uploadDate
-          : uploadDate // ignore: cast_nullable_to_non_nullable
-              as String?,
     ) as $Val);
   }
 
@@ -243,9 +229,7 @@ abstract class _$$ProductModelImplCopyWith<$Res>
       bool? isPercentage,
       int? points,
       double? suggestedPrice,
-      String? thumbnail,
-      String? createdAt,
-      String? uploadDate});
+      String? thumbnail});
 
   @override
   $ProductProviderModelCopyWith<$Res>? get provider;
@@ -282,8 +266,6 @@ class __$$ProductModelImplCopyWithImpl<$Res>
     Object? points = freezed,
     Object? suggestedPrice = freezed,
     Object? thumbnail = freezed,
-    Object? createdAt = freezed,
-    Object? uploadDate = freezed,
   }) {
     return _then(_$ProductModelImpl(
       id: null == id
@@ -350,14 +332,6 @@ class __$$ProductModelImplCopyWithImpl<$Res>
           ? _value.thumbnail
           : thumbnail // ignore: cast_nullable_to_non_nullable
               as String?,
-      createdAt: freezed == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as String?,
-      uploadDate: freezed == uploadDate
-          ? _value.uploadDate
-          : uploadDate // ignore: cast_nullable_to_non_nullable
-              as String?,
     ));
   }
 }
@@ -381,9 +355,7 @@ class _$ProductModelImpl extends _ProductModel {
       this.isPercentage,
       this.points,
       this.suggestedPrice,
-      this.thumbnail,
-      this.createdAt,
-      this.uploadDate})
+      this.thumbnail})
       : super._();
 
   factory _$ProductModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -422,14 +394,10 @@ class _$ProductModelImpl extends _ProductModel {
   final double? suggestedPrice;
   @override
   final String? thumbnail;
-  @override
-  final String? createdAt;
-  @override
-  final String? uploadDate;
 
   @override
   String toString() {
-    return 'ProductModel(id: $id, provider: $provider, category: $category, name: $name, externalId: $externalId, usefulId: $usefulId, videoUrl: $videoUrl, description: $description, type: $type, sku: $sku, price: $price, active: $active, isPercentage: $isPercentage, points: $points, suggestedPrice: $suggestedPrice, thumbnail: $thumbnail, createdAt: $createdAt, uploadDate: $uploadDate)';
+    return 'ProductModel(id: $id, provider: $provider, category: $category, name: $name, externalId: $externalId, usefulId: $usefulId, videoUrl: $videoUrl, description: $description, type: $type, sku: $sku, price: $price, active: $active, isPercentage: $isPercentage, points: $points, suggestedPrice: $suggestedPrice, thumbnail: $thumbnail)';
   }
 
   @override
@@ -461,11 +429,7 @@ class _$ProductModelImpl extends _ProductModel {
             (identical(other.suggestedPrice, suggestedPrice) ||
                 other.suggestedPrice == suggestedPrice) &&
             (identical(other.thumbnail, thumbnail) ||
-                other.thumbnail == thumbnail) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt) &&
-            (identical(other.uploadDate, uploadDate) ||
-                other.uploadDate == uploadDate));
+                other.thumbnail == thumbnail));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -487,9 +451,7 @@ class _$ProductModelImpl extends _ProductModel {
       isPercentage,
       points,
       suggestedPrice,
-      thumbnail,
-      createdAt,
-      uploadDate);
+      thumbnail);
 
   /// Create a copy of ProductModel
   /// with the given fields replaced by the non-null parameter values.
@@ -524,9 +486,7 @@ abstract class _ProductModel extends ProductModel {
       final bool? isPercentage,
       final int? points,
       final double? suggestedPrice,
-      final String? thumbnail,
-      final String? createdAt,
-      final String? uploadDate}) = _$ProductModelImpl;
+      final String? thumbnail}) = _$ProductModelImpl;
   const _ProductModel._() : super._();
 
   factory _ProductModel.fromJson(Map<String, dynamic> json) =
@@ -565,10 +525,6 @@ abstract class _ProductModel extends ProductModel {
   double? get suggestedPrice;
   @override
   String? get thumbnail;
-  @override
-  String? get createdAt;
-  @override
-  String? get uploadDate;
 
   /// Create a copy of ProductModel
   /// with the given fields replaced by the non-null parameter values.

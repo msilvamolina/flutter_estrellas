@@ -5,12 +5,12 @@ class ButtonCircleSvg extends StatelessWidget {
   const ButtonCircleSvg({
     required this.assetName,
     required this.width,
-    required this.onTap,
+    this.onTap,
     this.color,
     super.key,
   });
 
-  final Function() onTap;
+  final Function()? onTap;
   final String assetName;
   final double width;
   final Color? color;

@@ -1,13 +1,14 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_estrellas/app/components/snackbars/snackbars.dart';
+import 'package:flutter_estrellas/app/data/models/address/address_model.dart';
 import 'package:flutter_estrellas/app/data/providers/repositories/address/address_repository.dart';
 import 'package:get/get.dart';
 import 'package:reactive_forms/reactive_forms.dart';
+import 'package:reactive_phone_form_field/reactive_phone_form_field.dart';
 
 import '../../../../app/controllers/main_controller.dart';
-import '../../../../data/models/city/city/city.dart';
-import '../../../../data/models/city/department/department.dart';
-import '../../../../data/models/provider/provider/provider_model.dart';
+import '../../../../data/models/city/city/city_model.dart';
+import '../../../../data/models/city/department/department_model.dart';
 import '../../../../routes/app_pages.dart';
 
 enum Fields {
@@ -23,11 +24,23 @@ enum Fields {
 class NewAddressController extends GetxController {
   MainController mainController = Get.find();
   final AddressRepository _repository = AddressRepository();
-  DepartmentModel? _departmentModel;
-  DepartmentModel? get departmentModel => _departmentModel;
 
-  CityModel? _cityModel;
-  CityModel? get cityModel => _cityModel;
+  final RxList<DepartmentModel> _departmentsList = <DepartmentModel>[].obs;
+  List<DepartmentModel> get departmentsList => _departmentsList.toList();
+
+  final RxList<CityModel> _cityList = <CityModel>[].obs;
+  List<CityModel> get cityList => _cityList.toList();
+
+  RxnString departmentSelected = RxnString();
+  RxnString departmentError = RxnString();
+
+  RxnString citySelected = RxnString();
+  RxnString cityError = RxnString();
+
+  bool _formIsSubmitted = false;
+  bool get formIsSubmitted => _formIsSubmitted;
+
+  RxBool saveAddress = true.obs;
 
   FormGroup buildForm() => fb.group(<String, Object>{
         Fields.name.name: FormControl<String>(
@@ -43,52 +56,128 @@ class NewAddressController extends GetxController {
           ],
         ),
         Fields.notes.name: FormControl<String>(),
-        Fields.phone.name: FormControl<String>(
+        Fields.phone.name: FormControl<PhoneNumber>(
+          value: const PhoneNumber(
+            isoCode: IsoCode.CO,
+            nsn: '',
+          ),
           validators: [
-            Validators.required,
-            Validators.number(),
-            Validators.minLength(4),
+            PhoneValidators.required,
+            PhoneValidators.valid,
           ],
         ),
       });
 
-  Future<void> pickCity() async {
-    final result = await Get.toNamed(Routes.SELECT_DEPARTMENT);
-    if (result != null) {
-      _departmentModel = result[0];
-      _cityModel = result[1];
+  @override
+  void onInit() {
+    _departmentsList.bindStream(_repository.getDepartments());
 
-      update(['view']);
+    departmentSelected.listen((departmentId) {
+      if (departmentId != null && departmentId.isNotEmpty) {
+        _cityList.bindStream(_repository.getCities(departmentId));
+      } else {
+        _cityList.clear();
+      }
+    });
+
+    super.onInit();
+  }
+
+  void onSaveAddressChanged() {
+    saveAddress.value = !saveAddress.value;
+  }
+
+  void onDepartmentSelected(String? value) {
+    departmentError.value = null;
+    if (value != null) {
+      departmentSelected.value = value;
+      citySelected.value = null;
+      fetchCities(value);
+    } else {
+      departmentSelected.value = null;
+      citySelected.value = null;
     }
   }
 
+  void fetchCities(String? departmentId) {
+    if (departmentId != null) {
+      _cityList.bindStream(_repository.getCities(departmentId));
+    } else {
+      _cityList.clear();
+    }
+  }
+
+  void onCitySelected(String? value) {
+    cityError.value = null;
+    citySelected.value = value ?? '';
+  }
+
+  CityModel? getCityById(String id) {
+    CityModel? option =
+        cityList.firstWhereOrNull((element) => element.id == id);
+
+    return option;
+  }
+
+  DepartmentModel? getDepartmentById(String id) {
+    DepartmentModel? option = departmentsList
+        .firstWhereOrNull((element) => element.dropiId.toString() == id);
+
+    return option;
+  }
+
   Future<void> sendForm(Map<String, Object?> data) async {
-    if (_cityModel == null) {
-      Get.snackbar('Error', "Tienes que elegir una ciudad");
+    if (departmentSelected.value == null) {
+      departmentError.value = 'Elige un departamento';
       return;
     }
+
+    DepartmentModel? _departmentModel =
+        getDepartmentById(departmentSelected.value!);
+
+    if (_departmentModel == null) {
+      cityError.value = 'Elige un departamento válido';
+      return;
+    }
+    if (citySelected.value == null) {
+      cityError.value = 'Elige una ciudad';
+      return;
+    }
+
+    CityModel? _cityModel = getCityById(citySelected.value!);
+
+    if (_cityModel == null) {
+      cityError.value = 'Elige una ciudad válida';
+      return;
+    }
+
     String name = data[Fields.name.name].toString();
     String address = data[Fields.address.name].toString();
-    String phone = data[Fields.phone.name].toString();
+    // String phone = data[Fields.phone.name].toString();
     String notes = data[Fields.notes.name].toString();
 
+    PhoneNumber phone = data[Fields.phone.name] as PhoneNumber;
+
     mainController.showLoader(
-      title: 'Guardando...',
-      message: 'Por favor espere',
+      title: 'Verificando dirección',
     );
-    Either<String, Unit> response = await _repository.addAddress(
+
+    Either<String, AddressModel> response = await _repository.addAddress(
       fullname: name,
-      city: _cityModel!,
+      city: _cityModel,
+      department: _departmentModel,
       address: address,
       phone: phone,
       notes: notes,
+      save: saveAddress.value,
     );
     Get.back();
     response.fold((failure) {
       Snackbars.error(failure);
-    }, (provider) async {
-      Get.back();
+    }, (AddressModel addressModel) async {
       Snackbars.success('Dirección agregada correctamente');
+
+      Get.offNamed(Routes.SELECT_PAYMENT, arguments: addressModel);
     });
   }
 }

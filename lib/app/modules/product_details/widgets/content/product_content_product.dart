@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_estrellas/app/app/controllers/user_product_controller.dart';
 import 'package:flutter_estrellas/app/libraries/icons/icons_font.dart';
 import 'package:flutter_estrellas/app/themes/styles/colors.dart';
 import 'package:flutter_estrellas/app/themes/styles/typography.dart';
@@ -80,13 +81,23 @@ class ProductContentProduct extends StatelessWidget {
                     ),
                   ),
                   Spacer(),
-                  ButtonCircleSvg(
-                    assetName: controller.isLiked
-                        ? 'assets/svg/HeartColor.svg'
-                        : 'assets/svg/Heart.svg',
-                    color: !controller.isLiked ? neutral700 : null,
-                    onTap: () {},
-                    width: 28,
+                  GetBuilder<UserProductController>(
+                    id: 'product_favorite_icon',
+                    builder: (_) {
+                      return ButtonCircleSvg(
+                        assetName: controller.userProductController
+                                .isProductInFavorites(controller.videoPostModel)
+                            ? 'assets/svg/HeartColor.svg'
+                            : 'assets/svg/Heart.svg',
+                        color: !controller.userProductController
+                                .isProductInFavorites(controller.videoPostModel)
+                            ? neutral700
+                            : null,
+                        onTap: () => controller.userProductController
+                            .productFavoriteAction(controller.videoPostModel),
+                        width: 28,
+                      );
+                    },
                   ),
                   ButtonCircleSvg(
                     assetName: 'assets/svg/Comment.svg',
@@ -94,13 +105,25 @@ class ProductContentProduct extends StatelessWidget {
                     onTap: () {},
                     width: 22,
                   ),
-                  ButtonCircleSvg(
-                    assetName: controller.isInCart
-                        ? 'assets/svg/CartColor.svg'
-                        : 'assets/svg/Cart.svg',
-                    color: !controller.isInCart ? neutral700 : null,
-                    onTap: () {},
-                    width: 26,
+                  GetBuilder<ProductDetailsController>(
+                    id: 'product_cart_icon',
+                    builder: (_) {
+                      return ButtonCircleSvg(
+                        assetName: controller.userProductController
+                                .isProductInCart(controller.videoPostModel)
+                            ? 'assets/svg/CartColor.svg'
+                            : 'assets/svg/Cart.svg',
+                        color: !controller.userProductController
+                                .isProductInCart(controller.videoPostModel)
+                            ? neutral700
+                            : null,
+                        onTap: !controller.userProductController
+                                .isProductInCart(controller.videoPostModel)
+                            ? controller.addToCart
+                            : controller.removeFromCart,
+                        width: 26,
+                      );
+                    },
                   ),
                 ],
               ),

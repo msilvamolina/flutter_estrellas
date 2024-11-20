@@ -12,11 +12,8 @@ _$UserCatalogModelImpl _$$UserCatalogModelImplFromJson(
       id: json['id'] as String,
       name: json['name'] as String,
       imageUrl: json['imageUrl'] as String,
-      createdBy: json['createdBy'] as String,
-      createdByUserId: json['createdByUserId'] as String,
-      products: (json['products'] as List<dynamic>?)
-          ?.map((e) =>
-              ProductFirebaseLiteModel.fromJson(e as Map<String, dynamic>))
+      videos: (json['videos'] as List<dynamic>?)
+          ?.map((e) => VideoPostModel.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
@@ -26,7 +23,5 @@ Map<String, dynamic> _$$UserCatalogModelImplToJson(
       'id': instance.id,
       'name': instance.name,
       'imageUrl': instance.imageUrl,
-      'createdBy': instance.createdBy,
-      'createdByUserId': instance.createdByUserId,
-      'products': instance.products,
+      'videos': instance.videos,
     };

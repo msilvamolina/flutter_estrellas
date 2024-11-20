@@ -1,56 +1,59 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_estrellas/app/app/controllers/user_product_controller.dart';
+import 'package:flutter_estrellas/app/components/appbar/estrellas_appbar.dart';
 import 'package:flutter_estrellas/app/routes/app_pages.dart';
 
 import 'package:get/get.dart';
 
+import '../../../components/buttons/buttons.dart';
 import '../../../themes/styles/colors.dart';
 import '../../../themes/styles/typography.dart';
 import '../controllers/cart_controller.dart';
 import '../widget/cart_card.dart';
+import '../widget/cart_empty_state.dart';
+import '../widget/cart_price_bottom_sheet.dart';
 
 class CartView extends GetView<CartController> {
   const CartView({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Carrito'),
-        centerTitle: true,
-      ),
-      bottomNavigationBar: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: ElevatedButton(
-            onPressed: () {
-              controller.userProductController.setUniqueProduct(null);
-              Get.toNamed(Routes.ADDRESS);
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: controller.mainController.isThemeModeDark
-                  ? primaryDark
-                  : primaryBase,
-              foregroundColor: controller.mainController.isThemeModeDark
-                  ? Colors.white
-                  : Colors.black,
-              side: BorderSide(
-                color: controller.mainController.isThemeModeDark
-                    ? primaryBase
-                    : Colors.black, // Color del borde
-                width: 1, // Ancho del borde
-              ),
-            ),
-            child: Container(
-              padding: EdgeInsets.all(8),
-              width: double.infinity,
-              child: Text(
-                'Continuar compra',
-                textAlign: TextAlign.center,
-                style: TypographyStyle.bodyRegularLarge
-                    .copyWith(fontWeight: FontWeight.w400),
-              ),
-            ),
-          ),
-        ),
+      backgroundColor: white,
+      appBar: EstrellasAppbar(title: 'Carrito'),
+      bottomNavigationBar: Obx(
+        () => controller.userProductController.listProductCart.isNotEmpty
+            ? SafeArea(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Obx(
+                        () => CartPriceBottomBar(
+                          productsPoints:
+                              controller.userProductController.cartPoints.value,
+                          productsQuantity: controller
+                              .userProductController.cartQuantity.value,
+                          productsPrices:
+                              controller.userProductController.cartPrices.value,
+                          productsShipping: 0,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: Button(
+                          onPressed: controller.buyAction,
+                          label: 'Continuar compra',
+                          style: ButtonStyles.primary,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              )
+            : SizedBox.shrink(),
       ),
       body: Obx(
         () => controller.userProductController.listProductCart.isNotEmpty
@@ -59,14 +62,18 @@ class CartView extends GetView<CartController> {
                     controller.userProductController.listProductCart.length,
                 itemBuilder: (context, index) {
                   return CartCard(
-                    userProductModel:
+                    userProductCartModel:
                         controller.userProductController.listProductCart[index],
                   );
                 },
-                separatorBuilder: (context, index) =>
-                    const SizedBox(height: 10),
+                separatorBuilder: (context, index) => Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: const Divider(
+                    color: neutral300,
+                  ),
+                ),
               )
-            : Center(child: const Text('no data')),
+            : CartEmptyState(),
       ),
     );
   }

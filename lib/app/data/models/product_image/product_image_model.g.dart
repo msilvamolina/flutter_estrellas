@@ -11,11 +11,9 @@ _$ProductImageModelImpl _$$ProductImageModelImplFromJson(
     _$ProductImageModelImpl(
       name: json['name'] as String,
       id: json['id'] as String,
-      createdAt: json['createdAt'] as String,
       imageUrl: json['imageUrl'] as String,
       searchField: json['searchField'] as String?,
       reference: json['reference'],
-      updatedAt: json['updatedAt'] as String?,
     );
 
 Map<String, dynamic> _$$ProductImageModelImplToJson(
@@ -23,9 +21,7 @@ Map<String, dynamic> _$$ProductImageModelImplToJson(
     <String, dynamic>{
       'name': instance.name,
       'id': instance.id,
-      'createdAt': instance.createdAt,
       'imageUrl': instance.imageUrl,
       'searchField': instance.searchField,
       'reference': instance.reference,
-      'updatedAt': instance.updatedAt,
     };

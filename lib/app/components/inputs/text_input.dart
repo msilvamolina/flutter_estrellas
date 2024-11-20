@@ -12,17 +12,19 @@ class CustomTextInput extends StatelessWidget {
     required this.formControlName,
     required this.label,
     this.keyboardType = TextInputType.text,
+    this.hintText,
+    this.maxLines,
     this.autofocus = false,
-    this.isSubmited = false,
     this.validationMessages,
     super.key,
   });
 
   final String formControlName;
   final bool autofocus;
-  final bool isSubmited;
   final String label;
+  final String? hintText;
   final TextInputType keyboardType;
+  final int? maxLines;
   final Map<String, String Function(Object)>? validationMessages;
   @override
   Widget build(BuildContext context) {
@@ -35,13 +37,14 @@ class CustomTextInput extends StatelessWidget {
 
     return ReactiveTextField(
       autofocus: autofocus,
+      maxLines: maxLines,
       formControlName: formControlName,
       keyboardType: keyboardType,
       cursorColor: labelBackgroundColor,
       decoration: CustomInputDecoration.inputDecorationControl(
         text: label,
+        hintText: hintText,
         control: control!,
-        isSubmited: isSubmited,
       ),
       validationMessages: validationMessages ??
           {
@@ -50,6 +53,8 @@ class CustomTextInput extends StatelessWidget {
                 'Debe tener al menos ${(error as Map)['requiredLength']} caracteres.',
             ValidationMessage.email: (error) =>
                 'Ingrese un correo electrónico válido.',
+            ValidationMessage.number: (error) =>
+                'Sólo puedes ingresar números.',
           },
     );
   }

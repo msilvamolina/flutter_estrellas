@@ -10,45 +10,139 @@ import '../../themes/styles/colors.dart';
 class Snackbars {
   Snackbars._();
 
-  static void error(String error) {
-    Get.snackbar(
-      'Upps, ocurrió un error',
-      error,
-      maxWidth: 600,
-      margin: const EdgeInsets.all(16),
-      colorText: white,
-      backgroundColor: Colors.red.withOpacity(0.5),
-      icon: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 2),
-        child: SvgPicture.asset(
-          'assets/svg/logo.svg',
-          colorFilter: ColorFilter.mode(
-            white,
-            BlendMode.srcIn,
+  static void error(String text) {
+    MainController mainController = Get.find<MainController>();
+    Color background = mainController.isThemeModeDark ? neutral950 : white;
+    Color colorText = !mainController.isThemeModeDark ? neutral950 : white;
+
+    Get.rawSnackbar(
+      messageText: SizedBox(
+        height: 90, // Ajusta la altura según sea necesario
+        child: Padding(
+          padding: const EdgeInsets.all(8),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 4),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
+                  child: SvgPicture.asset(
+                    'assets/svg/icon-cancel.svg',
+                    width: 32,
+                  ),
+                ),
+              ),
+              SizedBox(width: 8),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      text,
+                      style: TypographyStyle.bodyBlackLarge
+                          .copyWith(color: neutral900),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 16),
+                child: SvgPicture.asset(
+                  'assets/svg/close.svg',
+                  width: 20,
+                ),
+              ),
+            ],
           ),
         ),
       ),
+      maxWidth: 600,
+      margin: EdgeInsets.all(16),
+      backgroundColor: background,
+      borderRadius: 16,
+      borderColor: Colors.black,
+      borderWidth: 1.2,
+      padding: EdgeInsets.zero,
+      boxShadows: [
+        BoxShadow(
+          color: error500,
+          offset: Offset(-3, 4),
+        ),
+      ],
+      snackPosition: SnackPosition.TOP,
     );
   }
 
-  static void success(String error) {
-    Get.snackbar(
-      'Bien hecho!',
-      error,
-      maxWidth: 600,
-      margin: const EdgeInsets.all(16),
-      colorText: white,
-      backgroundColor: Colors.green.withOpacity(0.5),
-      icon: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 2),
-        child: SvgPicture.asset(
-          'assets/svg/logo.svg',
-          colorFilter: ColorFilter.mode(
-            white,
-            BlendMode.srcIn,
+  static void success(String text) {
+    MainController mainController = Get.find<MainController>();
+    Color background = mainController.isThemeModeDark ? neutral950 : white;
+    Color colorText = !mainController.isThemeModeDark ? neutral950 : white;
+
+    Get.rawSnackbar(
+      messageText: SizedBox(
+        height: 90, // Ajusta la altura según sea necesario
+        child: Padding(
+          padding: const EdgeInsets.all(8),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 4),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
+                  child: SvgPicture.asset(
+                    'assets/svg/icon-check-ok.svg',
+                    width: 32,
+                  ),
+                ),
+              ),
+              SizedBox(width: 8),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      text,
+                      style: TypographyStyle.bodyBlackLarge
+                          .copyWith(color: neutral900),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 16),
+                child: SvgPicture.asset(
+                  'assets/svg/close.svg',
+                  width: 20,
+                ),
+              ),
+            ],
           ),
         ),
       ),
+      maxWidth: 600,
+      margin: EdgeInsets.all(16),
+      backgroundColor: background,
+      borderRadius: 16,
+      borderColor: Colors.black,
+      borderWidth: 1.2,
+      padding: EdgeInsets.zero,
+      boxShadows: [
+        BoxShadow(
+          color: primaryBase,
+          offset: Offset(-3, 4),
+        ),
+      ],
+      snackPosition: SnackPosition.TOP,
     );
   }
 

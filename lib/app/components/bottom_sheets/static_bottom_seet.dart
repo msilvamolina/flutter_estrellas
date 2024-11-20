@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_estrellas/app/app/controllers/main_controller.dart';
 import 'package:get/get.dart';
 
+import '../../app/bottom_sheets/auth_signout_bottomsheet.dart';
 import '../../app/bottom_sheets/catalogs_bottomsheet.dart';
+import '../../app/bottom_sheets/delete_products_catalog_bottomsheet.dart';
 import '../../app/bottom_sheets/new_catalog_bottomsheet.dart';
 import '../../app/bottom_sheets/select_variant_size.dart';
+import '../../app/bottom_sheets/signout_bottomsheet.dart';
 import 'types.dart';
 
 class StaticBottomSeet extends StatelessWidget {
@@ -18,6 +21,7 @@ class StaticBottomSeet extends StatelessWidget {
         topRight: Radius.circular(16),
       ),
       child: Material(
+        color: Colors.white,
         child: SafeArea(
           top: false,
           child: getBottomSheet(type),
@@ -31,6 +35,13 @@ class StaticBottomSeet extends StatelessWidget {
       case BottomSheetTypes.newCatalog:
         return NewCatalogBottomsheet();
 
+      case BottomSheetTypes.signOut:
+        return SignOutBottomsheet();
+
+      case BottomSheetTypes.authSignOut:
+        return AuthSignOutBottomsheet();
+      case BottomSheetTypes.deleteProductsInCatalog:
+        return DeleteProductsCatalogBottomsheet();
       default:
         return SizedBox.shrink();
     }

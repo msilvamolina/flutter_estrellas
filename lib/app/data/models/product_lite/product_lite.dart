@@ -22,8 +22,6 @@ abstract class ProductLiteModel implements _$ProductLiteModel {
     bool? showInFeed,
     bool? active,
     String? thumbnail,
-    String? createdAt,
-    String? updatedAt,
   }) = _ProductLiteModel;
 
   factory ProductLiteModel.fromJson(Map<String, dynamic> json) =>

@@ -14,11 +14,9 @@ abstract class ProductImageModel implements _$ProductImageModel {
   const factory ProductImageModel({
     required String name,
     required String id,
-    required String createdAt,
     required String imageUrl,
     String? searchField,
     dynamic reference,
-    String? updatedAt,
   }) = _ProductImageModel;
 
   factory ProductImageModel.fromJson(Map<String, dynamic> json) =>

@@ -1,3 +1,4 @@
+// import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_estrellas/app/app/dialogs/register/register_dialog.dart';
@@ -19,12 +20,14 @@ enum UserStatus {
   loading,
   notLogged,
   needBasicData,
+  needVerifyEmail,
   full,
 }
 
 class MainController extends GetxController {
   LocalStorage localStorage = Get.find();
   UserRepository userRepository = UserRepository();
+
   bool _withVolume = true;
   bool get withVolume => _withVolume;
 
@@ -47,12 +50,24 @@ class MainController extends GetxController {
   String? _token;
   String? get token => _token;
 
+  bool _showSwipeUpVideo = true;
+  bool get showSwipeUpVideo => _showSwipeUpVideo;
+
+  RxBool isUserLogged = false.obs;
+
   void setToken(String value) {
     _token = value;
   }
 
   void setDropiMessage(String message) {
     dropiMessage.value = message;
+  }
+
+  void removeSwipeUp() {
+    if (_showSwipeUpVideo) {
+      _showSwipeUpVideo = false;
+      localStorage.setSwipeUpVideo(false);
+    }
   }
 
   void setDropiDialog(bool value) {
@@ -67,7 +82,9 @@ class MainController extends GetxController {
   @override
   Future<void> onInit() async {
     _isWelcome = await localStorage.getWelcome();
+    _showSwipeUpVideo = await localStorage.getSwipeUpVideo();
     // checkTheme();
+
     super.onInit();
   }
 
@@ -86,13 +103,20 @@ class MainController extends GetxController {
     _userStatus = UserStatus.loading;
     update(['login']);
     bool isAuthenticated = userRepository.isUserLogged();
+    isUserLogged.value = isAuthenticated;
 
     if (isAuthenticated) {
-      _userData = await userRepository.getUserDataFirebase();
-      if (userData != null) {
-        _userStatus = UserStatus.full;
+      bool isEmailVerified = await userRepository.isEmailVerified();
+
+      if (isEmailVerified) {
+        _userData = await userRepository.getUserDataFirebase();
+        if (userData != null) {
+          _userStatus = UserStatus.full;
+        } else {
+          _userStatus = UserStatus.needBasicData;
+        }
       } else {
-        _userStatus = UserStatus.needBasicData;
+        _userStatus = UserStatus.needVerifyEmail;
       }
     } else {
       _userStatus = UserStatus.notLogged;
@@ -100,29 +124,13 @@ class MainController extends GetxController {
 
     update(['login']);
 
-    if (!kIsWeb) {
-      if (_userStatus == UserStatus.notLogged) {
-        if (!_isWelcome) {
-          Get.offAllNamed(Routes.WELCOME);
-        } else {
-          Get.offAllNamed(Routes.LOGIN);
-        }
-      }
-      if (_userStatus == UserStatus.needBasicData) {
-        Get.offAllNamed(Routes.REGISTER_BASIC_DATA);
-      }
-      if (_userStatus == UserStatus.full) {
-        Get.offAllNamed(Routes.HOME);
-      }
+    if (_userStatus == UserStatus.needVerifyEmail) {
+      Get.offAllNamed(Routes.EMAIL_VERIFICATION);
     } else {
-      if (_userStatus == UserStatus.needBasicData) {
-        openRegisterBasicDataDialog();
-      }
-      if (_userStatus == UserStatus.full) {
-        if (login) {
-          String name = userData!.firstName;
-          Snackbars.success('Hola $name!');
-        }
+      if (!_isWelcome) {
+        Get.offAllNamed(Routes.WELCOME);
+      } else {
+        Get.offAllNamed(Routes.HOME);
       }
     }
   }
@@ -142,10 +150,12 @@ class MainController extends GetxController {
     return isThemeModeDark ? Icons.light_mode : Icons.dark_mode;
   }
 
-  void signOut() {
+  void signOut() async {
     _userStatus = UserStatus.loading;
     update(['login']);
-    userRepository.signOut();
+    await userRepository.signOut();
+    localStorage.setWelcome(false);
+    _isWelcome = false;
     Future.delayed(Duration(milliseconds: 500), () {
       _userStatus = UserStatus.notLogged;
       update(['login']);
@@ -226,6 +236,7 @@ class MainController extends GetxController {
 
   void showLoader({String? title, String? message}) {
     showDialog(
+      useSafeArea: false,
       barrierColor: Colors.transparent,
       context: Get.context!,
       builder: (BuildContext context) {
@@ -244,5 +255,13 @@ class MainController extends GetxController {
         return const LoaderDropiDialog();
       },
     );
+  }
+
+  void actionNeedLogin(Function() action) {
+    if (_userStatus == UserStatus.notLogged) {
+      Get.toNamed(Routes.LOGIN_START);
+    } else {
+      action();
+    }
   }
 }

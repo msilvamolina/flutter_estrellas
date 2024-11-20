@@ -23,6 +23,20 @@ abstract class Routes {
   static const SEARCH = _Paths.SEARCH;
   static const ACCOUNT = _Paths.ACCOUNT;
   static const PRODUCT_DETAILS = _Paths.PRODUCT_DETAILS;
+  static const FAVORITES = _Paths.FAVORITES;
+  static const ORDERS = _Paths.ORDERS;
+  static const BANK_ACCOUNTS = _Paths.BANK_ACCOUNTS;
+  static const ABOUT = _Paths.ABOUT;
+  static const PROFILE = _Paths.PROFILE;
+  static const VIDEO_LIST = _Paths.VIDEO_LIST;
+  static const LOGIN_START = _Paths.LOGIN_START;
+  static const NEW_LOGIN = _Paths.NEW_LOGIN;
+  static const NEW_REGISTER = _Paths.NEW_REGISTER;
+  static const EMAIL_VERIFICATION = _Paths.EMAIL_VERIFICATION;
+  static const ORDER_ERROR = _Paths.ORDER_ERROR;
+  static const ORDERS_LIST = _Paths.ORDERS_LIST;
+  static const ORDER_DETAILS = _Paths.ORDER_DETAILS;
+  static const CATALOG_DETAILS = _Paths.CATALOG_DETAILS;
 }
 
 abstract class _Paths {
@@ -47,4 +61,18 @@ abstract class _Paths {
   static const SEARCH = '/search';
   static const ACCOUNT = '/account';
   static const PRODUCT_DETAILS = '/product-details';
+  static const FAVORITES = '/favorites';
+  static const ORDERS = '/orders';
+  static const BANK_ACCOUNTS = '/bank-accounts';
+  static const ABOUT = '/about';
+  static const PROFILE = '/profile';
+  static const VIDEO_LIST = '/video-list';
+  static const LOGIN_START = '/login-start';
+  static const NEW_LOGIN = '/new-login';
+  static const NEW_REGISTER = '/new-register';
+  static const EMAIL_VERIFICATION = '/email-verification';
+  static const ORDER_ERROR = '/order-error';
+  static const ORDERS_LIST = '/orders-list';
+  static const ORDER_DETAILS = '/order-details';
+  static const CATALOG_DETAILS = '/catalog-details';
 }

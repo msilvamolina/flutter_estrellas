@@ -3,10 +3,13 @@ import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_estrellas/app/data/models/product_firebase_lite/product_firebase_lite.dart';
 import 'package:flutter_estrellas/app/data/models/user_catalog/user_catalog_model.dart';
+import 'package:flutter_estrellas/app/data/models/videos/video_post_model.dart';
 import 'package:get/get.dart';
 import 'package:uuid/uuid.dart';
 
+import '../../../models/product_variant_combination/product_variant_combination_model.dart';
 import '../../../models/user_product/user_product_model.dart';
+import '../../../models/user_product_cart/user_product_cart_model.dart';
 
 class UserProductsRepository {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -35,7 +38,7 @@ class UserProductsRepository {
       Stream<QuerySnapshot> snapshots = _firebaseFirestore
           .collection('users')
           .doc(uid)
-          .collection('favorites')
+          .collection('video_favorites')
           .orderBy('createdAt', descending: true)
           .snapshots();
 
@@ -56,8 +59,8 @@ class UserProductsRepository {
       Stream<QuerySnapshot> snapshots = _firebaseFirestore
           .collection('users')
           .doc(uid)
-          .collection('catalog_private')
-          .orderBy('createdAt', descending: true)
+          .collection('video_catalog_private')
+          // .orderBy('createdAt', descending: true)
           .snapshots();
 
       yield* snapshots.map((snapshot) {
@@ -77,7 +80,7 @@ class UserProductsRepository {
       Stream<QuerySnapshot> snapshots = _firebaseFirestore
           .collection('users')
           .doc(uid)
-          .collection('catalogs')
+          .collection('video_catalogs')
           .orderBy('createdAt', descending: true)
           .snapshots();
 
@@ -91,20 +94,20 @@ class UserProductsRepository {
     }
   }
 
-  Stream<List<UserProductModel>> getUserCart() async* {
+  Stream<List<UserProductCartModel>> getUserCart() async* {
     Map<String, String> userData = getUidAndEmail();
     String uid = userData['uid'] ?? '';
     try {
       Stream<QuerySnapshot> snapshots = _firebaseFirestore
           .collection('users')
           .doc(uid)
-          .collection('cart')
+          .collection('video_cart')
           .orderBy('createdAt', descending: true)
           .snapshots();
 
       yield* snapshots.map((snapshot) {
         return snapshot.docs
-            .map((doc) => UserProductModel.fromDocument(doc))
+            .map((doc) => UserProductCartModel.fromDocument(doc))
             .toList();
       });
     } catch (e) {
@@ -113,20 +116,23 @@ class UserProductsRepository {
   }
 
   Future<Either<String, Unit>> addToFavorites({
-    required ProductFirebaseLiteModel productLite,
+    required VideoPostModel videoPostModel,
   }) async {
+    if (videoPostModel.product == null) {
+      return left('El producto no puede estar vacío');
+    }
     Map<String, String> userData = getUidAndEmail();
     String uid = userData['uid'] ?? '';
     String email = userData['email'] ?? '';
-    String productId = productLite.id;
+
     try {
       await _firebaseFirestore
           .collection('users')
           .doc(uid)
-          .collection('favorites')
-          .doc(productId)
+          .collection('video_favorites')
+          .doc(videoPostModel.id)
           .set({
-        'product': productLite.toDocument(),
+        'video': videoPostModel.toDocument(),
         'isAnonymous': false,
         'createdBy': email,
         'createdByUserId': uid,
@@ -139,24 +145,24 @@ class UserProductsRepository {
   }
 
   Future<Either<String, Unit>> addToCatalogPrivate({
-    required ProductFirebaseLiteModel productLite,
+    required VideoPostModel videoPostModel,
   }) async {
     Map<String, String> userData = getUidAndEmail();
     String uid = userData['uid'] ?? '';
     String email = userData['email'] ?? '';
-    String productId = productLite.id;
+    String videoId = videoPostModel.id;
     try {
       await _firebaseFirestore
           .collection('users')
           .doc(uid)
-          .collection('catalog_private')
-          .doc(productId)
+          .collection('video_catalog_private')
+          .doc(videoId)
           .set({
-        'product': productLite.toDocument(),
+        'video': videoPostModel.toDocument(),
         'isAnonymous': false,
         'createdBy': email,
         'createdByUserId': uid,
-        'createdAt': DateTime.now(),
+        // 'createdAt': DateTime.now(),
       });
       return right(unit);
     } on FirebaseException catch (e) {
@@ -165,17 +171,17 @@ class UserProductsRepository {
   }
 
   Future<Either<String, Unit>> removeFromCatalogPrivate({
-    required ProductFirebaseLiteModel productLite,
+    required VideoPostModel videoPostModel,
   }) async {
     Map<String, String> userData = getUidAndEmail();
     String uid = userData['uid'] ?? '';
-    String productId = productLite.id;
+    String videoId = videoPostModel.id;
     try {
       await _firebaseFirestore
           .collection('users')
           .doc(uid)
-          .collection('catalog_private')
-          .doc(productId)
+          .collection('video_catalog_private')
+          .doc(videoId)
           .delete();
       return right(unit);
     } on FirebaseException catch (e) {
@@ -184,17 +190,16 @@ class UserProductsRepository {
   }
 
   Future<Either<String, Unit>> removeFromFavorites({
-    required ProductFirebaseLiteModel productLite,
+    required VideoPostModel videoPostModel,
   }) async {
     Map<String, String> userData = getUidAndEmail();
     String uid = userData['uid'] ?? '';
-    String productId = productLite.id;
     try {
       await _firebaseFirestore
           .collection('users')
           .doc(uid)
-          .collection('favorites')
-          .doc(productId)
+          .collection('video_favorites')
+          .doc(videoPostModel.id)
           .delete();
       return right(unit);
     } on FirebaseException catch (e) {
@@ -203,7 +208,7 @@ class UserProductsRepository {
   }
 
   Future<Either<String, Unit>> createCatalog({
-    required ProductFirebaseLiteModel productLite,
+    VideoPostModel? videoPostModel,
     required String catalogName,
   }) async {
     Map<String, String> userData = getUidAndEmail();
@@ -211,19 +216,26 @@ class UserProductsRepository {
     String email = userData['email'] ?? '';
 
     String id = Uuid().v4();
+
+    String imageUrl = '';
+    List<dynamic> listVideos = [];
+
+    if (videoPostModel != null) {
+      imageUrl = videoPostModel.product!.thumbnail ?? '';
+      listVideos.add(videoPostModel.toDocument());
+    }
+
     try {
       await _firebaseFirestore
           .collection('users')
           .doc(uid)
-          .collection('catalogs')
+          .collection('video_catalogs')
           .doc(id)
           .set({
         'id': id,
         'name': catalogName,
-        'imageUrl': productLite.thumbnail,
-        'products': [
-          productLite.toJson(),
-        ],
+        'imageUrl': imageUrl,
+        'videos': listVideos,
         'createdBy': email,
         'createdByUserId': uid,
         'createdAt': DateTime.now(),
@@ -237,7 +249,8 @@ class UserProductsRepository {
 
   Future<Either<String, Unit>> updateCatalogListProducts({
     required String catalogId,
-    required List<dynamic> products,
+    required String imageUrl,
+    required List<dynamic> videos,
   }) async {
     Map<String, String> userData = getUidAndEmail();
     String uid = userData['uid'] ?? '';
@@ -246,9 +259,12 @@ class UserProductsRepository {
       await _firebaseFirestore
           .collection('users')
           .doc(uid)
-          .collection('catalogs')
+          .collection('video_catalogs')
           .doc(catalogId)
-          .update({'products': products});
+          .update({
+        'videos': videos,
+        'imageUrl': imageUrl,
+      });
 
       return right(unit);
     } on FirebaseException catch (e) {
@@ -257,21 +273,36 @@ class UserProductsRepository {
   }
 
   Future<Either<String, Unit>> addToCart({
-    required ProductFirebaseLiteModel productLite,
+    required VideoPostModel video,
+    required int quantity,
+    required int stock,
+    required double price,
+    required double suggestedPrice,
+    required int points,
+    ProductVariantCombinationModel? productVariantCombination,
   }) async {
     Map<String, String> userData = getUidAndEmail();
     String uid = userData['uid'] ?? '';
     String email = userData['email'] ?? '';
-    String productId = productLite.id;
+    String id = Uuid().v4();
+
     try {
       await _firebaseFirestore
           .collection('users')
           .doc(uid)
-          .collection('cart')
-          .doc(productId)
+          .collection('video_cart')
+          .doc(id)
           .set({
-        'product': productLite.toDocument(),
-        'isAnonymous': false,
+        'id': id,
+        'video': video.toDocument(),
+        'productCombination': productVariantCombination != null
+            ? productVariantCombination.toDocument()
+            : null,
+        'quantity': quantity,
+        'stock': stock,
+        'price': price,
+        'suggestedPrice': suggestedPrice,
+        'points': points,
         'createdBy': email,
         'createdByUserId': uid,
         'createdAt': DateTime.now(),
@@ -283,18 +314,41 @@ class UserProductsRepository {
   }
 
   Future<Either<String, Unit>> removeFromCart({
-    required ProductFirebaseLiteModel productLite,
+    required UserProductCartModel cart,
   }) async {
     Map<String, String> userData = getUidAndEmail();
     String uid = userData['uid'] ?? '';
-    String productId = productLite.id;
+    String cartId = cart.id;
     try {
       await _firebaseFirestore
           .collection('users')
           .doc(uid)
-          .collection('cart')
-          .doc(productId)
+          .collection('video_cart')
+          .doc(cartId)
           .delete();
+      return right(unit);
+    } on FirebaseException catch (e) {
+      return left(e.code);
+    }
+  }
+
+  Future<Either<String, Unit>> clearCart() async {
+    Map<String, String> userData = getUidAndEmail();
+    String uid = userData['uid'] ?? '';
+
+    try {
+      // Obtén todos los documentos de la colección
+      QuerySnapshot snapshot = await _firebaseFirestore
+          .collection('users')
+          .doc(uid)
+          .collection('video_cart')
+          .get();
+
+      // Elimina cada documento de la colección
+      for (QueryDocumentSnapshot doc in snapshot.docs) {
+        await doc.reference.delete();
+      }
+
       return right(unit);
     } on FirebaseException catch (e) {
       return left(e.code);

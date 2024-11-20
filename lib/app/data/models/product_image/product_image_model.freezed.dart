@@ -22,11 +22,9 @@ ProductImageModel _$ProductImageModelFromJson(Map<String, dynamic> json) {
 mixin _$ProductImageModel {
   String get name => throw _privateConstructorUsedError;
   String get id => throw _privateConstructorUsedError;
-  String get createdAt => throw _privateConstructorUsedError;
   String get imageUrl => throw _privateConstructorUsedError;
   String? get searchField => throw _privateConstructorUsedError;
   dynamic get reference => throw _privateConstructorUsedError;
-  String? get updatedAt => throw _privateConstructorUsedError;
 
   /// Serializes this ProductImageModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -47,11 +45,9 @@ abstract class $ProductImageModelCopyWith<$Res> {
   $Res call(
       {String name,
       String id,
-      String createdAt,
       String imageUrl,
       String? searchField,
-      dynamic reference,
-      String? updatedAt});
+      dynamic reference});
 }
 
 /// @nodoc
@@ -71,11 +67,9 @@ class _$ProductImageModelCopyWithImpl<$Res, $Val extends ProductImageModel>
   $Res call({
     Object? name = null,
     Object? id = null,
-    Object? createdAt = null,
     Object? imageUrl = null,
     Object? searchField = freezed,
     Object? reference = freezed,
-    Object? updatedAt = freezed,
   }) {
     return _then(_value.copyWith(
       name: null == name
@@ -85,10 +79,6 @@ class _$ProductImageModelCopyWithImpl<$Res, $Val extends ProductImageModel>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
               as String,
       imageUrl: null == imageUrl
           ? _value.imageUrl
@@ -102,10 +92,6 @@ class _$ProductImageModelCopyWithImpl<$Res, $Val extends ProductImageModel>
           ? _value.reference
           : reference // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      updatedAt: freezed == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as String?,
     ) as $Val);
   }
 }
@@ -121,11 +107,9 @@ abstract class _$$ProductImageModelImplCopyWith<$Res>
   $Res call(
       {String name,
       String id,
-      String createdAt,
       String imageUrl,
       String? searchField,
-      dynamic reference,
-      String? updatedAt});
+      dynamic reference});
 }
 
 /// @nodoc
@@ -143,11 +127,9 @@ class __$$ProductImageModelImplCopyWithImpl<$Res>
   $Res call({
     Object? name = null,
     Object? id = null,
-    Object? createdAt = null,
     Object? imageUrl = null,
     Object? searchField = freezed,
     Object? reference = freezed,
-    Object? updatedAt = freezed,
   }) {
     return _then(_$ProductImageModelImpl(
       name: null == name
@@ -157,10 +139,6 @@ class __$$ProductImageModelImplCopyWithImpl<$Res>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
               as String,
       imageUrl: null == imageUrl
           ? _value.imageUrl
@@ -174,10 +152,6 @@ class __$$ProductImageModelImplCopyWithImpl<$Res>
           ? _value.reference
           : reference // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      updatedAt: freezed == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as String?,
     ));
   }
 }
@@ -188,11 +162,9 @@ class _$ProductImageModelImpl extends _ProductImageModel {
   const _$ProductImageModelImpl(
       {required this.name,
       required this.id,
-      required this.createdAt,
       required this.imageUrl,
       this.searchField,
-      this.reference,
-      this.updatedAt})
+      this.reference})
       : super._();
 
   factory _$ProductImageModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -203,19 +175,15 @@ class _$ProductImageModelImpl extends _ProductImageModel {
   @override
   final String id;
   @override
-  final String createdAt;
-  @override
   final String imageUrl;
   @override
   final String? searchField;
   @override
   final dynamic reference;
-  @override
-  final String? updatedAt;
 
   @override
   String toString() {
-    return 'ProductImageModel(name: $name, id: $id, createdAt: $createdAt, imageUrl: $imageUrl, searchField: $searchField, reference: $reference, updatedAt: $updatedAt)';
+    return 'ProductImageModel(name: $name, id: $id, imageUrl: $imageUrl, searchField: $searchField, reference: $reference)';
   }
 
   @override
@@ -225,21 +193,17 @@ class _$ProductImageModelImpl extends _ProductImageModel {
             other is _$ProductImageModelImpl &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt) &&
             (identical(other.imageUrl, imageUrl) ||
                 other.imageUrl == imageUrl) &&
             (identical(other.searchField, searchField) ||
                 other.searchField == searchField) &&
-            const DeepCollectionEquality().equals(other.reference, reference) &&
-            (identical(other.updatedAt, updatedAt) ||
-                other.updatedAt == updatedAt));
+            const DeepCollectionEquality().equals(other.reference, reference));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, name, id, createdAt, imageUrl,
-      searchField, const DeepCollectionEquality().hash(reference), updatedAt);
+  int get hashCode => Object.hash(runtimeType, name, id, imageUrl, searchField,
+      const DeepCollectionEquality().hash(reference));
 
   /// Create a copy of ProductImageModel
   /// with the given fields replaced by the non-null parameter values.
@@ -262,11 +226,9 @@ abstract class _ProductImageModel extends ProductImageModel {
   const factory _ProductImageModel(
       {required final String name,
       required final String id,
-      required final String createdAt,
       required final String imageUrl,
       final String? searchField,
-      final dynamic reference,
-      final String? updatedAt}) = _$ProductImageModelImpl;
+      final dynamic reference}) = _$ProductImageModelImpl;
   const _ProductImageModel._() : super._();
 
   factory _ProductImageModel.fromJson(Map<String, dynamic> json) =
@@ -277,15 +239,11 @@ abstract class _ProductImageModel extends ProductImageModel {
   @override
   String get id;
   @override
-  String get createdAt;
-  @override
   String get imageUrl;
   @override
   String? get searchField;
   @override
   dynamic get reference;
-  @override
-  String? get updatedAt;
 
   /// Create a copy of ProductImageModel
   /// with the given fields replaced by the non-null parameter values.

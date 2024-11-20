@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_estrellas/app/app/controllers/main_controller.dart';
 import 'package:flutter_estrellas/app/routes/app_pages.dart';
 import 'package:get/get.dart';
 
@@ -7,21 +8,30 @@ import '../../../themes/styles/colors.dart';
 import '../../../themes/styles/typography.dart';
 
 class Bottombar extends StatelessWidget {
-  const Bottombar({required this.viewSelected, super.key});
+  const Bottombar({
+    required this.viewSelected,
+    this.isDarkTheme = false,
+    super.key,
+  });
 
   final int viewSelected;
+  final bool isDarkTheme;
   @override
   Widget build(BuildContext context) {
-    return Center(
+    MainController mainController = Get.find<MainController>();
+    return SafeArea(
       child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 16),
         padding: EdgeInsets.symmetric(horizontal: 16),
         height: 66,
         decoration: BoxDecoration(
-          color: neutral900,
+          color: isDarkTheme ? neutral900 : neutral50,
           borderRadius: BorderRadius.circular(16),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.3),
+              color: isDarkTheme
+                  ? Colors.black.withOpacity(0.3)
+                  : Colors.black.withOpacity(0.05),
               spreadRadius: 1,
               blurRadius: 10,
               offset: Offset(0, 3),
@@ -32,6 +42,7 @@ class Bottombar extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             buttonCard(
+              isDarkTheme: isDarkTheme,
               label: 'Home',
               icon: EstrellasIcons.house,
               iconActive: EstrellasIcons.houseFill,
@@ -43,59 +54,71 @@ class Bottombar extends StatelessWidget {
               },
             ),
             buttonCard(
+              isDarkTheme: isDarkTheme,
               label: 'Billetera',
               icon: EstrellasIcons.wallet,
               iconActive: EstrellasIcons.walletFill,
               isActive: viewSelected == 1,
               onTap: () {
-                String route = Routes.WALLET;
-                if (viewSelected == 0) {
-                  Get.toNamed(route);
-                } else {
-                  Get.offNamed(route);
-                }
+                mainController.actionNeedLogin(() {
+                  String route = Routes.WALLET;
+                  if (viewSelected == 0) {
+                    Get.toNamed(route);
+                  } else {
+                    Get.offNamed(route);
+                  }
+                });
               },
             ),
             buttonCard(
+              isDarkTheme: isDarkTheme,
               label: 'Buscar',
               icon: EstrellasIcons.search,
               iconActive: EstrellasIcons.searchFill,
               isActive: viewSelected == 2,
               onTap: () {
-                String route = Routes.SEARCH;
-                if (viewSelected == 0) {
-                  Get.toNamed(route);
-                } else {
-                  Get.offNamed(route);
-                }
+                mainController.actionNeedLogin(() {
+                  String route = Routes.SEARCH;
+                  if (viewSelected == 0) {
+                    Get.toNamed(route);
+                  } else {
+                    Get.offNamed(route);
+                  }
+                });
               },
             ),
             buttonCard(
-              label: 'Tienda',
+              isDarkTheme: isDarkTheme,
+              label: 'Catálogo',
               icon: EstrellasIcons.storefront,
               iconActive: EstrellasIcons.storefrontFill,
               isActive: viewSelected == 3,
               onTap: () {
-                String route = Routes.STORE;
-                if (viewSelected == 0) {
-                  Get.toNamed(route);
-                } else {
-                  Get.offNamed(route);
-                }
+                mainController.actionNeedLogin(() {
+                  String route = Routes.STORE;
+                  if (viewSelected == 0) {
+                    Get.toNamed(route);
+                  } else {
+                    Get.offNamed(route);
+                  }
+                });
               },
             ),
             buttonCard(
+              isDarkTheme: isDarkTheme,
               label: 'Cuenta',
               icon: EstrellasIcons.userCircle,
               iconActive: EstrellasIcons.userCircle1,
               isActive: viewSelected == 4,
               onTap: () {
-                String route = Routes.ACCOUNT;
-                if (viewSelected == 0) {
-                  Get.toNamed(route);
-                } else {
-                  Get.offNamed(route);
-                }
+                mainController.actionNeedLogin(() {
+                  String route = Routes.ACCOUNT;
+                  if (viewSelected == 0) {
+                    Get.toNamed(route);
+                  } else {
+                    Get.offNamed(route);
+                  }
+                });
               },
             ),
           ],
@@ -110,6 +133,7 @@ class Bottombar extends StatelessWidget {
     required IconData iconActive,
     required bool isActive,
     required Function() onTap,
+    required bool isDarkTheme,
   }) {
     return Material(
       color: Colors.transparent,
@@ -132,13 +156,16 @@ class Bottombar extends StatelessWidget {
               SizedBox(height: 8),
               Icon(
                 isActive ? iconActive : icon,
-                color: isActive ? primaryBase : neutral400,
+                color: isActive
+                    ? primaryBase
+                    : (isDarkTheme ? neutral400 : neutral900),
                 size: 28,
               ),
               Text(
                 label,
-                style: TypographyStyle.bodyBlackSmall
-                    .copyWith(color: neutral400, fontWeight: FontWeight.w500),
+                style: TypographyStyle.bodyBlackSmall.copyWith(
+                    color: isDarkTheme ? neutral400 : neutral900,
+                    fontWeight: FontWeight.w500),
               ),
             ],
           ),

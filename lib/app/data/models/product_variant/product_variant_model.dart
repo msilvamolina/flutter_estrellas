@@ -15,27 +15,17 @@ abstract class ProductVariantModel implements _$ProductVariantModel {
     required String id,
     required String name,
     required String label,
-    required String createdAt,
     required String type,
     String? imageUrl,
     int? color,
     String? searchField,
-    dynamic reference,
-    String? updatedAt,
   }) = _ProductVariantModel;
 
   factory ProductVariantModel.fromJson(Map<String, dynamic> json) =>
       _$ProductVariantModelFromJson(json);
 
   factory ProductVariantModel.fromDocument(DocumentSnapshot doc) {
-    ProductVariantModel data =
-        ProductVariantModel.fromJson(ModelHelpers.fromDocument(doc.data()!));
-    String searchField = data.name;
-
-    return data.copyWith(
-      reference: doc.reference,
-      searchField: FriendlyHelpers.friendlySearchField(searchField),
-    );
+    return ProductVariantModel.fromJson(ModelHelpers.fromDocument(doc.data()!));
   }
 
   Map<String, dynamic> toDocument() => ModelHelpers.toDocument(toJson());
