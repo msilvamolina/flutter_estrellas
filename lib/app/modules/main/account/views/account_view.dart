@@ -63,93 +63,89 @@ class AccountView extends GetView<AccountController> {
         viewSelected: 4,
         isDarkTheme: false,
       ),
-      body: Column(
-        children: [
-          SingleChildScrollView(
-            child: Column(
-              children: [
-                accountUser(
-                  onTap: () => Get.toNamed(Routes.PROFILE),
-                  icon: EstrellasIcons.user,
-                  title: controller.mainController.userEmail ?? '',
-                ),
-                SizedBox(height: 26),
-                accountTile(
-                  onTap: () => Get.toNamed(Routes.FAVORITES),
-                  icon: EstrellasIcons.star,
-                  title: 'Favoritos',
-                ),
-                accountTile(
-                  onTap: () => Get.toNamed(Routes.ORDERS),
-                  icon: EstrellasIcons.stack,
-                  title: 'Órdenes',
-                ),
-                accountTile(
-                  onTap: () => Get.toNamed(Routes.BANK_ACCOUNTS),
-                  icon: EstrellasIcons.creditCard,
-                  title: 'Mis cuentas bancarias',
-                ),
-                accountTile(
-                  onTap: () {},
-                  icon: EstrellasIcons.graduationCap,
-                  title: 'Academia',
-                  isExternal: true,
-                ),
-                accountTile(
-                  onTap: () {},
-                  icon: EstrellasIcons.lifebuoy,
-                  title: 'Ayuda',
-                  isExternal: true,
-                ),
-                accountTile(
-                  onTap: () => Get.toNamed(Routes.ABOUT),
-                  icon: EstrellasIcons.question,
-                  title: 'Acerca de estrellas',
-                ),
-                accountTile(
-                  onTap: controller.signOut,
-                  icon: EstrellasIcons.signOut,
-                  title: 'Cerrar Sesión',
-                  isDestructive: true,
-                ),
-                SizedBox(height: 26),
-                if (Environment.instance.currentEnv != Env.prod) ...[
-                  if (Environment.instance.fullVersion != null)
-                    Text(
-                      Environment.instance.fullVersion.toString(),
-                      style: TypographyStyle.bodyRegularLarge.copyWith(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  if (Environment.instance.currentEnv != null)
-                    Text(
-                      Environment.instance.currentEnv.toString(),
-                      style: TypographyStyle.bodyRegularLarge.copyWith(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                ] else if (Environment.instance.version != null)
-                  Text(
-                    Environment.instance.version.toString(),
-                    style: TypographyStyle.bodyRegularLarge.copyWith(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            accountUser(
+              onTap: () => Get.toNamed(Routes.PROFILE),
+              icon: EstrellasIcons.user,
+              title: controller.mainController.userEmail ?? '',
+            ),
+            SizedBox(height: 26),
+            accountTile(
+              onTap: () => Get.toNamed(Routes.FAVORITES),
+              icon: EstrellasIcons.star,
+              title: 'Favoritos',
+            ),
+            accountTile(
+              onTap: () => Get.toNamed(Routes.ORDERS),
+              icon: EstrellasIcons.stack,
+              title: 'Órdenes',
+            ),
+            accountTile(
+              onTap: () => Get.toNamed(Routes.BANK_ACCOUNTS),
+              icon: EstrellasIcons.creditCard,
+              title: 'Mis cuentas bancarias',
+            ),
+            accountTile(
+              onTap: () {},
+              icon: EstrellasIcons.graduationCap,
+              title: 'Academia',
+              isExternal: true,
+            ),
+            accountTile(
+              onTap: () {},
+              icon: EstrellasIcons.lifebuoy,
+              title: 'Ayuda',
+              isExternal: true,
+            ),
+            accountTile(
+              onTap: () => Get.toNamed(Routes.ABOUT),
+              icon: EstrellasIcons.question,
+              title: 'Acerca de estrellas',
+            ),
+            accountTile(
+              onTap: controller.signOut,
+              icon: EstrellasIcons.signOut,
+              title: 'Cerrar Sesión',
+              isDestructive: true,
+            ),
+            SizedBox(height: 26),
+            if (Environment.instance.currentEnv != Env.prod) ...[
+              if (Environment.instance.fullVersion != null)
                 Text(
-                  '© Estrellas APP',
+                  Environment.instance.fullVersion.toString(),
                   style: TypographyStyle.bodyRegularLarge.copyWith(
                     fontSize: 14,
-                    fontWeight: FontWeight.w400,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
-                SizedBox(height: 26),
-              ],
+              if (Environment.instance.currentEnv != null)
+                Text(
+                  Environment.instance.currentEnv.toString(),
+                  style: TypographyStyle.bodyRegularLarge.copyWith(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+            ] else if (Environment.instance.version != null)
+              Text(
+                Environment.instance.version.toString(),
+                style: TypographyStyle.bodyRegularLarge.copyWith(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            Text(
+              '© Estrellas APP',
+              style: TypographyStyle.bodyRegularLarge.copyWith(
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
+              ),
             ),
-          ),
-        ],
+            SizedBox(height: 26),
+          ],
+        ),
       ),
     );
   }
