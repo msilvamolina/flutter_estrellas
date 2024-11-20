@@ -19,7 +19,6 @@ void main() async {
   await initFirebase();
 
   DependecyInjection.init();
-
   runApp(
     const MyApp(),
   );
