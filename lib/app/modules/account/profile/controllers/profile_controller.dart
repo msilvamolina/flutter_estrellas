@@ -89,8 +89,10 @@ class ProfileController extends GetxController {
       isoCode: phone.isoCode.name,
     );
 
-    Get.toNamed(Routes.PHONE_VERIFICATION, arguments: newPhoneData);
+    final result =
+        await Get.toNamed(Routes.PHONE_VERIFICATION, arguments: newPhoneData);
 
+    print('controller result $result');
     // mainController.showLoader(
     //   title: 'Guardando',
     // );
