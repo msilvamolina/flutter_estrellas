@@ -66,10 +66,13 @@ class AccountView extends GetView<AccountController> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            accountUser(
-              onTap: () => Get.toNamed(Routes.PROFILE),
-              icon: EstrellasIcons.user,
-              title: controller.mainController.userEmail ?? '',
+            Obx(
+              () => accountUser(
+                onTap: controller.goToProfile,
+                icon: EstrellasIcons.user,
+                title: controller.userTitle.value ?? '',
+                image: controller.userImage.value,
+              ),
             ),
             SizedBox(height: 26),
             accountTile(
@@ -154,6 +157,7 @@ class AccountView extends GetView<AccountController> {
     required Function()? onTap,
     required IconData icon,
     required String title,
+    String? image,
   }) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 16),
@@ -161,20 +165,31 @@ class AccountView extends GetView<AccountController> {
         onTap: onTap,
         leading: Container(
           margin: EdgeInsets.only(
-            left: 16,
+            left: 0,
           ),
           padding: EdgeInsets.all(12),
           decoration: BoxDecoration(
+              image: image != null
+                  ? DecorationImage(
+                      image: NetworkImage(image),
+                      fit: BoxFit.cover,
+                    )
+                  : null,
               border: Border.all(
                 color: neutral950,
               ),
               color: Colors.transparent,
               borderRadius: BorderRadius.all(Radius.circular(12))),
-          child: Icon(
-            icon,
-            size: 26,
-            color: neutral950,
-          ),
+          child: image == null || image == 'null'
+              ? Icon(
+                  icon,
+                  size: 26,
+                  color: neutral950,
+                )
+              : SizedBox(
+                  width: 24,
+                  height: 24,
+                ),
         ),
         title: Text(
           title,

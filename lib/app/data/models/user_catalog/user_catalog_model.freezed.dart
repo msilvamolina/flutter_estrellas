@@ -22,7 +22,7 @@ UserCatalogModel _$UserCatalogModelFromJson(Map<String, dynamic> json) {
 mixin _$UserCatalogModel {
   String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
-  String? get imageUrl => throw _privateConstructorUsedError;
+  String get imageUrl => throw _privateConstructorUsedError;
   List<VideoPostModel>? get videos => throw _privateConstructorUsedError;
 
   /// Serializes this UserCatalogModel to a JSON map.
@@ -42,7 +42,7 @@ abstract class $UserCatalogModelCopyWith<$Res> {
       _$UserCatalogModelCopyWithImpl<$Res, UserCatalogModel>;
   @useResult
   $Res call(
-      {String id, String name, String? imageUrl, List<VideoPostModel>? videos});
+      {String id, String name, String imageUrl, List<VideoPostModel>? videos});
 }
 
 /// @nodoc
@@ -62,7 +62,7 @@ class _$UserCatalogModelCopyWithImpl<$Res, $Val extends UserCatalogModel>
   $Res call({
     Object? id = null,
     Object? name = null,
-    Object? imageUrl = freezed,
+    Object? imageUrl = null,
     Object? videos = freezed,
   }) {
     return _then(_value.copyWith(
@@ -74,10 +74,10 @@ class _$UserCatalogModelCopyWithImpl<$Res, $Val extends UserCatalogModel>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      imageUrl: freezed == imageUrl
+      imageUrl: null == imageUrl
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       videos: freezed == videos
           ? _value.videos
           : videos // ignore: cast_nullable_to_non_nullable
@@ -95,7 +95,7 @@ abstract class _$$UserCatalogModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String id, String name, String? imageUrl, List<VideoPostModel>? videos});
+      {String id, String name, String imageUrl, List<VideoPostModel>? videos});
 }
 
 /// @nodoc
@@ -113,7 +113,7 @@ class __$$UserCatalogModelImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? name = null,
-    Object? imageUrl = freezed,
+    Object? imageUrl = null,
     Object? videos = freezed,
   }) {
     return _then(_$UserCatalogModelImpl(
@@ -125,10 +125,10 @@ class __$$UserCatalogModelImplCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      imageUrl: freezed == imageUrl
+      imageUrl: null == imageUrl
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       videos: freezed == videos
           ? _value._videos
           : videos // ignore: cast_nullable_to_non_nullable
@@ -143,7 +143,7 @@ class _$UserCatalogModelImpl extends _UserCatalogModel {
   const _$UserCatalogModelImpl(
       {required this.id,
       required this.name,
-      this.imageUrl,
+      required this.imageUrl,
       final List<VideoPostModel>? videos})
       : _videos = videos,
         super._();
@@ -156,7 +156,7 @@ class _$UserCatalogModelImpl extends _UserCatalogModel {
   @override
   final String name;
   @override
-  final String? imageUrl;
+  final String imageUrl;
   final List<VideoPostModel>? _videos;
   @override
   List<VideoPostModel>? get videos {
@@ -210,7 +210,7 @@ abstract class _UserCatalogModel extends UserCatalogModel {
   const factory _UserCatalogModel(
       {required final String id,
       required final String name,
-      final String? imageUrl,
+      required final String imageUrl,
       final List<VideoPostModel>? videos}) = _$UserCatalogModelImpl;
   const _UserCatalogModel._() : super._();
 
@@ -222,7 +222,7 @@ abstract class _UserCatalogModel extends UserCatalogModel {
   @override
   String get name;
   @override
-  String? get imageUrl;
+  String get imageUrl;
   @override
   List<VideoPostModel>? get videos;
 

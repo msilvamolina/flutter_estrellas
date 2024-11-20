@@ -35,7 +35,7 @@ class EmailVerificationView extends GetView<EmailVerificationController> {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Button(
-            label: 'Verificar código',
+            label: 'Entendido',
             onPressed: () {},
             style: ButtonStyles.primary,
           ),
@@ -82,7 +82,7 @@ class EmailVerificationView extends GetView<EmailVerificationController> {
                     () => RichText(
                       textAlign: TextAlign.start,
                       text: TextSpan(
-                        text: 'Te enviamos un código de 5 dígitos a ',
+                        text: 'Te enviamos un enlace de validación a ',
                         style: TypographyStyle.bodyRegularLarge
                             .copyWith(color: neutral800),
                         children: <TextSpan>[
@@ -95,20 +95,13 @@ class EmailVerificationView extends GetView<EmailVerificationController> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 26),
-                  CustomPinInputCode(
-                    length: 6,
-                    validator: (value) {
-                      return value == '123456' ? null : 'Código inválido';
-                    },
-                    onCompleted: (pin) {
-                      print('Código ingresado: $pin');
-                    },
-                    onChanged: (value) {
-                      print('Cambio en el código: $value');
-                    },
+                  SizedBox(height: 20),
+                  Text(
+                    'Ten en cuenta revisar tu bandeja de spam.',
+                    style: TypographyStyle.bodyRegularLarge
+                        .copyWith(color: neutral800),
                   ),
-                  SizedBox(height: 26),
+                  SizedBox(height: 8),
                   Obx(
                     () => AnimatedCrossFade(
                       duration: Duration(milliseconds: 300),
@@ -121,12 +114,12 @@ class EmailVerificationView extends GetView<EmailVerificationController> {
                           textAlign: TextAlign.start,
                           text: TextSpan(
                             text: 'Puedes pedir otro código en ',
-                            style: TypographyStyle.bodyRegularLarge
+                            style: TypographyStyle.bodyRegularMedium
                                 .copyWith(color: neutral800),
                             children: <TextSpan>[
                               TextSpan(
                                 text: '${controller.timeLeft.value}s',
-                                style: TypographyStyle.bodyBlackLarge
+                                style: TypographyStyle.bodyRegularMedium
                                     .copyWith(color: secondaryBase),
                               ),
                             ],
@@ -138,10 +131,10 @@ class EmailVerificationView extends GetView<EmailVerificationController> {
                         child: Row(
                           children: [
                             Text(
-                              '¿No te llegó el código?',
+                              '¿No te llegó el correo?',
                               textAlign: TextAlign.start,
                               style:
-                                  TypographyStyle.bodyRegularLarge.copyWith(),
+                                  TypographyStyle.bodyRegularMedium.copyWith(),
                             ),
                             Button(
                               onPressed: controller.tryAgain,
@@ -153,7 +146,6 @@ class EmailVerificationView extends GetView<EmailVerificationController> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 16),
                 ],
               ),
             ),

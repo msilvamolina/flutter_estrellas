@@ -3,6 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../helpers/friendly_helpers.dart';
 import '../../helpers/model_helpers.dart';
+import '../phone/phone_model.dart';
 
 part 'user_data.freezed.dart';
 part 'user_data.g.dart';
@@ -13,16 +14,11 @@ abstract class UserData implements _$UserData {
 
   const factory UserData({
     required String uid,
+    required String fullName,
     required String email,
-    required String username,
-    required String firstName,
-    required String lastName,
-    required String createdBy,
-    String? searchField,
-    dynamic reference,
-    String? defaultCurrency,
-    Map<String, dynamic>? currencies,
-    @Default(false) bool isAnonymous,
+    required String document,
+    PhoneModel? phone,
+    String? imageUrl,
   }) = _UserData;
 
   factory UserData.fromJson(Map<String, dynamic> json) =>
@@ -30,12 +26,7 @@ abstract class UserData implements _$UserData {
 
   factory UserData.fromDocument(DocumentSnapshot doc) {
     UserData data = UserData.fromJson(ModelHelpers.fromDocument(doc.data()!));
-    String searchField = '${data.firstName} ${data.lastName} ${data.username}';
-
-    return data.copyWith(
-      reference: doc.reference,
-      searchField: FriendlyHelpers.friendlySearchField(searchField),
-    );
+    return data;
   }
 
   Map<String, dynamic> toDocument() => ModelHelpers.toDocument(toJson());

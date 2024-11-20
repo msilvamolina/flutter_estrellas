@@ -59,7 +59,7 @@ class CustomPhoneInput extends StatelessWidget {
       ),
       countrySelectorNavigator: CountrySelectorNavigator.dialog(
         searchBoxTextStyle: TypographyStyle.bodyRegularLarge,
-        countries: [IsoCode.CO],
+        countries: [IsoCode.CO, IsoCode.AR, IsoCode.HR, IsoCode.IT],
       ),
     );
   }

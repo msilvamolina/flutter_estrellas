@@ -44,7 +44,8 @@ class Bottomsheets {
     );
   }
 
-  static void staticBottomSheet(BottomSheetTypes type) {
+  static void staticBottomSheet(BottomSheetTypes type,
+      {bool isDismissible = true}) {
     showModalBottomSheet(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
@@ -52,6 +53,7 @@ class Bottomsheets {
           topRight: Radius.circular(16),
         ),
       ),
+      isDismissible: isDismissible,
       isScrollControlled: true,
       context: Get.context!,
       backgroundColor: Colors.transparent,

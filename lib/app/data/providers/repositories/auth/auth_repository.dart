@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_estrellas/app/data/models/phone/phone_model.dart';
 
 class AuthRepository {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -31,6 +32,27 @@ class AuthRepository {
         password: password,
       );
       return right(unit);
+    } on FirebaseAuthException catch (e) {
+      return left(e.code);
+    }
+  }
+
+  Future<Either<String, Unit>> verifyPhoneNumber({
+    required String verificationId,
+    required String smsCode,
+  }) async {
+    try {
+      final cred = PhoneAuthProvider.credential(
+          verificationId: verificationId, smsCode: smsCode);
+
+      final currentUser = _firebaseAuth.currentUser;
+
+      if (currentUser != null) {
+        await currentUser.linkWithCredential(cred);
+        return right(unit);
+      } else {
+        return left('No hay un usuario con la sesión abierta');
+      }
     } on FirebaseAuthException catch (e) {
       return left(e.code);
     }

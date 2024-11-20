@@ -6,6 +6,7 @@ class CustomPinInputCode extends StatefulWidget {
   const CustomPinInputCode({
     Key? key,
     required this.length,
+    required this.pinController,
     this.validator,
     this.onCompleted,
     this.onChanged,
@@ -15,13 +16,12 @@ class CustomPinInputCode extends StatefulWidget {
   final String? Function(String?)? validator;
   final void Function(String)? onCompleted;
   final void Function(String)? onChanged;
-
+  final TextEditingController pinController;
   @override
   State<CustomPinInputCode> createState() => _CustomPinInputCodeState();
 }
 
 class _CustomPinInputCodeState extends State<CustomPinInputCode> {
-  late final TextEditingController pinController;
   late final FocusNode focusNode;
   late final GlobalKey<FormState> formKey;
 
@@ -29,13 +29,12 @@ class _CustomPinInputCodeState extends State<CustomPinInputCode> {
   void initState() {
     super.initState();
     formKey = GlobalKey<FormState>();
-    pinController = TextEditingController();
     focusNode = FocusNode();
   }
 
   @override
   void dispose() {
-    pinController.dispose();
+    widget.pinController.dispose();
     focusNode.dispose();
     super.dispose();
   }
@@ -72,7 +71,7 @@ class _CustomPinInputCodeState extends State<CustomPinInputCode> {
         child: Pinput(
           length: widget.length,
           autofocus: true,
-          controller: pinController,
+          controller: widget.pinController,
           focusNode: focusNode,
           defaultPinTheme: defaultPinTheme,
           separatorBuilder: (index) =>
