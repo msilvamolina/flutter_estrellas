@@ -41,9 +41,17 @@ class ProfileView extends GetView<ProfileController> {
               width: double.infinity,
               child: Column(
                 children: [
-                  PhotoCardEmpty(
-                    isFull: true,
-                    // imageUrl: 'assets/images/product.png',
+                  GetBuilder<ProfileController>(
+                    id: 'photo_card',
+                    builder: (_) {
+                      return GestureDetector(
+                        onTap: controller.pickImage,
+                        child: PhotoCardEmpty(
+                          isFull: true,
+                          imageUrl: controller.imagePath,
+                        ),
+                      );
+                    },
                   ),
                   SizedBox(height: 8),
                   Text(

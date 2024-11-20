@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:reactive_phone_form_field/reactive_phone_form_field.dart';
 
+import '../../../../utils/utils_image.dart';
+
 enum Fields {
   fullname('fullname'),
   document('document'),
@@ -18,6 +20,9 @@ enum Fields {
 
 class ProfileController extends GetxController {
   MainController mainController = Get.find<MainController>();
+  String? _imagePath;
+  String? get imagePath => _imagePath;
+
   FormGroup buildForm() => fb.group(<String, Object>{
         Fields.fullname.name: FormControl<String>(
           validators: [
@@ -64,6 +69,11 @@ class ProfileController extends GetxController {
   @override
   void onClose() {
     super.onClose();
+  }
+
+  Future<void> pickImage() async {
+    _imagePath = await UtilsImage.pickImage();
+    update(['photo_card']);
   }
 
   Future<void> sendForm(Map<String, Object?> data) async {
