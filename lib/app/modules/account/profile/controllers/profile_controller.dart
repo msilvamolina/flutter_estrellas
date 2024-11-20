@@ -112,6 +112,7 @@ class ProfileController extends GetxController {
         phone: newPhoneData,
         fullName: fullname,
         email: email,
+        imagePath: _imagePath,
       );
       Get.back();
       response.fold((failure) {
