@@ -13,10 +13,10 @@ class WalletController extends GetxController {
 
   @override
   void onReady() {
-    // if (mainController.userData == null) {
-    //   Bottomsheets.staticBottomSheet(BottomSheetTypes.incompleteProfile,
-    //       isDismissible: false);
-    // }
+    if (mainController.userData == null) {
+      Bottomsheets.staticBottomSheet(BottomSheetTypes.incompleteProfile,
+          isDismissible: false);
+    }
   }
 
   @override
