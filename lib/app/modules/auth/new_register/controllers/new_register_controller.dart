@@ -113,6 +113,7 @@ class NewRegisterController extends GetxController {
       (_) {
         Get.back();
         mainController.checkUser(login: true);
+        mainController.reloadUserData();
       },
     );
   }

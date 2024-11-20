@@ -9,6 +9,7 @@ class AccountController extends GetxController {
   MainController mainController = Get.find<MainController>();
   HomeController homeController = Get.find<HomeController>();
 
+  RxnString userTitle = RxnString();
   @override
   void onInit() {
     super.onInit();
@@ -16,6 +17,10 @@ class AccountController extends GetxController {
 
   @override
   void onReady() {
+    userTitle.value = mainController.userData != null
+        ? mainController.userData?.fullName
+        : mainController.userEmail;
+
     super.onReady();
   }
 

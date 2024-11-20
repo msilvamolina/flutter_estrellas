@@ -61,6 +61,7 @@ class NewLoginController extends GetxController {
         Get.back();
 
         mainController.checkUser(login: true);
+        mainController.reloadUserData();
       },
     );
   }

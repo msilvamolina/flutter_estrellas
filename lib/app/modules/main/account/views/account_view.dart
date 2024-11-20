@@ -66,10 +66,12 @@ class AccountView extends GetView<AccountController> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            accountUser(
-              onTap: () => Get.toNamed(Routes.PROFILE),
-              icon: EstrellasIcons.user,
-              title: controller.mainController.userEmail ?? '',
+            Obx(
+              () => accountUser(
+                onTap: () => Get.toNamed(Routes.PROFILE),
+                icon: EstrellasIcons.user,
+                title: controller.userTitle?.value ?? '',
+              ),
             ),
             SizedBox(height: 26),
             accountTile(
