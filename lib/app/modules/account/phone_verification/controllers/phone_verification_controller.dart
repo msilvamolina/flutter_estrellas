@@ -36,6 +36,10 @@ class PhoneVerificationController extends GetxController {
 
   String? _userCode;
   String? get userCode => _userCode;
+
+  bool _isButtonLoading = false;
+  bool get isButtonLoading => _isButtonLoading;
+
   void startCountdown() {
     _countdownTimer?.cancel();
     const int initialTime = 120;
@@ -109,10 +113,16 @@ class PhoneVerificationController extends GetxController {
     if (userCode == null) {
       return;
     }
+    _isButtonLoading = true;
+    update(['button']);
     Either<String, Unit> response = await _authRepository.verifyPhoneNumber(
         verificationId: _verificationId!, smsCode: userCode!);
 
     response.fold((failure) {
+      pinController.text = '';
+      _isButtonLoading = false;
+      update(['button', 'phone']);
+
       Snackbars.error(failure);
     }, (_) async {
       Get.back(result: 'OK');

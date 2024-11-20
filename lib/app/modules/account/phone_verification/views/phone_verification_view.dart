@@ -28,7 +28,8 @@ class PhoneVerificationView extends GetView<PhoneVerificationController> {
           return SafeArea(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Button(
+              child: LoadingButton(
+                isLoading: controller.isButtonLoading,
                 label: 'Verificar código',
                 onPressed: controller.userCode?.length == 6
                     ? controller.startVerification
