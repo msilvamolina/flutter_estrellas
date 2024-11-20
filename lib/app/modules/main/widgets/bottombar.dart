@@ -166,6 +166,8 @@ class Bottombar extends StatelessWidget {
                 style: TypographyStyle.bodyBlackSmall.copyWith(
                     color: isDarkTheme ? neutral400 : neutral900,
                     fontWeight: FontWeight.w500),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
               ),
             ],
           ),
