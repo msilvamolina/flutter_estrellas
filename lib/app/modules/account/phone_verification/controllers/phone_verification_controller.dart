@@ -98,7 +98,9 @@ class PhoneVerificationController extends GetxController {
         _correctCode = credential.smsCode;
         update(['phone']);
       },
-      verificationFailed: (FirebaseAuthException e) {},
+      verificationFailed: (FirebaseAuthException e) {
+        Snackbars.error(e.toString());
+      },
       codeSent: (String verificationId, int? resendToken) {
         _verificationId = verificationId;
       },

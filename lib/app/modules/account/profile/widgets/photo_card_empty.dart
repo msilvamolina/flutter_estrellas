@@ -105,7 +105,7 @@ class VerticalSplitBorderPainter extends CustomPainter {
     canvas.clipRect(Rect.fromLTWH(0, 0, size.width, size.height));
     canvas.drawRRect(rrect, paintRight);
 
-    if (isFull) {
+    if (!isFull) {
       final paintLeft = Paint()
         ..color = secondaryLight
         ..strokeWidth = borderWidth;

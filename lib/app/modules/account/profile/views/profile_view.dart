@@ -44,27 +44,34 @@ class ProfileView extends GetView<ProfileController> {
                   GetBuilder<ProfileController>(
                     id: 'photo_card',
                     builder: (_) {
-                      return GestureDetector(
-                        onTap: controller.pickImage,
-                        child: PhotoCardEmpty(
-                          isFull: true,
-                          imageUrl: controller.imagePath,
-                        ),
+                      return Column(
+                        children: [
+                          GestureDetector(
+                            onTap: controller.pickImage,
+                            child: PhotoCardEmpty(
+                              isFull: controller.isFullUser,
+                              imageUrl: controller.imagePath,
+                              networkUrl: controller.imageNetwork,
+                            ),
+                          ),
+                          SizedBox(height: 8),
+                          Obx(
+                            () => Text(
+                              controller.userTitle.value ?? '',
+                              style: TypographyStyle.bodyBlackLarge,
+                            ),
+                          ),
+                          SizedBox(height: 2),
+                          Text(
+                            controller.isFullUser
+                                ? 'Estrella plus'
+                                : '50% completado',
+                            style: TypographyStyle.bodyRegularMedium
+                                .copyWith(color: secondaryBase),
+                          ),
+                        ],
                       );
                     },
-                  ),
-                  SizedBox(height: 8),
-                  Obx(
-                    () => Text(
-                      controller.userTitle.value ?? '',
-                      style: TypographyStyle.bodyBlackLarge,
-                    ),
-                  ),
-                  SizedBox(height: 2),
-                  Text(
-                    '50% completado',
-                    style: TypographyStyle.bodyRegularMedium
-                        .copyWith(color: secondaryBase),
                   ),
                   SizedBox(height: 46),
                   Padding(

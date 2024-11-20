@@ -31,7 +31,7 @@ class UserRepository {
     return _firebaseAuth.currentUser;
   }
 
-  Future<Either<String, Unit>> saveUserData({
+  Future<Either<String, String?>> saveUserData({
     required String document,
     required String fullName,
     required String email,
@@ -59,7 +59,8 @@ class UserRepository {
         'uid': uid,
         'createdAt': DateTime.now(),
       });
-      return right(unit);
+
+      return right(imageUrl);
     } on FirebaseException catch (e) {
       return left(e.code);
     }

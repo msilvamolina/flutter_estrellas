@@ -27,18 +27,36 @@ class ProfileController extends GetxController {
   final UserRepository _repository = UserRepository();
 
   MainController mainController = Get.find<MainController>();
+
   String? _imagePath;
   String? get imagePath => _imagePath;
 
+  String? _imageNetwork;
+  String? get imageNetwork => _imageNetwork;
+
   RxnString userTitle = RxnString();
+
+  bool _isFullUser = false;
+  bool get isFullUser => _isFullUser;
 
   @override
   void onReady() {
     userTitle.value = mainController.userData != null
         ? mainController.userData?.fullName
         : mainController.userEmail;
+    _imageNetwork = mainController.userData?.imageUrl;
+    checkFullUser();
+    update(['photo_card']);
 
     super.onReady();
+  }
+
+  void checkFullUser() {
+    if (mainController.userData != null) {
+      if (imageNetwork != null) {
+        _isFullUser = true;
+      }
+    }
   }
 
   FormGroup buildForm() => fb.group(<String, Object>{
@@ -107,7 +125,7 @@ class ProfileController extends GetxController {
         title: 'Guardando',
       );
 
-      Either<String, Unit> response = await _repository.saveUserData(
+      Either<String, String?> response = await _repository.saveUserData(
         document: document,
         phone: newPhoneData,
         fullName: fullname,
@@ -117,9 +135,12 @@ class ProfileController extends GetxController {
       Get.back();
       response.fold((failure) {
         Snackbars.error(failure);
-      }, (_) async {
+      }, (String? image) async {
         mainController.reloadUserData();
         userTitle.value = fullname;
+        _imageNetwork = image;
+        checkFullUser();
+        update(['photo_card']);
         Snackbars.success('Tu perfil se guardó exitosamente');
       });
     }
