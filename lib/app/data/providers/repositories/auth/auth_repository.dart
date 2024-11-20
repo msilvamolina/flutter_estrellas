@@ -37,6 +37,23 @@ class AuthRepository {
     }
   }
 
+  Future<Either<String, Unit>> verifyPhoneNumber({
+    required String verificationId,
+    required String smsCode,
+  }) async {
+    try {
+      final cred = PhoneAuthProvider.credential(
+          verificationId: verificationId, smsCode: smsCode);
+
+      print('cred $cred');
+
+      await _firebaseAuth.signInWithCredential(cred);
+      return right(unit);
+    } on FirebaseAuthException catch (e) {
+      return left(e.code);
+    }
+  }
+
   Future<String?> getUserEmail() async {
     try {
       if (_firebaseAuth.currentUser == null) {

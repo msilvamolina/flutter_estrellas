@@ -22,15 +22,22 @@ class PhoneVerificationView extends GetView<PhoneVerificationController> {
         title: const Text(''),
       ),
       extendBodyBehindAppBar: true,
-      bottomNavigationBar: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Button(
-            label: 'Verificar código',
-            onPressed: () {},
-            style: ButtonStyles.primary,
-          ),
-        ),
+      bottomNavigationBar: GetBuilder<PhoneVerificationController>(
+        id: 'button',
+        builder: (_) {
+          return SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Button(
+                label: 'Verificar código',
+                onPressed: controller.userCode?.length == 6
+                    ? controller.startVerification
+                    : null,
+                style: ButtonStyles.primary,
+              ),
+            ),
+          );
+        },
       ),
       body: SafeArea(
         child: Stack(
@@ -83,16 +90,18 @@ class PhoneVerificationView extends GetView<PhoneVerificationController> {
                     ),
                   ),
                   SizedBox(height: 26),
-                  CustomPinInputCode(
-                    length: 6,
-                    validator: (value) {
-                      return value == '123456' ? null : 'Código inválido';
-                    },
-                    onCompleted: (pin) {
-                      print('Código ingresado: $pin');
-                    },
-                    onChanged: (value) {
-                      print('Cambio en el código: $value');
+                  GetBuilder<PhoneVerificationController>(
+                    id: 'phone',
+                    builder: (_) {
+                      return CustomPinInputCode(
+                        pinController: controller.pinController,
+                        length: 6,
+                        validator: (value) {},
+                        onCompleted: (pin) {
+                          print('Código ingresado: ');
+                        },
+                        onChanged: controller.onCodeChanged,
+                      );
                     },
                   ),
                   SizedBox(height: 26),

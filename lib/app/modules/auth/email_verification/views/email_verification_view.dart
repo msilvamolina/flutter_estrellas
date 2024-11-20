@@ -96,18 +96,6 @@ class EmailVerificationView extends GetView<EmailVerificationController> {
                     ),
                   ),
                   SizedBox(height: 26),
-                  CustomPinInputCode(
-                    length: 6,
-                    validator: (value) {
-                      return value == '123456' ? null : 'Código inválido';
-                    },
-                    onCompleted: (pin) {
-                      print('Código ingresado: $pin');
-                    },
-                    onChanged: (value) {
-                      print('Cambio en el código: $value');
-                    },
-                  ),
                   SizedBox(height: 26),
                   Obx(
                     () => AnimatedCrossFade(

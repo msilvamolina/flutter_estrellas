@@ -1,10 +1,15 @@
 import 'dart:async';
 
+import 'package:dartz/dartz.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_estrellas/app/modules/auth/email_verification/widgets/custom_pin_input_code.dart';
 import 'package:get/get.dart';
 
 import '../../../../app/controllers/main_controller.dart';
 import '../../../../components/bottom_sheets/bottomsheets.dart';
 import '../../../../components/bottom_sheets/types.dart';
+import '../../../../components/snackbars/snackbars.dart';
 import '../../../../data/models/phone/phone_model.dart';
 import '../../../../data/providers/repositories/auth/auth_repository.dart';
 import '../../../../routes/app_pages.dart';
@@ -23,6 +28,14 @@ class PhoneVerificationController extends GetxController {
   Timer? _countdownTimer;
   Timer? _verificationTimer;
 
+  late TextEditingController pinController;
+
+  String? _correctCode;
+  String? get correctCode => _correctCode;
+  String? _verificationId;
+
+  String? _userCode;
+  String? get userCode => _userCode;
   void startCountdown() {
     _countdownTimer?.cancel();
     const int initialTime = 120;
@@ -43,26 +56,9 @@ class PhoneVerificationController extends GetxController {
     });
   }
 
-  void startEmailVerificationCheck() {
-    _verificationTimer?.cancel();
-
-    _verificationTimer =
-        Timer.periodic(const Duration(seconds: 3), (timer) async {
-      try {
-        final user = _authRepository.getCurrentUser();
-        if (user != null) {
-          await user.reload();
-          if (user.emailVerified) {
-            isEmailVerified.value = true;
-            timer.cancel();
-            navigateToHome();
-          }
-        }
-      } catch (e) {
-        timer.cancel();
-        rethrow;
-      }
-    });
+  void onCodeChanged(String? value) {
+    _userCode = value;
+    update(['button']);
   }
 
   void navigateToHome() {
@@ -75,6 +71,7 @@ class PhoneVerificationController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    pinController = TextEditingController();
     phone = Get.arguments as PhoneModel;
 
     startCountdown();
@@ -84,19 +81,49 @@ class PhoneVerificationController extends GetxController {
   void onReady() async {
     super.onReady();
 
-    await _authRepository.sendPhoneOTP(phone);
+    await firebaseVerification();
   }
 
-  Future<void> signOut() async {
-    Bottomsheets.staticBottomSheet(BottomSheetTypes.authSignOut);
+  Future<void> firebaseVerification() async {
+    String userPhone = '+${phone.countryCode!}${phone.number}';
+
+    await FirebaseAuth.instance.verifyPhoneNumber(
+      phoneNumber: userPhone,
+      verificationCompleted: (PhoneAuthCredential credential) {
+        pinController.text = credential.smsCode ?? '';
+        _correctCode = credential.smsCode;
+        update(['phone']);
+      },
+      verificationFailed: (FirebaseAuthException e) {},
+      codeSent: (String verificationId, int? resendToken) {
+        _verificationId = verificationId;
+      },
+      codeAutoRetrievalTimeout: (String verificationId) {},
+    );
   }
 
-  void tryAgain() {
+  Future<void> startVerification() async {
+    if (_verificationId == null) {
+      return;
+    }
+    if (userCode == null) {
+      return;
+    }
+    Either<String, Unit> response = await _authRepository.verifyPhoneNumber(
+        verificationId: _verificationId!, smsCode: userCode!);
+    Get.back();
+    response.fold((failure) {
+      Snackbars.error(failure);
+    }, (_) async {
+      Get.back(result: 'OK');
+    });
+  }
+
+  Future<void> tryAgain() async {
     isCountdownComplete.value = false;
     timeLeft.value = '02:00';
     startCountdown();
-    _authRepository.sendEmailVerification();
-    startEmailVerificationCheck();
+    await firebaseVerification();
   }
 
   @override
