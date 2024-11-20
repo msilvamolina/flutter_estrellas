@@ -172,41 +172,41 @@ class MainController extends GetxController {
     });
   }
 
-  void openLoginDialog() {
-    showDialog(
-      context: Get.context!,
-      builder: (BuildContext context) {
-        return LoginDialog();
-      },
-    );
-  }
+  // void openLoginDialog() {
+  //   showDialog(
+  //     context: Get.context!,
+  //     builder: (BuildContext context) {
+  //       return LoginDialog();
+  //     },
+  //   );
+  // }
 
-  void openRegisterDialog() {
-    if (kIsWeb) {
-      showDialog(
-        context: Get.context!,
-        builder: (BuildContext context) {
-          return RegisterDialog();
-        },
-      );
-    } else {
-      Get.toNamed(Routes.REGISTER);
-    }
-  }
+  // void openRegisterDialog() {
+  //   if (kIsWeb) {
+  //     showDialog(
+  //       context: Get.context!,
+  //       builder: (BuildContext context) {
+  //         return RegisterDialog();
+  //       },
+  //     );
+  //   } else {
+  //     Get.toNamed(Routes.REGISTER);
+  //   }
+  // }
 
-  void openRegisterBasicDataDialog() {
-    if (kIsWeb) {
-      showDialog(
-        barrierDismissible: false,
-        context: Get.context!,
-        builder: (BuildContext context) {
-          return RegisterBasicDataDialog();
-        },
-      );
-    } else {
-      Get.offAndToNamed(Routes.REGISTER_BASIC_DATA);
-    }
-  }
+  // void openRegisterBasicDataDialog() {
+  //   if (kIsWeb) {
+  //     showDialog(
+  //       barrierDismissible: false,
+  //       context: Get.context!,
+  //       builder: (BuildContext context) {
+  //         return RegisterBasicDataDialog();
+  //       },
+  //     );
+  //   } else {
+  //     Get.offAndToNamed(Routes.REGISTER_BASIC_DATA);
+  //   }
+  // }
 
   void openAlertHelpText() {
     showDialog(

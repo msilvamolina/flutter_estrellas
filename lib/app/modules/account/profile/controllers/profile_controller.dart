@@ -1,11 +1,15 @@
+import 'package:dartz/dartz.dart';
 import 'package:flutter_estrellas/app/app/controllers/main_controller.dart';
 import 'package:flutter_estrellas/app/data/models/phone/phone_model.dart';
 import 'package:flutter_estrellas/app/data/models/user_data/user_data.dart';
+import 'package:flutter_estrellas/app/data/providers/repositories/auth/user_repository.dart';
 import 'package:flutter_estrellas/app/routes/app_pages.dart';
 import 'package:get/get.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:reactive_phone_form_field/reactive_phone_form_field.dart';
 
+import '../../../../components/snackbars/snackbars.dart';
+import '../../../../data/providers/repositories/auth/auth_repository.dart';
 import '../../../../utils/utils_image.dart';
 
 enum Fields {
@@ -20,6 +24,8 @@ enum Fields {
 }
 
 class ProfileController extends GetxController {
+  final UserRepository _repository = UserRepository();
+
   MainController mainController = Get.find<MainController>();
   String? _imagePath;
   String? get imagePath => _imagePath;
@@ -92,27 +98,23 @@ class ProfileController extends GetxController {
     final result =
         await Get.toNamed(Routes.PHONE_VERIFICATION, arguments: newPhoneData);
 
-    print('controller result $result');
-    // mainController.showLoader(
-    //   title: 'Guardando',
-    // );
+    if (result != null && result == 'OK') {
+      mainController.showLoader(
+        title: 'Guardando',
+      );
 
-    // Either<String, AddressModel> response = await _repository.addAddress(
-    //   fullname: name,
-    //   city: _cityModel,
-    //   department: _departmentModel,
-    //   address: address,
-    //   phone: phone,
-    //   notes: notes,
-    //   save: saveAddress.value,
-    // );
-    // Get.back();
-    // response.fold((failure) {
-    //   Snackbars.error(failure);
-    // }, (AddressModel addressModel) async {
-    //   Snackbars.success('Dirección agregada correctamente');
-
-    //   Get.offNamed(Routes.SELECT_PAYMENT, arguments: addressModel);
-    // });
+      Either<String, Unit> response = await _repository.saveUserData(
+        document: document,
+        phone: newPhoneData,
+        fullName: fullname,
+        email: email,
+      );
+      Get.back();
+      response.fold((failure) {
+        Snackbars.error(failure);
+      }, (_) async {
+        Snackbars.success('Tu perfil se guardó exitosamente');
+      });
+    }
   }
 }

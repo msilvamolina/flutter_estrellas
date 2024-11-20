@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_estrellas/app/data/models/phone/phone_model.dart';
 import 'package:get/get.dart';
 
 import '../../../models/user_data/user_data.dart';
@@ -27,9 +28,10 @@ class UserRepository {
 
   Future<Either<String, Unit>> saveUserData({
     required String document,
-    required String username,
-    required String firstName,
-    required String lastName,
+    required String fullName,
+    required String email,
+    required PhoneModel phone,
+    String? imageUrl,
   }) async {
     try {
       User currentUser = _firebaseAuth.currentUser!;
@@ -37,14 +39,12 @@ class UserRepository {
       String email = currentUser.email!;
 
       await _firebaseFirestore.collection('users').doc(uid).set({
-        'firstName': firstName,
-        'lastName': lastName,
-        'email': email,
-        'username': username.toLowerCase(),
         'document': document,
+        'fullName': fullName,
+        'email': email,
+        'phone': phone.toJson(),
+        'imageUrl': imageUrl,
         'uid': uid,
-        'isAnonymous': false,
-        'createdBy': email,
         'createdAt': DateTime.now(),
       });
       return right(unit);

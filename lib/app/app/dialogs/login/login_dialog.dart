@@ -1,22 +1,22 @@
-import 'dart:ui';
+// import 'dart:ui';
 
-import 'package:flutter/material.dart';
+// import 'package:flutter/material.dart';
 
-import 'login_screen.dart';
+// import 'login_screen.dart';
 
-class LoginDialog extends StatelessWidget {
-  const LoginDialog({super.key});
+// class LoginDialog extends StatelessWidget {
+//   const LoginDialog({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return BackdropFilter(
-      filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
-      child: AlertDialog(
-        content: Container(
-          width: 400,
-          child: LoginScreen(isDialog: true),
-        ),
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return BackdropFilter(
+//       filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
+//       child: AlertDialog(
+//         content: Container(
+//           width: 400,
+//           child: LoginScreen(isDialog: true),
+//         ),
+//       ),
+//     );
+//   }
+// }

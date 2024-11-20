@@ -84,30 +84,30 @@ class AppPages {
       binding: HomeBinding(),
       transition: Transition.fadeIn,
     ),
-    GetPage(
-      name: _Paths.LOGIN,
-      page: () => LoginView(),
-      binding: LoginBinding(),
-      transition: Transition.fadeIn,
-    ),
+    // GetPage(
+    //   name: _Paths.LOGIN,
+    //   page: () => LoginView(),
+    //   binding: LoginBinding(),
+    //   transition: Transition.fadeIn,
+    // ),
     GetPage(
       name: _Paths.SPLASH,
       page: () => const SplashView(),
       binding: SplashBinding(),
       transition: Transition.fadeIn,
     ),
-    GetPage(
-      name: _Paths.REGISTER,
-      page: () => const RegisterView(),
-      binding: RegisterBinding(),
-      transition: Transition.fadeIn,
-    ),
-    GetPage(
-      name: _Paths.REGISTER_BASIC_DATA,
-      page: () => const RegisterBasicDataView(),
-      binding: RegisterBasicDataBinding(),
-      transition: Transition.fadeIn,
-    ),
+    // GetPage(
+    //   name: _Paths.REGISTER,
+    //   page: () => const RegisterView(),
+    //   binding: RegisterBinding(),
+    //   transition: Transition.fadeIn,
+    // ),
+    // GetPage(
+    //   name: _Paths.REGISTER_BASIC_DATA,
+    //   page: () => const RegisterBasicDataView(),
+    //   binding: RegisterBasicDataBinding(),
+    //   transition: Transition.fadeIn,
+    // ),
     GetPage(
       name: _Paths.FORGOT_PASSWORD,
       page: () => const ForgotPasswordView(),
