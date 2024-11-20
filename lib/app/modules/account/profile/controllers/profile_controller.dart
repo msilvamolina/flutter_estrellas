@@ -54,7 +54,7 @@ class ProfileController extends GetxController {
     _imageNetwork = mainController.userData?.imageUrl;
 
     if (mainController.userData != null) {
-      if (imageNetwork != null) {
+      if (_imageNetwork != null) {
         _isFullUser = true;
       }
     }
@@ -132,6 +132,7 @@ class ProfileController extends GetxController {
         fullName: fullname,
         email: email,
         imagePath: _imagePath,
+        imageUrl: _imageNetwork,
       );
       Get.back();
       response.fold((failure) {

@@ -68,9 +68,9 @@ class AccountView extends GetView<AccountController> {
           children: [
             Obx(
               () => accountUser(
-                onTap: () => Get.toNamed(Routes.PROFILE),
+                onTap: controller.goToProfile,
                 icon: EstrellasIcons.user,
-                title: controller.userTitle?.value ?? '',
+                title: controller.userTitle.value ?? '',
               ),
             ),
             SizedBox(height: 26),
