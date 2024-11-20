@@ -74,12 +74,16 @@ class UserProductController extends GetxController {
 
   @override
   void onReady() {
+    fillUserList();
+    super.onReady();
+  }
+
+  void fillUserList() {
     _listProductCart.bindStream(userProductRepository.getUserCart());
     _listProductFavorites.bindStream(userProductRepository.getUserFavorites());
     _listProductCatalogPrivate
         .bindStream(userProductRepository.getUserCatalogPrivate());
     _listUserCatalogs.bindStream(userProductRepository.getUserCatalogs());
-    super.onReady();
   }
 
   void goToBuyUniqueProduct(VideoPostModel? videoPostModel) {

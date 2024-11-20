@@ -24,7 +24,9 @@ class AccountController extends GetxController {
         ? mainController.userData?.fullName
         : mainController.userEmail;
 
-    userImage.value = mainController.userData?.imageUrl;
+    if (mainController.userData != null) {
+      userImage.value = mainController.userData?.imageUrl;
+    }
   }
 
   Future<void> goToProfile() async {

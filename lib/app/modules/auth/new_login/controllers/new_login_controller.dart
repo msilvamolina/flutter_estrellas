@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:flutter_estrellas/app/app/controllers/user_product_controller.dart';
 import 'package:get/get.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
@@ -17,7 +18,9 @@ enum Fields {
 class NewLoginController extends GetxController {
   final AuthRepository _authRepository = AuthRepository();
 
-  MainController mainController = Get.find();
+  MainController mainController = Get.find<MainController>();
+  UserProductController userProductController =
+      Get.find<UserProductController>();
 
   FormGroup buildForm() => fb.group(<String, Object>{
         Fields.email.name: FormControl<String>(
@@ -56,12 +59,13 @@ class NewLoginController extends GetxController {
         Get.back();
         Snackbars.error(failure);
       },
-      (_) {
+      (_) async {
         Get.back();
         Get.back();
 
         mainController.checkUser(login: true);
-        mainController.reloadUserData();
+        await mainController.reloadUserData();
+        userProductController.fillUserList();
       },
     );
   }
