@@ -69,12 +69,13 @@ class PhoneVerificationView extends GetView<PhoneVerificationController> {
                     textAlign: TextAlign.start,
                     text: TextSpan(
                       text:
-                          'Te hemos enviado por mensaje de texto un código de 5 dígitos a tu celular ',
+                          'Te hemos enviado por mensaje de texto un código de 6 dígitos a tu celular ',
                       style: TypographyStyle.bodyRegularLarge
                           .copyWith(color: neutral800),
                       children: <TextSpan>[
                         TextSpan(
-                          text: '234234242',
+                          text:
+                              '+${controller.phone.countryCode!} ${controller.phone.number}',
                           style: TypographyStyle.bodyBlackLarge
                               .copyWith(color: secondaryBase),
                         ),
