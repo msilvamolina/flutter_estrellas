@@ -44,7 +44,6 @@ class ProfileController extends GetxController {
     userTitle.value = mainController.userData != null
         ? mainController.userData?.fullName
         : mainController.userEmail;
-    _imageNetwork = mainController.userData?.imageUrl;
     checkFullUser();
     update(['photo_card']);
 
@@ -52,6 +51,8 @@ class ProfileController extends GetxController {
   }
 
   void checkFullUser() {
+    _imageNetwork = mainController.userData?.imageUrl;
+
     if (mainController.userData != null) {
       if (imageNetwork != null) {
         _isFullUser = true;
@@ -139,6 +140,7 @@ class ProfileController extends GetxController {
         mainController.reloadUserData();
         userTitle.value = fullname;
         _imageNetwork = image;
+        _imagePath = null;
         checkFullUser();
         update(['photo_card']);
         Snackbars.success('Tu perfil se guardó exitosamente');
