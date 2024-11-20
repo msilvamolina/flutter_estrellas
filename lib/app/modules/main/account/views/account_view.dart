@@ -35,20 +35,24 @@ class AccountView extends GetView<AccountController> {
               ),
               GetX<HomeController>(
                 builder: (controller) {
-                  return Positioned(
-                    right: 10,
-                    top: 8,
-                    child: CircleAvatar(
-                      radius: 9,
-                      backgroundColor: error900,
-                      child: Text(
-                        controller.userProductController.listProductCart.length
-                            .toString(),
-                        style: TypographyStyle.bodyBlackSmall
-                            .copyWith(color: white, fontSize: 12),
-                      ),
-                    ),
-                  );
+                  return controller
+                          .userProductController.listProductCart.isNotEmpty
+                      ? Positioned(
+                          right: 10,
+                          top: 8,
+                          child: CircleAvatar(
+                            radius: 9,
+                            backgroundColor: error900,
+                            child: Text(
+                              controller
+                                  .userProductController.listProductCart.length
+                                  .toString(),
+                              style: TypographyStyle.bodyBlackSmall
+                                  .copyWith(color: white, fontSize: 12),
+                            ),
+                          ),
+                        )
+                      : SizedBox.shrink();
                 },
               ),
             ],
@@ -67,7 +71,7 @@ class AccountView extends GetView<AccountController> {
                 accountUser(
                   onTap: () => Get.toNamed(Routes.PROFILE),
                   icon: EstrellasIcons.user,
-                  title: 'Andrea Sánchez',
+                  title: controller.mainController.userEmail ?? '',
                 ),
                 SizedBox(height: 26),
                 accountTile(

@@ -26,6 +26,7 @@ class SelectPaymentController extends GetxController {
 
   RxnString selectedPayment = RxnString();
 
+  RxBool showBottomBar = false.obs;
   @override
   void onInit() {
     address = Get.arguments as AddressModel;
@@ -66,6 +67,18 @@ class SelectPaymentController extends GetxController {
       ),
     );
     super.onInit();
+  }
+
+  @override
+  void onReady() {
+    if (userProductController.uniqueProduct != null) {
+      showBottomBar.value = true;
+    } else {
+      showBottomBar.value = userProductController.listProductCart.isNotEmpty;
+      buyMultipleProducts();
+    }
+
+    super.onReady();
   }
 
   void onSelectedPayment(String id) {

@@ -22,7 +22,7 @@ class SelectPaymentView extends GetView<SelectPaymentController> {
         title: 'Método de pago',
       ),
       bottomNavigationBar: Obx(
-        () => controller.userProductController.listProductCart.isNotEmpty
+        () => controller.showBottomBar.value
             ? SafeArea(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 0),
