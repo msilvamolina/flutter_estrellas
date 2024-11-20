@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_estrellas/app/libraries/icons/icons_font.dart';
 import 'package:flutter_estrellas/app/themes/styles/colors.dart';
@@ -40,7 +42,9 @@ class PhotoCardEmpty extends StatelessWidget {
                   image: !isEmpty
                       ? (imageUrl != null
                           ? DecorationImage(
-                              image: AssetImage(imageUrl!),
+                              image: FileImage(
+                                File(imageUrl!),
+                              ),
                               fit: BoxFit.cover,
                             )
                           : networkUrl != null

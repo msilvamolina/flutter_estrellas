@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../themes/styles/colors.dart';
+
 class UtilsImage {
   UtilsImage._();
 
@@ -19,21 +21,22 @@ class UtilsImage {
 
   static Future<CroppedFile?> cropImage(String imagePath) async {
     CroppedFile? croppedFile = await ImageCropper().cropImage(
+      compressQuality: 70,
       sourcePath: imagePath,
-      aspectRatio: const CropAspectRatio(ratioX: 800, ratioY: 800),
+      aspectRatio: const CropAspectRatio(ratioX: 400, ratioY: 400),
       uiSettings: [
         AndroidUiSettings(
-          toolbarTitle: 'Cropper',
-          toolbarColor: Colors.deepOrange,
-          toolbarWidgetColor: Colors.white,
+          toolbarTitle: 'Recortar',
+          toolbarColor: white,
+          toolbarWidgetColor: neutral900,
           aspectRatioPresets: [
             CropAspectRatioPreset.square,
           ],
         ),
         IOSUiSettings(
-          rectWidth: 800,
-          rectHeight: 800,
-          title: 'Cropper',
+          rectWidth: 400,
+          rectHeight: 400,
+          title: 'Recortar',
           aspectRatioPresets: [
             CropAspectRatioPreset.square,
           ],

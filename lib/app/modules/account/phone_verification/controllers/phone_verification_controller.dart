@@ -133,7 +133,7 @@ class PhoneVerificationController extends GetxController {
 
   Future<bool> onUserBack() async {
     Bottomsheets.staticBottomSheet(BottomSheetTypes.verifyPhoneBack);
-    return false;
+    return true;
   }
 
   Future<void> tryAgain() async {
