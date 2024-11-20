@@ -3,6 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../helpers/friendly_helpers.dart';
 import '../../helpers/model_helpers.dart';
+import '../phone/phone_model.dart';
 
 part 'user_data.freezed.dart';
 part 'user_data.g.dart';
@@ -16,7 +17,7 @@ abstract class UserData implements _$UserData {
     required String fullName,
     required String email,
     required String document,
-    required String phone,
+    PhoneModel? phone,
     String? imageUrl,
   }) = _UserData;
 

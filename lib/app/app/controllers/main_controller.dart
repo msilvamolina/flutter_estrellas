@@ -40,6 +40,9 @@ class MainController extends GetxController {
   String? _userEmail;
   String? get userEmail => _userEmail;
 
+  String? _userUID;
+  String? get userUID => _userUID;
+
   bool _isWelcome = false;
   bool _isThemeModeDark = false;
 
@@ -111,6 +114,7 @@ class MainController extends GetxController {
     if (isAuthenticated) {
       bool isEmailVerified = await userRepository.isEmailVerified();
       _userEmail = userRepository.getUserEmail();
+      _userUID = userRepository.getUserID();
 
       if (isEmailVerified) {
         _userData = await userRepository.getUserDataFirebase();

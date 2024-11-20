@@ -24,7 +24,7 @@ mixin _$UserData {
   String get fullName => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
   String get document => throw _privateConstructorUsedError;
-  String get phone => throw _privateConstructorUsedError;
+  PhoneModel? get phone => throw _privateConstructorUsedError;
   String? get imageUrl => throw _privateConstructorUsedError;
 
   /// Serializes this UserData to a JSON map.
@@ -47,8 +47,10 @@ abstract class $UserDataCopyWith<$Res> {
       String fullName,
       String email,
       String document,
-      String phone,
+      PhoneModel? phone,
       String? imageUrl});
+
+  $PhoneModelCopyWith<$Res>? get phone;
 }
 
 /// @nodoc
@@ -70,7 +72,7 @@ class _$UserDataCopyWithImpl<$Res, $Val extends UserData>
     Object? fullName = null,
     Object? email = null,
     Object? document = null,
-    Object? phone = null,
+    Object? phone = freezed,
     Object? imageUrl = freezed,
   }) {
     return _then(_value.copyWith(
@@ -90,15 +92,29 @@ class _$UserDataCopyWithImpl<$Res, $Val extends UserData>
           ? _value.document
           : document // ignore: cast_nullable_to_non_nullable
               as String,
-      phone: null == phone
+      phone: freezed == phone
           ? _value.phone
           : phone // ignore: cast_nullable_to_non_nullable
-              as String,
+              as PhoneModel?,
       imageUrl: freezed == imageUrl
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
+  }
+
+  /// Create a copy of UserData
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $PhoneModelCopyWith<$Res>? get phone {
+    if (_value.phone == null) {
+      return null;
+    }
+
+    return $PhoneModelCopyWith<$Res>(_value.phone!, (value) {
+      return _then(_value.copyWith(phone: value) as $Val);
+    });
   }
 }
 
@@ -115,8 +131,11 @@ abstract class _$$UserDataImplCopyWith<$Res>
       String fullName,
       String email,
       String document,
-      String phone,
+      PhoneModel? phone,
       String? imageUrl});
+
+  @override
+  $PhoneModelCopyWith<$Res>? get phone;
 }
 
 /// @nodoc
@@ -136,7 +155,7 @@ class __$$UserDataImplCopyWithImpl<$Res>
     Object? fullName = null,
     Object? email = null,
     Object? document = null,
-    Object? phone = null,
+    Object? phone = freezed,
     Object? imageUrl = freezed,
   }) {
     return _then(_$UserDataImpl(
@@ -156,10 +175,10 @@ class __$$UserDataImplCopyWithImpl<$Res>
           ? _value.document
           : document // ignore: cast_nullable_to_non_nullable
               as String,
-      phone: null == phone
+      phone: freezed == phone
           ? _value.phone
           : phone // ignore: cast_nullable_to_non_nullable
-              as String,
+              as PhoneModel?,
       imageUrl: freezed == imageUrl
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
@@ -176,7 +195,7 @@ class _$UserDataImpl extends _UserData {
       required this.fullName,
       required this.email,
       required this.document,
-      required this.phone,
+      this.phone,
       this.imageUrl})
       : super._();
 
@@ -192,7 +211,7 @@ class _$UserDataImpl extends _UserData {
   @override
   final String document;
   @override
-  final String phone;
+  final PhoneModel? phone;
   @override
   final String? imageUrl;
 
@@ -244,7 +263,7 @@ abstract class _UserData extends UserData {
       required final String fullName,
       required final String email,
       required final String document,
-      required final String phone,
+      final PhoneModel? phone,
       final String? imageUrl}) = _$UserDataImpl;
   const _UserData._() : super._();
 
@@ -260,7 +279,7 @@ abstract class _UserData extends UserData {
   @override
   String get document;
   @override
-  String get phone;
+  PhoneModel? get phone;
   @override
   String? get imageUrl;
 

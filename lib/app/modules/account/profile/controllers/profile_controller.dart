@@ -1,4 +1,6 @@
 import 'package:flutter_estrellas/app/app/controllers/main_controller.dart';
+import 'package:flutter_estrellas/app/data/models/phone/phone_model.dart';
+import 'package:flutter_estrellas/app/data/models/user_data/user_data.dart';
 import 'package:get/get.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:reactive_phone_form_field/reactive_phone_form_field.dart';
@@ -70,13 +72,22 @@ class ProfileController extends GetxController {
     String email = data[Fields.email.name].toString();
     PhoneNumber phone = data[Fields.phone.name] as PhoneNumber;
 
+    UserData newUserData = UserData(
+      uid: mainController.userUID ?? '',
+      fullName: fullname,
+      email: email,
+      document: document,
+      phone: PhoneModel(
+        number: phone.nsn,
+        countryCode: phone.countryCode,
+        isoCode: phone.isoCode.name,
+      ),
+    );
     // mainController.showLoader(
     //   title: 'Guardando',
     // );
 
-    print('fullname $fullname');
-    print('document $document');
-    print('phone $phone');
+    print('newUserData $newUserData');
 
     // Either<String, AddressModel> response = await _repository.addAddress(
     //   fullname: name,

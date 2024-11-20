@@ -76,6 +76,16 @@ class UserRepository {
     return null;
   }
 
+  String? getUserID() {
+    if (_firebaseAuth.currentUser != null) {
+      User currentUser = _firebaseAuth.currentUser!;
+      String? uid = currentUser.uid;
+      return uid;
+    }
+
+    return null;
+  }
+
   Future<UserData?> getUserDataFirebase() async {
     User currentUser = _firebaseAuth.currentUser!;
     String email = currentUser.email!;

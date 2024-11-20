@@ -12,7 +12,9 @@ _$UserDataImpl _$$UserDataImplFromJson(Map<String, dynamic> json) =>
       fullName: json['fullName'] as String,
       email: json['email'] as String,
       document: json['document'] as String,
-      phone: json['phone'] as String,
+      phone: json['phone'] == null
+          ? null
+          : PhoneModel.fromJson(json['phone'] as Map<String, dynamic>),
       imageUrl: json['imageUrl'] as String?,
     );
 
