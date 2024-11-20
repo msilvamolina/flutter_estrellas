@@ -56,6 +56,8 @@ import '../modules/order/order_success/bindings/order_success_binding.dart';
 import '../modules/order/order_success/views/order_success_view.dart';
 import '../modules/order/orders/bindings/orders_binding.dart';
 import '../modules/order/orders/views/orders_view.dart';
+import '../modules/account/phone_verification/bindings/phone_verification_binding.dart';
+import '../modules/account/phone_verification/views/phone_verification_view.dart';
 import '../modules/product_details/bindings/product_details_binding.dart';
 import '../modules/product_details/views/product_details_view.dart';
 import '../modules/select_payment/bindings/select_payment_binding.dart';
@@ -248,6 +250,11 @@ class AppPages {
       name: _Paths.CATALOG_DETAILS,
       page: () => const CatalogDetailsView(),
       binding: CatalogDetailsBinding(),
+    ),
+    GetPage(
+      name: _Paths.PHONE_VERIFICATION,
+      page: () => const PhoneVerificationView(),
+      binding: PhoneVerificationBinding(),
     ),
   ];
 }

@@ -24,6 +24,7 @@ class ProfileController extends GetxController {
           ],
         ),
         Fields.email.name: FormControl<String>(
+          value: mainController.userEmail,
           validators: [
             Validators.required,
             Validators.email,
@@ -68,9 +69,9 @@ class ProfileController extends GetxController {
     String document = data[Fields.document.name].toString();
     PhoneNumber phone = data[Fields.phone.name] as PhoneNumber;
 
-    mainController.showLoader(
-      title: 'Verificando dirección',
-    );
+    // mainController.showLoader(
+    //   title: 'Guardando',
+    // );
 
     print('fullname $fullname');
     print('document $document');

@@ -77,6 +77,7 @@ class ProfileView extends GetView<ProfileController> {
                         const SizedBox(height: 32),
                         CustomTextInput(
                           autofocus: false,
+                          readOnly: true,
                           formControlName: Fields.email.name,
                           keyboardType: TextInputType.text,
                           label: 'Correo',
