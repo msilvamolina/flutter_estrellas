@@ -10,10 +10,6 @@ class AccountController extends GetxController {
   HomeController homeController = Get.find<HomeController>();
 
   RxnString userTitle = RxnString();
-  @override
-  void onInit() {
-    super.onInit();
-  }
 
   @override
   void onReady() {

@@ -30,8 +30,20 @@ class ProfileController extends GetxController {
   String? _imagePath;
   String? get imagePath => _imagePath;
 
+  RxnString userTitle = RxnString();
+
+  @override
+  void onReady() {
+    userTitle.value = mainController.userData != null
+        ? mainController.userData?.fullName
+        : mainController.userEmail;
+
+    super.onReady();
+  }
+
   FormGroup buildForm() => fb.group(<String, Object>{
         Fields.fullname.name: FormControl<String>(
+          value: mainController.userData?.fullName,
           validators: [
             Validators.required,
             Validators.minLength(4),
@@ -45,6 +57,7 @@ class ProfileController extends GetxController {
           ],
         ),
         Fields.document.name: FormControl<String>(
+          value: mainController.userData?.document,
           validators: [
             Validators.required,
             Validators.number(allowedDecimals: 0),
@@ -52,9 +65,10 @@ class ProfileController extends GetxController {
           ],
         ),
         Fields.phone.name: FormControl<PhoneNumber>(
-          value: const PhoneNumber(
-            isoCode: IsoCode.CO,
-            nsn: '',
+          value: PhoneNumber(
+            isoCode: IsoCode.fromJson(
+                mainController.userData?.phone?.isoCode ?? 'CO'),
+            nsn: mainController.userData?.phone?.number ?? '',
           ),
           validators: [
             PhoneValidators.required,
@@ -62,21 +76,6 @@ class ProfileController extends GetxController {
           ],
         ),
       });
-
-  @override
-  void onInit() {
-    super.onInit();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
 
   Future<void> pickImage() async {
     _imagePath = await UtilsImage.pickImage();
@@ -95,10 +94,15 @@ class ProfileController extends GetxController {
       isoCode: phone.isoCode.name,
     );
 
-    final result =
-        await Get.toNamed(Routes.PHONE_VERIFICATION, arguments: newPhoneData);
+    bool canContinue = true;
+    if (mainController.userData?.phone?.number != phone.nsn &&
+        mainController.userData?.phone?.isoCode != phone.isoCode.name) {
+      final result =
+          await Get.toNamed(Routes.PHONE_VERIFICATION, arguments: newPhoneData);
+      canContinue = result != null && result == 'OK';
+    }
 
-    if (result != null && result == 'OK') {
+    if (canContinue) {
       mainController.showLoader(
         title: 'Guardando',
       );
@@ -114,6 +118,7 @@ class ProfileController extends GetxController {
         Snackbars.error(failure);
       }, (_) async {
         mainController.reloadUserData();
+        userTitle.value = fullname;
         Snackbars.success('Tu perfil se guardó exitosamente');
       });
     }

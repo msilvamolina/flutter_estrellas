@@ -54,9 +54,11 @@ class ProfileView extends GetView<ProfileController> {
                     },
                   ),
                   SizedBox(height: 8),
-                  Text(
-                    'Andrea Sánchez',
-                    style: TypographyStyle.bodyBlackLarge,
+                  Obx(
+                    () => Text(
+                      controller.userTitle.value ?? '',
+                      style: TypographyStyle.bodyBlackLarge,
+                    ),
                   ),
                   SizedBox(height: 2),
                   Text(
