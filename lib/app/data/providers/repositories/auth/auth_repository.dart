@@ -45,10 +45,14 @@ class AuthRepository {
       final cred = PhoneAuthProvider.credential(
           verificationId: verificationId, smsCode: smsCode);
 
-      print('cred $cred');
+      final currentUser = _firebaseAuth.currentUser;
 
-      await _firebaseAuth.signInWithCredential(cred);
-      return right(unit);
+      if (currentUser != null) {
+        await currentUser.linkWithCredential(cred);
+        return right(unit);
+      } else {
+        return left('No hay un usuario con la sesión abierta');
+      }
     } on FirebaseAuthException catch (e) {
       return left(e.code);
     }
