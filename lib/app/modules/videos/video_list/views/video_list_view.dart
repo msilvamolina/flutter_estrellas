@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../libraries/icons/icons_font.dart';
+import '../../../../routes/app_pages.dart';
 import '../../../../themes/styles/colors.dart';
 import '../../../../themes/styles/typography.dart';
 import '../../../main/home/controllers/home_controller.dart';
@@ -24,6 +25,7 @@ class VideoListView extends GetView<VideoListController> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         shadowColor: Colors.transparent,
+        surfaceTintColor: Colors.transparent,
         iconTheme: IconThemeData(
           color: white,
         ),
@@ -31,7 +33,7 @@ class VideoListView extends GetView<VideoListController> {
           Stack(
             children: [
               IconButton(
-                onPressed: () {},
+                onPressed: () => Get.toNamed(Routes.CART),
                 icon: Icon(
                   EstrellasIcons.shoppingCartSimpleFill,
                   color: white,
@@ -40,20 +42,26 @@ class VideoListView extends GetView<VideoListController> {
               ),
               GetX<HomeController>(
                 builder: (controller) {
-                  return Positioned(
-                    right: 6,
-                    top: 8,
-                    child: CircleAvatar(
-                      radius: 9,
-                      backgroundColor: error900,
-                      child: Text(
-                        controller.userProductController.listProductCart.length
-                            .toString(),
-                        style: TypographyStyle.bodyBlackSmall
-                            .copyWith(color: white, fontSize: 12),
+                  if (controller
+                      .userProductController.listProductCart.isNotEmpty) {
+                    return Positioned(
+                      right: 6,
+                      top: 8,
+                      child: CircleAvatar(
+                        radius: 9,
+                        backgroundColor: error900,
+                        child: Text(
+                          controller
+                              .userProductController.listProductCart.length
+                              .toString(),
+                          style: TypographyStyle.bodyBlackSmall
+                              .copyWith(color: white, fontSize: 12),
+                        ),
                       ),
-                    ),
-                  );
+                    );
+                  } else {
+                    return SizedBox.shrink();
+                  }
                 },
               ),
             ],

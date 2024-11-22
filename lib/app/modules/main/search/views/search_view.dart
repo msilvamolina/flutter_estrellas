@@ -45,9 +45,10 @@ class SearchView extends GetView<SearchViewController> {
                         Get.toNamed(
                           Routes.VIDEO_LIST,
                           arguments: [
-                            controller
-                                .userProductController.listProductFavorite,
-                            index
+                            [
+                              controller.filteredList[index]
+                            ], // Nueva lista con un solo elemento
+                            0, // Índice
                           ],
                         );
                       },
