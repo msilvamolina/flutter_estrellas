@@ -2,26 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../app/controllers/main_controller.dart';
-import '../../app/dialogs/delete/util/constants.dart';
 import '../../themes/styles/colors.dart';
 import '../../themes/styles/typography.dart';
 import 'buttons.dart';
 
 class ProgressAnimatedButton extends StatelessWidget {
   const ProgressAnimatedButton({
-    required this.onPressed,
     required this.label,
+    required this.holdLabel,
     required this.progress,
-    required this.size,
-    this.isLoading,
     super.key,
   });
 
-  final Function()? onPressed;
   final String label;
-  final bool? isLoading;
+  final String holdLabel;
   final double progress;
-  final Size size;
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +62,7 @@ class ProgressAnimatedButton extends StatelessWidget {
             height: sizeHeight,
             child: Center(
               child: Text(
-                progress > 0 ? "Mantén presionado para eliminar" : 'Sí',
+                progress > 0 ? holdLabel : label,
                 style: progress > 0
                     ? TypographyStyle.bodyBlackLarge.copyWith(color: white)
                     : TypographyStyle.bodyBlackLarge2.copyWith(color: white),

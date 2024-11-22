@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../util/constants.dart';
+
+import '../../../themes/styles/colors.dart';
 
 class AnimatedBorderPainter extends CustomPainter {
   final Animation<double> animation;
@@ -9,13 +10,12 @@ class AnimatedBorderPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = kPrimaryColor
+      ..color = error900
       ..style = PaintingStyle.stroke
       ..strokeWidth = 2;
 
     final rect = Rect.fromLTWH(0, 0, size.width, size.height);
-    final rRect =
-        RRect.fromRectAndRadius(rect, const Radius.circular(kBorderRadius));
+    final rRect = RRect.fromRectAndRadius(rect, const Radius.circular(24));
 
     final path = Path()..addRRect(rRect);
 

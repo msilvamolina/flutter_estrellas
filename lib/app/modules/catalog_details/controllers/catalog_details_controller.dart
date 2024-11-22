@@ -5,7 +5,6 @@ import 'package:flutter_estrellas/app/app/controllers/user_product_controller.da
 import 'package:get/get.dart';
 
 import '../../../app/bottom_sheets/delete_products_catalog_bottomsheet.dart';
-import '../../../app/dialogs/delete/delete_account.dart';
 import '../../../components/bottom_sheets/bottomsheets.dart';
 import '../../../components/bottom_sheets/types.dart';
 import '../../../components/snackbars/snackbars.dart';
@@ -63,18 +62,6 @@ class CatalogDetailsController extends GetxController {
 
   void showDeleteBottomBar() {
     if (catalogSelectedMap.isNotEmpty) {
-      // showDialog(
-      //     context: Get.context!,
-      //     builder: (_) {
-      //       return const AlertDialog(
-      //         backgroundColor: Colors.transparent,
-      //         content: Wrap(
-      //           children: [
-      //             DeleteAccount(),
-      //           ],
-      //         ),
-      //       );
-      //     });
       Bottomsheets.customBottomSheet(DeleteProductsCatalogBottomsheet());
     }
   }

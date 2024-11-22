@@ -11,11 +11,9 @@ import 'package:get/get.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
 import '../../components/buttons/buttons.dart';
-import '../../components/buttons/progress_button.dart';
-import '../dialogs/delete/components/animated_border_painter.dart';
-import '../dialogs/delete/components/gap.dart';
-import '../dialogs/delete/components/progress_button.dart';
-import '../dialogs/delete/util/constants.dart';
+import '../../components/buttons/progress_animated_button.dart';
+
+import 'widgets/animated_border_painter.dart';
 import 'widgets/title_with_close_button.dart';
 
 class DeleteProductsCatalogBottomsheet extends StatefulWidget {
@@ -32,7 +30,7 @@ class _DeleteProductsCatalogBottomsheetState
   late AnimationController _controller;
   double gradientProgress = 0.0;
   bool hasExecutedAction = false;
-
+  double kBorderRadius = 24;
   @override
   void initState() {
     super.initState();
@@ -67,8 +65,7 @@ class _DeleteProductsCatalogBottomsheetState
           children: [
             Container(
               decoration: BoxDecoration(
-                  color: white,
-                  borderRadius: BorderRadius.circular(kBorderRadius)),
+                  color: white, borderRadius: BorderRadius.circular(24)),
               child: CustomPaint(
                 painter: AnimatedBorderPainter(animation: _controller),
                 child: TweenAnimationBuilder<double>(
@@ -88,9 +85,7 @@ class _DeleteProductsCatalogBottomsheetState
                               gradient: LinearGradient(
                                 colors: [
                                   white,
-                                  Color.lerp(
-                                      white,
-                                      kPrimaryColor.withOpacity(0.2),
+                                  Color.lerp(white, error500.withOpacity(0.2),
                                       progress)!,
                                 ],
                                 begin: Alignment.bottomCenter,
@@ -148,9 +143,8 @@ class _DeleteProductsCatalogBottomsheetState
                                   });
                                 },
                                 child: ProgressAnimatedButton(
-                                  onPressed: () {},
-                                  label: 'asdasd',
-                                  size: const Size(250, kButtonHeight),
+                                  label: 'Sí',
+                                  holdLabel: 'Mantén presionado para eliminar',
                                   progress: progress,
                                 ),
                               ),
