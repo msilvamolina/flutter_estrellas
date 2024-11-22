@@ -44,6 +44,21 @@ class NewBankAccountView extends GetView<NewBankAccountController> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          DropDown(
+                            label: 'Selecciona el banco',
+                            error: null,
+                            selectedValue: null,
+                            values: controller.banks
+                                .map(
+                                  (String value) => OptionDropDown(
+                                    text: value,
+                                    value: value,
+                                  ),
+                                )
+                                .toList(),
+                            onChanged: (_) {},
+                          ),
+                          const SizedBox(height: 32),
                           CustomTextInput(
                             autofocus: false,
                             formControlName: Fields.name.name,
@@ -79,6 +94,21 @@ class NewBankAccountView extends GetView<NewBankAccountController> {
                             keyboardType: TextInputType.text,
                             label: 'Nombre del titular',
                             hintText: 'Ingresa el nombre',
+                          ),
+                          const SizedBox(height: 18),
+                          DropDown(
+                            label: 'Tipo de documento',
+                            error: null,
+                            selectedValue: null,
+                            values: controller.documentType
+                                .map(
+                                  (String value) => OptionDropDown(
+                                    text: value,
+                                    value: value,
+                                  ),
+                                )
+                                .toList(),
+                            onChanged: (_) {},
                           ),
                           const SizedBox(height: 32),
                           CustomTextInput(

@@ -42,4 +42,38 @@ class NewBankAccountController extends GetxController {
           validators: [Validators.required], // Campo para botones de radio
         ),
       });
+
+  List<String> banks = [
+    'Avvillas',
+    'Banco Agrario',
+    'Banco Bogota',
+    'Banco Compartir',
+    'Banco Finandina',
+    'Banco Multibank',
+    'Banco Santander De Negocios Colombia Sa',
+    'Bancolombia',
+    'Bbva',
+    'Bnp Paribas',
+    'Caja Social Bcsc',
+    'Citibank',
+    'Colpatria',
+    'Coltefinanciera',
+    'Confiar Sa',
+    'Coop Financiera De Antioquia',
+    'Corpbanca',
+    'Cotrafa Coop. Financiera',
+    'Financiera Juridiscoop Cf',
+    'Itau',
+    'Nequi',
+    'Occidente',
+    'Popular',
+    'Sudameris',
+    'Davivienda',
+    'Daviplata',
+  ];
+
+  List<String> documentType = [
+    'Cédula de identidad',
+    'Pasaporte',
+  ];
 }
