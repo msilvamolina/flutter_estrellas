@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_estrellas/app/components/buttons/widgets/secondary_textbutton.dart';
 
+import 'widgets/destructive_button.dart';
 import 'widgets/primary_button.dart';
 import 'widgets/secondary_button.dart';
 import 'widgets/secondary_circle_button.dart';
@@ -12,6 +13,7 @@ enum ButtonStyles {
   secondaryText,
   secondaryLink,
   secondaryCirlce,
+  destructive,
 }
 
 class Button extends StatelessWidget {
@@ -60,6 +62,12 @@ class Button extends StatelessWidget {
         return SecondaryCircleButton(
           onPressed: onPressed,
           child: child!,
+        );
+      case ButtonStyles.destructive:
+        return DestructiveButton(
+          onPressed: onPressed,
+          label: label!,
+          isLoaderButton: false,
         );
       default:
         return SizedBox.shrink();

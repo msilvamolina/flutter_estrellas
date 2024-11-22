@@ -1,8 +1,10 @@
 import 'package:dartz/dartz.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_estrellas/app/app/controllers/main_controller.dart';
 import 'package:flutter_estrellas/app/app/controllers/user_product_controller.dart';
 import 'package:get/get.dart';
 
+import '../../../app/dialogs/delete/delete_account.dart';
 import '../../../components/bottom_sheets/bottomsheets.dart';
 import '../../../components/bottom_sheets/types.dart';
 import '../../../components/snackbars/snackbars.dart';
@@ -60,6 +62,18 @@ class CatalogDetailsController extends GetxController {
 
   void showDeleteBottomBar() {
     if (catalogSelectedMap.isNotEmpty) {
+      // showDialog(
+      //     context: Get.context!,
+      //     builder: (_) {
+      //       return const AlertDialog(
+      //         backgroundColor: Colors.transparent,
+      //         content: Wrap(
+      //           children: [
+      //             DeleteAccount(),
+      //           ],
+      //         ),
+      //       );
+      //     });
       Bottomsheets.staticBottomSheet(BottomSheetTypes.deleteProductsInCatalog);
     }
   }

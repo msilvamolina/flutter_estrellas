@@ -33,7 +33,7 @@ class DeleteProductsCatalogBottomsheet extends StatelessWidget {
                     SizedBox(height: 16),
                     Icon(
                       EstrellasIcons.infoFill,
-                      color: info500,
+                      color: error500,
                       size: 44,
                     ),
                     SizedBox(height: 16),
@@ -49,10 +49,10 @@ class DeleteProductsCatalogBottomsheet extends StatelessWidget {
                     ),
                     SizedBox(height: 28),
                     Button(
-                      style: ButtonStyles.primary,
+                      style: ButtonStyles.destructive,
                       onPressed: () {
-                        Get.back();
-                        controller.deleteProductsInCatalog();
+                        // Get.back();
+                        // controller.deleteProductsInCatalog();
                       },
                       label: 'Sí',
                     ),
