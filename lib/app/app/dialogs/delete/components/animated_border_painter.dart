@@ -11,7 +11,7 @@ class AnimatedBorderPainter extends CustomPainter {
     final paint = Paint()
       ..color = kPrimaryColor
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 0.5;
+      ..strokeWidth = 2;
 
     final rect = Rect.fromLTWH(0, 0, size.width, size.height);
     final rRect =

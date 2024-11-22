@@ -53,86 +53,107 @@ class _DeleteProductsCatalogBottomsheetState
     return GetBuilder<CatalogDetailsController>(
       id: 'bottomsheet',
       builder: (controller) {
-        return CustomPaint(
-          painter: AnimatedBorderPainter(animation: _controller),
-          child: TweenAnimationBuilder<double>(
-              tween: Tween<double>(begin: 0.0, end: gradientProgress),
-              duration: const Duration(seconds: 1),
-              builder: (_, progress, child) {
-                return Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.all(15),
-                  decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [
-                          white,
-                          Color.lerp(
-                              white, kPrimaryColor.withOpacity(0.2), progress)!,
+        return Container(
+          decoration: BoxDecoration(
+              color: white, borderRadius: BorderRadius.circular(kBorderRadius)),
+          child: CustomPaint(
+            painter: AnimatedBorderPainter(animation: _controller),
+            child: TweenAnimationBuilder<double>(
+                tween: Tween<double>(begin: 0.0, end: gradientProgress),
+                duration: const Duration(seconds: 1),
+                builder: (_, progress, child) {
+                  return SafeArea(
+                    child: Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(15),
+                      decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [
+                              white,
+                              Color.lerp(white, kPrimaryColor.withOpacity(0.2),
+                                  progress)!,
+                            ],
+                            begin: Alignment.bottomCenter,
+                            end: Alignment.topCenter,
+                          ),
+                          borderRadius: BorderRadius.circular(kBorderRadius)),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Container(
+                            height: 40,
+                            width: 40,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: error500,
+                            ),
+                            child: const Icon(
+                              Icons.priority_high_outlined,
+                              color: Colors.white,
+                            ),
+                          ),
+                          SizedBox(height: 16),
+                          Text(
+                            '¿Seguro que quieres eliminar\neste contenido del catálogo?',
+                            style: TypographyStyle.h3Mobile,
+                          ),
+                          SizedBox(height: 16),
+                          Text(
+                            'Perderás el contenido guardado en\nel catálogo ${controller.catalogModel.name}',
+                            style: TypographyStyle.bodyRegularMedium,
+                            textAlign: TextAlign.center,
+                          ),
+                          SizedBox(height: 28),
+                          Button(
+                            style: ButtonStyles.primary,
+                            onPressed: () {
+                              // Get.back();
+                              // controller.deleteProductsInCatalog();
+                            },
+                            label: 'Sí',
+                          ),
+                          SizedBox(height: 28),
+                          GestureDetector(
+                            onTapDown: (_) {
+                              _controller.forward();
+
+                              setState(() {
+                                gradientProgress = 1.0;
+                              });
+                            },
+                            onTapUp: (_) {
+                              _controller.reverse();
+
+                              setState(() {
+                                gradientProgress = 0.0;
+                              });
+                            },
+                            onTapCancel: () {
+                              _controller.reverse();
+
+                              setState(() {
+                                gradientProgress = 0.0;
+                              });
+                            },
+                            child: ProgressAnimatedButton(
+                              onPressed: () {},
+                              label: 'asdasd',
+                              size: const Size(250, kButtonHeight),
+                              progress: progress,
+                            ),
+                          ),
+                          gapY(16),
+                          Button(
+                            style: ButtonStyles.secondary,
+                            onPressed: Get.back,
+                            label: 'No',
+                          ),
                         ],
-                        begin: Alignment.bottomCenter,
-                        end: Alignment.topCenter,
                       ),
-                      borderRadius: BorderRadius.circular(kBorderRadius)),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Container(
-                        height: 40,
-                        width: 40,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: error500,
-                        ),
-                        child: const Icon(
-                          Icons.priority_high_outlined,
-                          color: Colors.white,
-                        ),
-                      ),
-                      gapY(10),
-                      Text(
-                        "Borrar elementos",
-                        style: TypographyStyle.bodyBlackLarge,
-                      ),
-                      gapY(4),
-                      Text(
-                        "¿Seguro que quieres eliminar este contenido?",
-                        style: TypographyStyle.bodyRegularMedium,
-                        textAlign: TextAlign.center,
-                      ),
-                      gapY(16),
-                      GestureDetector(
-                        onTapDown: (_) {
-                          _controller.forward();
-
-                          setState(() {
-                            gradientProgress = 1.0;
-                          });
-                        },
-                        onTapUp: (_) {
-                          _controller.reverse();
-
-                          setState(() {
-                            gradientProgress = 0.0;
-                          });
-                        },
-                        onTapCancel: () {
-                          _controller.reverse();
-
-                          setState(() {
-                            gradientProgress = 0.0;
-                          });
-                        },
-                        child: ProgressAnimatedButton(
-                          onPressed: () {},
-                          label: 'asdasd',
-                          size: const Size(250, kButtonHeight),
-                          progress: progress,
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              }),
+                    ),
+                  );
+                }),
+          ),
         );
         //   return Container(
         //     width: double.infinity,

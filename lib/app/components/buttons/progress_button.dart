@@ -5,6 +5,7 @@ import '../../app/controllers/main_controller.dart';
 import '../../app/dialogs/delete/util/constants.dart';
 import '../../themes/styles/colors.dart';
 import '../../themes/styles/typography.dart';
+import 'buttons.dart';
 
 class ProgressAnimatedButton extends StatelessWidget {
   const ProgressAnimatedButton({
@@ -32,9 +33,11 @@ class ProgressAnimatedButton extends StatelessWidget {
         mainController.isThemeModeDark ? backgroundColor : neutral950;
     Color shadowColor = error900;
 
+    double sizeHeight = 50;
+    double sizeWidth = MediaQuery.of(context).size.width;
     return Container(
-      height: size.height,
-      width: size.width,
+      height: sizeHeight,
+      width: sizeWidth,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
           color: kPrimaryColor.withOpacity(0.5)),
@@ -43,15 +46,24 @@ class ProgressAnimatedButton extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(8),
             child: Container(
-              color: kPrimaryColor,
-              width: size.width * progress,
+              color: success500,
+              width: sizeWidth * progress,
             ),
           ),
-          Center(
+          // Button(
+          //   style: ButtonStyles.destructive,
+          //   onPressed: () {},
+          //   label: progress > 0 ? "Mantén presionado para eliminar" : 'Sí',
+          // ),
+          Container(
+            height: sizeHeight,
+            child: Center(
               child: Text(
-            "Mantén presionado para eliminar",
-            style: TypographyStyle.bodyBlackMedium.copyWith(color: white),
-          ))
+                progress > 0 ? "Mantén presionado para eliminar" : 'Sí',
+                style: TypographyStyle.bodyBlackMedium.copyWith(color: white),
+              ),
+            ),
+          )
         ],
       ),
     );
