@@ -61,7 +61,7 @@ class NewBankAccountView extends GetView<NewBankAccountController> {
                           const SizedBox(height: 32),
                           CustomTextInput(
                             autofocus: false,
-                            formControlName: Fields.name.name,
+                            formControlName: Fields.accountNumber.name,
                             keyboardType: TextInputType.text,
                             label: 'Número de cuenta',
                             hintText: 'Ingresa el número',
@@ -90,7 +90,7 @@ class NewBankAccountView extends GetView<NewBankAccountController> {
                           const SizedBox(height: 32),
                           CustomTextInput(
                             autofocus: false,
-                            formControlName: Fields.name.name,
+                            formControlName: Fields.fullname.name,
                             keyboardType: TextInputType.text,
                             label: 'Nombre del titular',
                             hintText: 'Ingresa el nombre',
@@ -113,7 +113,7 @@ class NewBankAccountView extends GetView<NewBankAccountController> {
                           const SizedBox(height: 32),
                           CustomTextInput(
                             autofocus: false,
-                            formControlName: Fields.name.name,
+                            formControlName: Fields.document.name,
                             keyboardType: TextInputType.text,
                             label: 'Número de documento',
                             hintText: 'Ingresa el número',

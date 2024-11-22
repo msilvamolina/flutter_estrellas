@@ -3,11 +3,10 @@ import 'package:reactive_forms/reactive_forms.dart';
 import 'package:reactive_phone_form_field/reactive_phone_form_field.dart';
 
 enum Fields {
-  name('name'),
-  notes('notes'),
-  address('address'),
-  phone('phone'),
-  accountType('accountType'); // Agregado para radio buttons
+  fullname('fullname'),
+  accountNumber('accountNumber'),
+  document('document'),
+  accountType('accountType');
 
   const Fields(this.text);
   final String text;
@@ -15,31 +14,28 @@ enum Fields {
 
 class NewBankAccountController extends GetxController {
   FormGroup buildForm() => fb.group(<String, Object>{
-        Fields.name.name: FormControl<String>(
+        Fields.fullname.name: FormControl<String>(
           validators: [
             Validators.required,
             Validators.minLength(4),
-          ],
-        ),
-        Fields.address.name: FormControl<String>(
-          validators: [
-            Validators.required,
-            Validators.minLength(4),
-          ],
-        ),
-        Fields.notes.name: FormControl<String>(),
-        Fields.phone.name: FormControl<PhoneNumber>(
-          value: const PhoneNumber(
-            isoCode: IsoCode.CO,
-            nsn: '',
-          ),
-          validators: [
-            PhoneValidators.required,
-            PhoneValidators.valid,
           ],
         ),
         Fields.accountType.name: FormControl<String>(
-          validators: [Validators.required], // Campo para botones de radio
+          validators: [
+            Validators.required,
+          ],
+        ),
+        Fields.accountNumber.name: FormControl<String>(
+          validators: [
+            Validators.required,
+            Validators.minLength(6),
+          ],
+        ),
+        Fields.document.name: FormControl<String>(
+          validators: [
+            Validators.required,
+            Validators.minLength(6),
+          ],
         ),
       });
 
