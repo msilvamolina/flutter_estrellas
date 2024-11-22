@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_estrellas/app/components/appbar/estrellas_appbar.dart';
+import 'package:flutter_estrellas/app/libraries/icons/icons_font.dart';
+import 'package:flutter_estrellas/app/themes/styles/colors.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 import 'package:get/get.dart';
@@ -26,10 +28,14 @@ class SearchView extends GetView<SearchViewController> {
           controller: controller.searchController,
           onChanged: (value) => controller.filterList(value),
           decoration: InputDecoration(
-            hintText: 'Buscar...',
-            hintStyle: TypographyStyle.bodyRegularMedium,
+            hintText: 'Buscar',
+            hintStyle:
+                TypographyStyle.bodyRegularMedium.copyWith(color: neutral900),
             border: InputBorder.none,
-            prefixIcon: Icon(Icons.search, color: Colors.grey),
+            prefixIcon: Icon(
+              EstrellasIcons.search,
+              color: neutral900,
+            ),
           ),
           style: TypographyStyle.bodyBlackLarge,
         ),
