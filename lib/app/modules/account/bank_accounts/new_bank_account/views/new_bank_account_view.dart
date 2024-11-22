@@ -46,19 +46,21 @@ class NewBankAccountView extends GetView<NewBankAccountController> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          DropDown(
-                            label: 'Selecciona el banco',
-                            error: null,
-                            selectedValue: null,
-                            values: controller.banks
-                                .map(
-                                  (String value) => OptionDropDown(
-                                    text: value,
-                                    value: value,
-                                  ),
-                                )
-                                .toList(),
-                            onChanged: (_) {},
+                          Obx(
+                            () => DropDown(
+                              label: 'Selecciona el banco',
+                              error: controller.bankError.value,
+                              selectedValue: controller.bankSelected.value,
+                              values: controller.banks
+                                  .map(
+                                    (String value) => OptionDropDown(
+                                      text: value,
+                                      value: value,
+                                    ),
+                                  )
+                                  .toList(),
+                              onChanged: controller.onBankSelected,
+                            ),
                           ),
                           const SizedBox(height: 32),
                           CustomTextInput(
@@ -98,19 +100,22 @@ class NewBankAccountView extends GetView<NewBankAccountController> {
                             hintText: 'Ingresa el nombre',
                           ),
                           const SizedBox(height: 18),
-                          DropDown(
-                            label: 'Tipo de documento',
-                            error: null,
-                            selectedValue: null,
-                            values: controller.documentType
-                                .map(
-                                  (String value) => OptionDropDown(
-                                    text: value,
-                                    value: value,
-                                  ),
-                                )
-                                .toList(),
-                            onChanged: (_) {},
+                          Obx(
+                            () => DropDown(
+                              label: 'Tipo de documento',
+                              error: controller.documentTypeError.value,
+                              selectedValue:
+                                  controller.documentTypeSelected.value,
+                              values: controller.documentType
+                                  .map(
+                                    (String value) => OptionDropDown(
+                                      text: value,
+                                      value: value,
+                                    ),
+                                  )
+                                  .toList(),
+                              onChanged: controller.onDocumentTypeSelected,
+                            ),
                           ),
                           const SizedBox(height: 32),
                           CustomTextInput(

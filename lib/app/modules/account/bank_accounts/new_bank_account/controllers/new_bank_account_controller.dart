@@ -73,37 +73,53 @@ class NewBankAccountController extends GetxController {
     'Pasaporte',
   ];
 
+  RxnString bankSelected = RxnString();
+  RxnString bankError = RxnString();
+
+  RxnString documentTypeSelected = RxnString();
+  RxnString documentTypeError = RxnString();
+
+  void onBankSelected(String? value) {
+    bankError.value = null;
+    if (value != null) {
+      bankSelected.value = value;
+    } else {
+      bankSelected.value = null;
+    }
+  }
+
+  void onDocumentTypeSelected(String? value) {
+    documentTypeError.value = null;
+    if (value != null) {
+      documentTypeSelected.value = value;
+    } else {
+      documentTypeSelected.value = null;
+    }
+  }
+
   Future<void> sendForm(Map<String, Object?> data) async {
-    // if (departmentSelected.value == null) {
-    //   departmentError.value = 'Elige un departamento';
-    //   return;
-    // }
+    if (bankSelected.value == null) {
+      bankError.value = 'Elige un banco';
+    }
 
-    // if (_departmentModel == null) {
-    //   cityError.value = 'Elige un departamento válido';
-    //   return;
-    // }
-    // if (citySelected.value == null) {
-    //   cityError.value = 'Elige una ciudad';
-    //   return;
-    // }
+    if (documentTypeSelected.value == null) {
+      documentTypeError.value = 'Elige un tipo de documento';
+    }
 
-    // CityModel? _cityModel = getCityById(citySelected.value!);
-
-    // if (_cityModel == null) {
-    //   cityError.value = 'Elige una ciudad válida';
-    //   return;
-    // }
-
+    if (bankError.value != null && documentTypeError.value != null) {
+      return;
+    }
     String fullname = data[Fields.fullname.name].toString();
     String accountNumber = data[Fields.accountNumber.name].toString();
     // String phone = data[Fields.phone.name].toString();
     String accountType = data[Fields.accountType.name].toString();
     String document = data[Fields.document.name].toString();
 
-    print('fullname $fullname');
+    print('bankSelected ${bankSelected.value}');
     print('accountNumber $accountNumber');
     print('accountType $accountType');
+    print('fullname $fullname');
+    print('documentTypeSelected ${documentTypeSelected.value}');
     print('document $document');
   }
 }
