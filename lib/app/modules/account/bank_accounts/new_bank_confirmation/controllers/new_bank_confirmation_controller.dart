@@ -1,23 +1,12 @@
+import 'package:flutter_estrellas/app/data/models/bank_account/bank_account_model.dart';
 import 'package:get/get.dart';
 
 class NewBankConfirmationController extends GetxController {
-  //TODO: Implement NewBankConfirmationController
+  late BankAccountModel bankAccountModel;
 
-  final count = 0.obs;
   @override
   void onInit() {
+    bankAccountModel = Get.arguments as BankAccountModel;
     super.onInit();
   }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
-  void increment() => count.value++;
 }

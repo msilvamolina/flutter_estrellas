@@ -13,9 +13,9 @@ class NewBankConfirmationView extends GetView<NewBankConfirmationController> {
         title: const Text('NewBankConfirmationView'),
         centerTitle: true,
       ),
-      body: const Center(
+      body: Center(
         child: Text(
-          'NewBankConfirmationView is working',
+          controller.bankAccountModel.toString(),
           style: TextStyle(fontSize: 20),
         ),
       ),

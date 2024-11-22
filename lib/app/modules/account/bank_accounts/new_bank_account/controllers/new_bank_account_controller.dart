@@ -1,6 +1,10 @@
+import 'package:flutter_estrellas/app/data/models/bank_account/bank_account_model.dart';
 import 'package:get/get.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:reactive_phone_form_field/reactive_phone_form_field.dart';
+import 'package:uuid/uuid.dart';
+
+import '../../../../../routes/app_pages.dart';
 
 enum Fields {
   fullname('fullname'),
@@ -111,15 +115,21 @@ class NewBankAccountController extends GetxController {
     }
     String fullname = data[Fields.fullname.name].toString();
     String accountNumber = data[Fields.accountNumber.name].toString();
-    // String phone = data[Fields.phone.name].toString();
     String accountType = data[Fields.accountType.name].toString();
     String document = data[Fields.document.name].toString();
 
-    print('bankSelected ${bankSelected.value}');
-    print('accountNumber $accountNumber');
-    print('accountType $accountType');
-    print('fullname $fullname');
-    print('documentTypeSelected ${documentTypeSelected.value}');
-    print('document $document');
+    String id = Uuid().v4();
+
+    BankAccountModel model = BankAccountModel(
+      id: id,
+      bank: bankSelected.value!,
+      accountNumber: accountNumber,
+      accountType: accountType,
+      fullname: fullname,
+      documentType: documentTypeSelected.value!,
+      document: document,
+    );
+
+    Get.toNamed(Routes.NEW_BANK_CONFIRMATION, arguments: model);
   }
 }
