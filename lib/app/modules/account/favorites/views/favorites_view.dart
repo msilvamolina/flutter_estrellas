@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import '../../../../components/appbar/estrellas_appbar.dart';
 import '../../../../components/cards/video_product_card.dart';
 import '../controllers/favorites_controller.dart';
+import '../widgets/favorites_empty_state.dart';
 
 class FavoritesView extends GetView<FavoritesController> {
   const FavoritesView({super.key});
@@ -41,7 +42,7 @@ class FavoritesView extends GetView<FavoritesController> {
                     );
                   },
                 )
-              : Center(child: const Text('no data')),
+              : FavoritesEmptyState(),
         ),
       ),
     );
