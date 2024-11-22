@@ -23,7 +23,7 @@ class FavoritesEmptyState extends StatelessWidget {
                 .copyWith(fontWeight: FontWeight.w600),
             textAlign: TextAlign.center,
           ),
-          SizedBox(height: 16),
+          SizedBox(height: 8),
           Text(
             'Descubre todos los productos increíbles que tenemos para ti.',
             style: TypographyStyle.bodyRegularLarge,
