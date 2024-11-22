@@ -16,40 +16,38 @@ class BankAccountsView extends GetView<BankAccountsController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: EstrellasAppbar(title: 'Cuentas bancarias'),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Obx(
-              () => controller.list.isNotEmpty
-                  ? ListView.separated(
-                      physics: NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: controller.list.length,
-                      itemBuilder: (context, index) {
-                        return GestureDetector(
-                          onTap: () =>
-                              controller.selectAddress(controller.list[index]),
-                          child: BankAccountSlideCard(
-                            bankAccountModel: controller.list[index],
-                          ),
-                        );
-                      },
-                      separatorBuilder: (context, index) =>
-                          const SizedBox.shrink(),
-                    )
-                  : BankAccountEmptyState(),
-            ),
-            Button(
-              label: 'Agregar nueva cuenta',
-              onPressed: () {
-                Get.toNamed(Routes.NEW_BANK_ACCOUNT);
-              },
-              style: ButtonStyles.secondaryLink,
-            ),
-            SizedBox(height: 140),
-          ],
-        ),
-      ),
+      body: Obx(() => controller.list.isNotEmpty
+          ? SingleChildScrollView(
+              child: Column(
+                children: [
+                  ListView.separated(
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: controller.list.length,
+                    itemBuilder: (context, index) {
+                      return GestureDetector(
+                        onTap: () =>
+                            controller.selectAddress(controller.list[index]),
+                        child: BankAccountSlideCard(
+                          bankAccountModel: controller.list[index],
+                        ),
+                      );
+                    },
+                    separatorBuilder: (context, index) =>
+                        const SizedBox.shrink(),
+                  ),
+                  Button(
+                    label: 'Agregar nueva cuenta',
+                    onPressed: () {
+                      Get.toNamed(Routes.NEW_BANK_ACCOUNT);
+                    },
+                    style: ButtonStyles.secondaryLink,
+                  ),
+                  SizedBox(height: 140),
+                ],
+              ),
+            )
+          : BankAccountEmptyState()),
     );
   }
 }
