@@ -11,6 +11,7 @@ import '../../../../routes/app_pages.dart';
 import '../../../../themes/styles/typography.dart';
 import '../../widgets/bottombar.dart';
 import '../controllers/search_controller.dart';
+import '../widgets/search_empty_state.dart';
 
 class SearchView extends GetView<SearchViewController> {
   const SearchView({super.key});
@@ -91,7 +92,7 @@ class SearchView extends GetView<SearchViewController> {
                     );
                   },
                 )
-              : const Center(child: Text('No hay resultados')),
+              : const SearchEmptyState(),
         ),
       ),
     );
