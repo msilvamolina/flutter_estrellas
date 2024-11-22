@@ -68,6 +68,21 @@ class NewBankAccountView extends GetView<NewBankAccountController> {
                             ),
                           ),
                           const SizedBox(height: 16),
+                          Column(
+                            children: [
+                              ReactiveRadioListTile<String>(
+                                formControlName: Fields.accountType.name,
+                                title: const Text('Cuenta Corriente'),
+                                value: 'current',
+                              ),
+                              ReactiveRadioListTile<String>(
+                                formControlName: Fields.accountType.name,
+                                title: const Text('Cuenta de Ahorros'),
+                                value: 'savings',
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 16),
                           Text(
                             'Lugar de envío',
                             style: TypographyStyle.bodyBlackLarge2,

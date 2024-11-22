@@ -6,7 +6,8 @@ enum Fields {
   name('name'),
   notes('notes'),
   address('address'),
-  phone('phone');
+  phone('phone'),
+  accountType('accountType'); // Agregado para radio buttons
 
   const Fields(this.text);
   final String text;
@@ -36,6 +37,9 @@ class NewBankAccountController extends GetxController {
             PhoneValidators.required,
             PhoneValidators.valid,
           ],
+        ),
+        Fields.accountType.name: FormControl<String>(
+          validators: [Validators.required], // Campo para botones de radio
         ),
       });
 }
