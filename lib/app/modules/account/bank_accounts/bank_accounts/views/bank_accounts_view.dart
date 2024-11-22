@@ -34,7 +34,7 @@ class BankAccountsView extends GetView<BankAccountsController> {
                         );
                       },
                       separatorBuilder: (context, index) =>
-                          const SizedBox.shrink(),
+                          const SizedBox(height: 24),
                     )
                   : BankAccountEmptyState(),
             ),

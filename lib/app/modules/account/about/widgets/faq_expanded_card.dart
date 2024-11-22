@@ -42,6 +42,7 @@ class _FaqExpandedCardState extends State<FaqExpandedCard>
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 16),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
