@@ -30,4 +30,8 @@ class BankAccountsController extends GetxController {
   void goToSelectectPayment() {
     // Get.toNamed(Routes.SELECT_PAYMENT, arguments: selectedAddress.value);
   }
+
+  void removeAccount(BankAccountModel bankAccountModel) {
+    print('remove $bankAccountModel');
+  }
 }

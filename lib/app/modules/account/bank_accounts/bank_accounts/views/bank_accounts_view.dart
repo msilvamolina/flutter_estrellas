@@ -8,6 +8,7 @@ import '../../../../../routes/app_pages.dart';
 import '../controllers/bank_accounts_controller.dart';
 import '../widgets/bank_account_card.dart';
 import '../widgets/bank_account_empty_state.dart';
+import '../widgets/bank_account_slide_card.dart';
 
 class BankAccountsView extends GetView<BankAccountsController> {
   const BankAccountsView({super.key});
@@ -28,13 +29,13 @@ class BankAccountsView extends GetView<BankAccountsController> {
                         return GestureDetector(
                           onTap: () =>
                               controller.selectAddress(controller.list[index]),
-                          child: BankAccountCard(
+                          child: BankAccountSlideCard(
                             bankAccountModel: controller.list[index],
                           ),
                         );
                       },
                       separatorBuilder: (context, index) =>
-                          const SizedBox(height: 24),
+                          const SizedBox.shrink(),
                     )
                   : BankAccountEmptyState(),
             ),
