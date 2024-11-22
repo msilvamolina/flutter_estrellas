@@ -16,6 +16,10 @@ class SearchView extends GetView<SearchViewController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: Bottombar(
+        viewSelected: 2,
+        isDarkTheme: false,
+      ),
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: TextField(
