@@ -26,7 +26,7 @@ class AccountView extends GetView<AccountController> {
           Stack(
             children: [
               IconButton(
-                onPressed: () {},
+                onPressed: () => Get.toNamed(Routes.NOTIFICATIONS_LIST),
                 icon: Icon(
                   EstrellasIcons.bell,
                   color: neutral700,

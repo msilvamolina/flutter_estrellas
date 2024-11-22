@@ -50,6 +50,8 @@ import '../modules/main/store/bindings/store_binding.dart';
 import '../modules/main/store/views/store_view.dart';
 import '../modules/main/wallet/bindings/wallet_binding.dart';
 import '../modules/main/wallet/views/wallet_view.dart';
+import '../modules/account/notifications_list/bindings/notifications_list_binding.dart';
+import '../modules/account/notifications_list/views/notifications_list_view.dart';
 import '../modules/order/order_details/bindings/order_details_binding.dart';
 import '../modules/order/order_details/views/order_details_view.dart';
 import '../modules/order/order_error/bindings/order_error_binding.dart';
@@ -262,6 +264,11 @@ class AppPages {
       name: _Paths.VIDEO_DETAILS,
       page: () => const VideoDetailsView(),
       binding: VideoDetailsBinding(),
+    ),
+    GetPage(
+      name: _Paths.NOTIFICATIONS_LIST,
+      page: () => const NotificationsListView(),
+      binding: NotificationsListBinding(),
     ),
   ];
 }
