@@ -8,6 +8,8 @@ import '../modules/account/bank_accounts/bindings/bank_accounts_binding.dart';
 import '../modules/account/bank_accounts/views/bank_accounts_view.dart';
 import '../modules/account/favorites/bindings/favorites_binding.dart';
 import '../modules/account/favorites/views/favorites_view.dart';
+import '../modules/account/phone_verification/bindings/phone_verification_binding.dart';
+import '../modules/account/phone_verification/views/phone_verification_view.dart';
 import '../modules/account/profile/bindings/profile_binding.dart';
 import '../modules/account/profile/views/profile_view.dart';
 import '../modules/address/address_list/bindings/address_binding.dart';
@@ -56,8 +58,6 @@ import '../modules/order/order_success/bindings/order_success_binding.dart';
 import '../modules/order/order_success/views/order_success_view.dart';
 import '../modules/order/orders/bindings/orders_binding.dart';
 import '../modules/order/orders/views/orders_view.dart';
-import '../modules/account/phone_verification/bindings/phone_verification_binding.dart';
-import '../modules/account/phone_verification/views/phone_verification_view.dart';
 import '../modules/product_details/bindings/product_details_binding.dart';
 import '../modules/product_details/views/product_details_view.dart';
 import '../modules/select_payment/bindings/select_payment_binding.dart';
@@ -66,6 +66,8 @@ import '../modules/selects/select_city/bindings/select_city_binding.dart';
 import '../modules/selects/select_city/views/select_city_view.dart';
 import '../modules/selects/select_department/bindings/select_department_binding.dart';
 import '../modules/selects/select_department/views/select_department_view.dart';
+import '../modules/videos/video_details/bindings/video_details_binding.dart';
+import '../modules/videos/video_details/views/video_details_view.dart';
 import '../modules/videos/video_list/bindings/video_list_binding.dart';
 import '../modules/videos/video_list/views/video_list_view.dart';
 
@@ -255,6 +257,11 @@ class AppPages {
       name: _Paths.PHONE_VERIFICATION,
       page: () => const PhoneVerificationView(),
       binding: PhoneVerificationBinding(),
+    ),
+    GetPage(
+      name: _Paths.VIDEO_DETAILS,
+      page: () => const VideoDetailsView(),
+      binding: VideoDetailsBinding(),
     ),
   ];
 }

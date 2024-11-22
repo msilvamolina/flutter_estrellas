@@ -53,13 +53,8 @@ class SearchView extends GetView<SearchViewController> {
                     return GestureDetector(
                       onTap: () {
                         Get.toNamed(
-                          Routes.VIDEO_LIST,
-                          arguments: [
-                            [
-                              controller.filteredList[index]
-                            ], // Nueva lista con un solo elemento
-                            0, // Índice
-                          ],
+                          Routes.VIDEO_DETAILS,
+                          arguments: controller.filteredList[index],
                         );
                       },
                       child: VideoProductCard(

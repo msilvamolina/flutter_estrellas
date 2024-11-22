@@ -38,6 +38,7 @@ abstract class Routes {
   static const ORDER_DETAILS = _Paths.ORDER_DETAILS;
   static const CATALOG_DETAILS = _Paths.CATALOG_DETAILS;
   static const PHONE_VERIFICATION = _Paths.PHONE_VERIFICATION;
+  static const VIDEO_DETAILS = _Paths.VIDEO_DETAILS;
 }
 
 abstract class _Paths {
@@ -77,4 +78,5 @@ abstract class _Paths {
   static const ORDER_DETAILS = '/order-details';
   static const CATALOG_DETAILS = '/catalog-details';
   static const PHONE_VERIFICATION = '/phone-verification';
+  static const VIDEO_DETAILS = '/video-details';
 }
