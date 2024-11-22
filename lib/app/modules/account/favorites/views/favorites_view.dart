@@ -5,21 +5,17 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 import 'package:get/get.dart';
 
+import '../../../../components/appbar/estrellas_appbar.dart';
 import '../../../../components/cards/video_product_card.dart';
 import '../controllers/favorites_controller.dart';
+import '../widgets/favorites_empty_state.dart';
 
 class FavoritesView extends GetView<FavoritesController> {
   const FavoritesView({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Favoritos',
-          style: TypographyStyle.bodyBlackLarge,
-        ),
-        centerTitle: true,
-      ),
+      appBar: EstrellasAppbar(title: 'Favoritos'),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Obx(
@@ -46,7 +42,7 @@ class FavoritesView extends GetView<FavoritesController> {
                     );
                   },
                 )
-              : Center(child: const Text('no data')),
+              : FavoritesEmptyState(),
         ),
       ),
     );

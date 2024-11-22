@@ -25,6 +25,7 @@ mixin _$VideoPostModel {
   String get thumbnail => throw _privateConstructorUsedError;
   String get videoUrl => throw _privateConstructorUsedError;
   ProductFirebaseLiteModel? get product => throw _privateConstructorUsedError;
+  String? get searchField => throw _privateConstructorUsedError;
 
   /// Serializes this VideoPostModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -47,7 +48,8 @@ abstract class $VideoPostModelCopyWith<$Res> {
       String id,
       String thumbnail,
       String videoUrl,
-      ProductFirebaseLiteModel? product});
+      ProductFirebaseLiteModel? product,
+      String? searchField});
 
   $ProductFirebaseLiteModelCopyWith<$Res>? get product;
 }
@@ -72,6 +74,7 @@ class _$VideoPostModelCopyWithImpl<$Res, $Val extends VideoPostModel>
     Object? thumbnail = null,
     Object? videoUrl = null,
     Object? product = freezed,
+    Object? searchField = freezed,
   }) {
     return _then(_value.copyWith(
       name: null == name
@@ -94,6 +97,10 @@ class _$VideoPostModelCopyWithImpl<$Res, $Val extends VideoPostModel>
           ? _value.product
           : product // ignore: cast_nullable_to_non_nullable
               as ProductFirebaseLiteModel?,
+      searchField: freezed == searchField
+          ? _value.searchField
+          : searchField // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 
@@ -125,7 +132,8 @@ abstract class _$$VideoPostModelImplCopyWith<$Res>
       String id,
       String thumbnail,
       String videoUrl,
-      ProductFirebaseLiteModel? product});
+      ProductFirebaseLiteModel? product,
+      String? searchField});
 
   @override
   $ProductFirebaseLiteModelCopyWith<$Res>? get product;
@@ -149,6 +157,7 @@ class __$$VideoPostModelImplCopyWithImpl<$Res>
     Object? thumbnail = null,
     Object? videoUrl = null,
     Object? product = freezed,
+    Object? searchField = freezed,
   }) {
     return _then(_$VideoPostModelImpl(
       name: null == name
@@ -171,6 +180,10 @@ class __$$VideoPostModelImplCopyWithImpl<$Res>
           ? _value.product
           : product // ignore: cast_nullable_to_non_nullable
               as ProductFirebaseLiteModel?,
+      searchField: freezed == searchField
+          ? _value.searchField
+          : searchField // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -183,7 +196,8 @@ class _$VideoPostModelImpl extends _VideoPostModel {
       required this.id,
       required this.thumbnail,
       required this.videoUrl,
-      this.product})
+      this.product,
+      this.searchField})
       : super._();
 
   factory _$VideoPostModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -199,10 +213,12 @@ class _$VideoPostModelImpl extends _VideoPostModel {
   final String videoUrl;
   @override
   final ProductFirebaseLiteModel? product;
+  @override
+  final String? searchField;
 
   @override
   String toString() {
-    return 'VideoPostModel(name: $name, id: $id, thumbnail: $thumbnail, videoUrl: $videoUrl, product: $product)';
+    return 'VideoPostModel(name: $name, id: $id, thumbnail: $thumbnail, videoUrl: $videoUrl, product: $product, searchField: $searchField)';
   }
 
   @override
@@ -216,13 +232,15 @@ class _$VideoPostModelImpl extends _VideoPostModel {
                 other.thumbnail == thumbnail) &&
             (identical(other.videoUrl, videoUrl) ||
                 other.videoUrl == videoUrl) &&
-            (identical(other.product, product) || other.product == product));
+            (identical(other.product, product) || other.product == product) &&
+            (identical(other.searchField, searchField) ||
+                other.searchField == searchField));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, name, id, thumbnail, videoUrl, product);
+  int get hashCode => Object.hash(
+      runtimeType, name, id, thumbnail, videoUrl, product, searchField);
 
   /// Create a copy of VideoPostModel
   /// with the given fields replaced by the non-null parameter values.
@@ -247,7 +265,8 @@ abstract class _VideoPostModel extends VideoPostModel {
       required final String id,
       required final String thumbnail,
       required final String videoUrl,
-      final ProductFirebaseLiteModel? product}) = _$VideoPostModelImpl;
+      final ProductFirebaseLiteModel? product,
+      final String? searchField}) = _$VideoPostModelImpl;
   const _VideoPostModel._() : super._();
 
   factory _VideoPostModel.fromJson(Map<String, dynamic> json) =
@@ -263,6 +282,8 @@ abstract class _VideoPostModel extends VideoPostModel {
   String get videoUrl;
   @override
   ProductFirebaseLiteModel? get product;
+  @override
+  String? get searchField;
 
   /// Create a copy of VideoPostModel
   /// with the given fields replaced by the non-null parameter values.

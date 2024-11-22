@@ -65,4 +65,21 @@ class Bottomsheets {
       ),
     );
   }
+
+  static void customBottomSheet(Widget bottomSheet,
+      {bool isDismissible = true}) {
+    showModalBottomSheet(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(16),
+          topRight: Radius.circular(16),
+        ),
+      ),
+      isDismissible: isDismissible,
+      isScrollControlled: true,
+      context: Get.context!,
+      backgroundColor: Colors.transparent,
+      builder: (context) => bottomSheet,
+    );
+  }
 }

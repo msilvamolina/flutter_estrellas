@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 
-class BankAccountsController extends GetxController {
-  //TODO: Implement BankAccountsController
+class NotificationsListController extends GetxController {
+  //TODO: Implement NotificationsListController
 
   final count = 0.obs;
   @override

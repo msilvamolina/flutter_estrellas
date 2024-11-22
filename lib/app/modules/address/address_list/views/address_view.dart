@@ -68,7 +68,7 @@ class AddressView extends GetView<AddressController> {
                         separatorBuilder: (context, index) =>
                             const SizedBox(height: 10),
                       )
-                    : Center(child: const Text('no data')),
+                    : Center(child: const SizedBox.shrink()),
               ),
               Center(
                 child: Button(

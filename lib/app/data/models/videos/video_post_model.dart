@@ -19,14 +19,22 @@ abstract class VideoPostModel implements _$VideoPostModel {
     required String thumbnail,
     required String videoUrl,
     ProductFirebaseLiteModel? product,
+    String? searchField,
   }) = _VideoPostModel;
 
   factory VideoPostModel.fromJson(Map<String, dynamic> json) =>
       _$VideoPostModelFromJson(json);
 
-  factory VideoPostModel.fromDocument(DocumentSnapshot doc) =>
-      VideoPostModel.fromJson(ModelHelpers.fromDocument(doc.data()!));
+  factory VideoPostModel.fromDocument(DocumentSnapshot doc) {
+    VideoPostModel data =
+        VideoPostModel.fromJson(ModelHelpers.fromDocument(doc.data()!));
+    String searchField =
+        '${data.name} ${data.product?.name ?? ''} ${data.product?.description ?? ''}';
 
+    return data.copyWith(
+      searchField: FriendlyHelpers.friendlySearchField(searchField),
+    );
+  }
   Map<String, dynamic> toDocument() {
     dynamic videoJson = toJson();
     videoJson['product'] = product!.toJson();

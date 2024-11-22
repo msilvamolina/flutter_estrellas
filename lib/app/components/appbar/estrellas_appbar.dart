@@ -23,7 +23,7 @@ class EstrellasAppbar extends StatelessWidget implements PreferredSizeWidget {
       automaticallyImplyLeading: withBackButton,
       title: Text(
         title,
-        style: TypographyStyle.bodyBlackLarge2,
+        style: TypographyStyle.bodyBlackLarge,
       ),
       centerTitle: true,
       actions: actions,

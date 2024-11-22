@@ -38,7 +38,7 @@ class CatalogSelectBottombar extends StatelessWidget {
             color: white,
             elevation: 0,
             child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8),
+              padding: const EdgeInsets.symmetric(vertical: 0),
               child: ListTile(
                 leading: Container(
                   width: 46,
@@ -50,7 +50,9 @@ class CatalogSelectBottombar extends StatelessWidget {
                   ),
                 ),
                 title: Text(
-                  '${controller.catalogSelectedMap.length} productos seleccionados',
+                  controller.catalogSelectedMap.length > 0
+                      ? '${controller.catalogSelectedMap.length} productos seleccionados'
+                      : 'Seleccionar producto',
                   style: TypographyStyle.bodyBlackLarge,
                   textAlign: TextAlign.center,
                 ),
