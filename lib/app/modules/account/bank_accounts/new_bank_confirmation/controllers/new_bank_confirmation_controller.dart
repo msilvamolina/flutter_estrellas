@@ -9,4 +9,6 @@ class NewBankConfirmationController extends GetxController {
     bankAccountModel = Get.arguments as BankAccountModel;
     super.onInit();
   }
+
+  void save() {}
 }
