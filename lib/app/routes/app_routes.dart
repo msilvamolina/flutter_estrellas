@@ -41,6 +41,7 @@ abstract class Routes {
   static const VIDEO_DETAILS = _Paths.VIDEO_DETAILS;
   static const NOTIFICATIONS_LIST = _Paths.NOTIFICATIONS_LIST;
   static const NEW_BANK_ACCOUNT = _Paths.NEW_BANK_ACCOUNT;
+  static const NEW_BANK_CONFIRMATION = _Paths.NEW_BANK_CONFIRMATION;
 }
 
 abstract class _Paths {
@@ -83,4 +84,5 @@ abstract class _Paths {
   static const VIDEO_DETAILS = '/video-details';
   static const NOTIFICATIONS_LIST = '/notifications-list';
   static const NEW_BANK_ACCOUNT = '/new-bank-account';
+  static const NEW_BANK_CONFIRMATION = '/new-bank-confirmation';
 }
