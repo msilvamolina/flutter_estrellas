@@ -1,8 +1,10 @@
+import 'package:dartz/dartz.dart';
 import 'package:flutter_estrellas/app/data/models/bank_account/bank_account_model.dart';
 import 'package:flutter_estrellas/app/data/providers/repositories/bank_accounts/bank_accounts.dart';
 import 'package:get/get.dart';
 
 import '../../../../../app/controllers/main_controller.dart';
+import '../../../../../components/snackbars/snackbars.dart';
 import '../../../../../routes/app_pages.dart';
 
 class BankAccountsController extends GetxController {
@@ -27,11 +29,18 @@ class BankAccountsController extends GetxController {
     mainAddress.value = address;
   }
 
-  void goToSelectectPayment() {
-    // Get.toNamed(Routes.SELECT_PAYMENT, arguments: selectedAddress.value);
-  }
+  Future<void> removeAccount(BankAccountModel bankAccountModel) async {
+    Either<String, Unit> response =
+        await _repository.removeBankAccount(id: bankAccountModel.id);
 
-  void removeAccount(BankAccountModel bankAccountModel) {
-    print('remove $bankAccountModel');
+    response.fold(
+      (failure) {
+        Snackbars.error(failure);
+      },
+      (_) {
+        Snackbars.success('Tu cuenta se eliminó correctamente');
+      },
+    );
+    update(['account_view']);
   }
 }

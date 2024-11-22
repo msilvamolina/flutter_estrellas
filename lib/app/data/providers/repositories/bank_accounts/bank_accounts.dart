@@ -73,4 +73,24 @@ class BankAccountsRepository {
       return left(e.code);
     }
   }
+
+  Future<Either<String, Unit>> removeBankAccount({
+    required String id,
+  }) async {
+    Map<String, String> userData = getUidAndEmail();
+    String uid = userData['uid'] ?? '';
+
+    try {
+      await _firebaseFirestore
+          .collection('users')
+          .doc(uid)
+          .collection('bank_accounts')
+          .doc(id)
+          .delete();
+
+      return right(unit);
+    } on FirebaseException catch (e) {
+      return left(e.code);
+    }
+  }
 }
