@@ -4,8 +4,16 @@ import '../../../../libraries/icons/icons_font.dart';
 import '../../../../themes/styles/colors.dart';
 import '../../../../themes/styles/typography.dart';
 
-class FaqExpandedCard extends StatelessWidget {
+class FaqExpandedCard extends StatefulWidget {
   const FaqExpandedCard({super.key});
+
+  @override
+  State<FaqExpandedCard> createState() => _FaqExpandedCardState();
+}
+
+class _FaqExpandedCardState extends State<FaqExpandedCard>
+    with SingleTickerProviderStateMixin {
+  bool isExpanded = false;
 
   @override
   Widget build(BuildContext context) {
@@ -19,58 +27,73 @@ class FaqExpandedCard extends StatelessWidget {
         ),
         boxShadow: [
           BoxShadow(
-            color:
-                secondaryLight, // Ajusta el color y opacidad según tu necesidad
-            blurRadius: 0, // Tamaño de desenfoque
-            offset: Offset(-4, 4), // Posición de la sombra
+            color: secondaryLight,
+            blurRadius: 0,
+            offset: Offset(-4, 4),
           ),
         ],
       ),
       child: Card(
         color: white,
         elevation: 0,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 16),
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                        'Lorem ipsum dolor sit amet, consectet adipiscing elit',
-                        style: TypographyStyle.bodyBlackLarge,
-                        textAlign: TextAlign.start,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 2),
-                      child: GestureDetector(
-                        onTap: () {},
-                        child: Icon(
-                          EstrellasIcons.plusCircle,
-                          size: 30,
-                          color: secondaryBase,
+        child: AnimatedSize(
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeInOut,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16),
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          'Lorem ipsum dolor sit amet, consectet adipiscing elit',
+                          style: TypographyStyle.bodyBlackLarge,
+                          textAlign: TextAlign.start,
                         ),
                       ),
-                    ),
-                  ],
+                      Padding(
+                        padding: const EdgeInsets.only(left: 2),
+                        child: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              isExpanded = !isExpanded;
+                            });
+                          },
+                          child: Icon(
+                            isExpanded
+                                ? EstrellasIcons.minusCircle
+                                : EstrellasIcons.plusCircle,
+                            size: 30,
+                            color: secondaryBase,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              SizedBox(height: 8),
-              Divider(
-                color: neutral900,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 16, right: 16, top: 8),
-                child: Text(
-                  'Phasellus accumsan imperdiet tempor. Cras tincidunt, arcu nec eleifend porttitor, orci est vehicula ',
-                  style: TypographyStyle.bodyRegularMedium,
-                  textAlign: TextAlign.start,
-                ),
-              ),
-            ],
+                if (isExpanded)
+                  Column(
+                    children: [
+                      const SizedBox(height: 8),
+                      Divider(
+                        color: neutral900,
+                      ),
+                      Padding(
+                        padding:
+                            const EdgeInsets.only(left: 16, right: 16, top: 8),
+                        child: Text(
+                          'Phasellus accumsan imperdiet tempor. Cras tincidunt, arcu nec eleifend porttitor, orci est vehicula',
+                          style: TypographyStyle.bodyRegularMedium,
+                          textAlign: TextAlign.start,
+                        ),
+                      ),
+                    ],
+                  ),
+              ],
+            ),
           ),
         ),
       ),
