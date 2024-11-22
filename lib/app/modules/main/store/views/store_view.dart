@@ -7,8 +7,10 @@ import '../../../../components/appbar/estrellas_appbar.dart';
 import '../../../../components/buttons/buttons.dart';
 import '../../../../libraries/icons/icons_font.dart';
 import '../../../../themes/styles/colors.dart';
+import '../../../catalog_details/widgets/catalog_select_bottombar.dart';
 import '../../widgets/bottombar.dart';
 import '../controllers/store_controller.dart';
+import '../widgets/catalog_bottombar.dart';
 import '../widgets/catalog_card.dart';
 import '../widgets/catalog_empty_state.dart';
 
@@ -34,18 +36,25 @@ class StoreView extends GetView<StoreController> {
             ),
             floatingActionButton: Obx(
               () => controller.userProductController.listUserCatalogs.isNotEmpty
-                  ? Button(
-                      onPressed: controller.openAddCatalogBottomSheet,
-                      style: ButtonStyles.secondaryCirlce,
-                      child: CircleAvatar(
-                        backgroundColor: primaryBase,
-                        radius: 24,
-                        child: Icon(
-                          Icons.add,
-                          size: 32,
-                        ),
-                      ),
-                    )
+                  ? !controller.isSelectMode
+                      ? Button(
+                          onPressed: controller.openAddCatalogBottomSheet,
+                          style: ButtonStyles.secondaryCirlce,
+                          child: CircleAvatar(
+                            backgroundColor: primaryBase,
+                            radius: 24,
+                            child: Icon(
+                              Icons.add,
+                              size: 32,
+                            ),
+                          ),
+                        )
+                      : Padding(
+                          padding: const EdgeInsets.only(bottom: 16),
+                          child: SafeArea(
+                            child: CatalogBottombar(),
+                          ),
+                        )
                   : SizedBox.shrink(),
             ),
             bottomNavigationBar: Bottombar(

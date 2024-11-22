@@ -29,6 +29,12 @@ class StoreController extends GetxController {
     super.onClose();
   }
 
+  void showDeleteBottomBar() {
+    if (catalogSelectedMap.isNotEmpty) {
+      // Bottomsheets.customBottomSheet(DeleteProductsCatalogBottomsheet());
+    }
+  }
+
   void onPressedSelectMode() {
     catalogSelectedMap.clear();
     _isSelectMode = !_isSelectMode;

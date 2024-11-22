@@ -4,20 +4,20 @@ import 'package:flutter_estrellas/app/themes/styles/typography.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-import '../../../data/models/payments_types/payments_types_model.dart';
-import '../../../themes/styles/colors.dart';
-import '../controllers/catalog_details_controller.dart';
+import '../../../../data/models/payments_types/payments_types_model.dart';
+import '../../../../themes/styles/colors.dart';
+import '../controllers/store_controller.dart';
 
-class CatalogSelectBottombar extends StatelessWidget {
-  const CatalogSelectBottombar({super.key});
+class CatalogBottombar extends StatelessWidget {
+  const CatalogBottombar({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<CatalogDetailsController>(
+    return GetBuilder<StoreController>(
       id: 'view',
       builder: (controller) {
         return Container(
-          margin: EdgeInsets.symmetric(horizontal: 16),
+          margin: EdgeInsets.only(left: 30),
           decoration: BoxDecoration(
             color: white,
             borderRadius: BorderRadius.all(Radius.circular(16)),
@@ -51,8 +51,8 @@ class CatalogSelectBottombar extends StatelessWidget {
                 ),
                 title: Text(
                   controller.catalogSelectedMap.length > 0
-                      ? '${controller.catalogSelectedMap.length} productos seleccionados'
-                      : 'Seleccionar producto',
+                      ? '${controller.catalogSelectedMap.length} catálogos seleccionados'
+                      : 'Seleccionar catálogo',
                   style: TypographyStyle.bodyBlackLarge,
                   textAlign: TextAlign.center,
                 ),
