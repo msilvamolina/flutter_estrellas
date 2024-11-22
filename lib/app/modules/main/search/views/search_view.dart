@@ -24,20 +24,48 @@ class SearchView extends GetView<SearchViewController> {
       ),
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: TextField(
-          controller: controller.searchController,
-          onChanged: (value) => controller.filterList(value),
-          decoration: InputDecoration(
-            hintText: 'Buscar',
-            hintStyle:
-                TypographyStyle.bodyRegularMedium.copyWith(color: neutral900),
-            border: InputBorder.none,
-            prefixIcon: Icon(
-              EstrellasIcons.search,
-              color: neutral900,
+        title: Obx(
+          () => Container(
+            decoration: BoxDecoration(
+              color: Colors.grey[200], // Fondo gris
+              borderRadius: BorderRadius.circular(16), // Bordes redondeados
+            ),
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            child: Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: controller.searchController,
+                    onChanged: (value) {
+                      controller.filterList(value);
+                    },
+                    cursorColor: neutral900,
+                    decoration: InputDecoration(
+                      hintText: 'Buscar',
+                      hintStyle: TypographyStyle.bodyRegularMedium
+                          .copyWith(color: neutral900),
+                      border: InputBorder.none,
+                      prefixIcon: Icon(
+                        EstrellasIcons.search,
+                        color: neutral900,
+                      ),
+                      contentPadding:
+                          const EdgeInsets.only(top: 11), // Padding solo arriba
+                    ),
+                    style: TypographyStyle.bodyBlackLarge,
+                  ),
+                ),
+                if (controller.showCancelButton.value)
+                  IconButton(
+                    icon: Icon(EstrellasIcons.xCircle, color: neutral900),
+                    onPressed: () {
+                      controller.searchController.clear();
+                      controller.filterList('');
+                    },
+                  ),
+              ],
             ),
           ),
-          style: TypographyStyle.bodyBlackLarge,
         ),
       ),
       body: Padding(

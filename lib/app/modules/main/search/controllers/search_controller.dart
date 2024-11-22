@@ -15,6 +15,7 @@ class SearchViewController extends GetxController {
   final RxList<VideoPostModel> _filteredList = <VideoPostModel>[].obs;
   final TextEditingController searchController = TextEditingController();
 
+  RxBool showCancelButton = false.obs;
   List<VideoPostModel> get filteredList => _filteredList;
 
   @override
@@ -25,8 +26,11 @@ class SearchViewController extends GetxController {
 
   void filterList(String query) {
     if (query.isEmpty) {
+      showCancelButton.value = false;
       _filteredList.assignAll(homeController.list);
     } else {
+      showCancelButton.value = true;
+
       _filteredList.assignAll(
         homeController.list
             .where((item) =>
