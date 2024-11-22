@@ -26,120 +26,56 @@ class ProgressAnimatedButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     MainController mainController = Get.find<MainController>();
-    Color backgroundColor = error500;
+    Color backgroundColor = error900;
     Color foregroundColor = white;
     Color loaderColor = error900;
     Color border =
         mainController.isThemeModeDark ? backgroundColor : neutral950;
     Color shadowColor = error900;
 
-    double sizeHeight = 50;
+    double sizeHeight = 52;
     double sizeWidth = MediaQuery.of(context).size.width;
+
     return Container(
       height: sizeHeight,
       width: sizeWidth,
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16),
-          color: kPrimaryColor.withOpacity(0.5)),
+          boxShadow: [
+            BoxShadow(
+              color: error900.withOpacity(0.4),
+              blurRadius: 1, // Ajusta el blur según tu diseño.
+              offset: Offset(
+                  0, 2), // Cambia para personalizar la dirección de la sombra.
+            ),
+          ],
+          border: Border.all(color: neutral900),
+          borderRadius: BorderRadius.circular(26),
+          color: progress > 0 ? error500.withOpacity(0.6) : error500),
       child: Stack(
         children: <Widget>[
-          ClipRRect(
-            borderRadius: BorderRadius.circular(8),
-            child: Container(
-              color: success500,
-              width: sizeWidth * progress,
+          Opacity(
+            opacity: progress,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(26),
+              child: Container(
+                color: shadowColor,
+                width: sizeWidth * progress,
+              ),
             ),
           ),
-          // Button(
-          //   style: ButtonStyles.destructive,
-          //   onPressed: () {},
-          //   label: progress > 0 ? "Mantén presionado para eliminar" : 'Sí',
-          // ),
           Container(
             height: sizeHeight,
             child: Center(
               child: Text(
                 progress > 0 ? "Mantén presionado para eliminar" : 'Sí',
-                style: TypographyStyle.bodyBlackMedium.copyWith(color: white),
+                style: progress > 0
+                    ? TypographyStyle.bodyBlackLarge.copyWith(color: white)
+                    : TypographyStyle.bodyBlackLarge2.copyWith(color: white),
               ),
             ),
           )
         ],
       ),
     );
-
-    // return ElevatedButton(
-    //   onPressed: !(isLoaderButton && isLoading != null && isLoading!)
-    //       ? onPressed
-    //       : null,
-    //   style: ButtonStyle(
-    //     backgroundColor: MaterialStateProperty.resolveWith<Color?>(
-    //       (Set<MaterialState> states) {
-    //         if (states.contains(MaterialState.disabled)) {
-    //           return neutral200;
-    //         }
-    //         return backgroundColor;
-    //       },
-    //     ),
-    //     foregroundColor: MaterialStateProperty.resolveWith<Color?>(
-    //       (Set<MaterialState> states) {
-    //         if (states.contains(MaterialState.disabled)) {
-    //           return neutral800;
-    //         }
-    //         return foregroundColor;
-    //       },
-    //     ),
-    //     side: MaterialStateProperty.resolveWith<BorderSide?>(
-    //       (Set<MaterialState> states) {
-    //         if (states.contains(MaterialState.disabled)) {
-    //           return BorderSide(color: neutral200, width: 1);
-    //         }
-    //         return BorderSide(color: border, width: 1);
-    //       },
-    //     ),
-    //     shadowColor: MaterialStateProperty.resolveWith<Color?>(
-    //       (Set<MaterialState> states) {
-    //         if (states.contains(MaterialState.disabled)) {
-    //           return shadowColor;
-    //         }
-    //         return shadowColor;
-    //       },
-    //     ),
-    //     overlayColor: MaterialStateProperty.resolveWith<Color?>(
-    //       (Set<MaterialState> states) {
-    //         if (states.contains(MaterialState.pressed)) {
-    //           return shadowColor;
-    //         }
-    //         return shadowColor;
-    //       },
-    //     ),
-    //   ),
-    //   child: Container(
-    //     padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 14),
-    //     width: double.infinity,
-    //     child: isLoaderButton
-    //         ? !isLoading!
-    //             ? Text(
-    //                 label,
-    //                 textAlign: TextAlign.center,
-    //                 style: TypographyStyle.bodyBlackLarge,
-    //               )
-    //             : Center(
-    //                 child: SizedBox(
-    //                   width: 22,
-    //                   height: 22,
-    //                   child: CircularProgressIndicator(
-    //                       strokeWidth: 2,
-    //                       valueColor:
-    //                           AlwaysStoppedAnimation<Color>(loaderColor)),
-    //                 ),
-    //               )
-    //         : Text(
-    //             label,
-    //             textAlign: TextAlign.center,
-    //             style: TypographyStyle.bodyBlackLarge2,
-    //           ),
-    //   ),
-    // );
   }
 }
