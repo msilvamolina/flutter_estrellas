@@ -72,4 +72,38 @@ class NewBankAccountController extends GetxController {
     'Cédula de identidad',
     'Pasaporte',
   ];
+
+  Future<void> sendForm(Map<String, Object?> data) async {
+    // if (departmentSelected.value == null) {
+    //   departmentError.value = 'Elige un departamento';
+    //   return;
+    // }
+
+    // if (_departmentModel == null) {
+    //   cityError.value = 'Elige un departamento válido';
+    //   return;
+    // }
+    // if (citySelected.value == null) {
+    //   cityError.value = 'Elige una ciudad';
+    //   return;
+    // }
+
+    // CityModel? _cityModel = getCityById(citySelected.value!);
+
+    // if (_cityModel == null) {
+    //   cityError.value = 'Elige una ciudad válida';
+    //   return;
+    // }
+
+    String fullname = data[Fields.fullname.name].toString();
+    String accountNumber = data[Fields.accountNumber.name].toString();
+    // String phone = data[Fields.phone.name].toString();
+    String accountType = data[Fields.accountType.name].toString();
+    String document = data[Fields.document.name].toString();
+
+    print('fullname $fullname');
+    print('accountNumber $accountNumber');
+    print('accountType $accountType');
+    print('document $document');
+  }
 }

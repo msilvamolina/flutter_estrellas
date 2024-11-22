@@ -31,7 +31,9 @@ class NewBankAccountView extends GetView<NewBankAccountController> {
                       builder: (context, form, child) => Button(
                         label: 'Continuar',
                         style: ButtonStyles.primary,
-                        onPressed: () {},
+                        onPressed: (form.valid)
+                            ? () => controller.sendForm(form.value)
+                            : null,
                       ),
                     ),
                   ),
