@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../app/controllers/main_controller.dart';
-import '../../../themes/styles/colors.dart';
-import '../../../themes/styles/typography.dart';
+import '../../app/controllers/main_controller.dart';
+import '../../app/dialogs/delete/util/constants.dart';
+import '../../themes/styles/colors.dart';
+import '../../themes/styles/typography.dart';
 
-class DestructiveButton extends StatelessWidget {
-  const DestructiveButton({
+class ProgressAnimatedButton extends StatelessWidget {
+  const ProgressAnimatedButton({
     required this.onPressed,
     required this.label,
-    required this.isLoaderButton,
     required this.progress,
     required this.size,
     this.isLoading,
@@ -18,7 +18,6 @@ class DestructiveButton extends StatelessWidget {
 
   final Function()? onPressed;
   final String label;
-  final bool isLoaderButton;
   final bool? isLoading;
   final double progress;
   final Size size;
@@ -33,22 +32,30 @@ class DestructiveButton extends StatelessWidget {
         mainController.isThemeModeDark ? backgroundColor : neutral950;
     Color shadowColor = error900;
 
-    return Stack(
-      children: <Widget>[
-        ClipRRect(
-          borderRadius: BorderRadius.circular(8),
-          child: Container(
-            color: backgroundColor,
-            width: size.width * progress,
+    return Container(
+      height: size.height,
+      width: size.width,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(16),
+          color: kPrimaryColor.withOpacity(0.5)),
+      child: Stack(
+        children: <Widget>[
+          ClipRRect(
+            borderRadius: BorderRadius.circular(8),
+            child: Container(
+              color: kPrimaryColor,
+              width: size.width * progress,
+            ),
           ),
-        ),
-        Center(
-            child: Text(
-          "Mantén presionado para eliminar",
-          style: TypographyStyle.bodyBlackMedium.copyWith(color: white),
-        ))
-      ],
+          Center(
+              child: Text(
+            "Mantén presionado para eliminar",
+            style: TypographyStyle.bodyBlackMedium.copyWith(color: white),
+          ))
+        ],
+      ),
     );
+
     // return ElevatedButton(
     //   onPressed: !(isLoaderButton && isLoading != null && isLoading!)
     //       ? onPressed

@@ -63,12 +63,6 @@ class Button extends StatelessWidget {
           onPressed: onPressed,
           child: child!,
         );
-      case ButtonStyles.destructive:
-        return DestructiveButton(
-          onPressed: onPressed,
-          label: label!,
-          isLoaderButton: false,
-        );
       default:
         return SizedBox.shrink();
     }

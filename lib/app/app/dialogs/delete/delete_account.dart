@@ -42,6 +42,7 @@ class _DeleteAccountState extends State<DeleteAccount>
       decoration: BoxDecoration(
           color: white, borderRadius: BorderRadius.circular(kBorderRadius)),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           Center(
             child: CustomPaint(

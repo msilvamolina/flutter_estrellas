@@ -4,6 +4,7 @@ import 'package:flutter_estrellas/app/app/controllers/main_controller.dart';
 import 'package:flutter_estrellas/app/app/controllers/user_product_controller.dart';
 import 'package:get/get.dart';
 
+import '../../../app/bottom_sheets/delete_products_catalog_bottomsheet.dart';
 import '../../../app/dialogs/delete/delete_account.dart';
 import '../../../components/bottom_sheets/bottomsheets.dart';
 import '../../../components/bottom_sheets/types.dart';
@@ -74,7 +75,7 @@ class CatalogDetailsController extends GetxController {
       //         ),
       //       );
       //     });
-      Bottomsheets.staticBottomSheet(BottomSheetTypes.deleteProductsInCatalog);
+      Bottomsheets.customBottomSheet(DeleteProductsCatalogBottomsheet());
     }
   }
 
