@@ -16,52 +16,64 @@ class StoreView extends GetView<StoreController> {
   const StoreView({super.key});
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      extendBody: true,
-      appBar: EstrellasAppbar(
-        title: 'Mís catálogos',
-        withBackButton: false,
-      ),
-      floatingActionButton: Obx(
-        () => controller.userProductController.listUserCatalogs.isNotEmpty
-            ? Button(
-                onPressed: controller.openAddCatalogBottomSheet,
-                style: ButtonStyles.secondaryCirlce,
-                child: CircleAvatar(
-                  backgroundColor: primaryBase,
-                  radius: 24,
-                  child: Icon(
-                    Icons.add,
-                    size: 32,
-                  ),
-                ),
-              )
-            : SizedBox.shrink(),
-      ),
-      bottomNavigationBar: Bottombar(
-        viewSelected: 3,
-        isDarkTheme: false,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(8),
-        child: Obx(
-          () => controller.userProductController.listUserCatalogs.isNotEmpty
-              ? MasonryGridView.count(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 2,
-                  crossAxisSpacing: 2,
-                  itemCount:
-                      controller.userProductController.listUserCatalogs.length,
-                  itemBuilder: (context, index) {
-                    return CatalogCard(
-                      catalogModel: controller
-                          .userProductController.listUserCatalogs[index],
-                    );
-                  },
+    return GetBuilder<StoreController>(
+        id: 'view',
+        builder: (_) {
+          return Scaffold(
+            extendBody: true,
+            appBar: EstrellasAppbar(
+              title: 'Mís catálogos',
+              withBackButton: false,
+              actions: [
+                Button(
+                  label: controller.isSelectMode ? 'Cancelar' : 'Seleccionar',
+                  onPressed: controller.onPressedSelectMode,
+                  style: ButtonStyles.secondaryText,
                 )
-              : CatalogEmptyState(),
-        ),
-      ),
-    );
+              ],
+            ),
+            floatingActionButton: Obx(
+              () => controller.userProductController.listUserCatalogs.isNotEmpty
+                  ? Button(
+                      onPressed: controller.openAddCatalogBottomSheet,
+                      style: ButtonStyles.secondaryCirlce,
+                      child: CircleAvatar(
+                        backgroundColor: primaryBase,
+                        radius: 24,
+                        child: Icon(
+                          Icons.add,
+                          size: 32,
+                        ),
+                      ),
+                    )
+                  : SizedBox.shrink(),
+            ),
+            bottomNavigationBar: Bottombar(
+              viewSelected: 3,
+              isDarkTheme: false,
+            ),
+            body: Padding(
+              padding: const EdgeInsets.all(8),
+              child: Obx(
+                () =>
+                    controller.userProductController.listUserCatalogs.isNotEmpty
+                        ? MasonryGridView.count(
+                            crossAxisCount: 2,
+                            mainAxisSpacing: 2,
+                            crossAxisSpacing: 2,
+                            itemCount: controller
+                                .userProductController.listUserCatalogs.length,
+                            itemBuilder: (context, index) {
+                              return CatalogCard(
+                                catalogModel: controller.userProductController
+                                    .listUserCatalogs[index],
+                              );
+                            },
+                          )
+                        : CatalogEmptyState(),
+              ),
+            ),
+          );
+        });
   }
 }
