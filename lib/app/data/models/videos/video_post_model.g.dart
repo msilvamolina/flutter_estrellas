@@ -16,6 +16,7 @@ _$VideoPostModelImpl _$$VideoPostModelImplFromJson(Map<String, dynamic> json) =>
           ? null
           : ProductFirebaseLiteModel.fromJson(
               json['product'] as Map<String, dynamic>),
+      searchField: json['searchField'] as String?,
     );
 
 Map<String, dynamic> _$$VideoPostModelImplToJson(
@@ -26,4 +27,5 @@ Map<String, dynamic> _$$VideoPostModelImplToJson(
       'thumbnail': instance.thumbnail,
       'videoUrl': instance.videoUrl,
       'product': instance.product,
+      'searchField': instance.searchField,
     };

@@ -20,7 +20,6 @@ class SearchViewController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    // Inicializa la lista filtrada con todos los elementos.
     _filteredList.assignAll(homeController.list);
   }
 
@@ -30,8 +29,8 @@ class SearchViewController extends GetxController {
     } else {
       _filteredList.assignAll(
         homeController.list
-            .where(
-                (item) => item.name.toLowerCase().contains(query.toLowerCase()))
+            .where((item) =>
+                item.searchField!.toLowerCase().contains(query.toLowerCase()))
             .toList(),
       );
     }
