@@ -49,8 +49,8 @@ class _DeleteProductsCatalogBottomsheetState
 
   void executeAction(CatalogDetailsController controller) {
     if (!hasExecutedAction) {
-      hasExecutedAction = true; // Evita que la acción se ejecute varias veces.
-      // Aquí puedes realizar la acción que desees.
+      hasExecutedAction = true;
+
       Get.back();
       controller.deleteProductsInCatalog();
     }
@@ -75,7 +75,7 @@ class _DeleteProductsCatalogBottomsheetState
                       if (progress == 1.0) {
                         Future.microtask(() => executeAction(controller));
                       } else if (progress < 1.0) {
-                        hasExecutedAction = false; // Resetea el estado.
+                        hasExecutedAction = false;
                       }
                       return SafeArea(
                         child: Container(

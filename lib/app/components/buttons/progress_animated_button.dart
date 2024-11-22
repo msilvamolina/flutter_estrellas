@@ -20,14 +20,7 @@ class ProgressAnimatedButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    MainController mainController = Get.find<MainController>();
-    Color backgroundColor = error900;
-    Color foregroundColor = white;
-    Color loaderColor = error900;
-    Color border =
-        mainController.isThemeModeDark ? backgroundColor : neutral950;
     Color shadowColor = error900;
-
     double sizeHeight = 52;
     double sizeWidth = MediaQuery.of(context).size.width;
 
@@ -38,9 +31,8 @@ class ProgressAnimatedButton extends StatelessWidget {
           boxShadow: [
             BoxShadow(
               color: error900.withOpacity(0.4),
-              blurRadius: 1, // Ajusta el blur según tu diseño.
-              offset: Offset(
-                  0, 2), // Cambia para personalizar la dirección de la sombra.
+              blurRadius: 1,
+              offset: Offset(0, 2),
             ),
           ],
           border: Border.all(color: neutral900),
