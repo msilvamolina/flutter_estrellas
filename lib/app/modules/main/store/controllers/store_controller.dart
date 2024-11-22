@@ -1,7 +1,12 @@
+import 'package:dartz/dartz.dart';
 import 'package:get/get.dart';
 
+import '../../../../app/bottom_sheets/delete_catalogs_bottomsheet.dart';
+import '../../../../app/bottom_sheets/delete_products_catalog_bottomsheet.dart';
 import '../../../../app/controllers/main_controller.dart';
 import '../../../../app/controllers/user_product_controller.dart';
+import '../../../../components/bottom_sheets/bottomsheets.dart';
+import '../../../../components/snackbars/snackbars.dart';
 import '../../../../data/models/user_catalog/user_catalog_model.dart';
 
 class StoreController extends GetxController {
@@ -46,7 +51,7 @@ class StoreController extends GetxController {
 
   void showDeleteBottomBar() {
     if (catalogSelectedMap.isNotEmpty) {
-      // Bottomsheets.customBottomSheet(DeleteProductsCatalogBottomsheet());
+      Bottomsheets.customBottomSheet(DeleteCatalogsBottomsSheet());
     }
   }
 
@@ -58,5 +63,23 @@ class StoreController extends GetxController {
 
   void openAddCatalogBottomSheet() {
     userProductController.openAddCatalogBottomSheet(productNull: true);
+  }
+
+  Future<void> deleteProductsInCatalog() async {
+    List<UserCatalogModel> listProducts =
+        userProductController.listUserCatalogs;
+
+    mainController.showLoader(title: 'Actualizando contenido');
+
+    for (UserCatalogModel element in listProducts) {
+      if (isProductInCatalog(element)) {
+        await userProductController.userProductRepository.deleteCatalog(
+          catalogId: element.id,
+        );
+      }
+    }
+
+    Get.back();
+    Snackbars.success('Contenido eliminado con éxito');
   }
 }

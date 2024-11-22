@@ -272,6 +272,26 @@ class UserProductsRepository {
     }
   }
 
+  Future<Either<String, Unit>> deleteCatalog({
+    required String catalogId,
+  }) async {
+    Map<String, String> userData = getUidAndEmail();
+    String uid = userData['uid'] ?? '';
+
+    try {
+      await _firebaseFirestore
+          .collection('users')
+          .doc(uid)
+          .collection('video_catalogs')
+          .doc(catalogId)
+          .delete();
+
+      return right(unit);
+    } on FirebaseException catch (e) {
+      return left(e.code);
+    }
+  }
+
   Future<Either<String, Unit>> addToCart({
     required VideoPostModel video,
     required int quantity,
