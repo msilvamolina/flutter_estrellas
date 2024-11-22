@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
 
 import '../../../../components/appbar/estrellas_appbar.dart';
 import '../../../../components/buttons/buttons.dart';
 import '../../../../libraries/icons/icons_font.dart';
+import '../../../../routes/app_pages.dart';
 import '../../../../themes/styles/colors.dart';
 import '../../../catalog_details/widgets/catalog_select_bottombar.dart';
 import '../../widgets/bottombar.dart';
@@ -18,6 +20,8 @@ class StoreView extends GetView<StoreController> {
   const StoreView({super.key});
   @override
   Widget build(BuildContext context) {
+    double size = MediaQuery.of(context).size.width / 2;
+
     return GetBuilder<StoreController>(
         id: 'view',
         builder: (_) {
@@ -73,9 +77,53 @@ class StoreView extends GetView<StoreController> {
                             itemCount: controller
                                 .userProductController.listUserCatalogs.length,
                             itemBuilder: (context, index) {
-                              return CatalogCard(
-                                catalogModel: controller.userProductController
-                                    .listUserCatalogs[index],
+                              return GestureDetector(
+                                onTap: () {
+                                  if (controller.isSelectMode) {
+                                    controller.onProductPressed(
+                                      controller.userProductController
+                                          .listUserCatalogs[index],
+                                    );
+                                  } else {
+                                    Get.toNamed(
+                                      Routes.CATALOG_DETAILS,
+                                      arguments: controller
+                                          .userProductController
+                                          .listUserCatalogs[index],
+                                    );
+                                  }
+                                },
+                                child: Stack(
+                                  children: [
+                                    CatalogCard(
+                                      catalogModel: controller
+                                          .userProductController
+                                          .listUserCatalogs[index],
+                                    ),
+                                    if (controller.isSelectMode)
+                                      Positioned(
+                                        top: size - 68,
+                                        right: 14,
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                              color: white,
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(12))),
+                                          margin: EdgeInsets.all(8),
+                                          padding: EdgeInsets.all(16),
+                                          child: SvgPicture.asset(
+                                            controller.isProductInCatalog(
+                                                    controller
+                                                        .userProductController
+                                                        .listUserCatalogs[index])
+                                                ? 'assets/svg/CheckboxActive.svg'
+                                                : 'assets/svg/Checkbox.svg',
+                                            width: 22,
+                                          ),
+                                        ),
+                                      ),
+                                  ],
+                                ),
                               );
                             },
                           )

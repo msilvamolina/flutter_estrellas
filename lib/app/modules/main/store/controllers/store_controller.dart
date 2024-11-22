@@ -29,6 +29,21 @@ class StoreController extends GetxController {
     super.onClose();
   }
 
+  void onProductPressed(UserCatalogModel catalog) {
+    if (isProductInCatalog(catalog)) {
+      catalogSelectedMap.remove(catalog.id);
+    } else {
+      catalogSelectedMap[catalog.id] = catalog;
+    }
+
+    update(['view']);
+  }
+
+  bool isProductInCatalog(UserCatalogModel catalog) {
+    UserCatalogModel? catalogSelected = catalogSelectedMap[catalog.id];
+    return catalogSelected != null;
+  }
+
   void showDeleteBottomBar() {
     if (catalogSelectedMap.isNotEmpty) {
       // Bottomsheets.customBottomSheet(DeleteProductsCatalogBottomsheet());
