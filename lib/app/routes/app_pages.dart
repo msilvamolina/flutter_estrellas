@@ -4,10 +4,12 @@ import 'package:get/get.dart';
 
 import '../modules/account/about/bindings/about_binding.dart';
 import '../modules/account/about/views/about_view.dart';
-import '../modules/account/bank_accounts/bindings/bank_accounts_binding.dart';
-import '../modules/account/bank_accounts/views/bank_accounts_view.dart';
+import '../modules/account/bank_accounts/bank_accounts/bindings/bank_accounts_binding.dart';
+import '../modules/account/bank_accounts/bank_accounts/views/bank_accounts_view.dart';
 import '../modules/account/favorites/bindings/favorites_binding.dart';
 import '../modules/account/favorites/views/favorites_view.dart';
+import '../modules/account/notifications_list/bindings/notifications_list_binding.dart';
+import '../modules/account/notifications_list/views/notifications_list_view.dart';
 import '../modules/account/phone_verification/bindings/phone_verification_binding.dart';
 import '../modules/account/phone_verification/views/phone_verification_view.dart';
 import '../modules/account/profile/bindings/profile_binding.dart';
@@ -50,8 +52,8 @@ import '../modules/main/store/bindings/store_binding.dart';
 import '../modules/main/store/views/store_view.dart';
 import '../modules/main/wallet/bindings/wallet_binding.dart';
 import '../modules/main/wallet/views/wallet_view.dart';
-import '../modules/account/notifications_list/bindings/notifications_list_binding.dart';
-import '../modules/account/notifications_list/views/notifications_list_view.dart';
+import '../modules/account/bank_accounts/new_bank_account/bindings/new_bank_account_binding.dart';
+import '../modules/account/bank_accounts/new_bank_account/views/new_bank_account_view.dart';
 import '../modules/order/order_details/bindings/order_details_binding.dart';
 import '../modules/order/order_details/views/order_details_view.dart';
 import '../modules/order/order_error/bindings/order_error_binding.dart';
@@ -203,6 +205,13 @@ class AppPages {
       name: _Paths.BANK_ACCOUNTS,
       page: () => const BankAccountsView(),
       binding: BankAccountsBinding(),
+      children: [
+        GetPage(
+          name: _Paths.BANK_ACCOUNTS,
+          page: () => const BankAccountsView(),
+          binding: BankAccountsBinding(),
+        ),
+      ],
     ),
     GetPage(
       name: _Paths.ABOUT,
@@ -269,6 +278,11 @@ class AppPages {
       name: _Paths.NOTIFICATIONS_LIST,
       page: () => const NotificationsListView(),
       binding: NotificationsListBinding(),
+    ),
+    GetPage(
+      name: _Paths.NEW_BANK_ACCOUNT,
+      page: () => const NewBankAccountView(),
+      binding: NewBankAccountBinding(),
     ),
   ];
 }
