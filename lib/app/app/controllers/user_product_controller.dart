@@ -15,6 +15,7 @@ import 'package:reactive_forms/reactive_forms.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../components/bottom_sheets/types.dart';
+import '../../data/models/request_order/request_order_model.dart';
 import '../../data/models/user_product/user_product_model.dart';
 import '../../data/models/user_product_cart/user_product_cart_model.dart';
 import '../../data/models/videos/video_post_model.dart';
@@ -45,6 +46,9 @@ class UserProductController extends GetxController {
   List<UserProductModel> get listProductCatalogPrivate =>
       _listProductCatalogPrivate.toList();
 
+  final RxList<RequestOrderModel> _listRequestOrder = <RequestOrderModel>[].obs;
+  List<RequestOrderModel> get listRequestOrder => _listRequestOrder.toList();
+
   final RxList<UserCatalogModel> _listUserCatalogs = <UserCatalogModel>[].obs;
   List<UserCatalogModel> get listUserCatalogs => _listUserCatalogs.toList();
 
@@ -73,6 +77,9 @@ class UserProductController extends GetxController {
   String _shareTitle = '';
   String get shareTitle => _shareTitle;
 
+  String _shareLinkTitle = '';
+  String get shareLinkTitle => _shareLinkTitle;
+
   FormGroup addCatalogForm() => fb.group(<String, Object>{
         Fields.addCatalogName.name: FormControl<String>(
           validators: [
@@ -94,6 +101,7 @@ class UserProductController extends GetxController {
     _listProductCatalogPrivate
         .bindStream(userProductRepository.getUserCatalogPrivate());
     _listUserCatalogs.bindStream(userProductRepository.getUserCatalogs());
+    _listRequestOrder.bindStream(userProductRepository.getListRequestOrders());
   }
 
   void goToBuyUniqueProduct(VideoPostModel? videoPostModel) {
@@ -123,23 +131,24 @@ class UserProductController extends GetxController {
     }
     String id = Utils.generateRandomCode();
     _shareTitle = 'Comparte este producto para\nvender';
+    _shareLinkTitle = '¡Compra ${videoPostModel.product?.name} en Estrellas!';
     _shareIsLoading = true;
     update(['share_bottomsheet']);
     Bottomsheets.staticBottomSheet(BottomSheetTypes.share);
 
-    await createNewLinkWithProductS(
+    await createSingleProductLink(
       id: id,
-      title: _shareTitle,
+      title: _shareLinkTitle,
       imageUrl: videoPostModel.thumbnail,
-      listVideoPostModel: [videoPostModel],
+      videoPostModel: videoPostModel,
     );
 
     _shareIsLoading = false;
     update(['share_bottomsheet']);
   }
 
-  Future<void> createNewLinkWithProductS({
-    required List<VideoPostModel> listVideoPostModel,
+  Future<void> createSingleProductLink({
+    required VideoPostModel videoPostModel,
     required String id,
     required String title,
     required String imageUrl,
@@ -147,7 +156,8 @@ class UserProductController extends GetxController {
     Either<String, Unit> response =
         await userProductRepository.createOrderRequest(
       id: id,
-      listVideoPostModel: listVideoPostModel,
+      type: 'single_product',
+      videoPostModel: videoPostModel,
       title: title,
       imageUrl: imageUrl,
     );
@@ -426,6 +436,10 @@ class UserProductController extends GetxController {
 
     return option != null;
   }
+
+  // bool isProductInRequestOrder(VideoPostModel? videoPostModel) {
+  //   for (RequestOrderModel requestOrderModel in _listRequestOrder) {}
+  // }
 
   Future<void> addProductToCatalog(
       UserCatalogModel catalog, VideoPostModel videoPostModel, bool add) async {

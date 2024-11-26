@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_estrellas/app/data/models/product_firebase_lite/product_firebase_lite.dart';
+import 'package:flutter_estrellas/app/data/models/request_order/request_order_model.dart';
 import 'package:flutter_estrellas/app/data/models/user_catalog/user_catalog_model.dart';
 import 'package:flutter_estrellas/app/data/models/videos/video_post_model.dart';
 import 'package:get/get.dart';
@@ -87,6 +88,25 @@ class UserProductsRepository {
       yield* snapshots.map((snapshot) {
         return snapshot.docs
             .map((doc) => UserCatalogModel.fromDocument(doc))
+            .toList();
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Stream<List<RequestOrderModel>> getListRequestOrders() async* {
+    Map<String, String> userData = getUidAndEmail();
+    String uid = userData['uid'] ?? '';
+    try {
+      Stream<QuerySnapshot> snapshots = _firebaseFirestore
+          .collection('requestOrders')
+          .where('createdByUserId', isEqualTo: uid)
+          .snapshots();
+
+      yield* snapshots.map((snapshot) {
+        return snapshot.docs
+            .map((doc) => RequestOrderModel.fromDocument(doc))
             .toList();
       });
     } catch (e) {
@@ -248,7 +268,10 @@ class UserProductsRepository {
   }
 
   Future<Either<String, Unit>> createOrderRequest({
-    required List<VideoPostModel> listVideoPostModel,
+    List<VideoPostModel>? listVideoPostModel,
+    VideoPostModel? videoPostModel,
+    String? catalogId,
+    required String type,
     required String title,
     required String id,
     required String imageUrl,
@@ -259,18 +282,22 @@ class UserProductsRepository {
 
     List<dynamic> listVideos = [];
 
-    if (listVideoPostModel.isNotEmpty) {
-      for (VideoPostModel videoPostModel in listVideoPostModel) {
-        listVideos.add(videoPostModel.toDocument());
+    if (listVideoPostModel != null) {
+      if (listVideoPostModel.isNotEmpty) {
+        for (VideoPostModel videoPostModel in listVideoPostModel) {
+          listVideos.add(videoPostModel.toDocument());
+        }
       }
     }
-
     try {
       await _firebaseFirestore.collection('requestOrders').doc(id).set({
         'id': id,
         'title': title,
         'imageUrl': imageUrl,
         'videos': listVideos,
+        'video': videoPostModel?.toDocument(),
+        'catalogId': catalogId,
+        'type': type,
         'createdBy': email,
         'createdByUserId': uid,
         'createdAt': DateTime.now(),
