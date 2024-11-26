@@ -9,6 +9,7 @@ import 'package:flutter_estrellas/app/data/models/product_firebase_lite/product_
 import 'package:flutter_estrellas/app/data/models/user_catalog/user_catalog_model.dart';
 import 'package:flutter_estrellas/app/data/models/video_model.dart';
 import 'package:flutter_estrellas/app/data/providers/repositories/user_products/user_products_repository.dart';
+import 'package:flutter_estrellas/app/utils/utils.dart';
 import 'package:get/get.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:uuid/uuid.dart';
@@ -63,6 +64,15 @@ class UserProductController extends GetxController {
   RxInt cartPoints = 0.obs;
   RxInt cartQuantity = 0.obs;
 
+  bool _shareIsLoading = true;
+  bool get shareIsLoading => _shareIsLoading;
+
+  String _shareLink = '';
+  String get shareLink => _shareLink;
+
+  String _shareTitle = '';
+  String get shareTitle => _shareTitle;
+
   FormGroup addCatalogForm() => fb.group(<String, Object>{
         Fields.addCatalogName.name: FormControl<String>(
           validators: [
@@ -108,7 +118,13 @@ class UserProductController extends GetxController {
   }
 
   void goToSellProductAction(VideoPostModel? videoPostModel) {
-    Get.toNamed(Routes.SOCIAL_MEDIA_SHARE, arguments: videoPostModel);
+    String code = Utils.generateRandomCode();
+    _shareTitle = 'Holis $code';
+
+    _shareIsLoading = false;
+    update(['share_bottomsheet']);
+
+    Bottomsheets.staticBottomSheet(BottomSheetTypes.share);
   }
 
   void setUniqueProduct(VideoPostModel? videoPostModel) {
