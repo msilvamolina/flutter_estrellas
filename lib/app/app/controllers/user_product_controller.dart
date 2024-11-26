@@ -453,8 +453,11 @@ class UserProductController extends GetxController {
   }
 
   RequestOrderModel? productInRequestOrder(VideoPostModel? videoPostModel) {
-    RequestOrderModel? option = _listRequestOrder
-        .firstWhereOrNull((element) => element.video?.id == videoPostModel?.id);
+    RequestOrderModel? option = _listRequestOrder.firstWhereOrNull(
+      (element) =>
+          element.video?.id == videoPostModel?.id &&
+          element.type == 'single_product',
+    );
 
     return option;
   }
