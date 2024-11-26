@@ -196,6 +196,43 @@ class UserProductController extends GetxController {
     update(['share_bottomsheet']);
   }
 
+  Future<void> goToSellProductsInCatalog({
+    required String catalogId,
+    required String imageUrl,
+    required List<VideoPostModel> list,
+  }) async {
+    _shareTitle = 'Comparte estos productos para\nvender';
+
+    _shareIsLoading = true;
+    update(['share_bottomsheet']);
+    Bottomsheets.staticBottomSheet(BottomSheetTypes.share);
+
+    String id = '';
+    RequestOrderModel? requestOrderModel =
+        productsCatalogsInRequestOrder(catalogId, list);
+
+    if (requestOrderModel != null) {
+      id = requestOrderModel.id;
+      _shareLinkTitle = requestOrderModel.title;
+      _shareLink = 'https://checkout.${Environment.websiteUrl!}/$id';
+    } else {
+      id = Utils.generateRandomCode();
+      _shareLink = 'https://checkout.${Environment.websiteUrl!}/$id';
+      _shareLinkTitle = 'Mira estos productos en Estrellas $_shareLink';
+
+      await createCatalogLink(
+        id: id,
+        title: _shareLinkTitle,
+        imageUrl: imageUrl,
+        list: list,
+        catalogId: catalogId,
+      );
+    }
+
+    _shareIsLoading = false;
+    update(['share_bottomsheet']);
+  }
+
   Future<void> createSingleProductLink({
     required VideoPostModel videoPostModel,
     required String id,

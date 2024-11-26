@@ -66,6 +66,28 @@ class CatalogDetailsController extends GetxController {
     }
   }
 
+  void goToShareOption() {
+    if (catalogSelectedMap.isEmpty) {
+      return;
+    }
+    List<VideoPostModel> listProducts = catalogModel.videos ?? [];
+
+    List<VideoPostModel> newlistProducts = [];
+
+    for (VideoPostModel element in listProducts) {
+      if (isProductInCatalog(element)) {
+        newlistProducts.add(element);
+      }
+    }
+    String? imageUrl = catalogModel.imageUrl;
+    if (newlistProducts.isEmpty) {
+      imageUrl = '';
+    }
+
+    userProductController.goToSellProductsInCatalog(
+        catalogId: catalogModel.id, imageUrl: imageUrl, list: newlistProducts);
+  }
+
   Future<void> deleteProductsInCatalog() async {
     List<VideoPostModel> listProducts = catalogModel.videos ?? [];
 
