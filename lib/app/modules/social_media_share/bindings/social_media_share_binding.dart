@@ -5,8 +5,8 @@ import '../controllers/social_media_share_controller.dart';
 class SocialMediaShareBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<SocialMediaShareController>(
-      () => SocialMediaShareController(),
+    Get.put<SocialMediaShareController>(
+      SocialMediaShareController(),
     );
   }
 }

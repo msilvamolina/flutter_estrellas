@@ -107,7 +107,9 @@ class UserProductController extends GetxController {
     mainController.actionNeedLogin(() => goToSellProductAction(videoPostModel));
   }
 
-  void goToSellProductAction(VideoPostModel? videoPostModel) {}
+  void goToSellProductAction(VideoPostModel? videoPostModel) {
+    Get.toNamed(Routes.SOCIAL_MEDIA_SHARE, arguments: videoPostModel);
+  }
 
   void setUniqueProduct(VideoPostModel? videoPostModel) {
     if (videoPostModel != null) {

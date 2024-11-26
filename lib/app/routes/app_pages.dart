@@ -294,9 +294,9 @@ class AppPages {
       binding: NewBankConfirmationBinding(),
     ),
     GetPage(
-      name: _Paths.SOCIAL_MEDIA_SHARE,
-      page: () => const SocialMediaShareView(),
-      binding: SocialMediaShareBinding(),
-    ),
+        name: _Paths.SOCIAL_MEDIA_SHARE,
+        page: () => const SocialMediaShareView(),
+        binding: SocialMediaShareBinding(),
+        transition: Transition.downToUp),
   ];
 }
