@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_estrellas/app/app/bottom_sheets/share_bottomsheet.dart';
 import 'package:flutter_estrellas/app/app/controllers/main_controller.dart';
 import 'package:get/get.dart';
 
@@ -48,6 +49,8 @@ class StaticBottomSeet extends StatelessWidget {
         return DeleteProductsCatalogBottomsheet();
       case BottomSheetTypes.incompleteProfile:
         return IncompleteProfileBottomsheet();
+      case BottomSheetTypes.share:
+        return ShareBottomsheet();
       default:
         return SizedBox.shrink();
     }

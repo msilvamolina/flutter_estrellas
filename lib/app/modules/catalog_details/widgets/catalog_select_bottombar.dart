@@ -40,12 +40,11 @@ class CatalogSelectBottombar extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 0),
               child: ListTile(
-                leading: Container(
-                  width: 46,
-                  height: 46,
-                  child: Icon(
+                leading: IconButton(
+                  onPressed: controller.goToShareOption,
+                  icon: Icon(
                     EstrellasIcons.shareNetwork,
-                    size: 38,
+                    size: 36,
                     color: secondaryBase,
                   ),
                 ),

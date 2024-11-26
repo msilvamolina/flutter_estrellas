@@ -9,11 +9,15 @@ import 'package:flutter_estrellas/app/data/models/product_firebase_lite/product_
 import 'package:flutter_estrellas/app/data/models/user_catalog/user_catalog_model.dart';
 import 'package:flutter_estrellas/app/data/models/video_model.dart';
 import 'package:flutter_estrellas/app/data/providers/repositories/user_products/user_products_repository.dart';
+import 'package:flutter_estrellas/app/services/environment.dart';
+import 'package:flutter_estrellas/app/utils/utils.dart';
 import 'package:get/get.dart';
 import 'package:reactive_forms/reactive_forms.dart';
+import 'package:social_sharing_plus/social_sharing_plus.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../components/bottom_sheets/types.dart';
+import '../../data/models/request_order/request_order_model.dart';
 import '../../data/models/user_product/user_product_model.dart';
 import '../../data/models/user_product_cart/user_product_cart_model.dart';
 import '../../data/models/videos/video_post_model.dart';
@@ -44,6 +48,9 @@ class UserProductController extends GetxController {
   List<UserProductModel> get listProductCatalogPrivate =>
       _listProductCatalogPrivate.toList();
 
+  final RxList<RequestOrderModel> _listRequestOrder = <RequestOrderModel>[].obs;
+  List<RequestOrderModel> get listRequestOrder => _listRequestOrder.toList();
+
   final RxList<UserCatalogModel> _listUserCatalogs = <UserCatalogModel>[].obs;
   List<UserCatalogModel> get listUserCatalogs => _listUserCatalogs.toList();
 
@@ -62,6 +69,21 @@ class UserProductController extends GetxController {
   Rx<double> cartPrices = 0.0.obs;
   RxInt cartPoints = 0.obs;
   RxInt cartQuantity = 0.obs;
+
+  bool _shareIsLoading = true;
+  bool get shareIsLoading => _shareIsLoading;
+
+  String _shareLink = '';
+  String get shareLink => _shareLink;
+
+  String _shareTitle = '';
+  String get shareTitle => _shareTitle;
+
+  String _shareImageUrl = '';
+  String get shareImageUrl => _shareImageUrl;
+
+  String _shareLinkTitle = '';
+  String get shareLinkTitle => _shareLinkTitle;
 
   FormGroup addCatalogForm() => fb.group(<String, Object>{
         Fields.addCatalogName.name: FormControl<String>(
@@ -84,6 +106,7 @@ class UserProductController extends GetxController {
     _listProductCatalogPrivate
         .bindStream(userProductRepository.getUserCatalogPrivate());
     _listUserCatalogs.bindStream(userProductRepository.getUserCatalogs());
+    _listRequestOrder.bindStream(userProductRepository.getListRequestOrders());
   }
 
   void goToBuyUniqueProduct(VideoPostModel? videoPostModel) {
@@ -107,7 +130,187 @@ class UserProductController extends GetxController {
     mainController.actionNeedLogin(() => goToSellProductAction(videoPostModel));
   }
 
-  void goToSellProductAction(VideoPostModel? videoPostModel) {}
+  void goToSellProductAction(VideoPostModel? videoPostModel) async {
+    if (videoPostModel == null) {
+      return;
+    }
+
+    _shareTitle = 'Comparte este producto para\nvender';
+
+    _shareIsLoading = true;
+    update(['share_bottomsheet']);
+    Bottomsheets.staticBottomSheet(BottomSheetTypes.share);
+
+    String id = '';
+    RequestOrderModel? requestOrderModel =
+        productInRequestOrder(videoPostModel);
+    if (requestOrderModel != null) {
+      id = requestOrderModel.id;
+      _shareLinkTitle = requestOrderModel.title;
+      _shareLink = 'https://checkout.${Environment.websiteUrl!}/$id';
+      _shareImageUrl = requestOrderModel.imageUrl;
+    } else {
+      id = Utils.generateRandomCode();
+      _shareLink = 'https://checkout.${Environment.websiteUrl!}/$id';
+      _shareLinkTitle =
+          '¡Compra ${videoPostModel.product?.name} en Estrellas! $_shareLink';
+      _shareImageUrl = videoPostModel.thumbnail;
+
+      await createSingleProductLink(
+        id: id,
+        title: _shareLinkTitle,
+        imageUrl: videoPostModel.thumbnail,
+        videoPostModel: videoPostModel,
+      );
+    }
+
+    _shareIsLoading = false;
+    update(['share_bottomsheet']);
+  }
+
+  Future<void> goToSellCatalog(UserCatalogModel userCatalogModel) async {
+    _shareTitle = 'Comparte este catálogo para\nvender';
+
+    _shareIsLoading = true;
+    update(['share_bottomsheet']);
+    Bottomsheets.staticBottomSheet(BottomSheetTypes.share);
+
+    String id = '';
+    RequestOrderModel? requestOrderModel = productsCatalogsInRequestOrder(
+        userCatalogModel.id, userCatalogModel.videos!);
+
+    if (requestOrderModel != null) {
+      id = requestOrderModel.id;
+      _shareLinkTitle = requestOrderModel.title;
+      _shareLink = 'https://checkout.${Environment.websiteUrl!}/$id';
+      _shareImageUrl = requestOrderModel.imageUrl;
+    } else {
+      id = Utils.generateRandomCode();
+      _shareLink = 'https://checkout.${Environment.websiteUrl!}/$id';
+      _shareLinkTitle =
+          'Mira ${userCatalogModel.name} en Estrellas $_shareLink';
+      _shareImageUrl = userCatalogModel.imageUrl;
+
+      await createCatalogLink(
+        id: id,
+        title: _shareLinkTitle,
+        imageUrl: userCatalogModel.imageUrl,
+        list: userCatalogModel.videos ?? [],
+        catalogId: userCatalogModel.id,
+      );
+    }
+
+    _shareIsLoading = false;
+    update(['share_bottomsheet']);
+  }
+
+  Future<void> goToSellProductsInCatalog({
+    required String catalogId,
+    required String imageUrl,
+    required List<VideoPostModel> list,
+  }) async {
+    _shareTitle = 'Comparte estos productos para\nvender';
+
+    _shareIsLoading = true;
+    update(['share_bottomsheet']);
+    Bottomsheets.staticBottomSheet(BottomSheetTypes.share);
+
+    String id = '';
+    RequestOrderModel? requestOrderModel =
+        productsCatalogsInRequestOrder(catalogId, list);
+
+    if (requestOrderModel != null) {
+      id = requestOrderModel.id;
+      _shareLinkTitle = requestOrderModel.title;
+      _shareLink = 'https://checkout.${Environment.websiteUrl!}/$id';
+      _shareImageUrl = requestOrderModel.imageUrl;
+    } else {
+      id = Utils.generateRandomCode();
+      _shareLink = 'https://checkout.${Environment.websiteUrl!}/$id';
+      _shareLinkTitle = 'Mira estos productos en Estrellas $_shareLink';
+      _shareImageUrl = imageUrl;
+
+      await createCatalogLink(
+        id: id,
+        title: _shareLinkTitle,
+        imageUrl: imageUrl,
+        list: list,
+        catalogId: catalogId,
+      );
+    }
+
+    _shareIsLoading = false;
+    update(['share_bottomsheet']);
+  }
+
+  Future<void> createSingleProductLink({
+    required VideoPostModel videoPostModel,
+    required String id,
+    required String title,
+    required String imageUrl,
+  }) async {
+    Either<String, Unit> response =
+        await userProductRepository.createOrderRequest(
+      id: id,
+      type: 'single_product',
+      videoPostModel: videoPostModel,
+      title: title,
+      imageUrl: imageUrl,
+    );
+
+    response.fold(
+      (failure) {
+        Snackbars.error(failure);
+      },
+      (_) {},
+    );
+  }
+
+  Future<void> createCatalogLink({
+    required String catalogId,
+    required List<VideoPostModel> list,
+    required String id,
+    required String title,
+    required String imageUrl,
+  }) async {
+    Either<String, Unit> response =
+        await userProductRepository.createOrderRequest(
+      id: id,
+      listVideoPostModel: list,
+      type: 'catalog_products',
+      catalogId: catalogId,
+      title: title,
+      imageUrl: imageUrl,
+    );
+
+    response.fold(
+      (failure) {
+        Snackbars.error(failure);
+      },
+      (_) {},
+    );
+  }
+
+  void shareCopyLink() {}
+  void shareDownload() {}
+  void shareWhatsapp() => share(SocialPlatform.whatsapp);
+  void shareFacebook() => share(SocialPlatform.facebook);
+  void shareInstagram() {}
+
+  Future<void> share(SocialPlatform platform) async {
+    await SocialSharingPlus.shareToSocialMedia(
+      platform,
+      _shareLinkTitle,
+      isOpenBrowser: true,
+      onAppNotInstalled: () {
+        ScaffoldMessenger.of(Get.context!)
+          ..hideCurrentSnackBar()
+          ..showSnackBar(SnackBar(
+            content: Text('${platform.name.capitalize} is not installed.'),
+          ));
+      },
+    );
+  }
 
   void setUniqueProduct(VideoPostModel? videoPostModel) {
     if (videoPostModel != null) {
@@ -370,6 +573,41 @@ class UserProductController extends GetxController {
     return option != null;
   }
 
+  RequestOrderModel? productInRequestOrder(VideoPostModel? videoPostModel) {
+    RequestOrderModel? option = _listRequestOrder.firstWhereOrNull(
+      (element) =>
+          element.video?.id == videoPostModel?.id &&
+          element.type == 'single_product',
+    );
+
+    return option;
+  }
+
+  RequestOrderModel? productsCatalogsInRequestOrder(
+      String catalogId, List<VideoPostModel> list) {
+    RequestOrderModel? option = _listRequestOrder.firstWhereOrNull(
+      (element) =>
+          element.catalogId == catalogId &&
+          element.type == 'catalog_products' &&
+          element.videos?.length == list.length,
+    );
+
+    if (option != null) {
+      // Verifica que todos los IDs de element.videos coincidan con los IDs de list
+      bool allIdsMatch = option.videos!
+          .map((video) => video.id) // Mapea los IDs de element.videos
+          .toList()
+          .every(
+            (id) => list.any((item) => item.id == id),
+          ); // Verifica si cada ID está en la lista
+
+      if (!allIdsMatch) {
+        return null; // Si hay diferencias, retorna null
+      }
+    }
+    return option;
+  }
+
   Future<void> addProductToCatalog(
       UserCatalogModel catalog, VideoPostModel videoPostModel, bool add) async {
     List<VideoPostModel> listProducts = catalog.videos ?? [];
@@ -393,7 +631,7 @@ class UserProductController extends GetxController {
         await userProductRepository.updateCatalogListProducts(
       catalogId: catalog.id,
       videos: newlistProducts,
-      imageUrl: imageUrl!,
+      imageUrl: imageUrl,
     );
 
     Get.back();

@@ -8,6 +8,8 @@ import '../modules/account/bank_accounts/bank_accounts/bindings/bank_accounts_bi
 import '../modules/account/bank_accounts/bank_accounts/views/bank_accounts_view.dart';
 import '../modules/account/bank_accounts/new_bank_account/bindings/new_bank_account_binding.dart';
 import '../modules/account/bank_accounts/new_bank_account/views/new_bank_account_view.dart';
+import '../modules/account/bank_accounts/new_bank_confirmation/bindings/new_bank_confirmation_binding.dart';
+import '../modules/account/bank_accounts/new_bank_confirmation/views/new_bank_confirmation_view.dart';
 import '../modules/account/favorites/bindings/favorites_binding.dart';
 import '../modules/account/favorites/views/favorites_view.dart';
 import '../modules/account/notifications_list/bindings/notifications_list_binding.dart';
@@ -54,8 +56,6 @@ import '../modules/main/store/bindings/store_binding.dart';
 import '../modules/main/store/views/store_view.dart';
 import '../modules/main/wallet/bindings/wallet_binding.dart';
 import '../modules/main/wallet/views/wallet_view.dart';
-import '../modules/account/bank_accounts/new_bank_confirmation/bindings/new_bank_confirmation_binding.dart';
-import '../modules/account/bank_accounts/new_bank_confirmation/views/new_bank_confirmation_view.dart';
 import '../modules/order/order_details/bindings/order_details_binding.dart';
 import '../modules/order/order_details/views/order_details_view.dart';
 import '../modules/order/order_error/bindings/order_error_binding.dart';
@@ -72,6 +72,8 @@ import '../modules/selects/select_city/bindings/select_city_binding.dart';
 import '../modules/selects/select_city/views/select_city_view.dart';
 import '../modules/selects/select_department/bindings/select_department_binding.dart';
 import '../modules/selects/select_department/views/select_department_view.dart';
+import '../modules/social_media_share/bindings/social_media_share_binding.dart';
+import '../modules/social_media_share/views/social_media_share_view.dart';
 import '../modules/videos/video_details/bindings/video_details_binding.dart';
 import '../modules/videos/video_details/views/video_details_view.dart';
 import '../modules/videos/video_list/bindings/video_list_binding.dart';
@@ -291,5 +293,10 @@ class AppPages {
       page: () => const NewBankConfirmationView(),
       binding: NewBankConfirmationBinding(),
     ),
+    GetPage(
+        name: _Paths.SOCIAL_MEDIA_SHARE,
+        page: () => const SocialMediaShareView(),
+        binding: SocialMediaShareBinding(),
+        transition: Transition.downToUp),
   ];
 }

@@ -10,9 +10,11 @@ import '../../../../routes/app_pages.dart';
 import '../../../../themes/styles/colors.dart';
 
 class CatalogCard extends StatelessWidget {
-  const CatalogCard({required this.catalogModel, super.key});
+  const CatalogCard(
+      {required this.catalogModel, required this.onSharePressed, super.key});
 
   final UserCatalogModel catalogModel;
+  final Function()? onSharePressed;
   @override
   Widget build(BuildContext context) {
     double size = MediaQuery.of(context).size.width / 2;
@@ -34,7 +36,7 @@ class CatalogCard extends StatelessWidget {
                   height: size,
                   child: catalogModel.imageUrl != ''
                       ? Image.network(
-                          catalogModel.imageUrl!,
+                          catalogModel.imageUrl,
                           fit: BoxFit.cover, // Asegura que llene el espacio
                         )
                       : Image.asset(
@@ -50,9 +52,12 @@ class CatalogCard extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: CircleAvatar(
                       backgroundColor: white,
-                      child: Icon(
-                        EstrellasIcons.shareNetwork,
-                        color: secondaryBase,
+                      child: IconButton(
+                        onPressed: onSharePressed,
+                        icon: Icon(
+                          EstrellasIcons.shareNetwork,
+                          color: secondaryBase,
+                        ),
                       ),
                     ),
                   ),
