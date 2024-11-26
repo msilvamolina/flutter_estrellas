@@ -18,6 +18,8 @@ class Environment {
   Env? currentEnv;
   Map<String, dynamic>? deviceInfo;
 
+  static String? websiteUrl;
+
   /// Inicializa el entorno basado en la configuración proporcionada
   Future<void> init({String env = ''}) async {
     try {
@@ -32,6 +34,7 @@ class Environment {
       version = packageInfo.version;
       packageVersion = packageInfo.version;
 
+      websiteUrl = currentEnv == Env.prod ? 'estrellas.app' : 'estrellas.pro';
       // Inicializar valores predeterminados para API si es necesario
       userCustomerApi ??= '';
       passwordCustomerApi ??= '';

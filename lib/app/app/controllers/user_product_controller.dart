@@ -9,6 +9,7 @@ import 'package:flutter_estrellas/app/data/models/product_firebase_lite/product_
 import 'package:flutter_estrellas/app/data/models/user_catalog/user_catalog_model.dart';
 import 'package:flutter_estrellas/app/data/models/video_model.dart';
 import 'package:flutter_estrellas/app/data/providers/repositories/user_products/user_products_repository.dart';
+import 'package:flutter_estrellas/app/services/environment.dart';
 import 'package:flutter_estrellas/app/utils/utils.dart';
 import 'package:get/get.dart';
 import 'package:reactive_forms/reactive_forms.dart';
@@ -129,19 +130,33 @@ class UserProductController extends GetxController {
     if (videoPostModel == null) {
       return;
     }
-    String id = Utils.generateRandomCode();
+
     _shareTitle = 'Comparte este producto para\nvender';
-    _shareLinkTitle = '¡Compra ${videoPostModel.product?.name} en Estrellas!';
+
     _shareIsLoading = true;
     update(['share_bottomsheet']);
     Bottomsheets.staticBottomSheet(BottomSheetTypes.share);
 
-    await createSingleProductLink(
-      id: id,
-      title: _shareLinkTitle,
-      imageUrl: videoPostModel.thumbnail,
-      videoPostModel: videoPostModel,
-    );
+    String id = '';
+    RequestOrderModel? requestOrderModel =
+        productInRequestOrder(videoPostModel);
+    if (requestOrderModel != null) {
+      id = requestOrderModel.id;
+      _shareLinkTitle = requestOrderModel.title;
+      _shareLink = 'https://checkout.${Environment.websiteUrl!}/$id';
+    } else {
+      id = Utils.generateRandomCode();
+      _shareLink = 'https://checkout.${Environment.websiteUrl!}/$id';
+      _shareLinkTitle =
+          '¡Compra ${videoPostModel.product?.name} en Estrellas! $_shareLink';
+
+      await createSingleProductLink(
+        id: id,
+        title: _shareLinkTitle,
+        imageUrl: videoPostModel.thumbnail,
+        videoPostModel: videoPostModel,
+      );
+    }
 
     _shareIsLoading = false;
     update(['share_bottomsheet']);
@@ -437,9 +452,12 @@ class UserProductController extends GetxController {
     return option != null;
   }
 
-  // bool isProductInRequestOrder(VideoPostModel? videoPostModel) {
-  //   for (RequestOrderModel requestOrderModel in _listRequestOrder) {}
-  // }
+  RequestOrderModel? productInRequestOrder(VideoPostModel? videoPostModel) {
+    RequestOrderModel? option = _listRequestOrder
+        .firstWhereOrNull((element) => element.video?.id == videoPostModel?.id);
+
+    return option;
+  }
 
   Future<void> addProductToCatalog(
       UserCatalogModel catalog, VideoPostModel videoPostModel, bool add) async {
