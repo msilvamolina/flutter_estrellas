@@ -13,6 +13,7 @@ import 'package:flutter_estrellas/app/services/environment.dart';
 import 'package:flutter_estrellas/app/utils/utils.dart';
 import 'package:get/get.dart';
 import 'package:reactive_forms/reactive_forms.dart';
+import 'package:social_sharing_plus/social_sharing_plus.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../components/bottom_sheets/types.dart';
@@ -77,6 +78,9 @@ class UserProductController extends GetxController {
 
   String _shareTitle = '';
   String get shareTitle => _shareTitle;
+
+  String _shareImageUrl = '';
+  String get shareImageUrl => _shareImageUrl;
 
   String _shareLinkTitle = '';
   String get shareLinkTitle => _shareLinkTitle;
@@ -144,11 +148,13 @@ class UserProductController extends GetxController {
       id = requestOrderModel.id;
       _shareLinkTitle = requestOrderModel.title;
       _shareLink = 'https://checkout.${Environment.websiteUrl!}/$id';
+      _shareImageUrl = requestOrderModel.imageUrl;
     } else {
       id = Utils.generateRandomCode();
       _shareLink = 'https://checkout.${Environment.websiteUrl!}/$id';
       _shareLinkTitle =
           '¡Compra ${videoPostModel.product?.name} en Estrellas! $_shareLink';
+      _shareImageUrl = videoPostModel.thumbnail;
 
       await createSingleProductLink(
         id: id,
@@ -177,11 +183,13 @@ class UserProductController extends GetxController {
       id = requestOrderModel.id;
       _shareLinkTitle = requestOrderModel.title;
       _shareLink = 'https://checkout.${Environment.websiteUrl!}/$id';
+      _shareImageUrl = requestOrderModel.imageUrl;
     } else {
       id = Utils.generateRandomCode();
       _shareLink = 'https://checkout.${Environment.websiteUrl!}/$id';
       _shareLinkTitle =
           'Mira ${userCatalogModel.name} en Estrellas $_shareLink';
+      _shareImageUrl = userCatalogModel.imageUrl;
 
       await createCatalogLink(
         id: id,
@@ -215,10 +223,12 @@ class UserProductController extends GetxController {
       id = requestOrderModel.id;
       _shareLinkTitle = requestOrderModel.title;
       _shareLink = 'https://checkout.${Environment.websiteUrl!}/$id';
+      _shareImageUrl = requestOrderModel.imageUrl;
     } else {
       id = Utils.generateRandomCode();
       _shareLink = 'https://checkout.${Environment.websiteUrl!}/$id';
       _shareLinkTitle = 'Mira estos productos en Estrellas $_shareLink';
+      _shareImageUrl = imageUrl;
 
       await createCatalogLink(
         id: id,
@@ -283,9 +293,24 @@ class UserProductController extends GetxController {
 
   void shareCopyLink() {}
   void shareDownload() {}
-  void shareWhatsapp() {}
-  void shareFacebook() {}
+  void shareWhatsapp() => share(SocialPlatform.whatsapp);
+  void shareFacebook() => share(SocialPlatform.facebook);
   void shareInstagram() {}
+
+  Future<void> share(SocialPlatform platform) async {
+    await SocialSharingPlus.shareToSocialMedia(
+      platform,
+      _shareLinkTitle,
+      isOpenBrowser: true,
+      onAppNotInstalled: () {
+        ScaffoldMessenger.of(Get.context!)
+          ..hideCurrentSnackBar()
+          ..showSnackBar(SnackBar(
+            content: Text('${platform.name.capitalize} is not installed.'),
+          ));
+      },
+    );
+  }
 
   void setUniqueProduct(VideoPostModel? videoPostModel) {
     if (videoPostModel != null) {
