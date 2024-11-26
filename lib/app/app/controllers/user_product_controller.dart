@@ -162,6 +162,48 @@ class UserProductController extends GetxController {
     update(['share_bottomsheet']);
   }
 
+  Future<void> goToSellCatalog(UserCatalogModel userCatalogModel) async {
+    _shareTitle = 'Comparte este catálogo para\nvender';
+
+    _shareIsLoading = true;
+    update(['share_bottomsheet']);
+    Bottomsheets.staticBottomSheet(BottomSheetTypes.share);
+
+    String id = '';
+    // RequestOrderModel? requestOrderModel =
+    //     productInRequestOrder(videoPostModel);
+    // if (requestOrderModel != null) {
+    //   id = requestOrderModel.id;
+    //   _shareLinkTitle = requestOrderModel.title;
+    //   _shareLink = 'https://checkout.${Environment.websiteUrl!}/$id';
+    // } else {
+    //   id = Utils.generateRandomCode();
+    //   _shareLink = 'https://checkout.${Environment.websiteUrl!}/$id';
+    //   _shareLinkTitle =
+    //       '¡Compra ${videoPostModel.product?.name} en Estrellas! $_shareLink';
+
+    //   await createSingleProductLink(
+    //     id: id,
+    //     title: _shareLinkTitle,
+    //     imageUrl: videoPostModel.thumbnail,
+    //     videoPostModel: videoPostModel,
+    //   );
+    // }
+    id = Utils.generateRandomCode();
+    _shareLink = 'https://checkout.${Environment.websiteUrl!}/$id';
+    _shareLinkTitle = 'Mira ${userCatalogModel.name} en Estrellas $_shareLink';
+
+    await createCatalogLink(
+      id: id,
+      title: _shareLinkTitle,
+      imageUrl: userCatalogModel.imageUrl,
+      userCatalogModel: userCatalogModel,
+    );
+
+    _shareIsLoading = false;
+    update(['share_bottomsheet']);
+  }
+
   Future<void> createSingleProductLink({
     required VideoPostModel videoPostModel,
     required String id,
@@ -173,6 +215,30 @@ class UserProductController extends GetxController {
       id: id,
       type: 'single_product',
       videoPostModel: videoPostModel,
+      title: title,
+      imageUrl: imageUrl,
+    );
+
+    response.fold(
+      (failure) {
+        Snackbars.error(failure);
+      },
+      (_) {},
+    );
+  }
+
+  Future<void> createCatalogLink({
+    required UserCatalogModel userCatalogModel,
+    required String id,
+    required String title,
+    required String imageUrl,
+  }) async {
+    Either<String, Unit> response =
+        await userProductRepository.createOrderRequest(
+      id: id,
+      listVideoPostModel: userCatalogModel.videos,
+      type: 'full_catalog_products',
+      catalogId: userCatalogModel.id,
       title: title,
       imageUrl: imageUrl,
     );
@@ -485,7 +551,7 @@ class UserProductController extends GetxController {
         await userProductRepository.updateCatalogListProducts(
       catalogId: catalog.id,
       videos: newlistProducts,
-      imageUrl: imageUrl!,
+      imageUrl: imageUrl,
     );
 
     Get.back();

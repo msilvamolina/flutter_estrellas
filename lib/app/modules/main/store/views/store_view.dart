@@ -96,6 +96,11 @@ class StoreView extends GetView<StoreController> {
                                 child: Stack(
                                   children: [
                                     CatalogCard(
+                                      onSharePressed: () => controller
+                                          .userProductController
+                                          .goToSellCatalog(controller
+                                              .userProductController
+                                              .listUserCatalogs[index]),
                                       catalogModel: controller
                                           .userProductController
                                           .listUserCatalogs[index],
