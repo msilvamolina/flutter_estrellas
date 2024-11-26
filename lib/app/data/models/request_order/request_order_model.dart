@@ -16,7 +16,9 @@ abstract class RequestOrderModel implements _$RequestOrderModel {
     required String id,
     required String title,
     required String imageUrl,
+    required String type,
     List<VideoPostModel>? videos,
+    VideoPostModel? video,
   }) = _RequestOrderModel;
 
   factory RequestOrderModel.fromJson(Map<String, dynamic> json) =>
