@@ -17,6 +17,7 @@ abstract class RequestOrderModel implements _$RequestOrderModel {
     required String title,
     required String imageUrl,
     required String type,
+    String? catalogId,
     List<VideoPostModel>? videos,
     VideoPostModel? video,
   }) = _RequestOrderModel;

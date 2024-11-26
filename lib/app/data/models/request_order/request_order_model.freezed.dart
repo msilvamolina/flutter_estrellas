@@ -24,6 +24,7 @@ mixin _$RequestOrderModel {
   String get title => throw _privateConstructorUsedError;
   String get imageUrl => throw _privateConstructorUsedError;
   String get type => throw _privateConstructorUsedError;
+  String? get catalogId => throw _privateConstructorUsedError;
   List<VideoPostModel>? get videos => throw _privateConstructorUsedError;
   VideoPostModel? get video => throw _privateConstructorUsedError;
 
@@ -48,6 +49,7 @@ abstract class $RequestOrderModelCopyWith<$Res> {
       String title,
       String imageUrl,
       String type,
+      String? catalogId,
       List<VideoPostModel>? videos,
       VideoPostModel? video});
 
@@ -73,6 +75,7 @@ class _$RequestOrderModelCopyWithImpl<$Res, $Val extends RequestOrderModel>
     Object? title = null,
     Object? imageUrl = null,
     Object? type = null,
+    Object? catalogId = freezed,
     Object? videos = freezed,
     Object? video = freezed,
   }) {
@@ -93,6 +96,10 @@ class _$RequestOrderModelCopyWithImpl<$Res, $Val extends RequestOrderModel>
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as String,
+      catalogId: freezed == catalogId
+          ? _value.catalogId
+          : catalogId // ignore: cast_nullable_to_non_nullable
+              as String?,
       videos: freezed == videos
           ? _value.videos
           : videos // ignore: cast_nullable_to_non_nullable
@@ -132,6 +139,7 @@ abstract class _$$RequestOrderModelImplCopyWith<$Res>
       String title,
       String imageUrl,
       String type,
+      String? catalogId,
       List<VideoPostModel>? videos,
       VideoPostModel? video});
 
@@ -156,6 +164,7 @@ class __$$RequestOrderModelImplCopyWithImpl<$Res>
     Object? title = null,
     Object? imageUrl = null,
     Object? type = null,
+    Object? catalogId = freezed,
     Object? videos = freezed,
     Object? video = freezed,
   }) {
@@ -176,6 +185,10 @@ class __$$RequestOrderModelImplCopyWithImpl<$Res>
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as String,
+      catalogId: freezed == catalogId
+          ? _value.catalogId
+          : catalogId // ignore: cast_nullable_to_non_nullable
+              as String?,
       videos: freezed == videos
           ? _value._videos
           : videos // ignore: cast_nullable_to_non_nullable
@@ -196,6 +209,7 @@ class _$RequestOrderModelImpl extends _RequestOrderModel {
       required this.title,
       required this.imageUrl,
       required this.type,
+      this.catalogId,
       final List<VideoPostModel>? videos,
       this.video})
       : _videos = videos,
@@ -212,6 +226,8 @@ class _$RequestOrderModelImpl extends _RequestOrderModel {
   final String imageUrl;
   @override
   final String type;
+  @override
+  final String? catalogId;
   final List<VideoPostModel>? _videos;
   @override
   List<VideoPostModel>? get videos {
@@ -227,7 +243,7 @@ class _$RequestOrderModelImpl extends _RequestOrderModel {
 
   @override
   String toString() {
-    return 'RequestOrderModel(id: $id, title: $title, imageUrl: $imageUrl, type: $type, videos: $videos, video: $video)';
+    return 'RequestOrderModel(id: $id, title: $title, imageUrl: $imageUrl, type: $type, catalogId: $catalogId, videos: $videos, video: $video)';
   }
 
   @override
@@ -240,6 +256,8 @@ class _$RequestOrderModelImpl extends _RequestOrderModel {
             (identical(other.imageUrl, imageUrl) ||
                 other.imageUrl == imageUrl) &&
             (identical(other.type, type) || other.type == type) &&
+            (identical(other.catalogId, catalogId) ||
+                other.catalogId == catalogId) &&
             const DeepCollectionEquality().equals(other._videos, _videos) &&
             (identical(other.video, video) || other.video == video));
   }
@@ -247,7 +265,7 @@ class _$RequestOrderModelImpl extends _RequestOrderModel {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, id, title, imageUrl, type,
-      const DeepCollectionEquality().hash(_videos), video);
+      catalogId, const DeepCollectionEquality().hash(_videos), video);
 
   /// Create a copy of RequestOrderModel
   /// with the given fields replaced by the non-null parameter values.
@@ -272,6 +290,7 @@ abstract class _RequestOrderModel extends RequestOrderModel {
       required final String title,
       required final String imageUrl,
       required final String type,
+      final String? catalogId,
       final List<VideoPostModel>? videos,
       final VideoPostModel? video}) = _$RequestOrderModelImpl;
   const _RequestOrderModel._() : super._();
@@ -287,6 +306,8 @@ abstract class _RequestOrderModel extends RequestOrderModel {
   String get imageUrl;
   @override
   String get type;
+  @override
+  String? get catalogId;
   @override
   List<VideoPostModel>? get videos;
   @override

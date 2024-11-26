@@ -13,6 +13,7 @@ _$RequestOrderModelImpl _$$RequestOrderModelImplFromJson(
       title: json['title'] as String,
       imageUrl: json['imageUrl'] as String,
       type: json['type'] as String,
+      catalogId: json['catalogId'] as String?,
       videos: (json['videos'] as List<dynamic>?)
           ?.map((e) => VideoPostModel.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -28,6 +29,7 @@ Map<String, dynamic> _$$RequestOrderModelImplToJson(
       'title': instance.title,
       'imageUrl': instance.imageUrl,
       'type': instance.type,
+      'catalogId': instance.catalogId,
       'videos': instance.videos,
       'video': instance.video,
     };

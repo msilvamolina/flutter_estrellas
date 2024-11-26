@@ -170,35 +170,27 @@ class UserProductController extends GetxController {
     Bottomsheets.staticBottomSheet(BottomSheetTypes.share);
 
     String id = '';
-    // RequestOrderModel? requestOrderModel =
-    //     productInRequestOrder(videoPostModel);
-    // if (requestOrderModel != null) {
-    //   id = requestOrderModel.id;
-    //   _shareLinkTitle = requestOrderModel.title;
-    //   _shareLink = 'https://checkout.${Environment.websiteUrl!}/$id';
-    // } else {
-    //   id = Utils.generateRandomCode();
-    //   _shareLink = 'https://checkout.${Environment.websiteUrl!}/$id';
-    //   _shareLinkTitle =
-    //       '¡Compra ${videoPostModel.product?.name} en Estrellas! $_shareLink';
+    RequestOrderModel? requestOrderModel = productsCatalogsInRequestOrder(
+        userCatalogModel.id, userCatalogModel.videos!);
 
-    //   await createSingleProductLink(
-    //     id: id,
-    //     title: _shareLinkTitle,
-    //     imageUrl: videoPostModel.thumbnail,
-    //     videoPostModel: videoPostModel,
-    //   );
-    // }
-    id = Utils.generateRandomCode();
-    _shareLink = 'https://checkout.${Environment.websiteUrl!}/$id';
-    _shareLinkTitle = 'Mira ${userCatalogModel.name} en Estrellas $_shareLink';
+    if (requestOrderModel != null) {
+      id = requestOrderModel.id;
+      _shareLinkTitle = requestOrderModel.title;
+      _shareLink = 'https://checkout.${Environment.websiteUrl!}/$id';
+    } else {
+      id = Utils.generateRandomCode();
+      _shareLink = 'https://checkout.${Environment.websiteUrl!}/$id';
+      _shareLinkTitle =
+          'Mira ${userCatalogModel.name} en Estrellas $_shareLink';
 
-    await createCatalogLink(
-      id: id,
-      title: _shareLinkTitle,
-      imageUrl: userCatalogModel.imageUrl,
-      userCatalogModel: userCatalogModel,
-    );
+      await createCatalogLink(
+        id: id,
+        title: _shareLinkTitle,
+        imageUrl: userCatalogModel.imageUrl,
+        list: userCatalogModel.videos ?? [],
+        catalogId: userCatalogModel.id,
+      );
+    }
 
     _shareIsLoading = false;
     update(['share_bottomsheet']);
@@ -228,7 +220,8 @@ class UserProductController extends GetxController {
   }
 
   Future<void> createCatalogLink({
-    required UserCatalogModel userCatalogModel,
+    required String catalogId,
+    required List<VideoPostModel> list,
     required String id,
     required String title,
     required String imageUrl,
@@ -236,9 +229,9 @@ class UserProductController extends GetxController {
     Either<String, Unit> response =
         await userProductRepository.createOrderRequest(
       id: id,
-      listVideoPostModel: userCatalogModel.videos,
-      type: 'full_catalog_products',
-      catalogId: userCatalogModel.id,
+      listVideoPostModel: list,
+      type: 'catalog_products',
+      catalogId: catalogId,
       title: title,
       imageUrl: imageUrl,
     );
@@ -525,6 +518,31 @@ class UserProductController extends GetxController {
           element.type == 'single_product',
     );
 
+    return option;
+  }
+
+  RequestOrderModel? productsCatalogsInRequestOrder(
+      String catalogId, List<VideoPostModel> list) {
+    RequestOrderModel? option = _listRequestOrder.firstWhereOrNull(
+      (element) =>
+          element.catalogId == catalogId &&
+          element.type == 'catalog_products' &&
+          element.videos?.length == list.length,
+    );
+
+    if (option != null) {
+      // Verifica que todos los IDs de element.videos coincidan con los IDs de list
+      bool allIdsMatch = option.videos!
+          .map((video) => video.id) // Mapea los IDs de element.videos
+          .toList()
+          .every(
+            (id) => list.any((item) => item.id == id),
+          ); // Verifica si cada ID está en la lista
+
+      if (!allIdsMatch) {
+        return null; // Si hay diferencias, retorna null
+      }
+    }
     return option;
   }
 
