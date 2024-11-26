@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -37,13 +39,24 @@ class SocialMediaShareController extends GetxController {
     try {
       // Obtén el directorio temporal del dispositivo
       final tempDir = await getTemporaryDirectory();
-      final path =
-          '${tempDir.path}/${DateTime.now().millisecondsSinceEpoch}.png';
+      final fileName = imageUrl.split('/').last;
+      final path = '${tempDir.path}/$fileName';
+
+      // Verifica si el archivo ya existe
+      if (await File(path).exists()) {
+        return path;
+      }
 
       // Descarga la imagen y guárdala en el directorio temporal
       await Dio().download(imageUrl, path);
 
-      return path; // Retorna la ruta local de la imagen
+      // Verifica si el archivo se descargó correctamente
+      if (await File(path).exists()) {
+        return path;
+      } else {
+        print('La imagen no se descargó correctamente.');
+        return null;
+      }
     } catch (e) {
       print('Error al descargar la imagen: $e');
       return null;
