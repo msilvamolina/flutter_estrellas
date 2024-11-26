@@ -21,24 +21,145 @@ class ShareBottomsheet extends StatelessWidget {
       builder: (controller) {
         return Container(
           width: double.infinity,
-          child: Stack(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
+          child: !controller.shareIsLoading
+              ? Stack(
                   children: [
-                    Text(
-                      controller.shareTitle,
-                      style: TypographyStyle.h3Mobile,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 22, vertical: 20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            controller.shareTitle,
+                            style: TypographyStyle.h3Mobile,
+                          ),
+                          SizedBox(height: 16),
+                          Row(
+                            children: [
+                              GestureDetector(
+                                onTap: controller.shareCopyLink,
+                                child: Column(
+                                  children: [
+                                    CircleAvatar(
+                                      radius: 26,
+                                      backgroundColor: neutral200,
+                                      child: Icon(
+                                        EstrellasIcons.link,
+                                        size: 28,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 4,
+                                    ),
+                                    Text(
+                                      'Copiar',
+                                      style: TypographyStyle.bodyRegularMedium,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Spacer(),
+                              GestureDetector(
+                                onTap: controller.shareDownload,
+                                child: Column(
+                                  children: [
+                                    CircleAvatar(
+                                      radius: 26,
+                                      backgroundColor: neutral200,
+                                      child: Icon(
+                                        EstrellasIcons.downloadSimple,
+                                        size: 24,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 4,
+                                    ),
+                                    Text(
+                                      'Descargar',
+                                      style: TypographyStyle.bodyRegularMedium,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Spacer(),
+                              GestureDetector(
+                                onTap: controller.shareWhatsapp,
+                                child: Column(
+                                  children: [
+                                    CircleAvatar(
+                                      radius: 26,
+                                      backgroundColor: neutral200,
+                                      child: Image.asset(
+                                          'assets/images/whatsapp-icon.png'),
+                                    ),
+                                    SizedBox(
+                                      height: 4,
+                                    ),
+                                    Text(
+                                      'WhatsApp',
+                                      style: TypographyStyle.bodyRegularMedium,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Spacer(),
+                              GestureDetector(
+                                onTap: controller.shareFacebook,
+                                child: Column(
+                                  children: [
+                                    CircleAvatar(
+                                      radius: 26,
+                                      backgroundColor: neutral200,
+                                      child: Image.asset(
+                                          'assets/images/facebook-icon.png'),
+                                    ),
+                                    SizedBox(
+                                      height: 4,
+                                    ),
+                                    Text(
+                                      'Facebook',
+                                      style: TypographyStyle.bodyRegularMedium,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Spacer(),
+                              GestureDetector(
+                                onTap: controller.shareInstagram,
+                                child: Column(
+                                  children: [
+                                    CircleAvatar(
+                                      radius: 26,
+                                      backgroundColor: neutral200,
+                                      child: Image.asset(
+                                          'assets/images/instagram-icon.png'),
+                                    ),
+                                    SizedBox(
+                                      height: 4,
+                                    ),
+                                    Text(
+                                      'Instagram',
+                                      style: TypographyStyle.bodyRegularMedium,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
-                    SizedBox(height: 22),
+                    TitleWithCloseButton(title: ''),
                   ],
+                )
+              : SizedBox(
+                  height: 180,
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
                 ),
-              ),
-              TitleWithCloseButton(title: ''),
-            ],
-          ),
         );
       },
     );

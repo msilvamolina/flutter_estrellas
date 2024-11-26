@@ -119,13 +119,17 @@ class UserProductController extends GetxController {
 
   void goToSellProductAction(VideoPostModel? videoPostModel) {
     String code = Utils.generateRandomCode();
-    _shareTitle = 'Holis $code';
-
+    _shareTitle = 'Comparte este producto para\nvender';
     _shareIsLoading = false;
     update(['share_bottomsheet']);
-
     Bottomsheets.staticBottomSheet(BottomSheetTypes.share);
   }
+
+  void shareCopyLink() {}
+  void shareDownload() {}
+  void shareWhatsapp() {}
+  void shareFacebook() {}
+  void shareInstagram() {}
 
   void setUniqueProduct(VideoPostModel? videoPostModel) {
     if (videoPostModel != null) {
