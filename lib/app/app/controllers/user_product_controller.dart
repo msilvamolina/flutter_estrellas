@@ -117,12 +117,47 @@ class UserProductController extends GetxController {
     mainController.actionNeedLogin(() => goToSellProductAction(videoPostModel));
   }
 
-  void goToSellProductAction(VideoPostModel? videoPostModel) {
-    String code = Utils.generateRandomCode();
+  void goToSellProductAction(VideoPostModel? videoPostModel) async {
+    if (videoPostModel == null) {
+      return;
+    }
+    String id = Utils.generateRandomCode();
     _shareTitle = 'Comparte este producto para\nvender';
-    _shareIsLoading = false;
+    _shareIsLoading = true;
     update(['share_bottomsheet']);
     Bottomsheets.staticBottomSheet(BottomSheetTypes.share);
+
+    await createNewLinkWithProductS(
+      id: id,
+      title: _shareTitle,
+      imageUrl: videoPostModel.thumbnail,
+      listVideoPostModel: [videoPostModel],
+    );
+
+    _shareIsLoading = false;
+    update(['share_bottomsheet']);
+  }
+
+  Future<void> createNewLinkWithProductS({
+    required List<VideoPostModel> listVideoPostModel,
+    required String id,
+    required String title,
+    required String imageUrl,
+  }) async {
+    Either<String, Unit> response =
+        await userProductRepository.createOrderRequest(
+      id: id,
+      listVideoPostModel: listVideoPostModel,
+      title: title,
+      imageUrl: imageUrl,
+    );
+
+    response.fold(
+      (failure) {
+        Snackbars.error(failure);
+      },
+      (_) {},
+    );
   }
 
   void shareCopyLink() {}

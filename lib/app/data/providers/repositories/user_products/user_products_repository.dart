@@ -247,6 +247,41 @@ class UserProductsRepository {
     }
   }
 
+  Future<Either<String, Unit>> createOrderRequest({
+    required List<VideoPostModel> listVideoPostModel,
+    required String title,
+    required String id,
+    required String imageUrl,
+  }) async {
+    Map<String, String> userData = getUidAndEmail();
+    String uid = userData['uid'] ?? '';
+    String email = userData['email'] ?? '';
+
+    List<dynamic> listVideos = [];
+
+    if (listVideoPostModel.isNotEmpty) {
+      for (VideoPostModel videoPostModel in listVideoPostModel) {
+        listVideos.add(videoPostModel.toDocument());
+      }
+    }
+
+    try {
+      await _firebaseFirestore.collection('requestOrders').doc(id).set({
+        'id': id,
+        'title': title,
+        'imageUrl': imageUrl,
+        'videos': listVideos,
+        'createdBy': email,
+        'createdByUserId': uid,
+        'createdAt': DateTime.now(),
+      });
+
+      return right(unit);
+    } on FirebaseException catch (e) {
+      return left(e.code);
+    }
+  }
+
   Future<Either<String, Unit>> updateCatalogListProducts({
     required String catalogId,
     required String imageUrl,
