@@ -169,20 +169,11 @@ class _VideoAppState extends State<VideoApp> with RouteAware {
       mainAxisAlignment: MainAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,
       children: [
-        if (showExpandedVideo)
-          Expanded(
-            child: Container(
-              color: Colors.black,
-              child: Center(
-                child: videoContent(showButtonsOutside),
-              ),
-            ),
-          )
-        else
-          AspectRatio(
-            aspectRatio: 9 / 16,
+        Expanded(
+          child: Center(
             child: videoContent(showButtonsOutside),
           ),
+        ),
         if (!showButtonsOutside)
           Padding(
             padding: const EdgeInsets.only(left: 16),
@@ -193,85 +184,126 @@ class _VideoAppState extends State<VideoApp> with RouteAware {
   }
 
   Widget videoContent(bool showButtonsOutside) {
+    double screenWidth = MediaQuery.of(context).size.width;
+
     return Container(
       color: Colors.black,
       child: _controller.value.isInitialized
-          ? GestureDetector(
-              onTap: onPause,
-              onDoubleTap: onVolume,
-              child: Stack(
-                children: [
-                  Positioned.fill(
-                    child: FittedBox(
-                      fit: BoxFit.cover, // Aquí aplicas el efecto cover
-                      child: SizedBox(
-                        width: _controller.value.size.width,
-                        height: _controller.value.size.height,
-                        child: VideoPlayer(_controller),
-                      ),
-                    ),
-                  ),
-                  SafeArea(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        if (showButtonsOutside)
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.only(right: 16),
-                              child: VideoButtons(
-                                buttonInsideVideo: true,
-                                videoPostModel: widget.videoPostModel,
-                              ),
-                            ),
-                          )
-                        else
-                          Spacer(),
-                        VideoLabel(videoPostModel: widget.videoPostModel),
-                        SliderTheme(
-                          data: SliderTheme.of(context).copyWith(
-                            thumbShape: SliderComponentShape.noThumb,
-                            trackHeight: 2.0,
-                            activeTrackColor: Colors.white,
-                            inactiveTrackColor: Colors.black.withOpacity(0.3),
-                            overlayShape: SliderComponentShape.noOverlay,
-                          ),
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 14),
-                            child: Slider(
-                              value: _currentSliderValue,
-                              min: 0.0,
-                              max: _controller.value.duration.inSeconds
-                                  .toDouble(),
-                              onChanged: (value) {
-                                if (mounted) {
-                                  setState(() {
-                                    _currentSliderValue = value;
-                                    _controller.seekTo(
-                                        Duration(seconds: value.toInt()));
-                                  });
-                                }
-                              },
-                            ),
+          ? Stack(
+              children: [
+                GestureDetector(
+                  onTap: onVolume,
+                  onLongPress: onPause,
+                  child: Stack(
+                    children: [
+                      Positioned.fill(
+                        child: FittedBox(
+                          fit: BoxFit.cover, // Aquí aplicas el efecto cover
+                          child: SizedBox(
+                            width: _controller.value.size.width,
+                            height: _controller.value.size.height,
+                            child: VideoPlayer(_controller),
                           ),
                         ),
-                        if (widget.bottomSpace) const SizedBox(height: 16),
-                      ],
-                    ),
-                  ),
-                  Center(
-                    child: AnimatedOpacity(
-                      opacity: _iconAnimationShowing ? 0.4 : 0,
-                      duration: const Duration(milliseconds: 500),
-                      child: Icon(
-                        _iconAnimationIcon,
-                        size: 140,
-                        color: Colors.white,
                       ),
-                    ),
+                      SafeArea(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            if (showButtonsOutside)
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      right: 16, bottom: 180),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      VideoButtons(
+                                        buttonInsideVideo: true,
+                                        videoPostModel: widget.videoPostModel,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              )
+                            else
+                              Spacer(),
+                          ],
+                        ),
+                      ),
+                      Center(
+                        child: AnimatedOpacity(
+                          opacity: _iconAnimationShowing ? 0.4 : 0,
+                          duration: const Duration(milliseconds: 500),
+                          child: Icon(
+                            _iconAnimationIcon,
+                            size: 140,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        bottom: 0,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              stops: [0, 1],
+                              colors: [
+                                Colors.transparent,
+                                Colors.black,
+                              ],
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                            ),
+                          ),
+                          width: screenWidth,
+                          height: 245,
+                          child: Column(
+                            children: [
+                              VideoLabel(videoPostModel: widget.videoPostModel),
+                              SliderTheme(
+                                data: SliderTheme.of(context).copyWith(
+                                  thumbShape: SliderComponentShape.noThumb,
+                                  trackHeight: 2.0,
+                                  activeTrackColor: Colors.white,
+                                  inactiveTrackColor:
+                                      Colors.black.withOpacity(0.3),
+                                  overlayShape: SliderComponentShape.noOverlay,
+                                ),
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 14),
+                                  child: Slider(
+                                    value: _currentSliderValue,
+                                    min: 0.0,
+                                    max: _controller.value.duration.inSeconds
+                                        .toDouble(),
+                                    onChanged: (value) {
+                                      if (mounted) {
+                                        setState(() {
+                                          _currentSliderValue = value;
+                                          _controller.seekTo(
+                                              Duration(seconds: value.toInt()));
+                                        });
+                                      }
+                                    },
+                                  ),
+                                ),
+                              ),
+                              if (widget.bottomSpace)
+                                const SizedBox(height: 16),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+                Container(
+                  height: 200,
+                  width: double.infinity,
+                ),
+              ],
             )
           : SizedBox.expand(
               child: CachedNetworkImage(
