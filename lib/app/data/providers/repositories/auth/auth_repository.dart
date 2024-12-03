@@ -23,6 +23,19 @@ class AuthRepository {
     }
   }
 
+  Future<Either<String, Unit>> sendPasswordResetEmail({
+    required String email,
+  }) async {
+    try {
+      await _firebaseAuth.sendPasswordResetEmail(
+        email: email,
+      );
+      return right(unit);
+    } on FirebaseAuthException catch (e) {
+      return left(e.code);
+    }
+  }
+
   Future<Either<String, Unit>> signInWithFacebook() async {
     try {
       final LoginResult result = await FacebookAuth.instance.login();

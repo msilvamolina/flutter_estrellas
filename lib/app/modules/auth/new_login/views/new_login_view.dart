@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_estrellas/app/components/inputs/password_input.dart';
+import 'package:flutter_estrellas/app/routes/app_pages.dart';
 
 import 'package:get/get.dart';
 import 'package:reactive_forms/reactive_forms.dart';
@@ -34,7 +35,7 @@ class NewLoginView extends GetView<NewLoginController> {
                     Center(
                       child: Button(
                         label: 'Olvidé mi contraseña',
-                        onPressed: () {},
+                        onPressed: () => Get.toNamed(Routes.FORGOT_PASSWORD),
                         style: ButtonStyles.secondaryLink,
                       ),
                     ),

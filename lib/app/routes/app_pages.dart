@@ -120,12 +120,7 @@ class AppPages {
     //   binding: RegisterBasicDataBinding(),
     //   transition: Transition.fadeIn,
     // ),
-    GetPage(
-      name: _Paths.FORGOT_PASSWORD,
-      page: () => const ForgotPasswordView(),
-      binding: ForgotPasswordBinding(),
-      transition: Transition.fadeIn,
-    ),
+
     GetPage(
       name: _Paths.WELCOME,
       page: () => const WelcomeView(),
@@ -304,6 +299,11 @@ class AppPages {
       name: _Paths.CART_UNIQUE_PRODUCT,
       page: () => const CartUniqueProductView(),
       binding: CartUniqueProductBinding(),
+    ),
+    GetPage(
+      name: _Paths.FORGOT_PASSWORD,
+      page: () => const ForgotPasswordView(),
+      binding: ForgotPasswordBinding(),
     ),
   ];
 }
