@@ -122,6 +122,23 @@ class UserProductController extends GetxController {
     Get.toNamed(Routes.CART_UNIQUE_PRODUCT);
   }
 
+  void addCartQuantity() {
+    cartQuantity.value = cartQuantity.value + 1;
+    calculateUniqueProducts();
+  }
+
+  void minusCartQuantity() {
+    cartQuantity.value = cartQuantity.value - 1;
+    calculateUniqueProducts();
+  }
+
+  void calculateUniqueProducts() {
+    cartPrices.value = _uniqueProduct?.price ?? 0;
+    cartPoints.value = _uniqueProduct?.points ?? 0;
+    cartPrices.value = cartPrices.value * cartQuantity.value;
+    cartPoints.value = cartPoints.value * cartQuantity.value;
+  }
+
   Future<void> clearCart() async {
     await userProductRepository.clearCart();
   }

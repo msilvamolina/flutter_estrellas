@@ -13,8 +13,6 @@ class CartController extends GetxController {
   UserProductController userProductController =
       Get.find<UserProductController>();
 
-  RxBool isUniqueProduct = false.obs;
-
   @override
   void onReady() {
     calculateProducts();
