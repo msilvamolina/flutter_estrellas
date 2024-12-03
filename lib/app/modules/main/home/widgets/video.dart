@@ -170,7 +170,14 @@ class _VideoAppState extends State<VideoApp> with RouteAware {
       mainAxisSize: MainAxisSize.min,
       children: [
         if (showExpandedVideo)
-          Expanded(child: videoContent(showButtonsOutside))
+          Expanded(
+            child: Container(
+              color: Colors.black,
+              child: Center(
+                child: videoContent(showButtonsOutside),
+              ),
+            ),
+          )
         else
           AspectRatio(
             aspectRatio: 9 / 16,
@@ -187,13 +194,23 @@ class _VideoAppState extends State<VideoApp> with RouteAware {
 
   Widget videoContent(bool showButtonsOutside) {
     return Container(
+      color: Colors.black,
       child: _controller.value.isInitialized
           ? GestureDetector(
               onTap: onPause,
               onDoubleTap: onVolume,
               child: Stack(
                 children: [
-                  VideoPlayer(_controller),
+                  Positioned.fill(
+                    child: FittedBox(
+                      fit: BoxFit.cover, // Aquí aplicas el efecto cover
+                      child: SizedBox(
+                        width: _controller.value.size.width,
+                        height: _controller.value.size.height,
+                        child: VideoPlayer(_controller),
+                      ),
+                    ),
+                  ),
                   SafeArea(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
