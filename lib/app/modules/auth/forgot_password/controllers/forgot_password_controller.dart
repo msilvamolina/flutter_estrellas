@@ -51,6 +51,8 @@ class ForgotPasswordController extends GetxController {
       (_) async {
         Get.back();
         Get.back();
+        Snackbars.success(
+            'Hemos enviado un enlace a tu correo $email para restablecer tu contraseña');
       },
     );
   }
