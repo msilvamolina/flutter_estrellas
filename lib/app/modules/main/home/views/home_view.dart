@@ -50,7 +50,10 @@ class _HomeViewState extends State<HomeView> {
         surfaceTintColor: Colors.transparent,
         elevation: 0,
         actions: [
-          CartBadget(),
+          Padding(
+            padding: const EdgeInsets.only(right: 19),
+            child: CartBadget(),
+          ),
         ],
       ),
       body: Container(
