@@ -71,7 +71,7 @@ class LoginStartView extends GetView<LoginStartController> {
                   SizedBox(height: 26),
                   Button(
                     style: ButtonStyles.secondary,
-                    onPressed: () {},
+                    onPressed: controller.loginFacebook,
                     image: Image.asset(
                       'assets/images/icon-facebook.png',
                       width: 24,

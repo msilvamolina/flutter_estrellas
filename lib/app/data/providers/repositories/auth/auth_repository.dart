@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_estrellas/app/data/models/phone/phone_model.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
@@ -19,6 +20,30 @@ class AuthRepository {
       return right(unit);
     } on FirebaseAuthException catch (e) {
       return left(e.code);
+    }
+  }
+
+  Future<Either<String, Unit>> signInWithFacebook() async {
+    try {
+      final LoginResult result = await FacebookAuth.instance.login();
+
+      if (result.status == LoginStatus.success) {
+        final AccessToken? accessToken = result.accessToken;
+
+        final facebookAuthCredential = FacebookAuthProvider.credential(
+          accessToken!.token,
+        );
+
+        await _firebaseAuth.signInWithCredential(facebookAuthCredential);
+
+        return right(unit);
+      } else {
+        return left(result.message ?? "Error desconocido en Facebook Login");
+      }
+    } on FirebaseAuthException catch (e) {
+      return left(e.code);
+    } catch (e) {
+      return left(e.toString());
     }
   }
 

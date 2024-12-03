@@ -52,4 +52,24 @@ class LoginStartController extends GetxController {
       },
     );
   }
+
+  Future<void> loginFacebook() async {
+    Either<String, Unit> authFailureOrSuccessOption =
+        await _authRepository.signInWithFacebook();
+
+    authFailureOrSuccessOption.fold(
+      (failure) {
+        Get.back();
+        Snackbars.error(failure);
+      },
+      (_) async {
+        // Get.back();
+        Get.back();
+
+        mainController.checkUser(login: true);
+        await mainController.reloadUserData();
+        userProductController.fillUserList();
+      },
+    );
+  }
 }

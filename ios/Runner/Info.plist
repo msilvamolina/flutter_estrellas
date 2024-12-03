@@ -20,8 +20,6 @@
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
 	<string>$(FLUTTER_BUILD_NAME)</string>
-	<key>GIDClientID</key>
-	<string>802823199567-pbh57iua7v7veubh20eaf7o4g79peuhd.apps.googleusercontent.com</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -31,9 +29,25 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
+				<!-- Google Sign-In -->
 				<string>com.googleusercontent.apps.802823199567-pbh57iua7v7veubh20eaf7o4g79peuhd</string>
+				<!-- Facebook Sign-In -->
+				<string>fb1277829120093655</string>
 			</array>
 		</dict>
+	</array>
+	<key>FacebookAppID</key>
+	<string>1277829120093655</string>
+	<key>FacebookClientToken</key>
+	<string>72aef1538a348391eac02228dbd21f85</string>
+	<key>FacebookDisplayName</key>
+	<string>Estrellas dev</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>fbapi</string>
+		<string>fb-messenger-share-api</string>
+		<string>fbauth2</string>
+		<string>fbshareextension</string>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
