@@ -82,7 +82,7 @@ class LoginStartView extends GetView<LoginStartController> {
                   if (Platform.isIOS) ...[
                     Button(
                       style: ButtonStyles.secondary,
-                      onPressed: () {},
+                      onPressed: controller.loginApple,
                       image: Image.asset(
                         'assets/images/icon-apple.png',
                         width: 20,

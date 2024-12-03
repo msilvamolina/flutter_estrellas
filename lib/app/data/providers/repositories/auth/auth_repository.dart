@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_estrellas/app/data/models/phone/phone_model.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 class AuthRepository {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -34,6 +35,27 @@ class AuthRepository {
       );
 
       await _firebaseAuth.signInWithCredential(credential);
+      return right(unit);
+    } on FirebaseAuthException catch (e) {
+      return left(e.code);
+    }
+  }
+
+  Future<Either<String, Unit>> signInWithApple() async {
+    try {
+      final credential = await SignInWithApple.getAppleIDCredential(
+        scopes: [
+          AppleIDAuthorizationScopes.email,
+          AppleIDAuthorizationScopes.fullName,
+        ],
+      );
+
+      final oAuthCredential = OAuthProvider("apple.com").credential(
+        idToken: credential.identityToken,
+        accessToken: credential.authorizationCode,
+      );
+
+      await _firebaseAuth.signInWithCredential(oAuthCredential);
       return right(unit);
     } on FirebaseAuthException catch (e) {
       return left(e.code);

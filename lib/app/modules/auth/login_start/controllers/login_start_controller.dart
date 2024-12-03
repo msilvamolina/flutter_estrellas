@@ -13,9 +13,27 @@ class LoginStartController extends GetxController {
   UserProductController userProductController =
       Get.find<UserProductController>();
 
-  Future<void> loginGoogle() async {
-    // mainController.showLoader();
+  Future<void> loginApple() async {
+    Either<String, Unit> authFailureOrSuccessOption =
+        await _authRepository.signInWithApple();
 
+    authFailureOrSuccessOption.fold(
+      (failure) {
+        Get.back();
+        Snackbars.error(failure);
+      },
+      (_) async {
+        // Get.back();
+        Get.back();
+
+        mainController.checkUser(login: true);
+        await mainController.reloadUserData();
+        userProductController.fillUserList();
+      },
+    );
+  }
+
+  Future<void> loginGoogle() async {
     Either<String, Unit> authFailureOrSuccessOption =
         await _authRepository.signInWithGoogle();
 
