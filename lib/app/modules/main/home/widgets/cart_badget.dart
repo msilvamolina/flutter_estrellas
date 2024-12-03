@@ -17,6 +17,14 @@ class CartBadget extends StatelessWidget {
         return Stack(
           children: [
             IconButton(
+              onPressed: () {},
+              icon: Icon(
+                EstrellasIcons.shoppingCartSimpleFill,
+                color: Colors.black.withOpacity(0.2),
+                size: 42,
+              ),
+            ),
+            IconButton(
               onPressed: controller.goToCart,
               icon: Icon(
                 EstrellasIcons.shoppingCartSimpleFill,
