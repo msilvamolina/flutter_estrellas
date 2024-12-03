@@ -119,7 +119,7 @@ class UserProductController extends GetxController {
     cartPoints.value = videoPostModel?.product?.points ?? 0;
     cartPrices.value = videoPostModel?.product?.price ?? 0;
     cartQuantity.value = 1;
-    Get.toNamed(Routes.CART);
+    Get.toNamed(Routes.CART_UNIQUE_PRODUCT);
   }
 
   Future<void> clearCart() async {

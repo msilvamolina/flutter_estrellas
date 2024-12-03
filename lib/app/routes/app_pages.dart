@@ -44,6 +44,8 @@ import '../modules/auth/welcome/bindings/welcome_binding.dart';
 import '../modules/auth/welcome/views/welcome_view.dart';
 import '../modules/cart/bindings/cart_binding.dart';
 import '../modules/cart/views/cart_view.dart';
+import '../modules/cart_unique_product/bindings/cart_unique_product_binding.dart';
+import '../modules/cart_unique_product/views/cart_unique_product_view.dart';
 import '../modules/catalog_details/bindings/catalog_details_binding.dart';
 import '../modules/catalog_details/views/catalog_details_view.dart';
 import '../modules/main/account/bindings/account_binding.dart';
@@ -298,5 +300,10 @@ class AppPages {
         page: () => const SocialMediaShareView(),
         binding: SocialMediaShareBinding(),
         transition: Transition.downToUp),
+    GetPage(
+      name: _Paths.CART_UNIQUE_PRODUCT,
+      page: () => const CartUniqueProductView(),
+      binding: CartUniqueProductBinding(),
+    ),
   ];
 }
