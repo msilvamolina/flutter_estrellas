@@ -1,4 +1,3 @@
-import 'package:open_whatsapp/open_whatsapp.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Links {

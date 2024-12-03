@@ -61,7 +61,7 @@ dependencies:
   image_picker: ^1.1.2
   image_cropper: ^8.0.2
   dio: ^5.7.0
-  open_whatsapp: ^0.0.1
+  google_sign_in: ^6.2.2
 
 dev_dependencies:
   build_runner: ^2.4.13
