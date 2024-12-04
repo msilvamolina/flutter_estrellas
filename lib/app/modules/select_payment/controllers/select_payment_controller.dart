@@ -39,34 +39,29 @@ class SelectPaymentController extends GetxController {
         icon: EstrellasIcons.moneyWavy,
       ),
     );
-    // _paymentsList.add(
-    //   PaymentsTypesModel(
-    //     id: '1',
-    //     title: 'Crédito Addi',
-    //     image: 'assets/images/addi.png',
-    //   ),
-    // );
-    // _paymentsList.add(
-    //   PaymentsTypesModel(
-    //     id: '2',
-    //     title: 'Tranferencia PSE',
-    //     image: 'assets/images/pse.png',
-    //   ),
-    // );
-    // _paymentsList.add(
-    //   PaymentsTypesModel(
-    //     id: '3',
-    //     title: 'Agregar tarjeta crédito',
-    //     icon: EstrellasIcons.creditCard,
-    //   ),
-    // );
     _paymentsList.add(
       PaymentsTypesModel(
         id: '1',
-        title: 'Otros medios de pagos',
+        title: 'Crédito Bancolombia',
+        image: 'assets/images/bancolombia.png',
+      ),
+    );
+    _paymentsList.add(
+      PaymentsTypesModel(
+        id: '2',
+        title: 'Tranferencia PSE',
+        image: 'assets/images/pse.png',
+      ),
+    );
+    _paymentsList.add(
+      PaymentsTypesModel(
+        id: '3',
+        title: 'Pago con tarjeta',
+        subtitle: 'Tarjeta de Crédito y Débito',
         icon: EstrellasIcons.creditCard,
       ),
     );
+
     super.onInit();
   }
 
@@ -87,12 +82,19 @@ class SelectPaymentController extends GetxController {
   }
 
   Future<void> confirmBuy() async {
-    goToPayments();
-    // if (userProductController.uniqueProduct != null) {
-    //   buyUniqueProducts(userProductController.uniqueProduct!);
-    // } else {
-    //   buyMultipleProducts();
-    // }
+    if (selectedPayment.value == '0') {
+      buy();
+    } else {
+      goToPayments();
+    }
+  }
+
+  void buy() {
+    if (userProductController.uniqueProduct != null) {
+      buyUniqueProducts(userProductController.uniqueProduct!);
+    } else {
+      buyMultipleProducts();
+    }
   }
 
   void goToPayments() {

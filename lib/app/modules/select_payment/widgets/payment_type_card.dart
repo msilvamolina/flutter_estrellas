@@ -72,6 +72,12 @@ class PaymentTypeCard extends StatelessWidget {
               paymentsTypesModel.title,
               style: TypographyStyle.bodyBlackLarge,
             ),
+            subtitle: paymentsTypesModel.subtitle != null
+                ? Text(
+                    paymentsTypesModel.subtitle!,
+                    style: TypographyStyle.bodyRegularMedium,
+                  )
+                : null,
             trailing: SvgPicture.asset(
               isSelected
                   ? 'assets/svg/CheckboxActive.svg'
