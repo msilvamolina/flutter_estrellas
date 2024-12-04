@@ -66,6 +66,39 @@ class UserRepository {
     }
   }
 
+  Future<Either<String, Unit>> saveUserToken() async {
+    try {
+      User currentUser = _firebaseAuth.currentUser!;
+      String uid = currentUser.uid;
+      String? token = await _localStorage.getToken();
+      bool saveToken = await _localStorage.getTokenSave();
+
+      if (token == null) {
+        return left('Necesita token');
+      }
+
+      if (saveToken) {
+        return left('El token ya se guardo');
+      }
+      await _firebaseFirestore
+          .collection('users')
+          .doc(uid)
+          .collection('tokens')
+          .doc(token)
+          .set({
+        'token': token,
+        'active': true,
+        'uid': uid,
+        'createdAt': DateTime.now(),
+      });
+
+      await _localStorage.setTokenSave(true);
+      return right(unit);
+    } on FirebaseException catch (e) {
+      return left(e.code);
+    }
+  }
+
   Future<String?> uploadImage({
     required String id,
     required String userId,

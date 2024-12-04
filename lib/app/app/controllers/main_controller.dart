@@ -13,6 +13,7 @@ import 'package:get/get.dart';
 import '../../components/dialogs/loader_dropi_dialog.dart';
 import '../../components/snackbars/snackbars.dart';
 import '../../data/models/user_data/user_data.dart';
+import '../../services/firebase_messaging_service.dart';
 import '../../services/theme_service.dart';
 import '../dialogs/login/login_dialog.dart';
 

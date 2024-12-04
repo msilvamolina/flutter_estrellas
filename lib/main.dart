@@ -34,10 +34,6 @@ void main() async {
 
   DependecyInjection.init();
 
-  FirebaseMessagingService firebaseMessagingService =
-      FirebaseMessagingService();
-  await firebaseMessagingService.initializeFirebaseMessaging();
-
   runZonedGuarded(
     () {
       runApp(const MyApp());

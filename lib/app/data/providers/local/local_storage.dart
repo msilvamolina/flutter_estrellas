@@ -6,6 +6,7 @@ class LocalStorage {
   static const welcomeKey = "WELCOMEKEY";
   static const swipeUpKey = "SWIPEUPKEY";
   static const tokenKey = "tokenKey";
+  static const tokenSaveKey = "tokenSaveKey";
 
   Future<void> cleanAll() async {
     await _getStorage.remove(USERKEY);
@@ -15,6 +16,15 @@ class LocalStorage {
   Future<bool> getWelcome() async {
     final value = await _getStorage.read(welcomeKey) ?? false;
     return value;
+  }
+
+  Future<bool> getTokenSave() async {
+    final value = await _getStorage.read(tokenSaveKey) ?? false;
+    return value;
+  }
+
+  Future<void> setTokenSave(bool value) async {
+    await _getStorage.write(tokenSaveKey, value);
   }
 
   Future<void> setWelcome(bool value) async {
