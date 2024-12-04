@@ -13,6 +13,7 @@ import '../../../data/models/user_product/user_product_model.dart';
 import '../../../data/models/user_product_cart/user_product_cart_model.dart';
 import '../../../data/providers/repositories/address/address_repository.dart';
 import '../../../routes/app_pages.dart';
+import '../payments_web_screen.dart';
 
 class SelectPaymentController extends GetxController {
   MainController mainController = Get.find();
@@ -38,31 +39,31 @@ class SelectPaymentController extends GetxController {
         icon: EstrellasIcons.moneyWavy,
       ),
     );
+    // _paymentsList.add(
+    //   PaymentsTypesModel(
+    //     id: '1',
+    //     title: 'Crédito Addi',
+    //     image: 'assets/images/addi.png',
+    //   ),
+    // );
+    // _paymentsList.add(
+    //   PaymentsTypesModel(
+    //     id: '2',
+    //     title: 'Tranferencia PSE',
+    //     image: 'assets/images/pse.png',
+    //   ),
+    // );
+    // _paymentsList.add(
+    //   PaymentsTypesModel(
+    //     id: '3',
+    //     title: 'Agregar tarjeta crédito',
+    //     icon: EstrellasIcons.creditCard,
+    //   ),
+    // );
     _paymentsList.add(
       PaymentsTypesModel(
         id: '1',
-        title: 'Crédito Addi',
-        image: 'assets/images/addi.png',
-      ),
-    );
-    _paymentsList.add(
-      PaymentsTypesModel(
-        id: '2',
-        title: 'Tranferencia PSE',
-        image: 'assets/images/pse.png',
-      ),
-    );
-    _paymentsList.add(
-      PaymentsTypesModel(
-        id: '3',
-        title: 'Agregar tarjeta crédito',
-        icon: EstrellasIcons.creditCard,
-      ),
-    );
-    _paymentsList.add(
-      PaymentsTypesModel(
-        id: '4',
-        title: 'Agregar tarjeta débito',
+        title: 'Otros medios de pagos',
         icon: EstrellasIcons.creditCard,
       ),
     );
@@ -86,11 +87,21 @@ class SelectPaymentController extends GetxController {
   }
 
   Future<void> confirmBuy() async {
-    if (userProductController.uniqueProduct != null) {
-      buyUniqueProducts(userProductController.uniqueProduct!);
-    } else {
-      buyMultipleProducts();
-    }
+    goToPayments();
+    // if (userProductController.uniqueProduct != null) {
+    //   buyUniqueProducts(userProductController.uniqueProduct!);
+    // } else {
+    //   buyMultipleProducts();
+    // }
+  }
+
+  void goToPayments() {
+    Navigator.push(
+      Get.context!,
+      MaterialPageRoute(
+        builder: (context) => PaymentPage(),
+      ),
+    );
   }
 
   void buyUniqueProducts(UserProductCartModel product) async {
