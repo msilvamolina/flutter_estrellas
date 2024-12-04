@@ -16,6 +16,7 @@ import 'app/config/firebase_config.dart';
 import 'app/routes/app_pages.dart';
 import 'app/services/dependency_injection.dart';
 import 'app/services/environment.dart';
+import 'app/services/firebase_messaging_service.dart';
 import 'app/themes/text_theme.dart';
 import 'app/themes/theme.dart';
 
@@ -32,6 +33,10 @@ void main() async {
   await initRemoteConfig();
 
   DependecyInjection.init();
+
+  FirebaseMessagingService firebaseMessagingService =
+      FirebaseMessagingService();
+  await firebaseMessagingService.initializeFirebaseMessaging();
 
   runZonedGuarded(
     () {
