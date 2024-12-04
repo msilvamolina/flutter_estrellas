@@ -8,6 +8,7 @@ import 'package:flutter_estrellas/app/data/models/phone/phone_model.dart';
 import 'package:get/get.dart';
 import 'package:uuid/uuid.dart';
 
+import '../../../../services/environment.dart';
 import '../../../models/user_data/user_data.dart';
 import '../../local/local_storage.dart';
 
@@ -89,6 +90,7 @@ class UserRepository {
         'token': token,
         'active': true,
         'uid': uid,
+        'device': Environment.deviceInfo,
         'createdAt': DateTime.now(),
       });
 

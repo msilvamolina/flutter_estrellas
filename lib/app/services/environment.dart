@@ -1,3 +1,4 @@
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 enum Env { dev, qa, prod }
@@ -16,8 +17,7 @@ class Environment {
   String? bearerTokenCustomerApi;
 
   Env? currentEnv;
-  Map<String, dynamic>? deviceInfo;
-
+  static Map<String, dynamic>? deviceInfo;
   static String? websiteUrl;
 
   /// Inicializa el entorno basado en la configuración proporcionada
@@ -39,6 +39,10 @@ class Environment {
       userCustomerApi ??= '';
       passwordCustomerApi ??= '';
       bearerTokenCustomerApi ??= '';
+
+      final deviceInfoPlugin = DeviceInfoPlugin();
+      final _deviceInfo = await deviceInfoPlugin.deviceInfo;
+      deviceInfo = _deviceInfo.data;
     } catch (e) {
       // Lanzar excepciones con contexto útil
       throw Exception('Error al inicializar el entorno: $e');
