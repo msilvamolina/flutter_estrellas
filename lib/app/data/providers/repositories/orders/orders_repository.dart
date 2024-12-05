@@ -73,7 +73,7 @@ class OrdersRepository {
         } else if (json['errors'] != null) {
           return left(json['errors'].toString());
         }
-        // return left('Ocurrió un error');
+        return left('Ocurrió un error');
       }
       String orderNumber = json['data'].toString();
 
@@ -90,6 +90,83 @@ class OrdersRepository {
           'id': id,
           'type': 'uniqueProduct',
           'products': products,
+          'orderId': orderNumber,
+          'address': address.toDocument(),
+          'body': body,
+          'paymentMethod': paymentMethod.name,
+          'createdBy': email,
+          'createdByUserId': uid,
+          'createdAt': DateTime.now(),
+        });
+        return right(orderNumber);
+      } on FirebaseException catch (e) {
+        return left(e.code);
+      }
+    } catch (e) {
+      return left(e.toString());
+    }
+  }
+
+  Future<Either<String, String>> createMultipleOrder({
+    required String id,
+    required dynamic products,
+    required List<dynamic> productsDocuments,
+    required AddressModel address,
+    required PaymentMethod paymentMethod,
+  }) async {
+    String url = 'api/orders/create-order';
+    Map<String, String> userData = getUidAndEmail();
+
+    String email = userData['email'] ?? '';
+    String uid = userData['uid'] ?? '';
+    try {
+      var catalogue = {
+        "id": "66f1e6f58b85f745c53f2fa1",
+        "products": products,
+      };
+
+      Map<String, dynamic> body = {
+        "city_id": address.city?.dropiId,
+        "department_id": address.department?.dropiId,
+        "client_direction": address.address,
+        "client_email": email,
+        "client_name": address.fullname,
+        "client_notes": address.notes,
+        "client_phone": address.phone!.number,
+        "client_surname": address.fullname,
+        "catalogue": catalogue,
+        "user_id": "6463b06a7420bf4da4c1ecef",
+      };
+
+      String bodyJson = jsonEncode(body);
+
+      Response response = await services.postWithTokenJson(
+        url: url,
+        body: bodyJson,
+      );
+
+      dynamic json = jsonDecode(response.body);
+
+      if (!json['ok']) {
+        if (json['data'] != null) {
+          return left(json['data'].toString());
+        } else if (json['errors'] != null) {
+          return left(json['errors'].toString());
+        }
+        return left('Ocurrió un error');
+      }
+      String orderNumber = json['data'].toString();
+
+      try {
+        await _firebaseFirestore
+            .collection('users')
+            .doc(uid)
+            .collection('orders')
+            .doc(id)
+            .set({
+          'id': id,
+          'type': 'multipleProducts',
+          'products': productsDocuments,
           'orderId': orderNumber,
           'address': address.toDocument(),
           'body': body,
@@ -156,59 +233,7 @@ class OrdersRepository {
         orElse: () => null,
       );
     }
+
     return null;
-  }
-
-  Future<Either<String, String>> createMultipleOrder({
-    required dynamic products,
-    required AddressModel address,
-  }) async {
-    String url = 'api/orders/create-order';
-    Map<String, String> userData = getUidAndEmail();
-
-    String email = userData['email'] ?? '';
-    try {
-      var catalogue = {
-        "id": "66f1e6f58b85f745c53f2fa1",
-        "products": products,
-      };
-
-      Map<String, dynamic> body = {
-        "city_id": address.city?.dropiId,
-        "department_id": address.department?.dropiId,
-        "client_direction": address.address,
-        "client_email": email,
-        "client_name": address.fullname,
-        "client_notes": address.notes,
-        "client_phone": address.phone!.number,
-        "client_surname": address.fullname,
-        "catalogue": catalogue,
-        "user_id": "6463b06a7420bf4da4c1ecef",
-      };
-
-      String bodyJson = jsonEncode(body);
-
-      Response response = await services.postWithTokenJson(
-        url: url,
-        body: bodyJson,
-      );
-
-      dynamic json = jsonDecode(response.body);
-
-      log(json.toString());
-      if (!json['ok']) {
-        if (json['data'] != null) {
-          return left(json['data'].toString());
-        } else if (json['errors'] != null) {
-          return left(json['errors'].toString());
-        }
-        return left('Ocurrió un error');
-      }
-
-      return right(json['data'].toString());
-    } catch (e) {
-      print('error: $e');
-      return left(e.toString());
-    }
   }
 }

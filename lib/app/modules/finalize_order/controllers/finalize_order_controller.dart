@@ -85,10 +85,12 @@ class FinalizeOrderController extends GetxController {
 
   void buyMultipleProducts() async {
     List<dynamic> products = [];
+    List<dynamic> productsDocuments = [];
 
     if (userProductController.listProductCart.isNotEmpty) {
       for (UserProductCartModel element
           in userProductController.listProductCart) {
+        productsDocuments.add(element.toDocument());
         products.add(
           {
             "product_id": element.video!.product!.id,
@@ -99,8 +101,14 @@ class FinalizeOrderController extends GetxController {
       }
     }
 
-    Either<String, String> response = await ordersRepository
-        .createMultipleOrder(products: products, address: address);
+    Either<String, String> response =
+        await ordersRepository.createMultipleOrder(
+      id: orderId,
+      products: products,
+      productsDocuments: productsDocuments,
+      address: address,
+      paymentMethod: paymentMethod,
+    );
 
     response.fold((failure) {
       failureMessage.value = failure;
