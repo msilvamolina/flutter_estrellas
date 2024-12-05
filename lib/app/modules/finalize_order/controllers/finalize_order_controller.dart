@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:get/get.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../../app/controllers/main_controller.dart';
 import '../../../app/controllers/user_product_controller.dart';
@@ -28,22 +29,17 @@ class FinalizeOrderController extends GetxController {
   RxString orderNumber = ''.obs;
   RxString failureMessage = ''.obs;
 
+  String orderId = Uuid().v4();
   @override
   void onInit() {
     address = Get.arguments[0] as AddressModel;
     paymentMethod = Get.arguments[1] as PaymentMethod;
-
-    print('address $address');
-    print('paymentMethod $paymentMethod');
     super.onInit();
   }
 
   @override
   void onReady() {
-    Future.delayed(Duration(seconds: 3), () {
-      orderNumber.value = 'asdada';
-      status.value = Status.pending;
-    });
+    buy();
     super.onReady();
   }
 
@@ -56,18 +52,34 @@ class FinalizeOrderController extends GetxController {
   }
 
   void buyUniqueProducts(UserProductCartModel product) async {
-    Either<String, String> response =
-        await ordersRepository.createOrder(product: product, address: address);
-
-    await Future.delayed(Duration(seconds: 1));
-    Get.back();
+    Either<String, String> response = await ordersRepository.createOrder(
+        id: orderId,
+        product: product,
+        address: address,
+        paymentMethod: paymentMethod);
 
     response.fold((failure) {
       failureMessage.value = failure;
       status.value = Status.failed;
     }, (order) {
+      saveOrder(order);
+    });
+  }
+
+  void saveOrder(String _) async {
+    String order = '2860064';
+
+    Either<String, Unit> response =
+        await ordersRepository.saveOrder(orderNumber: order, id: orderId);
+
+    response.fold((failure) {
+      failureMessage.value = failure;
+      status.value = Status.failed;
+    }, (_) {
       orderNumber.value = order;
-      status.value = Status.success;
+      status.value = paymentMethod == PaymentMethod.delivery
+          ? Status.success
+          : Status.pending;
     });
   }
 
@@ -91,10 +103,11 @@ class FinalizeOrderController extends GetxController {
         .createMultipleOrder(products: products, address: address);
 
     response.fold((failure) {
+      failureMessage.value = failure;
       status.value = Status.failed;
-    }, (orderNumber) async {
+    }, (order) async {
       await userProductController.clearCart();
-      status.value = Status.success;
+      saveOrder(order);
     });
   }
 }

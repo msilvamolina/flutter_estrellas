@@ -29,5 +29,20 @@ abstract class AddressModel implements _$AddressModel {
 
   factory AddressModel.fromDocument(DocumentSnapshot doc) =>
       AddressModel.fromJson(ModelHelpers.fromDocument(doc.data()!));
-  Map<String, dynamic> toDocument() => ModelHelpers.toDocument(toJson());
+
+  Map<String, dynamic> toDocument() {
+    dynamic json = toJson();
+    if (city != null) {
+      json['city'] = city!.toDocument();
+    }
+
+    if (department != null) {
+      json['department'] = department!.toDocument();
+    }
+
+    if (phone != null) {
+      json['phone'] = phone!.toDocument();
+    }
+    return json;
+  }
 }

@@ -14,7 +14,6 @@ class FinalizeOrderView extends GetView<FinalizeOrderController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: EstrellasAppbar(title: ''),
       body: Obx(() {
         if (controller.status.value == Status.loading) {
           return LoaderDialog();
