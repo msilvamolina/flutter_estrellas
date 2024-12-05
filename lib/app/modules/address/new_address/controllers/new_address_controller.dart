@@ -41,6 +41,10 @@ class NewAddressController extends GetxController {
   bool get formIsSubmitted => _formIsSubmitted;
 
   RxBool saveAddress = true.obs;
+  AddressModel? address = Get.arguments as AddressModel;
+
+  String addressId = '';
+  RxBool editMode = false.obs;
 
   FormGroup buildForm() => fb.group(<String, Object>{
         Fields.name.name: FormControl<String>(
@@ -48,18 +52,22 @@ class NewAddressController extends GetxController {
             Validators.required,
             Validators.minLength(4),
           ],
+          value: address?.fullname,
         ),
         Fields.address.name: FormControl<String>(
           validators: [
             Validators.required,
             Validators.minLength(4),
           ],
+          value: address?.address,
         ),
-        Fields.notes.name: FormControl<String>(),
+        Fields.notes.name: FormControl<String>(
+          value: address?.notes,
+        ),
         Fields.phone.name: FormControl<PhoneNumber>(
-          value: const PhoneNumber(
+          value: PhoneNumber(
             isoCode: IsoCode.CO,
-            nsn: '',
+            nsn: address?.phone?.number ?? '',
           ),
           validators: [
             PhoneValidators.required,
@@ -70,6 +78,7 @@ class NewAddressController extends GetxController {
 
   @override
   void onInit() {
+    editMode.value = address != null;
     _departmentsList.bindStream(_repository.getDepartments());
 
     departmentSelected.listen((departmentId) {
@@ -79,6 +88,13 @@ class NewAddressController extends GetxController {
         _cityList.clear();
       }
     });
+
+    if (editMode.value) {
+      addressId = address!.id;
+      saveAddress.value = address!.save ?? true;
+      departmentSelected.value = address!.department!.dropiId.toString();
+      citySelected.value = address!.city!.id.toString();
+    }
 
     super.onInit();
   }
@@ -153,7 +169,6 @@ class NewAddressController extends GetxController {
 
     String name = data[Fields.name.name].toString();
     String address = data[Fields.address.name].toString();
-    // String phone = data[Fields.phone.name].toString();
     String notes = data[Fields.notes.name].toString();
 
     PhoneNumber phone = data[Fields.phone.name] as PhoneNumber;
@@ -162,22 +177,43 @@ class NewAddressController extends GetxController {
       title: 'Verificando dirección',
     );
 
-    Either<String, AddressModel> response = await _repository.addAddress(
-      fullname: name,
-      city: _cityModel,
-      department: _departmentModel,
-      address: address,
-      phone: phone,
-      notes: notes,
-      save: saveAddress.value,
-    );
+    Either<String, AddressModel> response;
+
+    if (editMode.value) {
+      response = await _repository.updateAddress(
+        addressId: addressId,
+        fullname: name,
+        city: _cityModel,
+        department: _departmentModel,
+        address: address,
+        phone: phone,
+        notes: notes,
+        save: saveAddress.value,
+      );
+    } else {
+      response = await _repository.addAddress(
+        fullname: name,
+        city: _cityModel,
+        department: _departmentModel,
+        address: address,
+        phone: phone,
+        notes: notes,
+        save: saveAddress.value,
+      );
+    }
+
     Get.back();
     response.fold((failure) {
       Snackbars.error(failure);
     }, (AddressModel addressModel) async {
-      Snackbars.success('Dirección agregada correctamente');
+      if (editMode.value) {
+        Get.back();
 
-      Get.offNamed(Routes.SELECT_PAYMENT, arguments: addressModel);
+        Snackbars.success('Dirección editada correctamente');
+      } else {
+        Snackbars.success('Dirección agregada correctamente');
+        Get.offNamed(Routes.SELECT_PAYMENT, arguments: addressModel);
+      }
     });
   }
 }

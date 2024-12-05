@@ -21,6 +21,7 @@ abstract class AddressModel implements _$AddressModel {
     DepartmentModel? department,
     String? address,
     String? notes,
+    bool? save,
     PhoneModel? phone,
   }) = _AddressModel;
 
