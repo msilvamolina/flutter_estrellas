@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_estrellas/app/components/snackbars/snackbars.dart';
@@ -28,10 +30,11 @@ class SelectPaymentController extends GetxController {
   RxnString selectedPayment = RxnString();
   RxBool showBottomBar = false.obs;
 
+  late int paymentOrderNumber;
   @override
   void onInit() {
     address = Get.arguments as AddressModel;
-
+    paymentOrderNumber = generateRandomNumber(5);
     _paymentsList.add(
       PaymentsTypesModel(
         id: '0',
@@ -75,7 +78,6 @@ class SelectPaymentController extends GetxController {
       showBottomBar.value = true;
     } else {
       showBottomBar.value = userProductController.listProductCart.isNotEmpty;
-      // buyMultipleProducts();
     }
 
     super.onReady();
@@ -94,13 +96,50 @@ class SelectPaymentController extends GetxController {
   }
 
   Future<void> buy() async {
-    final result = await Get.toNamed(Routes.FINALIZE_ORDER, arguments: [
+    await Get.toNamed(Routes.FINALIZE_ORDER, arguments: [
+      paymentOrderNumber,
       address,
       PaymentMethod.delivery,
     ]);
   }
 
+  String getDescripction() {
+    if (userProductController.uniqueProduct != null) {
+      return userProductController.uniqueProduct!.video!.product?.name ?? '';
+    } else {
+      if (userProductController.listProductCart.isNotEmpty) {
+        return '${userProductController.listProductCart[0].video?.product?.name ?? ''} +${userProductController.listProductCart.length - 1}';
+      }
+    }
+    return '';
+  }
+
   Future<void> goToPayments() async {
-    final result = await Get.toNamed(Routes.PAYMENTS_METHOD);
+    String description = getDescripction();
+    String amount = (userProductController.cartPrices.value).toString();
+    String email = mainController.userEmail ?? '';
+
+    await Get.toNamed(Routes.PAYMENTS_METHOD, arguments: [
+      paymentOrderNumber,
+      address,
+      PaymentMethod.delivery,
+      description,
+      amount,
+      email,
+    ]);
+  }
+
+  int generateRandomNumber(int digits) {
+    if (digits <= 0) {
+      throw ArgumentError("El número de dígitos debe ser mayor que 0");
+    }
+
+    int min =
+        pow(10, digits - 1).toInt(); // Valor mínimo, como 10000 para 5 dígitos
+    int max =
+        pow(10, digits).toInt() - 1; // Valor máximo, como 99999 para 5 dígitos
+
+    Random random = Random();
+    return min + random.nextInt(max - min + 1);
   }
 }

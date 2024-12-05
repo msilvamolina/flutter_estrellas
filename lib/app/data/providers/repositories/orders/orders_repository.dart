@@ -38,6 +38,7 @@ class OrdersRepository {
     required UserProductCartModel product,
     required AddressModel address,
     required PaymentMethod paymentMethod,
+    required int paymentOrderNumber,
   }) async {
     String url = 'api/orders/create-order';
     Map<String, String> userData = getUidAndEmail();
@@ -88,6 +89,7 @@ class OrdersRepository {
             .doc(id)
             .set({
           'id': id,
+          'paymentOrderNumber': paymentOrderNumber,
           'type': 'uniqueProduct',
           'products': products,
           'orderId': orderNumber,
@@ -113,6 +115,7 @@ class OrdersRepository {
     required List<dynamic> productsDocuments,
     required AddressModel address,
     required PaymentMethod paymentMethod,
+    required int paymentOrderNumber,
   }) async {
     String url = 'api/orders/create-order';
     Map<String, String> userData = getUidAndEmail();
@@ -166,6 +169,7 @@ class OrdersRepository {
             .set({
           'id': id,
           'type': 'multipleProducts',
+          'paymentOrderNumber': paymentOrderNumber,
           'products': productsDocuments,
           'orderId': orderNumber,
           'address': address.toDocument(),

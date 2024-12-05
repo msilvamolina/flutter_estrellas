@@ -22,6 +22,7 @@ class FinalizeOrderController extends GetxController {
   UserProductController userProductController =
       Get.find<UserProductController>();
   OrdersRepository ordersRepository = OrdersRepository();
+  late int paymentOrderNumber;
   late AddressModel address;
   late PaymentMethod paymentMethod;
 
@@ -32,8 +33,9 @@ class FinalizeOrderController extends GetxController {
   String orderId = Uuid().v4();
   @override
   void onInit() {
-    address = Get.arguments[0] as AddressModel;
-    paymentMethod = Get.arguments[1] as PaymentMethod;
+    paymentOrderNumber = Get.arguments[0] as int;
+    address = Get.arguments[1] as AddressModel;
+    paymentMethod = Get.arguments[2] as PaymentMethod;
     super.onInit();
   }
 
@@ -53,10 +55,12 @@ class FinalizeOrderController extends GetxController {
 
   void buyUniqueProducts(UserProductCartModel product) async {
     Either<String, String> response = await ordersRepository.createOrder(
-        id: orderId,
-        product: product,
-        address: address,
-        paymentMethod: paymentMethod);
+      id: orderId,
+      product: product,
+      address: address,
+      paymentMethod: paymentMethod,
+      paymentOrderNumber: paymentOrderNumber,
+    );
 
     response.fold((failure) {
       failureMessage.value = failure;
@@ -108,6 +112,7 @@ class FinalizeOrderController extends GetxController {
       productsDocuments: productsDocuments,
       address: address,
       paymentMethod: paymentMethod,
+      paymentOrderNumber: paymentOrderNumber,
     );
 
     response.fold((failure) {
