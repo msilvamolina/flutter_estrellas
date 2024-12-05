@@ -47,6 +47,7 @@ class SelectPaymentController extends GetxController {
       PaymentsTypesModel(
         id: '1',
         title: 'Crédito Bancolombia',
+        subtitle: 'Por compras superiores a \$100.000',
         image: 'assets/images/bancolombia.png',
         paymentMethod: PaymentMethod.bancolombia,
       ),

@@ -3,6 +3,7 @@ import 'package:flutter_estrellas/app/themes/styles/colors.dart';
 import 'package:flutter_estrellas/app/themes/styles/typography.dart';
 import 'package:text_transformation_animation/text_transformation_animation.dart';
 
+import '../../../components/buttons/buttons.dart';
 import '../../../data/helpers/currency_helper.dart';
 import '../../../libraries/icons/icons_font.dart';
 
@@ -238,9 +239,54 @@ class _CartPriceBottomBarState extends State<CartPriceBottomBar> {
             ],
           ),
         ),
-        SizedBox(
-          height: 16,
-        )
+        Container(
+          margin: EdgeInsets.symmetric(horizontal: 16),
+          padding: EdgeInsets.all(16),
+          decoration: BoxDecoration(
+              color: neutral100,
+              borderRadius: BorderRadius.all(Radius.circular(16))),
+          child: Row(
+            children: [
+              Image.asset(
+                'assets/images/bancolombia.png',
+                width: 36,
+              ),
+              SizedBox(width: 12),
+              Expanded(
+                child: RichText(
+                  textAlign: TextAlign.start,
+                  text: TextSpan(
+                    text: '¡Te faltan solo ',
+                    style: TypographyStyle.bodyRegularLarge
+                        .copyWith(color: neutral800),
+                    children: <TextSpan>[
+                      TextSpan(
+                        text: '\$40.000',
+                        style: TypographyStyle.bodyBlackLarge.copyWith(
+                            color: neutral800, fontWeight: FontWeight.w600),
+                      ),
+                      TextSpan(
+                        text:
+                            ' para comprar ahora y pagar después con tu crédito Bancolombia!',
+                        style: TypographyStyle.bodyRegularLarge
+                            .copyWith(color: neutral800),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        SizedBox(height: 16),
+        Center(
+          child: Button(
+            onPressed: () {},
+            style: ButtonStyles.secondaryLink,
+            label: 'Agregar más productos',
+          ),
+        ),
+        SizedBox(height: 16),
       ],
     );
   }
