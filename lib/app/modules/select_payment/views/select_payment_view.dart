@@ -40,6 +40,8 @@ class SelectPaymentView extends GetView<SelectPaymentController> {
                           productsPrices:
                               controller.userProductController.cartPrices.value,
                           productsShipping: 0,
+                          showLoanMessage: true,
+                          loanButton: controller.loanButton,
                         ),
                       ),
                       Obx(() => Padding(

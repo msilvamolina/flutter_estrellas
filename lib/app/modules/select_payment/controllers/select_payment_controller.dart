@@ -143,4 +143,14 @@ class SelectPaymentController extends GetxController {
     Random random = Random();
     return min + random.nextInt(max - min + 1);
   }
+
+  void loanButton() {
+    if (userProductController.listProductFavorite.isNotEmpty) {
+      Get.toNamed(Routes.FAVORITES);
+    } else {
+      Get.back();
+      Get.back();
+      Get.back();
+    }
+  }
 }
