@@ -77,7 +77,24 @@ class _VideoButtonsState extends State<VideoButtons> {
                 colorIcon: null,
               );
             }),
-        SizedBox(height: 22),
+        SizedBox(height: 12),
+        GetBuilder<UserProductController>(
+            id: 'product_cart_icon',
+            builder: (_) {
+              return buttonCard(
+                iconSize: 50,
+                paddingLeft: 4,
+                onTap: () => userProductController
+                    .productCartButton(widget.videoPostModel),
+                image: !userProductController
+                        .isProductInCart(widget.videoPostModel)
+                    ? 'assets/svg/addCart.svg'
+                    : 'assets/svg/addCartFilled.svg',
+                label: 'Agregar',
+                colorIcon: null,
+              );
+            }),
+        SizedBox(height: 24),
         buttonCard(
             onTap: () => userProductController
                 .goToBuyUniqueProduct(widget.videoPostModel),
@@ -103,6 +120,7 @@ class _VideoButtonsState extends State<VideoButtons> {
     Color? colorIcon = white,
     bool isLogo = false,
     double iconSize = 34,
+    double paddingLeft = 0,
   }) {
     return Material(
       color: Colors.transparent,
@@ -123,15 +141,18 @@ class _VideoButtonsState extends State<VideoButtons> {
                     ),
                   ],
                 ),
-                child: SvgPicture.asset(
-                  image,
-                  width: isLogo ? (iconSize + 6) : iconSize,
-                  colorFilter: colorIcon != null
-                      ? ColorFilter.mode(
-                          colorIcon,
-                          BlendMode.srcIn,
-                        )
-                      : null,
+                child: Padding(
+                  padding: EdgeInsets.only(left: paddingLeft),
+                  child: SvgPicture.asset(
+                    image,
+                    width: isLogo ? (iconSize + 6) : iconSize,
+                    colorFilter: colorIcon != null
+                        ? ColorFilter.mode(
+                            colorIcon,
+                            BlendMode.srcIn,
+                          )
+                        : null,
+                  ),
                 ),
               ),
               SizedBox(height: 4),

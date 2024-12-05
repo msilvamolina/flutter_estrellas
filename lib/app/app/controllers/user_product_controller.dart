@@ -351,11 +351,23 @@ class UserProductController extends GetxController {
     mainController.actionNeedLogin(() => productFavoriteAction(videoPostModel));
   }
 
+  void productCartButton(VideoPostModel videoPostModel) {
+    mainController.actionNeedLogin(() => productCartAction(videoPostModel));
+  }
+
   void productFavoriteAction(VideoPostModel videoPostModel) {
     if (isProductInFavorites(videoPostModel)) {
       removeFromFavorites(videoPostModel);
     } else {
       addToFavorites(videoPostModel);
+    }
+  }
+
+  void productCartAction(VideoPostModel videoPostModel) {
+    if (isProductInCart(videoPostModel)) {
+      removeFromCart(videoPostModel);
+    } else {
+      addToCart(videoPostModel);
     }
   }
 
@@ -581,6 +593,51 @@ class UserProductController extends GetxController {
     UserProductCartModel? option = _listProductCart
         .firstWhereOrNull((element) => element.video?.id == videoPostModel?.id);
     return option;
+  }
+
+  Future<void> addToCart(VideoPostModel videoPostModel) async {
+    Either<String, Unit> response = await userProductRepository.addToCart(
+      video: videoPostModel,
+      productVariantCombination: null,
+      quantity: 1,
+      price: videoPostModel.product?.price ?? 0,
+      suggestedPrice: videoPostModel.product?.suggestedPrice ?? 0,
+      points: videoPostModel.product?.points ?? 0,
+      stock: videoPostModel.product?.stock ?? 0,
+    );
+
+    response.fold(
+      (failure) {
+        Snackbars.error(failure);
+      },
+      (_) {
+        update(['product_cart_icon']);
+        Snackbars.success(
+            '${videoPostModel.product?.name ?? ''} agregado a tu carrito');
+      },
+    );
+  }
+
+  Future<void> removeFromCart(VideoPostModel videoPostModel) async {
+    UserProductCartModel? cart = getProductInCart(videoPostModel);
+
+    if (cart == null) {
+      return;
+    }
+    Either<String, Unit> response =
+        await userProductRepository.removeFromCart(cart: cart);
+
+    response.fold(
+      (failure) {
+        Snackbars.error(failure);
+      },
+      (_) {
+        Snackbars.success(
+            '${videoPostModel.product?.name ?? ''} removido de tu carrito');
+
+        update(['product_cart_icon']);
+      },
+    );
   }
 
   bool isProductInCatalogPrivate(VideoPostModel? videoPostModel) {
