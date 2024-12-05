@@ -13,18 +13,21 @@ class FinalizeOrderView extends GetView<FinalizeOrderController> {
   const FinalizeOrderView({super.key});
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Obx(() {
-        if (controller.status.value == Status.loading) {
-          return LoaderDialog();
-        } else if (controller.status.value == Status.success) {
-          return OrderSuccessView();
-        } else if (controller.status.value == Status.pending) {
-          return OrderPendingView();
-        } else {
-          return OrderErrorView();
-        }
-      }),
+    return PopScope(
+      canPop: false,
+      child: Scaffold(
+        body: Obx(() {
+          if (controller.status.value == Status.loading) {
+            return LoaderDialog();
+          } else if (controller.status.value == Status.success) {
+            return OrderSuccessView();
+          } else if (controller.status.value == Status.pending) {
+            return OrderPendingView();
+          } else {
+            return OrderErrorView();
+          }
+        }),
+      ),
     );
   }
 }
