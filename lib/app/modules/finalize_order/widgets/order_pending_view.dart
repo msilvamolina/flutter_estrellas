@@ -8,8 +8,8 @@ import '../../../themes/styles/colors.dart';
 import '../../../themes/styles/typography.dart';
 import '../controllers/finalize_order_controller.dart';
 
-class OrderSuccessView extends StatelessWidget {
-  const OrderSuccessView({super.key});
+class OrderPendingView extends StatelessWidget {
+  const OrderPendingView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -44,14 +44,31 @@ class OrderSuccessView extends StatelessWidget {
                     ),
                     SizedBox(height: 20),
                     Text(
-                      '¡Has realizado tu compra de manera exitosa!',
+                      '¡Pedido exitoso!',
                       style: TypographyStyle.bodyBlackLarge
                           .copyWith(fontWeight: FontWeight.w600, fontSize: 18),
                     ),
                     SizedBox(height: 8),
-                    Text(
-                      'Nos comunicaremos por whatsapp para mantenerte enterado del envío de tus productos',
-                      style: TypographyStyle.bodyRegularLarge.copyWith(),
+                    RichText(
+                      textAlign: TextAlign.start,
+                      text: TextSpan(
+                        text: 'Tu solicitud ha sido recibida, pero ',
+                        style: TypographyStyle.bodyRegularLarge
+                            .copyWith(color: neutral800),
+                        children: <TextSpan>[
+                          TextSpan(
+                            text: 'el pago está pendiente de validación.',
+                            style: TypographyStyle.bodyBlackLarge.copyWith(
+                                color: neutral800, fontWeight: FontWeight.w600),
+                          ),
+                          TextSpan(
+                            text:
+                                ' Una vez confirmado, iniciaremos la gestión de tu pedido.',
+                            style: TypographyStyle.bodyRegularLarge
+                                .copyWith(color: neutral800),
+                          ),
+                        ],
+                      ),
                     ),
                     SizedBox(height: 12),
                     RichText(

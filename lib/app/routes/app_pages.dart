@@ -62,10 +62,6 @@ import '../modules/main/wallet/bindings/wallet_binding.dart';
 import '../modules/main/wallet/views/wallet_view.dart';
 import '../modules/order/order_details/bindings/order_details_binding.dart';
 import '../modules/order/order_details/views/order_details_view.dart';
-import '../modules/order/order_error/bindings/order_error_binding.dart';
-import '../modules/finalize_order/widgets/order_error_view.dart';
-import '../modules/order/order_success/bindings/order_success_binding.dart';
-import '../modules/finalize_order/widgets/order_success_view.dart';
 import '../modules/order/orders/bindings/orders_binding.dart';
 import '../modules/order/orders/views/orders_view.dart';
 import '../modules/payments_method/bindings/payments_method_binding.dart';
@@ -161,11 +157,7 @@ class AppPages {
       page: () => const SelectPaymentView(),
       binding: SelectPaymentBinding(),
     ),
-    GetPage(
-      name: _Paths.ORDER_SUCCESS,
-      page: () => const OrderSuccessView(),
-      binding: OrderSuccessBinding(),
-    ),
+
     GetPage(
       name: _Paths.STORE,
       page: () => const StoreView(),
@@ -254,11 +246,7 @@ class AppPages {
       page: () => const EmailVerificationView(),
       binding: EmailVerificationBinding(),
     ),
-    GetPage(
-      name: _Paths.ORDER_ERROR,
-      page: () => const OrderErrorView(),
-      binding: OrderErrorBinding(),
-    ),
+
     GetPage(
       name: _Paths.ORDER_DETAILS,
       page: () => const OrderDetailsView(),

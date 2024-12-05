@@ -41,8 +41,8 @@ class FinalizeOrderController extends GetxController {
   @override
   void onReady() {
     Future.delayed(Duration(seconds: 3), () {
-      failureMessage.value = 'asdada';
-      status.value = Status.failed;
+      orderNumber.value = 'asdada';
+      status.value = Status.pending;
     });
     super.onReady();
   }

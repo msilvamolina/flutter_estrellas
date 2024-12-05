@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 import '../../../components/buttons/buttons.dart';
 
 import '../../../themes/styles/typography.dart';
-import '../../order/order_error/controllers/order_error_controller.dart';
 import '../controllers/finalize_order_controller.dart';
 
 class OrderErrorView extends StatelessWidget {
