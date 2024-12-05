@@ -26,8 +26,8 @@ class SelectPaymentController extends GetxController {
   List<PaymentsTypesModel> get paymentsList => _paymentsList;
 
   RxnString selectedPayment = RxnString();
-
   RxBool showBottomBar = false.obs;
+
   @override
   void onInit() {
     address = Get.arguments as AddressModel;
@@ -37,6 +37,7 @@ class SelectPaymentController extends GetxController {
         id: '0',
         title: 'Pago contra entrega',
         icon: EstrellasIcons.moneyWavy,
+        paymentMethod: PaymentMethod.delivery,
       ),
     );
     _paymentsList.add(
@@ -44,6 +45,7 @@ class SelectPaymentController extends GetxController {
         id: '1',
         title: 'Crédito Bancolombia',
         image: 'assets/images/bancolombia.png',
+        paymentMethod: PaymentMethod.bancolombia,
       ),
     );
     _paymentsList.add(
@@ -51,6 +53,7 @@ class SelectPaymentController extends GetxController {
         id: '2',
         title: 'Tranferencia PSE',
         image: 'assets/images/pse.png',
+        paymentMethod: PaymentMethod.pse,
       ),
     );
     _paymentsList.add(
@@ -59,6 +62,7 @@ class SelectPaymentController extends GetxController {
         title: 'Pago con tarjeta',
         subtitle: 'Tarjeta de Crédito y Débito',
         icon: EstrellasIcons.creditCard,
+        paymentMethod: PaymentMethod.card,
       ),
     );
 
@@ -71,7 +75,7 @@ class SelectPaymentController extends GetxController {
       showBottomBar.value = true;
     } else {
       showBottomBar.value = userProductController.listProductCart.isNotEmpty;
-      buyMultipleProducts();
+      // buyMultipleProducts();
     }
 
     super.onReady();
@@ -89,71 +93,14 @@ class SelectPaymentController extends GetxController {
     }
   }
 
-  void buy() {
-    if (userProductController.uniqueProduct != null) {
-      buyUniqueProducts(userProductController.uniqueProduct!);
-    } else {
-      buyMultipleProducts();
-    }
+  Future<void> buy() async {
+    final result = await Get.toNamed(Routes.FINALIZE_ORDER, arguments: [
+      address,
+      PaymentMethod.delivery,
+    ]);
   }
 
-  void goToPayments() {
-    Navigator.push(
-      Get.context!,
-      MaterialPageRoute(
-        builder: (context) => PaymentPage(),
-      ),
-    );
-  }
-
-  void buyUniqueProducts(UserProductCartModel product) async {
-    mainController.showLoader(
-      title: 'Estamos procesando tu compra',
-    );
-
-    Either<String, String> response =
-        await ordersRepository.createOrder(product: product, address: address);
-
-    await Future.delayed(Duration(seconds: 1));
-    Get.back();
-
-    response.fold((failure) {
-      Get.toNamed(Routes.ORDER_ERROR, arguments: failure);
-    }, (orderNumber) {
-      Get.offAndToNamed(Routes.ORDER_SUCCESS, arguments: orderNumber);
-    });
-  }
-
-  void buyMultipleProducts() async {
-    List<dynamic> products = [];
-
-    if (userProductController.listProductCart.isNotEmpty) {
-      for (UserProductCartModel element
-          in userProductController.listProductCart) {
-        products.add(
-          {
-            "product_id": element.video!.product!.id,
-            "client_quantity": element.quantity ?? 1,
-            "variation_id": ""
-          },
-        );
-      }
-    }
-
-    mainController.showLoader(
-      title: 'Estamos procesando tu compra',
-    );
-
-    Either<String, String> response = await ordersRepository
-        .createMultipleOrder(products: products, address: address);
-
-    response.fold((failure) {
-      Get.back();
-      Get.toNamed(Routes.ORDER_ERROR, arguments: failure);
-    }, (orderNumber) async {
-      await userProductController.clearCart();
-      Get.back();
-      Get.offAndToNamed(Routes.ORDER_SUCCESS, arguments: orderNumber);
-    });
+  Future<void> goToPayments() async {
+    final result = await Get.toNamed(Routes.PAYMENTS_METHOD);
   }
 }
