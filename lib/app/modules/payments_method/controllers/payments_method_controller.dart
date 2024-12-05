@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 import '../../../data/models/address/address_model.dart';
 import '../../../data/models/payments_types/payments_types_model.dart';
+import '../../../routes/app_pages.dart';
 
 class PaymentsMethodController extends GetxController {
   late int paymentOrderNumber;
@@ -14,6 +15,7 @@ class PaymentsMethodController extends GetxController {
   late String email;
 
   late Map<String, String> formData;
+  final String url = "https://merchant.paymentsway.co/cartaspago/redirect";
 
   @override
   void onInit() {
@@ -48,7 +50,6 @@ class PaymentsMethodController extends GetxController {
       "response_url": "http://www.estrellas.pro/payments/response",
     };
 
-    log(formData.toString());
     super.onInit();
   }
 
@@ -64,5 +65,13 @@ class PaymentsMethodController extends GetxController {
     String lastName = fullName.substring(spaceIndex + 1).trim();
 
     return {'firstName': firstName, 'lastName': lastName};
+  }
+
+  Future<void> onCompleted() async {
+    await Get.toNamed(Routes.FINALIZE_ORDER, arguments: [
+      paymentOrderNumber,
+      address,
+      PaymentMethod.delivery,
+    ]);
   }
 }
