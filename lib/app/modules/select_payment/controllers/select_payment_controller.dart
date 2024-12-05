@@ -33,8 +33,10 @@ class SelectPaymentController extends GetxController {
   late int paymentOrderNumber;
   @override
   void onInit() {
+    bool showLoan = userProductController.cartPrices.value >= 100000;
     address = Get.arguments as AddressModel;
     paymentOrderNumber = generateRandomNumber(5);
+
     _paymentsList.add(
       PaymentsTypesModel(
         id: '0',
@@ -43,15 +45,17 @@ class SelectPaymentController extends GetxController {
         paymentMethod: PaymentMethod.delivery,
       ),
     );
-    _paymentsList.add(
-      PaymentsTypesModel(
-        id: '1',
-        title: 'Crédito Bancolombia',
-        subtitle: 'Por compras superiores a \$100.000',
-        image: 'assets/images/bancolombia.png',
-        paymentMethod: PaymentMethod.bancolombia,
-      ),
-    );
+    if (showLoan) {
+      _paymentsList.add(
+        PaymentsTypesModel(
+          id: '1',
+          title: 'Crédito Bancolombia',
+          subtitle: 'Por compras superiores a \$100.000',
+          image: 'assets/images/bancolombia.png',
+          paymentMethod: PaymentMethod.bancolombia,
+        ),
+      );
+    }
     _paymentsList.add(
       PaymentsTypesModel(
         id: '2',
@@ -69,6 +73,18 @@ class SelectPaymentController extends GetxController {
         paymentMethod: PaymentMethod.card,
       ),
     );
+    if (!showLoan) {
+      _paymentsList.add(
+        PaymentsTypesModel(
+          id: '1',
+          title: 'Crédito Bancolombia',
+          subtitle: 'Por compras superiores a \$100.000',
+          image: 'assets/images/bancolombia.png',
+          paymentMethod: PaymentMethod.bancolombia,
+          disabled: true,
+        ),
+      );
+    }
 
     super.onInit();
   }

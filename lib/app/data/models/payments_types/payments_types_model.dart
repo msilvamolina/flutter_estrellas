@@ -8,6 +8,7 @@ class PaymentsTypesModel {
     this.subtitle,
     this.image,
     this.icon,
+    this.disabled = false,
   });
 
   String id;
@@ -16,6 +17,7 @@ class PaymentsTypesModel {
   String? image;
   IconData? icon;
   PaymentMethod paymentMethod;
+  bool disabled;
 }
 
 enum PaymentMethod {
