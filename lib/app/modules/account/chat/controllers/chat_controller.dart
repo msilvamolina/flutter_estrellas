@@ -27,7 +27,7 @@ class ChatController extends GetxController {
     _listCompi.add(
       ChatModel(
         text:
-            '¡Hola! Soy Compi, tu asistente virtual de educación financiera. ¿Cómo puedo ayudarte hoy?',
+            '¡Hola! Soy Estrellita, tu asistente virtual. ¿Cómo puedo ayudarte hoy?',
         isCompi: true,
         isLoading: false,
       ),

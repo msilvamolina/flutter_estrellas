@@ -33,6 +33,8 @@ class CompiRepository {
         resultMessage = resultMessage.replaceAll('"}', '');
         resultMessage = resultMessage.trim();
         resultMessage = resultMessage.replaceAll(r'\n', '\n');
+        resultMessage =
+            resultMessage.replaceAll('¡Hola compa!', '¡Hola Estrella!');
         return right(resultMessage);
       }
 

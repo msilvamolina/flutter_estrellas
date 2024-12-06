@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_estrellas/app/components/appbar/estrellas_appbar.dart';
+import 'package:flutter_estrellas/app/themes/styles/colors.dart';
 
 import 'package:get/get.dart';
 
@@ -9,6 +11,7 @@ class ChatView extends GetView<ChatController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: EstrellasAppbar(title: 'Chat con Estrellita'),
       body: GetBuilder<ChatController>(
         id: 'compiList',
         builder: (controller) {
@@ -51,7 +54,7 @@ class ChatView extends GetView<ChatController> {
       children: [
         CircleAvatar(
           backgroundImage:
-              AssetImage('assets/images/compi.png'), // Avatar de Compi
+              AssetImage('assets/images/chatAI.png'), // Avatar de Compi
           radius: 20,
         ),
         const SizedBox(width: 8),
@@ -59,8 +62,7 @@ class ChatView extends GetView<ChatController> {
           child: Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color:
-                  Colors.purple.withOpacity(0.8), // Púrpura oscuro para Compi
+              color: secondaryBase, // Púrpura oscuro para Compi
               borderRadius: BorderRadius.circular(12),
             ),
             child: Text(
@@ -83,7 +85,7 @@ class ChatView extends GetView<ChatController> {
       children: [
         CircleAvatar(
           backgroundImage:
-              AssetImage('assets/images/compi.png'), // Avatar de Compi
+              AssetImage('assets/images/chatAI.png'), // Avatar de Compi
           radius: 20,
         ),
         const SizedBox(width: 16),
@@ -101,7 +103,7 @@ class ChatView extends GetView<ChatController> {
           child: Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: Colors.yellow[700], // Fondo amarillo para usuario
+              color: neutral100, // Fondo amarillo para usuario
               borderRadius: BorderRadius.circular(12),
             ),
             child: Text(
@@ -113,13 +115,6 @@ class ChatView extends GetView<ChatController> {
             ),
           ),
         ),
-        const SizedBox(width: 8),
-        CircleAvatar(
-          backgroundColor: Colors.purple,
-          radius: 20,
-          child: Image.network(
-              'https://ps.w.org/user-avatar-reloaded/assets/icon-256x256.png?rev=2540745'),
-        ),
       ],
     );
   }
@@ -127,51 +122,53 @@ class ChatView extends GetView<ChatController> {
   // Input para enviar mensajes
   Widget _buildChatInput() {
     ChatController homeController = Get.find<ChatController>();
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        children: [
-          Expanded(
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12),
-              decoration: BoxDecoration(
-                color: Colors.black.withOpacity(0.2),
-                borderRadius: BorderRadius.circular(30),
-              ),
-              child: TextField(
-                controller: homeController.compiTextController,
-                enabled: homeController.compiButtonEnabled,
-                onChanged: homeController.onCompiFieldChange,
-                decoration: InputDecoration(
-                  hintText: 'Escribe un mensaje...',
-                  border: InputBorder.none,
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: Row(
+          children: [
+            Expanded(
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 12),
+                decoration: BoxDecoration(
+                  color: neutral300,
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                child: TextField(
+                  controller: homeController.compiTextController,
+                  enabled: homeController.compiButtonEnabled,
+                  onChanged: homeController.onCompiFieldChange,
+                  decoration: InputDecoration(
+                    hintText: 'Escribe un mensaje...',
+                    border: InputBorder.none,
+                  ),
                 ),
               ),
             ),
-          ),
-          const SizedBox(width: 8),
-          Container(
-            decoration: BoxDecoration(
-              color: homeController.compiButtonEnabled
-                  ? Colors.purple
-                  : Colors.purple.withOpacity(0.2),
-              shape: BoxShape.circle,
-            ),
-            child: IconButton(
-              icon: Icon(
-                Icons.send,
+            const SizedBox(width: 8),
+            Container(
+              decoration: BoxDecoration(
                 color: homeController.compiButtonEnabled
-                    ? Colors.white
-                    : Colors.white.withOpacity(0.2),
+                    ? primaryBase
+                    : primaryBase.withOpacity(0.2),
+                shape: BoxShape.circle,
               ),
-              onPressed: homeController.compiButtonEnabled
-                  ? () {
-                      homeController.compiStart();
-                    }
-                  : null,
+              child: IconButton(
+                icon: Icon(
+                  Icons.send,
+                  color: homeController.compiButtonEnabled
+                      ? neutral900
+                      : neutral900.withOpacity(0.2),
+                ),
+                onPressed: homeController.compiButtonEnabled
+                    ? () {
+                        homeController.compiStart();
+                      }
+                    : null,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
