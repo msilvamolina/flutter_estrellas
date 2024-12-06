@@ -19,9 +19,12 @@ abstract class OrderModel implements _$OrderModel {
     required dynamic body,
     required dynamic orderData,
     required double amount,
-    required String orderId,
+    required int orderId,
     required String paymentMethod,
     required String type,
+    required String status,
+    required double profit,
+    required int points,
     required List<UserProductCartModel> products,
   }) = _OrderModel;
 

@@ -25,9 +25,12 @@ mixin _$OrderModel {
   dynamic get body => throw _privateConstructorUsedError;
   dynamic get orderData => throw _privateConstructorUsedError;
   double get amount => throw _privateConstructorUsedError;
-  String get orderId => throw _privateConstructorUsedError;
+  int get orderId => throw _privateConstructorUsedError;
   String get paymentMethod => throw _privateConstructorUsedError;
   String get type => throw _privateConstructorUsedError;
+  String get status => throw _privateConstructorUsedError;
+  double get profit => throw _privateConstructorUsedError;
+  int get points => throw _privateConstructorUsedError;
   List<UserProductCartModel> get products => throw _privateConstructorUsedError;
 
   /// Serializes this OrderModel to a JSON map.
@@ -52,9 +55,12 @@ abstract class $OrderModelCopyWith<$Res> {
       dynamic body,
       dynamic orderData,
       double amount,
-      String orderId,
+      int orderId,
       String paymentMethod,
       String type,
+      String status,
+      double profit,
+      int points,
       List<UserProductCartModel> products});
 
   $AddressModelCopyWith<$Res>? get address;
@@ -83,6 +89,9 @@ class _$OrderModelCopyWithImpl<$Res, $Val extends OrderModel>
     Object? orderId = null,
     Object? paymentMethod = null,
     Object? type = null,
+    Object? status = null,
+    Object? profit = null,
+    Object? points = null,
     Object? products = null,
   }) {
     return _then(_value.copyWith(
@@ -109,7 +118,7 @@ class _$OrderModelCopyWithImpl<$Res, $Val extends OrderModel>
       orderId: null == orderId
           ? _value.orderId
           : orderId // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       paymentMethod: null == paymentMethod
           ? _value.paymentMethod
           : paymentMethod // ignore: cast_nullable_to_non_nullable
@@ -118,6 +127,18 @@ class _$OrderModelCopyWithImpl<$Res, $Val extends OrderModel>
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as String,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as String,
+      profit: null == profit
+          ? _value.profit
+          : profit // ignore: cast_nullable_to_non_nullable
+              as double,
+      points: null == points
+          ? _value.points
+          : points // ignore: cast_nullable_to_non_nullable
+              as int,
       products: null == products
           ? _value.products
           : products // ignore: cast_nullable_to_non_nullable
@@ -154,9 +175,12 @@ abstract class _$$OrderModelImplCopyWith<$Res>
       dynamic body,
       dynamic orderData,
       double amount,
-      String orderId,
+      int orderId,
       String paymentMethod,
       String type,
+      String status,
+      double profit,
+      int points,
       List<UserProductCartModel> products});
 
   @override
@@ -184,6 +208,9 @@ class __$$OrderModelImplCopyWithImpl<$Res>
     Object? orderId = null,
     Object? paymentMethod = null,
     Object? type = null,
+    Object? status = null,
+    Object? profit = null,
+    Object? points = null,
     Object? products = null,
   }) {
     return _then(_$OrderModelImpl(
@@ -210,7 +237,7 @@ class __$$OrderModelImplCopyWithImpl<$Res>
       orderId: null == orderId
           ? _value.orderId
           : orderId // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       paymentMethod: null == paymentMethod
           ? _value.paymentMethod
           : paymentMethod // ignore: cast_nullable_to_non_nullable
@@ -219,6 +246,18 @@ class __$$OrderModelImplCopyWithImpl<$Res>
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as String,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as String,
+      profit: null == profit
+          ? _value.profit
+          : profit // ignore: cast_nullable_to_non_nullable
+              as double,
+      points: null == points
+          ? _value.points
+          : points // ignore: cast_nullable_to_non_nullable
+              as int,
       products: null == products
           ? _value._products
           : products // ignore: cast_nullable_to_non_nullable
@@ -239,6 +278,9 @@ class _$OrderModelImpl extends _OrderModel {
       required this.orderId,
       required this.paymentMethod,
       required this.type,
+      required this.status,
+      required this.profit,
+      required this.points,
       required final List<UserProductCartModel> products})
       : _products = products,
         super._();
@@ -257,11 +299,17 @@ class _$OrderModelImpl extends _OrderModel {
   @override
   final double amount;
   @override
-  final String orderId;
+  final int orderId;
   @override
   final String paymentMethod;
   @override
   final String type;
+  @override
+  final String status;
+  @override
+  final double profit;
+  @override
+  final int points;
   final List<UserProductCartModel> _products;
   @override
   List<UserProductCartModel> get products {
@@ -272,7 +320,7 @@ class _$OrderModelImpl extends _OrderModel {
 
   @override
   String toString() {
-    return 'OrderModel(id: $id, address: $address, body: $body, orderData: $orderData, amount: $amount, orderId: $orderId, paymentMethod: $paymentMethod, type: $type, products: $products)';
+    return 'OrderModel(id: $id, address: $address, body: $body, orderData: $orderData, amount: $amount, orderId: $orderId, paymentMethod: $paymentMethod, type: $type, status: $status, profit: $profit, points: $points, products: $products)';
   }
 
   @override
@@ -289,6 +337,9 @@ class _$OrderModelImpl extends _OrderModel {
             (identical(other.paymentMethod, paymentMethod) ||
                 other.paymentMethod == paymentMethod) &&
             (identical(other.type, type) || other.type == type) &&
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.profit, profit) || other.profit == profit) &&
+            (identical(other.points, points) || other.points == points) &&
             const DeepCollectionEquality().equals(other._products, _products));
   }
 
@@ -304,6 +355,9 @@ class _$OrderModelImpl extends _OrderModel {
       orderId,
       paymentMethod,
       type,
+      status,
+      profit,
+      points,
       const DeepCollectionEquality().hash(_products));
 
   /// Create a copy of OrderModel
@@ -329,9 +383,12 @@ abstract class _OrderModel extends OrderModel {
       required final dynamic body,
       required final dynamic orderData,
       required final double amount,
-      required final String orderId,
+      required final int orderId,
       required final String paymentMethod,
       required final String type,
+      required final String status,
+      required final double profit,
+      required final int points,
       required final List<UserProductCartModel> products}) = _$OrderModelImpl;
   const _OrderModel._() : super._();
 
@@ -349,11 +406,17 @@ abstract class _OrderModel extends OrderModel {
   @override
   double get amount;
   @override
-  String get orderId;
+  int get orderId;
   @override
   String get paymentMethod;
   @override
   String get type;
+  @override
+  String get status;
+  @override
+  double get profit;
+  @override
+  int get points;
   @override
   List<UserProductCartModel> get products;
 
