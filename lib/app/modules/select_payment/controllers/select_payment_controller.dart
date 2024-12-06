@@ -114,11 +114,16 @@ class SelectPaymentController extends GetxController {
 
   Future<void> buy() async {
     double amount = userProductController.cartPrices.value;
+    double profit = userProductController.cartProfit.value;
+    int points = userProductController.cartPoints.value;
+
     await Get.toNamed(Routes.FINALIZE_ORDER, arguments: [
       paymentOrderNumber,
       address,
       PaymentMethod.delivery,
       amount,
+      profit,
+      points,
     ]);
   }
 
@@ -136,6 +141,8 @@ class SelectPaymentController extends GetxController {
   Future<void> goToPayments() async {
     String description = getDescripction();
     double amount = userProductController.cartPrices.value;
+    double profit = userProductController.cartProfit.value;
+    int points = userProductController.cartPoints.value;
     String email = mainController.userEmail ?? '';
 
     await Get.toNamed(Routes.PAYMENTS_METHOD, arguments: [
@@ -145,6 +152,8 @@ class SelectPaymentController extends GetxController {
       description,
       amount,
       email,
+      profit,
+      points,
     ]);
   }
 

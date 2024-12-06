@@ -12,6 +12,8 @@ class PaymentsMethodController extends GetxController {
   late PaymentMethod paymentMethod;
   late String description;
   late double amount;
+  late double profit;
+  late int points;
   late String email;
 
   late Map<String, String> formData;
@@ -25,6 +27,8 @@ class PaymentsMethodController extends GetxController {
     description = Get.arguments[3] as String;
     amount = Get.arguments[4] as double;
     email = Get.arguments[5] as String;
+    profit = Get.arguments[6] as double;
+    points = Get.arguments[7] as int;
 
     String fullName = address.fullname ?? '';
     Map<String, String> result = splitName(fullName);
@@ -73,6 +77,8 @@ class PaymentsMethodController extends GetxController {
       address,
       PaymentMethod.delivery,
       amount,
+      profit,
+      points,
     ]);
   }
 }

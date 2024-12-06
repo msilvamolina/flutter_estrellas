@@ -26,6 +26,8 @@ class FinalizeOrderController extends GetxController {
   late AddressModel address;
   late PaymentMethod paymentMethod;
   late double amount;
+  late double profit;
+  late int points;
 
   var status = Status.loading.obs;
   RxString orderNumber = ''.obs;
@@ -38,6 +40,8 @@ class FinalizeOrderController extends GetxController {
     address = Get.arguments[1] as AddressModel;
     paymentMethod = Get.arguments[2] as PaymentMethod;
     amount = Get.arguments[3] as double;
+    profit = Get.arguments[4] as double;
+    points = Get.arguments[5] as int;
     super.onInit();
   }
 
@@ -63,6 +67,9 @@ class FinalizeOrderController extends GetxController {
       paymentMethod: paymentMethod,
       paymentOrderNumber: paymentOrderNumber,
       amount: amount,
+      profit: profit,
+      points: points,
+      status: 'Orden registrada',
     );
 
     response.fold((failure) {
@@ -117,6 +124,9 @@ class FinalizeOrderController extends GetxController {
       paymentMethod: paymentMethod,
       paymentOrderNumber: paymentOrderNumber,
       amount: amount,
+      profit: profit,
+      points: points,
+      status: 'Orden registrada',
     );
 
     response.fold((failure) {
