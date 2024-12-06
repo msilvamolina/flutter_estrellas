@@ -5,6 +5,7 @@ import 'package:flutter_estrellas/app/app/bottom_sheets/modal_bottom_sheet/examp
 import 'package:flutter_estrellas/app/app/controllers/main_controller.dart';
 import 'package:flutter_estrellas/app/components/bottom_sheets/bottomsheets.dart';
 import 'package:flutter_estrellas/app/components/snackbars/snackbars.dart';
+import 'package:flutter_estrellas/app/data/models/order/order_model.dart';
 import 'package:flutter_estrellas/app/data/models/product_firebase_lite/product_firebase_lite.dart';
 import 'package:flutter_estrellas/app/data/models/user_catalog/user_catalog_model.dart';
 import 'package:flutter_estrellas/app/data/models/video_model.dart';
@@ -37,6 +38,9 @@ class UserProductController extends GetxController {
   final RxList<UserProductCartModel> _listProductCart =
       <UserProductCartModel>[].obs;
   List<UserProductCartModel> get listProductCart => _listProductCart.toList();
+
+  final RxList<OrderModel> _listOrder = <OrderModel>[].obs;
+  List<OrderModel> get listOrder => _listOrder.toList();
 
   final RxList<UserProductModel> _listProductFavorites =
       <UserProductModel>[].obs;
@@ -107,6 +111,7 @@ class UserProductController extends GetxController {
         .bindStream(userProductRepository.getUserCatalogPrivate());
     _listUserCatalogs.bindStream(userProductRepository.getUserCatalogs());
     _listRequestOrder.bindStream(userProductRepository.getListRequestOrders());
+    _listOrder.bindStream(userProductRepository.getListOrders());
   }
 
   void goToBuyUniqueProduct(VideoPostModel? videoPostModel) {

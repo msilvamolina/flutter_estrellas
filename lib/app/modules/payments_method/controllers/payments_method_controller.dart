@@ -11,7 +11,7 @@ class PaymentsMethodController extends GetxController {
   late AddressModel address;
   late PaymentMethod paymentMethod;
   late String description;
-  late String amount;
+  late double amount;
   late String email;
 
   late Map<String, String> formData;
@@ -23,7 +23,7 @@ class PaymentsMethodController extends GetxController {
     address = Get.arguments[1] as AddressModel;
     paymentMethod = Get.arguments[2] as PaymentMethod;
     description = Get.arguments[3] as String;
-    amount = Get.arguments[4] as String;
+    amount = Get.arguments[4] as double;
     email = Get.arguments[5] as String;
 
     String fullName = address.fullname ?? '';
@@ -37,7 +37,7 @@ class PaymentsMethodController extends GetxController {
       "form_id": "2585",
       "terminal_id": "1873",
       "order_number": paymentOrderNumber.toString(),
-      "amount": amount,
+      "amount": amount.toString(),
       "currency": "cop",
       "order_description": description,
       "color_base": "#DE073F",
@@ -72,6 +72,7 @@ class PaymentsMethodController extends GetxController {
       paymentOrderNumber,
       address,
       PaymentMethod.delivery,
+      amount,
     ]);
   }
 }

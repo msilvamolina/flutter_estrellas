@@ -39,6 +39,7 @@ class OrdersRepository {
     required AddressModel address,
     required PaymentMethod paymentMethod,
     required int paymentOrderNumber,
+    required double amount,
   }) async {
     String url = 'api/orders/create-order';
     Map<String, String> userData = getUidAndEmail();
@@ -89,6 +90,7 @@ class OrdersRepository {
             .doc(id)
             .set({
           'id': id,
+          'amount': amount,
           'paymentOrderNumber': paymentOrderNumber,
           'type': 'uniqueProduct',
           'products': products,
@@ -116,6 +118,7 @@ class OrdersRepository {
     required AddressModel address,
     required PaymentMethod paymentMethod,
     required int paymentOrderNumber,
+    required double amount,
   }) async {
     String url = 'api/orders/create-order';
     Map<String, String> userData = getUidAndEmail();
@@ -168,6 +171,7 @@ class OrdersRepository {
             .doc(id)
             .set({
           'id': id,
+          'amount': amount,
           'type': 'multipleProducts',
           'paymentOrderNumber': paymentOrderNumber,
           'products': productsDocuments,

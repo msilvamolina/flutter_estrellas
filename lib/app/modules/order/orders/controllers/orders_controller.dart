@@ -1,9 +1,13 @@
 import 'package:get/get.dart';
 
-class OrdersController extends GetxController {
-  //TODO: Implement OrdersController
+import '../../../../app/controllers/main_controller.dart';
+import '../../../../app/controllers/user_product_controller.dart';
 
-  final count = 0.obs;
+class OrdersController extends GetxController {
+  MainController mainController = Get.find<MainController>();
+  UserProductController userProductController =
+      Get.find<UserProductController>();
+
   @override
   void onInit() {
     super.onInit();
@@ -18,6 +22,4 @@ class OrdersController extends GetxController {
   void onClose() {
     super.onClose();
   }
-
-  void increment() => count.value++;
 }

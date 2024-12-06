@@ -81,7 +81,7 @@ class AccountView extends GetView<AccountController> {
               title: 'Favoritos',
             ),
             accountTile(
-              onTap: () => Get.toNamed(Routes.ORDERS),
+              onTap: controller.goToOrders,
               icon: EstrellasIcons.stack,
               title: 'Órdenes',
             ),

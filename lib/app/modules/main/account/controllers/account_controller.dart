@@ -37,4 +37,11 @@ class AccountController extends GetxController {
   Future<void> signOut() async {
     Bottomsheets.staticBottomSheet(BottomSheetTypes.signOut);
   }
+
+  Future<void> goToOrders() async {
+    final result = await Get.toNamed(Routes.ORDERS);
+    if (result != null) {
+      Get.offNamed(Routes.HOME);
+    }
+  }
 }
