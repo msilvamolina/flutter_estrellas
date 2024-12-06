@@ -30,7 +30,13 @@ class WalletView extends GetView<WalletController> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               WalletMainCard(),
-              WalletOrdersAlert(),
+              GestureDetector(
+                onTap: controller.goToOrders,
+                child: WalletOrdersAlert(
+                  orderNumber:
+                      controller.userProductController.listOrder.length,
+                ),
+              ),
               Padding(
                 padding: const EdgeInsets.all(16),
                 child: Column(
