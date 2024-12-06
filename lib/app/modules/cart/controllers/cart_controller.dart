@@ -45,11 +45,14 @@ class CartController extends GetxController {
       userProductController.cartQuantity.value = 0;
       userProductController.cartPrices.value = 0;
       userProductController.cartPoints.value = 0;
+      userProductController.cartProfit.value = 0;
 
       for (UserProductCartModel element
           in userProductController.listProductCart) {
         int _productQuantity = getQuantity(element);
         double _productPrice = element.price * _productQuantity;
+        double _productProfit =
+            (element.suggestedPrice - element.price) * _productQuantity;
         int _elementPoints = element.points * _productQuantity;
 
         userProductController.cartQuantity.value =
@@ -58,6 +61,9 @@ class CartController extends GetxController {
             userProductController.cartPrices.value + _productPrice;
         userProductController.cartPoints.value =
             userProductController.cartPoints.value + _elementPoints;
+
+        userProductController.cartProfit.value =
+            userProductController.cartProfit.value + _productProfit;
       }
       update(['prices_bottombar']);
     }

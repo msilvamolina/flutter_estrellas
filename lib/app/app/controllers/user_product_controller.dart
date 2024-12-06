@@ -73,6 +73,7 @@ class UserProductController extends GetxController {
   Rx<double> cartPrices = 0.0.obs;
   RxInt cartPoints = 0.obs;
   RxInt cartQuantity = 0.obs;
+  Rx<double> cartProfit = 0.0.obs;
 
   bool _shareIsLoading = true;
   bool get shareIsLoading => _shareIsLoading;
@@ -123,6 +124,8 @@ class UserProductController extends GetxController {
     setUniqueProduct(videoPostModel);
     cartPoints.value = videoPostModel?.product?.points ?? 0;
     cartPrices.value = videoPostModel?.product?.price ?? 0;
+    cartProfit.value =
+        (videoPostModel?.product?.suggestedPrice ?? 0) - cartPrices.value;
     cartQuantity.value = 1;
     Get.toNamed(Routes.CART_UNIQUE_PRODUCT);
   }
@@ -139,8 +142,10 @@ class UserProductController extends GetxController {
 
   void calculateUniqueProducts() {
     cartPrices.value = _uniqueProduct?.price ?? 0;
+    cartProfit.value = (_uniqueProduct?.suggestedPrice ?? 0) - cartPrices.value;
     cartPoints.value = _uniqueProduct?.points ?? 0;
     cartPrices.value = cartPrices.value * cartQuantity.value;
+    cartProfit.value = cartProfit.value * cartQuantity.value;
     cartPoints.value = cartPoints.value * cartQuantity.value;
   }
 

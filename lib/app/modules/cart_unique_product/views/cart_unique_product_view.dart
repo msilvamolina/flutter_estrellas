@@ -27,6 +27,8 @@ class CartUniqueProductView extends GetView<CartUniqueProductController> {
             children: [
               Obx(
                 () => CartPriceBottomBar(
+                  productsProfit:
+                      controller.userProductController.cartProfit.value,
                   productsPoints:
                       controller.userProductController.cartPoints.value,
                   productsQuantity:

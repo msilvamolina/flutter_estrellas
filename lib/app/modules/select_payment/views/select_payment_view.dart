@@ -39,6 +39,8 @@ class SelectPaymentView extends GetView<SelectPaymentController> {
                               .userProductController.cartQuantity.value,
                           productsPrices:
                               controller.userProductController.cartPrices.value,
+                          productsProfit:
+                              controller.userProductController.cartProfit.value,
                           productsShipping: 0,
                           showLoanMessage: true,
                           loanButton: controller.loanButton,

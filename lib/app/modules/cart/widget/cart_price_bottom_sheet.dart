@@ -14,12 +14,14 @@ class CartPriceBottomBar extends StatefulWidget {
     required this.productsPoints,
     required this.productsShipping,
     this.showLoanMessage = false,
+    this.productsProfit = 0,
     this.loanButton,
     super.key,
   });
 
   final int productsQuantity;
   final double productsPrices;
+  final double productsProfit;
   final int productsPoints;
   final double productsShipping;
   final bool showLoanMessage;
@@ -34,6 +36,7 @@ class _CartPriceBottomBarState extends State<CartPriceBottomBar> {
   double? previousPrices;
   int? previousPoints;
   double? previousShipping;
+  double? previousProfit;
 
   @override
   void initState() {
@@ -41,6 +44,7 @@ class _CartPriceBottomBarState extends State<CartPriceBottomBar> {
     // Inicializamos los valores previos con los valores actuales para evitar la animación al entrar por primera vez
     previousQuantity = widget.productsQuantity;
     previousPrices = widget.productsPrices;
+    previousProfit = widget.productsProfit;
     previousPoints = widget.productsPoints;
     previousShipping = widget.productsShipping;
   }
@@ -55,6 +59,9 @@ class _CartPriceBottomBarState extends State<CartPriceBottomBar> {
     }
     if (widget.productsPrices != oldWidget.productsPrices) {
       previousPrices = oldWidget.productsPrices;
+    }
+    if (widget.productsProfit != oldWidget.productsProfit) {
+      previousProfit = oldWidget.productsProfit;
     }
     if (widget.productsPoints != oldWidget.productsPoints) {
       previousPoints = oldWidget.productsPoints;
@@ -74,6 +81,8 @@ class _CartPriceBottomBarState extends State<CartPriceBottomBar> {
         : widget.productsShipping.toString();
     String priceStr = CurrencyHelpers.moneyFormat(
         amount: widget.productsPrices, decimalIn0: false);
+    String profitStr = CurrencyHelpers.moneyFormat(
+        amount: widget.productsProfit, decimalIn0: false);
     double totalPrice = widget.productsShipping + widget.productsPrices;
 
     String totalPriceStr =
@@ -178,6 +187,28 @@ class _CartPriceBottomBarState extends State<CartPriceBottomBar> {
                         ? freeShippingStyle
                         : shippingStyle,
                   ),
+                ],
+              ),
+              SizedBox(height: separationHeight),
+              Row(
+                children: [
+                  Text(
+                    'Ganancia',
+                    style: textStyle,
+                  ),
+                  Spacer(),
+                  if (widget.productsProfit == previousProfit)
+                    Text(
+                      profitStr,
+                      style: priceTextStyle,
+                    )
+                  else
+                    TextTransformationAnimation(
+                      text: profitStr,
+                      duration: textAnimationDuration,
+                      alphabet: moneyAlphabet,
+                      style: priceTextStyle,
+                    ),
                 ],
               ),
               SizedBox(height: separationHeight),
