@@ -25,6 +25,7 @@ abstract class OrderModel implements _$OrderModel {
     required String status,
     required double profit,
     required int points,
+    required String createdAt,
     required List<UserProductCartModel> products,
   }) = _OrderModel;
 

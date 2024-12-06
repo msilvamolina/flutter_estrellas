@@ -21,6 +21,7 @@ _$OrderModelImpl _$$OrderModelImplFromJson(Map<String, dynamic> json) =>
       status: json['status'] as String,
       profit: (json['profit'] as num).toDouble(),
       points: (json['points'] as num).toInt(),
+      createdAt: json['createdAt'] as String,
       products: (json['products'] as List<dynamic>)
           .map((e) => UserProductCartModel.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -39,5 +40,6 @@ Map<String, dynamic> _$$OrderModelImplToJson(_$OrderModelImpl instance) =>
       'status': instance.status,
       'profit': instance.profit,
       'points': instance.points,
+      'createdAt': instance.createdAt,
       'products': instance.products,
     };

@@ -172,6 +172,12 @@ class OrdersRepository {
       }
       String orderNumber = json['data'].toString();
 
+      int orderInt = 0;
+
+      if (orderNumber != 'null') {
+        orderInt = int.tryParse(orderNumber) ?? 0;
+      }
+
       try {
         await _firebaseFirestore
             .collection('users')
@@ -187,7 +193,7 @@ class OrdersRepository {
           'type': 'multipleProducts',
           'paymentOrderNumber': paymentOrderNumber,
           'products': productsDocuments,
-          'orderId': orderNumber,
+          'orderId': orderInt,
           'address': address.toDocument(),
           'body': body,
           'paymentMethod': paymentMethod.name,

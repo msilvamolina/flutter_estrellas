@@ -31,6 +31,7 @@ mixin _$OrderModel {
   String get status => throw _privateConstructorUsedError;
   double get profit => throw _privateConstructorUsedError;
   int get points => throw _privateConstructorUsedError;
+  String get createdAt => throw _privateConstructorUsedError;
   List<UserProductCartModel> get products => throw _privateConstructorUsedError;
 
   /// Serializes this OrderModel to a JSON map.
@@ -61,6 +62,7 @@ abstract class $OrderModelCopyWith<$Res> {
       String status,
       double profit,
       int points,
+      String createdAt,
       List<UserProductCartModel> products});
 
   $AddressModelCopyWith<$Res>? get address;
@@ -92,6 +94,7 @@ class _$OrderModelCopyWithImpl<$Res, $Val extends OrderModel>
     Object? status = null,
     Object? profit = null,
     Object? points = null,
+    Object? createdAt = null,
     Object? products = null,
   }) {
     return _then(_value.copyWith(
@@ -139,6 +142,10 @@ class _$OrderModelCopyWithImpl<$Res, $Val extends OrderModel>
           ? _value.points
           : points // ignore: cast_nullable_to_non_nullable
               as int,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as String,
       products: null == products
           ? _value.products
           : products // ignore: cast_nullable_to_non_nullable
@@ -181,6 +188,7 @@ abstract class _$$OrderModelImplCopyWith<$Res>
       String status,
       double profit,
       int points,
+      String createdAt,
       List<UserProductCartModel> products});
 
   @override
@@ -211,6 +219,7 @@ class __$$OrderModelImplCopyWithImpl<$Res>
     Object? status = null,
     Object? profit = null,
     Object? points = null,
+    Object? createdAt = null,
     Object? products = null,
   }) {
     return _then(_$OrderModelImpl(
@@ -258,6 +267,10 @@ class __$$OrderModelImplCopyWithImpl<$Res>
           ? _value.points
           : points // ignore: cast_nullable_to_non_nullable
               as int,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as String,
       products: null == products
           ? _value._products
           : products // ignore: cast_nullable_to_non_nullable
@@ -281,6 +294,7 @@ class _$OrderModelImpl extends _OrderModel {
       required this.status,
       required this.profit,
       required this.points,
+      required this.createdAt,
       required final List<UserProductCartModel> products})
       : _products = products,
         super._();
@@ -310,6 +324,8 @@ class _$OrderModelImpl extends _OrderModel {
   final double profit;
   @override
   final int points;
+  @override
+  final String createdAt;
   final List<UserProductCartModel> _products;
   @override
   List<UserProductCartModel> get products {
@@ -320,7 +336,7 @@ class _$OrderModelImpl extends _OrderModel {
 
   @override
   String toString() {
-    return 'OrderModel(id: $id, address: $address, body: $body, orderData: $orderData, amount: $amount, orderId: $orderId, paymentMethod: $paymentMethod, type: $type, status: $status, profit: $profit, points: $points, products: $products)';
+    return 'OrderModel(id: $id, address: $address, body: $body, orderData: $orderData, amount: $amount, orderId: $orderId, paymentMethod: $paymentMethod, type: $type, status: $status, profit: $profit, points: $points, createdAt: $createdAt, products: $products)';
   }
 
   @override
@@ -340,6 +356,8 @@ class _$OrderModelImpl extends _OrderModel {
             (identical(other.status, status) || other.status == status) &&
             (identical(other.profit, profit) || other.profit == profit) &&
             (identical(other.points, points) || other.points == points) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
             const DeepCollectionEquality().equals(other._products, _products));
   }
 
@@ -358,6 +376,7 @@ class _$OrderModelImpl extends _OrderModel {
       status,
       profit,
       points,
+      createdAt,
       const DeepCollectionEquality().hash(_products));
 
   /// Create a copy of OrderModel
@@ -389,6 +408,7 @@ abstract class _OrderModel extends OrderModel {
       required final String status,
       required final double profit,
       required final int points,
+      required final String createdAt,
       required final List<UserProductCartModel> products}) = _$OrderModelImpl;
   const _OrderModel._() : super._();
 
@@ -417,6 +437,8 @@ abstract class _OrderModel extends OrderModel {
   double get profit;
   @override
   int get points;
+  @override
+  String get createdAt;
   @override
   List<UserProductCartModel> get products;
 
