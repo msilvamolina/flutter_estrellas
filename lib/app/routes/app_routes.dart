@@ -46,6 +46,7 @@ abstract class Routes {
   static const FORGOT_PASSWORD = _Paths.FORGOT_PASSWORD;
   static const PAYMENTS_METHOD = _Paths.PAYMENTS_METHOD;
   static const FINALIZE_ORDER = _Paths.FINALIZE_ORDER;
+  static const CHAT = _Paths.CHAT;
 }
 
 abstract class _Paths {
@@ -93,4 +94,5 @@ abstract class _Paths {
   static const FORGOT_PASSWORD = '/forgot-password';
   static const PAYMENTS_METHOD = '/payments-method';
   static const FINALIZE_ORDER = '/finalize-order';
+  static const CHAT = '/chat';
 }

@@ -39,6 +39,22 @@ class ApiServices {
     return response;
   }
 
+  Future<Response> postCompi({
+    required Map<String, dynamic> body,
+  }) async {
+    Uri uri = Uri.https(
+      'chat.compafinanciero.com',
+      'chat/',
+    );
+
+    Response response = await client.post(
+      uri,
+      body: jsonEncode(body),
+      headers: {"Content-Type": "application/json"},
+    );
+    return response;
+  }
+
   Future<String?> getToken() async {
     MainController mainController = Get.find<MainController>();
     mainController.setDropiMessage('getToken');

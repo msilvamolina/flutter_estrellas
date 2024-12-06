@@ -18,6 +18,13 @@ class AccountView extends GetView<AccountController> {
     return Scaffold(
       extendBody: true,
       backgroundColor: neutral50,
+      floatingActionButton: GestureDetector(
+        onTap: () => Get.toNamed(Routes.CHAT),
+        child: Image.asset(
+          'assets/images/chatAI.png',
+          width: 60,
+        ),
+      ),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
