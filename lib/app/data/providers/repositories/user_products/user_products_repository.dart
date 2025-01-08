@@ -9,6 +9,7 @@ import 'package:flutter_estrellas/app/data/models/videos/video_post_model.dart';
 import 'package:get/get.dart';
 import 'package:uuid/uuid.dart';
 
+import '../../../models/product_variant/product_variant_model.dart';
 import '../../../models/product_variant_combination/product_variant_combination_model.dart';
 import '../../../models/user_product/user_product_model.dart';
 import '../../../models/user_product_cart/user_product_cart_model.dart';
@@ -383,7 +384,7 @@ class UserProductsRepository {
     required double price,
     required double suggestedPrice,
     required int points,
-    ProductVariantCombinationModel? productVariantCombination,
+    ProductVariantModel? productVariant,
   }) async {
     Map<String, String> userData = getUidAndEmail();
     String uid = userData['uid'] ?? '';
@@ -399,9 +400,8 @@ class UserProductsRepository {
           .set({
         'id': id,
         'video': video.toDocument(),
-        'productCombination': productVariantCombination != null
-            ? productVariantCombination.toDocument()
-            : null,
+        'productVariant':
+            productVariant != null ? productVariant.toJson() : null,
         'quantity': quantity,
         'stock': stock,
         'price': price,

@@ -103,7 +103,7 @@ class ProductDetailsController extends GetxController {
       _listAttributes.toList();
   VariantInfoModel? variantInfoModel;
   RxMap<String, String> selectedVariantsMap = <String, String>{}.obs;
-
+  ProductVariantModel? productVariant;
   @override
   Future<void> onInit() async {
     videoPostModel = Get.arguments as VideoPostModel;
@@ -157,25 +157,25 @@ class ProductDetailsController extends GetxController {
   }
 
   Future<void> addToCart() async {
-    // Either<String, Unit> response = await _userProductsRepository.addToCart(
-    //   video: videoPostModel,
-    //   productVariantCombination: _productVariantCombination,
-    //   quantity: quantity,
-    //   price: _price,
-    //   suggestedPrice: _suggestedPrice,
-    //   points: _points,
-    //   stock: _stock,
-    // );
+    Either<String, Unit> response = await _userProductsRepository.addToCart(
+      video: videoPostModel,
+      productVariant: productVariant,
+      quantity: quantity,
+      price: _price,
+      suggestedPrice: _suggestedPrice,
+      points: _points,
+      stock: _stock,
+    );
 
-    // response.fold(
-    //   (failure) {
-    //     Snackbars.error(failure);
-    //   },
-    //   (_) {
-    //     update(['product_cart_icon']);
-    //     Snackbars.success('${productLite.name ?? ''} agregado a tu carrito');
-    //   },
-    // );
+    response.fold(
+      (failure) {
+        Snackbars.error(failure);
+      },
+      (_) {
+        update(['product_cart_icon']);
+        Snackbars.success('${productLite.name ?? ''} agregado a tu carrito');
+      },
+    );
   }
 
   Future<void> removeFromCart() async {
@@ -291,12 +291,12 @@ class ProductDetailsController extends GetxController {
 
   void checkVariations() {
     if (selectedVariantsMap.length == variantInfoModel!.attributes!.length) {
-      ProductVariantModel? productVariant = findMatchingCombination();
+      productVariant = findMatchingCombination();
       if (productVariant != null) {
-        _stock = productVariant.stock;
-        _suggestedPrice = productVariant.suggested_price;
-        _price = productVariant.sale_price;
-        _points = productVariant.points;
+        _stock = productVariant!.stock;
+        _suggestedPrice = productVariant!.suggested_price;
+        _price = productVariant!.sale_price;
+        _points = productVariant!.points;
         _quantity = 1;
         update([
           'product_points',

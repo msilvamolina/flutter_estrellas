@@ -608,7 +608,7 @@ class UserProductController extends GetxController {
   Future<void> addToCart(VideoPostModel videoPostModel) async {
     Either<String, Unit> response = await userProductRepository.addToCart(
       video: videoPostModel,
-      productVariantCombination: null,
+      productVariant: null,
       quantity: 1,
       price: videoPostModel.product?.price ?? 0,
       suggestedPrice: videoPostModel.product?.suggestedPrice ?? 0,
