@@ -145,6 +145,23 @@ class UserProductController extends GetxController {
   }
 
   void goToBuyUniqueProductAction(VideoPostModel? videoPostModel) {
+    isVariantsButtonText = 'Comprar';
+    isVariantsButtonAddToCart = false;
+    isVariantsButtonAddToCartUpdate = false;
+    pickVariants(videoPostModel!);
+  }
+
+  void saveBuyActionVariant(
+      VideoPostModel videoPostModel, ProductVariantModel variant) {
+    setUniqueProduct(videoPostModel);
+    cartPoints.value = variant.points ?? 0;
+    cartPrices.value = variant.sale_price ?? 0;
+    cartProfit.value = (variant.suggested_price ?? 0) - cartPrices.value;
+    cartQuantity.value = 1;
+    Get.toNamed(Routes.CART_UNIQUE_PRODUCT);
+  }
+
+  void saveBuyAction(VideoPostModel? videoPostModel) {
     setUniqueProduct(videoPostModel);
     cartPoints.value = videoPostModel?.product?.points ?? 0;
     cartPrices.value = videoPostModel?.product?.price ?? 0;
@@ -667,16 +684,20 @@ class UserProductController extends GetxController {
     } else {
       if (isVariantsButtonAddToCart) {
         saveaddToCart(videoPostModel);
+      } else {
+        saveBuyAction(videoPostModel);
       }
     }
   }
 
   void onPickVariantButtonPressed() {
-    isPickVariantButtonLoading = true;
-    update(['pick_product_variant_bottom_sheet']);
     if (productSelected != null && productVariantSelected != null) {
       if (isVariantsButtonAddToCart) {
+        isPickVariantButtonLoading = true;
+        update(['pick_product_variant_bottom_sheet']);
         saveAddToCartVariant(productSelected!, productVariantSelected!);
+      } else {
+        saveBuyActionVariant(productSelected!, productVariantSelected!);
       }
     }
   }
