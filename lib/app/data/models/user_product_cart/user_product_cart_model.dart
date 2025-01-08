@@ -31,5 +31,15 @@ abstract class UserProductCartModel implements _$UserProductCartModel {
   factory UserProductCartModel.fromDocument(DocumentSnapshot doc) =>
       UserProductCartModel.fromJson(ModelHelpers.fromDocument(doc.data()!));
 
-  Map<String, dynamic> toDocument() => ModelHelpers.toDocument(toJson());
+  Map<String, dynamic> toDocument() {
+    dynamic json = toJson();
+    if (video != null) {
+      json['video'] = video!.toDocument();
+    }
+
+    if (productCombination != null) {
+      json['productCombination'] = productCombination!.toDocument();
+    }
+    return json;
+  }
 }

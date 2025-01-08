@@ -7,9 +7,11 @@ import '../../../../themes/styles/colors.dart';
 
 class WalletOrdersAlert extends StatelessWidget {
   const WalletOrdersAlert({
+    required this.orderNumber,
     super.key,
   });
 
+  final int orderNumber;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -45,7 +47,9 @@ class WalletOrdersAlert extends StatelessWidget {
               ),
             ),
             title: Text(
-              'Tienes 5 órdenes en proceso',
+              orderNumber > 0
+                  ? 'Tienes $orderNumber órdenes en proceso'
+                  : 'Sin órdenes en proceso. ¡Explora productos y crea tu próxima orden!',
               style: TypographyStyle.bodyBlackLarge,
             ),
             trailing: Icon(

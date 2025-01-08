@@ -86,6 +86,7 @@ class ProfileView extends GetView<ProfileController> {
                             formControlName: Fields.fullname.name,
                             keyboardType: TextInputType.text,
                             label: 'Nombre completo',
+                            hintText: 'Como está en tu documento',
                           ),
                           const SizedBox(height: 32),
                           CustomTextInput(
@@ -93,6 +94,7 @@ class ProfileView extends GetView<ProfileController> {
                             formControlName: Fields.document.name,
                             keyboardType: TextInputType.number,
                             label: 'Número de documento',
+                            hintText: 'Ingresa tu documento',
                           ),
                           const SizedBox(height: 32),
                           CustomTextInput(
@@ -101,6 +103,7 @@ class ProfileView extends GetView<ProfileController> {
                             formControlName: Fields.email.name,
                             keyboardType: TextInputType.text,
                             label: 'Correo',
+                            hintText: 'Ingresa tu correo',
                           ),
                           const SizedBox(height: 32),
                           CustomPhoneInput(
@@ -108,6 +111,7 @@ class ProfileView extends GetView<ProfileController> {
                             formControlName: Fields.phone.name,
                             keyboardType: TextInputType.phone,
                             label: 'Celular',
+                            hintText: 'Ingresa el número de celular',
                           ),
                         ],
                       ),

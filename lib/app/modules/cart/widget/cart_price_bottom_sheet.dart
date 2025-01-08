@@ -3,6 +3,7 @@ import 'package:flutter_estrellas/app/themes/styles/colors.dart';
 import 'package:flutter_estrellas/app/themes/styles/typography.dart';
 import 'package:text_transformation_animation/text_transformation_animation.dart';
 
+import '../../../components/buttons/buttons.dart';
 import '../../../data/helpers/currency_helper.dart';
 import '../../../libraries/icons/icons_font.dart';
 
@@ -12,13 +13,19 @@ class CartPriceBottomBar extends StatefulWidget {
     required this.productsPrices,
     required this.productsPoints,
     required this.productsShipping,
+    this.showLoanMessage = false,
+    this.productsProfit = 0,
+    this.loanButton,
     super.key,
   });
 
   final int productsQuantity;
   final double productsPrices;
+  final double productsProfit;
   final int productsPoints;
   final double productsShipping;
+  final bool showLoanMessage;
+  final Function()? loanButton;
 
   @override
   _CartPriceBottomBarState createState() => _CartPriceBottomBarState();
@@ -29,6 +36,7 @@ class _CartPriceBottomBarState extends State<CartPriceBottomBar> {
   double? previousPrices;
   int? previousPoints;
   double? previousShipping;
+  double? previousProfit;
 
   @override
   void initState() {
@@ -36,6 +44,7 @@ class _CartPriceBottomBarState extends State<CartPriceBottomBar> {
     // Inicializamos los valores previos con los valores actuales para evitar la animación al entrar por primera vez
     previousQuantity = widget.productsQuantity;
     previousPrices = widget.productsPrices;
+    previousProfit = widget.productsProfit;
     previousPoints = widget.productsPoints;
     previousShipping = widget.productsShipping;
   }
@@ -51,6 +60,9 @@ class _CartPriceBottomBarState extends State<CartPriceBottomBar> {
     if (widget.productsPrices != oldWidget.productsPrices) {
       previousPrices = oldWidget.productsPrices;
     }
+    if (widget.productsProfit != oldWidget.productsProfit) {
+      previousProfit = oldWidget.productsProfit;
+    }
     if (widget.productsPoints != oldWidget.productsPoints) {
       previousPoints = oldWidget.productsPoints;
     }
@@ -61,14 +73,26 @@ class _CartPriceBottomBarState extends State<CartPriceBottomBar> {
 
   @override
   Widget build(BuildContext context) {
+    double loanLimit = 100000;
+    bool showLoanMessageBottomBar = widget.showLoanMessage;
+
     String shippingStr = widget.productsShipping == 0.0
         ? '¡Gratis!'
         : widget.productsShipping.toString();
     String priceStr = CurrencyHelpers.moneyFormat(
         amount: widget.productsPrices, decimalIn0: false);
+    String profitStr = CurrencyHelpers.moneyFormat(
+        amount: widget.productsProfit, decimalIn0: false);
     double totalPrice = widget.productsShipping + widget.productsPrices;
+
     String totalPriceStr =
         CurrencyHelpers.moneyFormat(amount: totalPrice, decimalIn0: false);
+
+    if (showLoanMessageBottomBar) {
+      showLoanMessageBottomBar = totalPrice < loanLimit;
+    }
+    String loanPriceStr = CurrencyHelpers.moneyFormat(
+        amount: loanLimit - totalPrice, decimalIn0: false);
 
     Duration textAnimationDuration = Duration(milliseconds: 1000);
     String moneyAlphabet = '0123456789.,\$';
@@ -169,6 +193,28 @@ class _CartPriceBottomBarState extends State<CartPriceBottomBar> {
               Row(
                 children: [
                   Text(
+                    'Ganancia',
+                    style: textStyle,
+                  ),
+                  Spacer(),
+                  if (widget.productsProfit == previousProfit)
+                    Text(
+                      profitStr,
+                      style: priceTextStyle,
+                    )
+                  else
+                    TextTransformationAnimation(
+                      text: profitStr,
+                      duration: textAnimationDuration,
+                      alphabet: moneyAlphabet,
+                      style: priceTextStyle,
+                    ),
+                ],
+              ),
+              SizedBox(height: separationHeight),
+              Row(
+                children: [
+                  Text(
                     'Puntos',
                     style: textStyle,
                   ),
@@ -238,9 +284,66 @@ class _CartPriceBottomBarState extends State<CartPriceBottomBar> {
             ],
           ),
         ),
-        SizedBox(
-          height: 16,
-        )
+        if (showLoanMessageBottomBar) ...[
+          GestureDetector(
+            onTap: widget.loanButton,
+            child: Container(
+              margin: EdgeInsets.symmetric(horizontal: 16),
+              padding: EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                  color: neutral100,
+                  borderRadius: BorderRadius.all(Radius.circular(16))),
+              child: Row(
+                children: [
+                  Image.asset(
+                    'assets/images/bancolombia.png',
+                    width: 36,
+                  ),
+                  SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        RichText(
+                          textAlign: TextAlign.start,
+                          text: TextSpan(
+                            text: '¡Te faltan solo ',
+                            style: TypographyStyle.bodyRegularLarge
+                                .copyWith(color: neutral800),
+                            children: <TextSpan>[
+                              TextSpan(
+                                text: loanPriceStr,
+                                style: TypographyStyle.bodyBlackLarge.copyWith(
+                                    color: neutral800,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                              TextSpan(
+                                text:
+                                    ' para comprar ahora y pagar después con tu crédito Bancolombia!',
+                                style: TypographyStyle.bodyRegularLarge
+                                    .copyWith(color: neutral800),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: 8),
+                        Text(
+                          'Agregar más productos',
+                          style: TypographyStyle.bodyRegularMedium.copyWith(
+                              color: secondaryBase,
+                              decoration: TextDecoration.underline),
+                        )
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+        SizedBox(height: 16),
       ],
     );
   }

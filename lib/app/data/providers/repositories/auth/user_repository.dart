@@ -8,6 +8,7 @@ import 'package:flutter_estrellas/app/data/models/phone/phone_model.dart';
 import 'package:get/get.dart';
 import 'package:uuid/uuid.dart';
 
+import '../../../../services/environment.dart';
 import '../../../models/user_data/user_data.dart';
 import '../../local/local_storage.dart';
 
@@ -61,6 +62,40 @@ class UserRepository {
       });
 
       return right(imageUrl);
+    } on FirebaseException catch (e) {
+      return left(e.code);
+    }
+  }
+
+  Future<Either<String, Unit>> saveUserToken() async {
+    try {
+      User currentUser = _firebaseAuth.currentUser!;
+      String uid = currentUser.uid;
+      String? token = await _localStorage.getToken();
+      bool saveToken = await _localStorage.getTokenSave();
+
+      if (token == null) {
+        return left('Necesita token');
+      }
+
+      if (saveToken) {
+        return left('El token ya se guardo');
+      }
+      await _firebaseFirestore
+          .collection('users')
+          .doc(uid)
+          .collection('tokens')
+          .doc(token)
+          .set({
+        'token': token,
+        'active': true,
+        'uid': uid,
+        'device': Environment.deviceInfo,
+        'createdAt': DateTime.now(),
+      });
+
+      await _localStorage.setTokenSave(true);
+      return right(unit);
     } on FirebaseException catch (e) {
       return left(e.code);
     }

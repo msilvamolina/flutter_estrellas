@@ -1,11 +1,13 @@
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_estrellas/app/data/models/phone/phone_model.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 class AuthRepository {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
-  /// Inicia sesión con email y contraseña
   Future<Either<String, Unit>> signInWithEmailAndPassword({
     required String email,
     required String password,
@@ -21,7 +23,83 @@ class AuthRepository {
     }
   }
 
-  /// Crea un usuario con email y contraseña
+  Future<Either<String, Unit>> sendPasswordResetEmail({
+    required String email,
+  }) async {
+    try {
+      await _firebaseAuth.sendPasswordResetEmail(
+        email: email,
+      );
+      return right(unit);
+    } on FirebaseAuthException catch (e) {
+      return left(e.code);
+    }
+  }
+
+  Future<Either<String, Unit>> signInWithFacebook() async {
+    try {
+      final LoginResult result = await FacebookAuth.instance.login();
+
+      if (result.status == LoginStatus.success) {
+        final AccessToken? accessToken = result.accessToken;
+
+        final facebookAuthCredential = FacebookAuthProvider.credential(
+          accessToken!.token,
+        );
+
+        await _firebaseAuth.signInWithCredential(facebookAuthCredential);
+
+        return right(unit);
+      } else {
+        return left(result.message ?? "Error desconocido en Facebook Login");
+      }
+    } on FirebaseAuthException catch (e) {
+      return left(e.code);
+    } catch (e) {
+      return left(e.toString());
+    }
+  }
+
+  Future<Either<String, Unit>> signInWithGoogle() async {
+    try {
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+      final GoogleSignInAuthentication? googleAuth =
+          await googleUser?.authentication;
+
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth?.accessToken,
+        idToken: googleAuth?.idToken,
+      );
+
+      await _firebaseAuth.signInWithCredential(credential);
+      return right(unit);
+    } on FirebaseAuthException catch (e) {
+      return left(e.code);
+    }
+  }
+
+  Future<Either<String, Unit>> signInWithApple() async {
+    try {
+      final credential = await SignInWithApple.getAppleIDCredential(
+        scopes: [
+          AppleIDAuthorizationScopes.email,
+          AppleIDAuthorizationScopes.fullName,
+        ],
+      );
+
+      final oAuthCredential = OAuthProvider("apple.com").credential(
+        idToken: credential.identityToken,
+        accessToken: credential.authorizationCode,
+      );
+
+      await _firebaseAuth.signInWithCredential(oAuthCredential);
+      return right(unit);
+    } on FirebaseAuthException catch (e) {
+      return left(e.code);
+    }
+  }
+
   Future<Either<String, Unit>> createUserWithEmailAndPassword({
     required String email,
     required String password,
@@ -70,7 +148,6 @@ class AuthRepository {
     }
   }
 
-  /// Envía un email de verificación
   Future<Either<String, Unit>> sendEmailVerification() async {
     try {
       if (_firebaseAuth.currentUser == null) {
@@ -83,29 +160,25 @@ class AuthRepository {
     }
   }
 
-  /// Devuelve el usuario actual
   User? getCurrentUser() {
     return _firebaseAuth.currentUser;
   }
 
-  /// Escucha cambios en la verificación del email
   Stream<bool> emailVerificationListener() async* {
     final user = _firebaseAuth.currentUser;
 
     if (user == null) {
-      yield false; // No hay usuario logueado
+      yield false;
       return;
     }
 
     while (!user.emailVerified) {
-      await Future.delayed(
-          const Duration(seconds: 3)); // Verifica cada 3 segundos
-      await user.reload(); // Refresca el estado del usuario
-      yield user.emailVerified; // Emite el estado de verificación
+      await Future.delayed(const Duration(seconds: 3));
+      await user.reload();
+      yield user.emailVerified;
     }
   }
 
-  /// Cierra la sesión del usuario
   Future<void> signOut() async {
     await _firebaseAuth.signOut();
   }

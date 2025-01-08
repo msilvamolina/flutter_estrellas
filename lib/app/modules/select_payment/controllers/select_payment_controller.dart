@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_estrellas/app/components/snackbars/snackbars.dart';
@@ -13,6 +15,7 @@ import '../../../data/models/user_product/user_product_model.dart';
 import '../../../data/models/user_product_cart/user_product_cart_model.dart';
 import '../../../data/providers/repositories/address/address_repository.dart';
 import '../../../routes/app_pages.dart';
+import '../payments_web_screen.dart';
 
 class SelectPaymentController extends GetxController {
   MainController mainController = Get.find();
@@ -25,47 +28,64 @@ class SelectPaymentController extends GetxController {
   List<PaymentsTypesModel> get paymentsList => _paymentsList;
 
   RxnString selectedPayment = RxnString();
-
   RxBool showBottomBar = false.obs;
+
+  late int paymentOrderNumber;
   @override
   void onInit() {
+    bool showLoan = userProductController.cartPrices.value >= 100000;
     address = Get.arguments as AddressModel;
+    paymentOrderNumber = generateRandomNumber(5);
 
     _paymentsList.add(
       PaymentsTypesModel(
         id: '0',
         title: 'Pago contra entrega',
         icon: EstrellasIcons.moneyWavy,
+        paymentMethod: PaymentMethod.delivery,
       ),
     );
-    _paymentsList.add(
-      PaymentsTypesModel(
-        id: '1',
-        title: 'Crédito Addi',
-        image: 'assets/images/addi.png',
-      ),
-    );
+    if (showLoan) {
+      _paymentsList.add(
+        PaymentsTypesModel(
+          id: '1',
+          title: 'Crédito Bancolombia',
+          subtitle: 'Por compras superiores a \$100.000',
+          image: 'assets/images/bancolombia.png',
+          paymentMethod: PaymentMethod.bancolombia,
+        ),
+      );
+    }
     _paymentsList.add(
       PaymentsTypesModel(
         id: '2',
         title: 'Tranferencia PSE',
         image: 'assets/images/pse.png',
+        paymentMethod: PaymentMethod.pse,
       ),
     );
     _paymentsList.add(
       PaymentsTypesModel(
         id: '3',
-        title: 'Agregar tarjeta crédito',
+        title: 'Pago con tarjeta',
+        subtitle: 'Tarjeta de Crédito y Débito',
         icon: EstrellasIcons.creditCard,
+        paymentMethod: PaymentMethod.card,
       ),
     );
-    _paymentsList.add(
-      PaymentsTypesModel(
-        id: '4',
-        title: 'Agregar tarjeta débito',
-        icon: EstrellasIcons.creditCard,
-      ),
-    );
+    if (!showLoan) {
+      _paymentsList.add(
+        PaymentsTypesModel(
+          id: '1',
+          title: 'Crédito Bancolombia',
+          subtitle: 'Por compras superiores a \$100.000',
+          image: 'assets/images/bancolombia.png',
+          paymentMethod: PaymentMethod.bancolombia,
+          disabled: true,
+        ),
+      );
+    }
+
     super.onInit();
   }
 
@@ -75,7 +95,6 @@ class SelectPaymentController extends GetxController {
       showBottomBar.value = true;
     } else {
       showBottomBar.value = userProductController.listProductCart.isNotEmpty;
-      buyMultipleProducts();
     }
 
     super.onReady();
@@ -86,61 +105,79 @@ class SelectPaymentController extends GetxController {
   }
 
   Future<void> confirmBuy() async {
-    if (userProductController.uniqueProduct != null) {
-      buyUniqueProducts(userProductController.uniqueProduct!);
+    if (selectedPayment.value == '0') {
+      buy();
     } else {
-      buyMultipleProducts();
+      goToPayments();
     }
   }
 
-  void buyUniqueProducts(UserProductCartModel product) async {
-    mainController.showLoader(
-      title: 'Estamos procesando tu compra',
-    );
+  Future<void> buy() async {
+    double amount = userProductController.cartPrices.value;
+    double profit = userProductController.cartProfit.value;
+    int points = userProductController.cartPoints.value;
 
-    Either<String, String> response =
-        await ordersRepository.createOrder(product: product, address: address);
-
-    await Future.delayed(Duration(seconds: 1));
-    Get.back();
-
-    response.fold((failure) {
-      Get.toNamed(Routes.ORDER_ERROR, arguments: failure);
-    }, (orderNumber) {
-      Get.offAndToNamed(Routes.ORDER_SUCCESS, arguments: orderNumber);
-    });
+    await Get.toNamed(Routes.FINALIZE_ORDER, arguments: [
+      paymentOrderNumber,
+      address,
+      PaymentMethod.delivery,
+      amount,
+      profit,
+      points,
+    ]);
   }
 
-  void buyMultipleProducts() async {
-    List<dynamic> products = [];
-
-    if (userProductController.listProductCart.isNotEmpty) {
-      for (UserProductCartModel element
-          in userProductController.listProductCart) {
-        products.add(
-          {
-            "product_id": element.video!.product!.id,
-            "client_quantity": element.quantity ?? 1,
-            "variation_id": ""
-          },
-        );
+  String getDescripction() {
+    if (userProductController.uniqueProduct != null) {
+      return userProductController.uniqueProduct!.video!.product?.name ?? '';
+    } else {
+      if (userProductController.listProductCart.isNotEmpty) {
+        return '${userProductController.listProductCart[0].video?.product?.name ?? ''} +${userProductController.listProductCart.length - 1}';
       }
     }
+    return '';
+  }
 
-    mainController.showLoader(
-      title: 'Estamos procesando tu compra',
-    );
+  Future<void> goToPayments() async {
+    String description = getDescripction();
+    double amount = userProductController.cartPrices.value;
+    double profit = userProductController.cartProfit.value;
+    int points = userProductController.cartPoints.value;
+    String email = mainController.userEmail ?? '';
 
-    Either<String, String> response = await ordersRepository
-        .createMultipleOrder(products: products, address: address);
+    await Get.toNamed(Routes.PAYMENTS_METHOD, arguments: [
+      paymentOrderNumber,
+      address,
+      PaymentMethod.delivery,
+      description,
+      amount,
+      email,
+      profit,
+      points,
+    ]);
+  }
 
-    response.fold((failure) {
+  int generateRandomNumber(int digits) {
+    if (digits <= 0) {
+      throw ArgumentError("El número de dígitos debe ser mayor que 0");
+    }
+
+    int min =
+        pow(10, digits - 1).toInt(); // Valor mínimo, como 10000 para 5 dígitos
+    int max =
+        pow(10, digits).toInt() - 1; // Valor máximo, como 99999 para 5 dígitos
+
+    Random random = Random();
+    return min + random.nextInt(max - min + 1);
+  }
+
+  void loanButton() {
+    if (userProductController.listProductFavorite.isNotEmpty) {
+      Get.toNamed(Routes.FAVORITES);
+    } else {
       Get.back();
-      Get.toNamed(Routes.ORDER_ERROR, arguments: failure);
-    }, (orderNumber) async {
-      await userProductController.clearCart();
       Get.back();
-      Get.offAndToNamed(Routes.ORDER_SUCCESS, arguments: orderNumber);
-    });
+      Get.back();
+    }
   }
 }

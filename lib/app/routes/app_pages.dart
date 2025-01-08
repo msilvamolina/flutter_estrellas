@@ -44,8 +44,14 @@ import '../modules/auth/welcome/bindings/welcome_binding.dart';
 import '../modules/auth/welcome/views/welcome_view.dart';
 import '../modules/cart/bindings/cart_binding.dart';
 import '../modules/cart/views/cart_view.dart';
+import '../modules/cart_unique_product/bindings/cart_unique_product_binding.dart';
+import '../modules/cart_unique_product/views/cart_unique_product_view.dart';
 import '../modules/catalog_details/bindings/catalog_details_binding.dart';
 import '../modules/catalog_details/views/catalog_details_view.dart';
+import '../modules/account/chat/bindings/chat_binding.dart';
+import '../modules/account/chat/views/chat_view.dart';
+import '../modules/finalize_order/bindings/finalize_order_binding.dart';
+import '../modules/finalize_order/views/finalize_order_view.dart';
 import '../modules/main/account/bindings/account_binding.dart';
 import '../modules/main/account/views/account_view.dart';
 import '../modules/main/home/bindings/home_binding.dart';
@@ -58,12 +64,10 @@ import '../modules/main/wallet/bindings/wallet_binding.dart';
 import '../modules/main/wallet/views/wallet_view.dart';
 import '../modules/order/order_details/bindings/order_details_binding.dart';
 import '../modules/order/order_details/views/order_details_view.dart';
-import '../modules/order/order_error/bindings/order_error_binding.dart';
-import '../modules/order/order_error/views/order_error_view.dart';
-import '../modules/order/order_success/bindings/order_success_binding.dart';
-import '../modules/order/order_success/views/order_success_view.dart';
 import '../modules/order/orders/bindings/orders_binding.dart';
 import '../modules/order/orders/views/orders_view.dart';
+import '../modules/payments_method/bindings/payments_method_binding.dart';
+import '../modules/payments_method/views/payments_method_view.dart';
 import '../modules/product_details/bindings/product_details_binding.dart';
 import '../modules/product_details/views/product_details_view.dart';
 import '../modules/select_payment/bindings/select_payment_binding.dart';
@@ -118,12 +122,7 @@ class AppPages {
     //   binding: RegisterBasicDataBinding(),
     //   transition: Transition.fadeIn,
     // ),
-    GetPage(
-      name: _Paths.FORGOT_PASSWORD,
-      page: () => const ForgotPasswordView(),
-      binding: ForgotPasswordBinding(),
-      transition: Transition.fadeIn,
-    ),
+
     GetPage(
       name: _Paths.WELCOME,
       page: () => const WelcomeView(),
@@ -160,11 +159,7 @@ class AppPages {
       page: () => const SelectPaymentView(),
       binding: SelectPaymentBinding(),
     ),
-    GetPage(
-      name: _Paths.ORDER_SUCCESS,
-      page: () => const OrderSuccessView(),
-      binding: OrderSuccessBinding(),
-    ),
+
     GetPage(
       name: _Paths.STORE,
       page: () => const StoreView(),
@@ -253,11 +248,7 @@ class AppPages {
       page: () => const EmailVerificationView(),
       binding: EmailVerificationBinding(),
     ),
-    GetPage(
-      name: _Paths.ORDER_ERROR,
-      page: () => const OrderErrorView(),
-      binding: OrderErrorBinding(),
-    ),
+
     GetPage(
       name: _Paths.ORDER_DETAILS,
       page: () => const OrderDetailsView(),
@@ -298,5 +289,32 @@ class AppPages {
         page: () => const SocialMediaShareView(),
         binding: SocialMediaShareBinding(),
         transition: Transition.downToUp),
+    GetPage(
+      name: _Paths.CART_UNIQUE_PRODUCT,
+      page: () => const CartUniqueProductView(),
+      binding: CartUniqueProductBinding(),
+    ),
+    GetPage(
+      name: _Paths.FORGOT_PASSWORD,
+      page: () => const ForgotPasswordView(),
+      binding: ForgotPasswordBinding(),
+    ),
+    GetPage(
+      name: _Paths.PAYMENTS_METHOD,
+      page: () => const PaymentsMethodView(),
+      binding: PaymentsMethodBinding(),
+      transition: Transition.fadeIn,
+    ),
+    GetPage(
+      name: _Paths.FINALIZE_ORDER,
+      page: () => const FinalizeOrderView(),
+      binding: FinalizeOrderBinding(),
+      transition: Transition.fadeIn,
+    ),
+    GetPage(
+      name: _Paths.CHAT,
+      page: () => ChatView(),
+      binding: ChatBinding(),
+    ),
   ];
 }

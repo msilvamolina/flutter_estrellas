@@ -11,8 +11,8 @@ class CustomTextInput extends StatelessWidget {
   const CustomTextInput({
     required this.formControlName,
     required this.label,
+    required this.hintText,
     this.keyboardType = TextInputType.text,
-    this.hintText,
     this.maxLines,
     this.autofocus = false,
     this.readOnly = false,

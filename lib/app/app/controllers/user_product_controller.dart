@@ -5,6 +5,7 @@ import 'package:flutter_estrellas/app/app/bottom_sheets/modal_bottom_sheet/examp
 import 'package:flutter_estrellas/app/app/controllers/main_controller.dart';
 import 'package:flutter_estrellas/app/components/bottom_sheets/bottomsheets.dart';
 import 'package:flutter_estrellas/app/components/snackbars/snackbars.dart';
+import 'package:flutter_estrellas/app/data/models/order/order_model.dart';
 import 'package:flutter_estrellas/app/data/models/product_firebase_lite/product_firebase_lite.dart';
 import 'package:flutter_estrellas/app/data/models/user_catalog/user_catalog_model.dart';
 import 'package:flutter_estrellas/app/data/models/video_model.dart';
@@ -38,6 +39,9 @@ class UserProductController extends GetxController {
       <UserProductCartModel>[].obs;
   List<UserProductCartModel> get listProductCart => _listProductCart.toList();
 
+  final RxList<OrderModel> _listOrder = <OrderModel>[].obs;
+  List<OrderModel> get listOrder => _listOrder.toList();
+
   final RxList<UserProductModel> _listProductFavorites =
       <UserProductModel>[].obs;
   List<UserProductModel> get listProductFavorite =>
@@ -69,6 +73,7 @@ class UserProductController extends GetxController {
   Rx<double> cartPrices = 0.0.obs;
   RxInt cartPoints = 0.obs;
   RxInt cartQuantity = 0.obs;
+  Rx<double> cartProfit = 0.0.obs;
 
   bool _shareIsLoading = true;
   bool get shareIsLoading => _shareIsLoading;
@@ -107,6 +112,7 @@ class UserProductController extends GetxController {
         .bindStream(userProductRepository.getUserCatalogPrivate());
     _listUserCatalogs.bindStream(userProductRepository.getUserCatalogs());
     _listRequestOrder.bindStream(userProductRepository.getListRequestOrders());
+    _listOrder.bindStream(userProductRepository.getListOrders());
   }
 
   void goToBuyUniqueProduct(VideoPostModel? videoPostModel) {
@@ -118,8 +124,29 @@ class UserProductController extends GetxController {
     setUniqueProduct(videoPostModel);
     cartPoints.value = videoPostModel?.product?.points ?? 0;
     cartPrices.value = videoPostModel?.product?.price ?? 0;
+    cartProfit.value =
+        (videoPostModel?.product?.suggestedPrice ?? 0) - cartPrices.value;
     cartQuantity.value = 1;
-    Get.toNamed(Routes.ADDRESS);
+    Get.toNamed(Routes.CART_UNIQUE_PRODUCT);
+  }
+
+  void addCartQuantity() {
+    cartQuantity.value = cartQuantity.value + 1;
+    calculateUniqueProducts();
+  }
+
+  void minusCartQuantity() {
+    cartQuantity.value = cartQuantity.value - 1;
+    calculateUniqueProducts();
+  }
+
+  void calculateUniqueProducts() {
+    cartPrices.value = _uniqueProduct?.price ?? 0;
+    cartProfit.value = (_uniqueProduct?.suggestedPrice ?? 0) - cartPrices.value;
+    cartPoints.value = _uniqueProduct?.points ?? 0;
+    cartPrices.value = cartPrices.value * cartQuantity.value;
+    cartProfit.value = cartProfit.value * cartQuantity.value;
+    cartPoints.value = cartPoints.value * cartQuantity.value;
   }
 
   Future<void> clearCart() async {
@@ -334,11 +361,23 @@ class UserProductController extends GetxController {
     mainController.actionNeedLogin(() => productFavoriteAction(videoPostModel));
   }
 
+  void productCartButton(VideoPostModel videoPostModel) {
+    mainController.actionNeedLogin(() => productCartAction(videoPostModel));
+  }
+
   void productFavoriteAction(VideoPostModel videoPostModel) {
     if (isProductInFavorites(videoPostModel)) {
       removeFromFavorites(videoPostModel);
     } else {
       addToFavorites(videoPostModel);
+    }
+  }
+
+  void productCartAction(VideoPostModel videoPostModel) {
+    if (isProductInCart(videoPostModel)) {
+      removeFromCart(videoPostModel);
+    } else {
+      addToCart(videoPostModel);
     }
   }
 
@@ -564,6 +603,51 @@ class UserProductController extends GetxController {
     UserProductCartModel? option = _listProductCart
         .firstWhereOrNull((element) => element.video?.id == videoPostModel?.id);
     return option;
+  }
+
+  Future<void> addToCart(VideoPostModel videoPostModel) async {
+    Either<String, Unit> response = await userProductRepository.addToCart(
+      video: videoPostModel,
+      productVariantCombination: null,
+      quantity: 1,
+      price: videoPostModel.product?.price ?? 0,
+      suggestedPrice: videoPostModel.product?.suggestedPrice ?? 0,
+      points: videoPostModel.product?.points ?? 0,
+      stock: videoPostModel.product?.stock ?? 0,
+    );
+
+    response.fold(
+      (failure) {
+        Snackbars.error(failure);
+      },
+      (_) {
+        update(['product_cart_icon']);
+        Snackbars.success(
+            '${videoPostModel.product?.name ?? ''} agregado a tu carrito');
+      },
+    );
+  }
+
+  Future<void> removeFromCart(VideoPostModel videoPostModel) async {
+    UserProductCartModel? cart = getProductInCart(videoPostModel);
+
+    if (cart == null) {
+      return;
+    }
+    Either<String, Unit> response =
+        await userProductRepository.removeFromCart(cart: cart);
+
+    response.fold(
+      (failure) {
+        Snackbars.error(failure);
+      },
+      (_) {
+        Snackbars.success(
+            '${videoPostModel.product?.name ?? ''} removido de tu carrito');
+
+        update(['product_cart_icon']);
+      },
+    );
   }
 
   bool isProductInCatalogPrivate(VideoPostModel? videoPostModel) {

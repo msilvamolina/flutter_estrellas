@@ -39,6 +39,7 @@ class NewCatalogBottomsheet extends StatelessWidget {
                             formControlName: Fields.addCatalogName.name,
                             keyboardType: TextInputType.text,
                             label: "Nombre de nuevo catálogo",
+                            hintText: '',
                             // isSubmited: controller.addCatalogFormIsSubmitted,
                           );
                         },

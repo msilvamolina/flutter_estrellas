@@ -16,6 +16,7 @@ import 'app/config/firebase_config.dart';
 import 'app/routes/app_pages.dart';
 import 'app/services/dependency_injection.dart';
 import 'app/services/environment.dart';
+import 'app/services/firebase_messaging_service.dart';
 import 'app/themes/text_theme.dart';
 import 'app/themes/theme.dart';
 
@@ -23,21 +24,16 @@ void main() async {
   const String flavor = String.fromEnvironment('flavor', defaultValue: '');
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
 
-  // Mantener el splash screen visible
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
-  // Inicializar entorno y almacenamiento local
   await Environment.instance.init(env: flavor);
   await GetStorage.init();
 
-  // Inicializar Firebase y Remote Config
   await initFirebase();
   await initRemoteConfig();
 
-  // Inicializar dependencias
   DependecyInjection.init();
 
-  // Manejo global de errores
   runZonedGuarded(
     () {
       runApp(const MyApp());
@@ -48,7 +44,6 @@ void main() async {
   );
 }
 
-/// Inicialización de Firebase
 Future<void> initFirebase() async {
   FirebaseOptions? firebaseOptions;
   if (kIsWeb) {
@@ -77,7 +72,6 @@ Future<void> initFirebase() async {
       storageBucket: firebaseConfig['storageBucket'],
     );
   } else if (Platform.isIOS) {
-    // Usar el archivo GoogleService-Info.plist para iOS
     await Firebase.initializeApp();
     return;
   }
@@ -85,7 +79,6 @@ Future<void> initFirebase() async {
   await Firebase.initializeApp(options: firebaseOptions);
 }
 
-/// Inicialización de Firebase Remote Config
 Future<void> initRemoteConfig() async {
   final FirebaseRemoteConfig remoteConfig = FirebaseRemoteConfig.instance;
 
@@ -110,7 +103,6 @@ class MyApp extends StatelessWidget {
     TextTheme textTheme = createTextTheme(context, "Montserrat", "Montserrat");
     MaterialTheme theme = MaterialTheme(textTheme);
 
-    // Quitar el splash screen después de cargar todo
     FlutterNativeSplash.remove();
 
     return GetMaterialApp(
@@ -126,9 +118,7 @@ class MyApp extends StatelessWidget {
       fallbackLocale: const Locale('es'),
       debugShowCheckedModeBanner: false,
       theme: theme.light(),
-      // darkTheme: theme.dark(),
       themeMode: ThemeMode.light,
-      // themeMode: ThemeService.getThemeMode(),
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
       builder: (context, child) => RemoteConfigLayout(child: child!),

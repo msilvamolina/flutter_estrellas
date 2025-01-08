@@ -4,6 +4,9 @@ import 'package:flutter_estrellas/app/libraries/icons/icons_font.dart';
 import 'package:flutter_estrellas/app/themes/styles/colors.dart';
 import 'package:flutter_estrellas/app/themes/styles/typography.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+
+import '../../../../routes/app_pages.dart';
 
 class AddressCard extends StatelessWidget {
   const AddressCard({
@@ -87,7 +90,9 @@ class AddressCard extends StatelessWidget {
                 ),
               Spacer(),
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Get.toNamed(Routes.NEW_ADDRESS, arguments: address);
+                },
                 icon: Icon(
                   EstrellasIcons.pencilSimple,
                   color: secondaryBase,

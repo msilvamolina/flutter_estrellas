@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_estrellas/app/libraries/icons/icons_font.dart';
 import 'package:flutter_estrellas/app/routes/app_pages.dart';
@@ -59,7 +61,7 @@ class LoginStartView extends GetView<LoginStartController> {
                   SizedBox(height: 26),
                   Button(
                     style: ButtonStyles.secondary,
-                    onPressed: () {},
+                    onPressed: controller.loginGoogle,
                     image: Image.asset(
                       'assets/images/icon-google.png',
                       width: 24,
@@ -69,7 +71,7 @@ class LoginStartView extends GetView<LoginStartController> {
                   SizedBox(height: 26),
                   Button(
                     style: ButtonStyles.secondary,
-                    onPressed: () {},
+                    onPressed: controller.loginFacebook,
                     image: Image.asset(
                       'assets/images/icon-facebook.png',
                       width: 24,
@@ -77,16 +79,18 @@ class LoginStartView extends GetView<LoginStartController> {
                     label: 'Continuar con Facebook',
                   ),
                   SizedBox(height: 26),
-                  Button(
-                    style: ButtonStyles.secondary,
-                    onPressed: () {},
-                    image: Image.asset(
-                      'assets/images/icon-apple.png',
-                      width: 20,
+                  if (Platform.isIOS) ...[
+                    Button(
+                      style: ButtonStyles.secondary,
+                      onPressed: controller.loginApple,
+                      image: Image.asset(
+                        'assets/images/icon-apple.png',
+                        width: 20,
+                      ),
+                      label: 'Continuar con Apple',
                     ),
-                    label: 'Continuar con Apple',
-                  ),
-                  SizedBox(height: 26),
+                    SizedBox(height: 26),
+                  ],
                   Stack(
                     children: [
                       Padding(

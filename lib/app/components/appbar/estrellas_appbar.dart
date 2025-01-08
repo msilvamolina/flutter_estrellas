@@ -8,6 +8,7 @@ class EstrellasAppbar extends StatelessWidget implements PreferredSizeWidget {
   const EstrellasAppbar({
     required this.title,
     this.withBackButton = true,
+    this.backgroundColor = Colors.white,
     this.actions,
     super.key,
   });
@@ -15,11 +16,12 @@ class EstrellasAppbar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final bool withBackButton;
   final List<Widget>? actions;
+  final Color backgroundColor;
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: white,
-      surfaceTintColor: white,
+      backgroundColor: backgroundColor,
+      surfaceTintColor: backgroundColor,
       automaticallyImplyLeading: withBackButton,
       title: Text(
         title,

@@ -8,7 +8,6 @@ abstract class Routes {
   static const SPLASH = _Paths.SPLASH;
   static const REGISTER = _Paths.REGISTER;
   static const REGISTER_BASIC_DATA = _Paths.REGISTER_BASIC_DATA;
-  static const FORGOT_PASSWORD = _Paths.FORGOT_PASSWORD;
   static const WELCOME = _Paths.WELCOME;
   static const PRODUCT = _Paths.PRODUCT;
   static const CART = _Paths.CART;
@@ -43,6 +42,11 @@ abstract class Routes {
   static const NEW_BANK_ACCOUNT = _Paths.NEW_BANK_ACCOUNT;
   static const NEW_BANK_CONFIRMATION = _Paths.NEW_BANK_CONFIRMATION;
   static const SOCIAL_MEDIA_SHARE = _Paths.SOCIAL_MEDIA_SHARE;
+  static const CART_UNIQUE_PRODUCT = _Paths.CART_UNIQUE_PRODUCT;
+  static const FORGOT_PASSWORD = _Paths.FORGOT_PASSWORD;
+  static const PAYMENTS_METHOD = _Paths.PAYMENTS_METHOD;
+  static const FINALIZE_ORDER = _Paths.FINALIZE_ORDER;
+  static const CHAT = _Paths.CHAT;
 }
 
 abstract class _Paths {
@@ -52,7 +56,6 @@ abstract class _Paths {
   static const SPLASH = '/splash';
   static const REGISTER = '/register';
   static const REGISTER_BASIC_DATA = '/register-basic-data';
-  static const FORGOT_PASSWORD = '/forgot-password';
   static const WELCOME = '/welcome';
   static const PRODUCT = '/product';
   static const CART = '/cart';
@@ -87,4 +90,9 @@ abstract class _Paths {
   static const NEW_BANK_ACCOUNT = '/new-bank-account';
   static const NEW_BANK_CONFIRMATION = '/new-bank-confirmation';
   static const SOCIAL_MEDIA_SHARE = '/social-media-share';
+  static const CART_UNIQUE_PRODUCT = '/cart-unique-product';
+  static const FORGOT_PASSWORD = '/forgot-password';
+  static const PAYMENTS_METHOD = '/payments-method';
+  static const FINALIZE_ORDER = '/finalize-order';
+  static const CHAT = '/chat';
 }

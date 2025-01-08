@@ -30,7 +30,8 @@ class NewAddressView extends GetView<NewAddressController> {
           return Scaffold(
             backgroundColor: white,
             appBar: EstrellasAppbar(
-              title: 'Domicilio',
+              title:
+                  controller.editMode.value ? 'Editar domicilio' : 'Domicilio',
             ),
             body: GetBuilder<NewAddressController>(
               id: 'view',

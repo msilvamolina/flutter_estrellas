@@ -19,6 +19,7 @@ _$AddressModelImpl _$$AddressModelImplFromJson(Map<String, dynamic> json) =>
               json['department'] as Map<String, dynamic>),
       address: json['address'] as String?,
       notes: json['notes'] as String?,
+      save: json['save'] as bool?,
       phone: json['phone'] == null
           ? null
           : PhoneModel.fromJson(json['phone'] as Map<String, dynamic>),
@@ -32,5 +33,6 @@ Map<String, dynamic> _$$AddressModelImplToJson(_$AddressModelImpl instance) =>
       'department': instance.department,
       'address': instance.address,
       'notes': instance.notes,
+      'save': instance.save,
       'phone': instance.phone,
     };

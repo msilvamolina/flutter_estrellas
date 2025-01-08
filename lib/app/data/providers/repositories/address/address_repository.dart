@@ -140,4 +140,58 @@ class AddressRepository {
       return left(e.code);
     }
   }
+
+  Future<Either<String, AddressModel>> updateAddress({
+    required String addressId,
+    required String fullname,
+    required PhoneNumber phone,
+    required String address,
+    required String notes,
+    required CityModel city,
+    required DepartmentModel department,
+    required bool save,
+  }) async {
+    Map<String, String> userData = getUidAndEmail();
+    String uid = userData['uid'] ?? '';
+
+    try {
+      await _firebaseFirestore
+          .collection('users')
+          .doc(uid)
+          .collection('addresses')
+          .doc(addressId)
+          .update({
+        'id': addressId,
+        'fullname': fullname,
+        'phone': {
+          'number': phone.nsn.toString(),
+          'countryCode': phone.countryCode.toString(),
+          'isoCode': phone.isoCode.name.toString(),
+        },
+        'save': save,
+        'notes': notes,
+        'address': address,
+        'city': city.toJson(),
+        'department': department.toJson(),
+        'createdAt': DateTime.now(),
+      });
+
+      AddressModel addressModel = AddressModel(
+        id: addressId,
+        fullname: fullname,
+        phone: PhoneModel(
+          number: phone.nsn.toString(),
+          countryCode: phone.countryCode.toString(),
+          isoCode: phone.isoCode.name.toString(),
+        ),
+        notes: notes,
+        address: address,
+        city: city,
+        department: department,
+      );
+      return right(addressModel);
+    } on FirebaseException catch (e) {
+      return left(e.code);
+    }
+  }
 }

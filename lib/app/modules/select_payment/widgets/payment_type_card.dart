@@ -46,19 +46,36 @@ class PaymentTypeCard extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 8),
           child: ListTile(
-            onTap: onTap,
+            onTap: !paymentsTypesModel.disabled ? onTap : null,
             leading: Container(
               width: 46,
               height: 46,
               decoration: BoxDecoration(
-                  color: secondaryLight,
+                  color: !paymentsTypesModel.disabled
+                      ? secondaryLight
+                      : neutral300,
                   borderRadius: BorderRadius.all(Radius.circular(12))),
               child: paymentsTypesModel.image != null
                   ? Center(
-                      child: Image.asset(
-                        paymentsTypesModel.image!,
-                        width: 30,
-                      ),
+                      child: paymentsTypesModel.disabled
+                          ? ColorFiltered(
+                              colorFilter: ColorFilter.matrix(
+                                <double>[
+                                  0.2126, 0.7152, 0.0722, 0, 0, // Rojo
+                                  0.2126, 0.7152, 0.0722, 0, 0, // Verde
+                                  0.2126, 0.7152, 0.0722, 0, 0, // Azul
+                                  0, 0, 0, 1, 0, // Alfa
+                                ],
+                              ),
+                              child: Image.asset(
+                                paymentsTypesModel.image!,
+                                width: 30,
+                              ),
+                            )
+                          : Image.asset(
+                              paymentsTypesModel.image!,
+                              width: 30,
+                            ),
                     )
                   : (paymentsTypesModel.icon != null
                       ? Icon(
@@ -68,16 +85,30 @@ class PaymentTypeCard extends StatelessWidget {
                         )
                       : SizedBox.shrink()),
             ),
-            title: Text(
-              paymentsTypesModel.title,
-              style: TypographyStyle.bodyBlackLarge,
+            title: Opacity(
+              opacity: !paymentsTypesModel.disabled ? 1 : 0.5,
+              child: Text(
+                paymentsTypesModel.title,
+                style: TypographyStyle.bodyBlackLarge,
+              ),
             ),
-            trailing: SvgPicture.asset(
-              isSelected
-                  ? 'assets/svg/CheckboxActive.svg'
-                  : 'assets/svg/Checkbox.svg',
-              width: 22,
-            ),
+            subtitle: paymentsTypesModel.subtitle != null
+                ? Opacity(
+                    opacity: !paymentsTypesModel.disabled ? 1 : 0.5,
+                    child: Text(
+                      paymentsTypesModel.subtitle!,
+                      style: TypographyStyle.bodyRegularMedium,
+                    ),
+                  )
+                : null,
+            trailing: !paymentsTypesModel.disabled
+                ? SvgPicture.asset(
+                    isSelected
+                        ? 'assets/svg/CheckboxActive.svg'
+                        : 'assets/svg/Checkbox.svg',
+                    width: 22,
+                  )
+                : null,
           ),
         ),
       ),

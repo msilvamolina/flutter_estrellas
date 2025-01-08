@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../libraries/icons/icons_font.dart';
 import '../../themes/styles/colors.dart';
 import '../../themes/styles/typography.dart';
+import '../../utils/links.dart';
 
 class LoginAppbar extends StatelessWidget implements PreferredSizeWidget {
   const LoginAppbar({super.key});
@@ -18,7 +19,7 @@ class LoginAppbar extends StatelessWidget implements PreferredSizeWidget {
         Padding(
           padding: const EdgeInsets.only(right: 16),
           child: GestureDetector(
-            onTap: () {},
+            onTap: () => Links.openHelpWhatsApp(),
             child: Row(
               children: [
                 Text(

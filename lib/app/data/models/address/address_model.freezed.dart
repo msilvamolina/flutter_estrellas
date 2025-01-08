@@ -26,6 +26,7 @@ mixin _$AddressModel {
   DepartmentModel? get department => throw _privateConstructorUsedError;
   String? get address => throw _privateConstructorUsedError;
   String? get notes => throw _privateConstructorUsedError;
+  bool? get save => throw _privateConstructorUsedError;
   PhoneModel? get phone => throw _privateConstructorUsedError;
 
   /// Serializes this AddressModel to a JSON map.
@@ -51,6 +52,7 @@ abstract class $AddressModelCopyWith<$Res> {
       DepartmentModel? department,
       String? address,
       String? notes,
+      bool? save,
       PhoneModel? phone});
 
   $CityModelCopyWith<$Res>? get city;
@@ -79,6 +81,7 @@ class _$AddressModelCopyWithImpl<$Res, $Val extends AddressModel>
     Object? department = freezed,
     Object? address = freezed,
     Object? notes = freezed,
+    Object? save = freezed,
     Object? phone = freezed,
   }) {
     return _then(_value.copyWith(
@@ -106,6 +109,10 @@ class _$AddressModelCopyWithImpl<$Res, $Val extends AddressModel>
           ? _value.notes
           : notes // ignore: cast_nullable_to_non_nullable
               as String?,
+      save: freezed == save
+          ? _value.save
+          : save // ignore: cast_nullable_to_non_nullable
+              as bool?,
       phone: freezed == phone
           ? _value.phone
           : phone // ignore: cast_nullable_to_non_nullable
@@ -171,6 +178,7 @@ abstract class _$$AddressModelImplCopyWith<$Res>
       DepartmentModel? department,
       String? address,
       String? notes,
+      bool? save,
       PhoneModel? phone});
 
   @override
@@ -200,6 +208,7 @@ class __$$AddressModelImplCopyWithImpl<$Res>
     Object? department = freezed,
     Object? address = freezed,
     Object? notes = freezed,
+    Object? save = freezed,
     Object? phone = freezed,
   }) {
     return _then(_$AddressModelImpl(
@@ -227,6 +236,10 @@ class __$$AddressModelImplCopyWithImpl<$Res>
           ? _value.notes
           : notes // ignore: cast_nullable_to_non_nullable
               as String?,
+      save: freezed == save
+          ? _value.save
+          : save // ignore: cast_nullable_to_non_nullable
+              as bool?,
       phone: freezed == phone
           ? _value.phone
           : phone // ignore: cast_nullable_to_non_nullable
@@ -245,6 +258,7 @@ class _$AddressModelImpl extends _AddressModel {
       this.department,
       this.address,
       this.notes,
+      this.save,
       this.phone})
       : super._();
 
@@ -264,11 +278,13 @@ class _$AddressModelImpl extends _AddressModel {
   @override
   final String? notes;
   @override
+  final bool? save;
+  @override
   final PhoneModel? phone;
 
   @override
   String toString() {
-    return 'AddressModel(id: $id, fullname: $fullname, city: $city, department: $department, address: $address, notes: $notes, phone: $phone)';
+    return 'AddressModel(id: $id, fullname: $fullname, city: $city, department: $department, address: $address, notes: $notes, save: $save, phone: $phone)';
   }
 
   @override
@@ -284,13 +300,14 @@ class _$AddressModelImpl extends _AddressModel {
                 other.department == department) &&
             (identical(other.address, address) || other.address == address) &&
             (identical(other.notes, notes) || other.notes == notes) &&
+            (identical(other.save, save) || other.save == save) &&
             (identical(other.phone, phone) || other.phone == phone));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
-      runtimeType, id, fullname, city, department, address, notes, phone);
+      runtimeType, id, fullname, city, department, address, notes, save, phone);
 
   /// Create a copy of AddressModel
   /// with the given fields replaced by the non-null parameter values.
@@ -316,6 +333,7 @@ abstract class _AddressModel extends AddressModel {
       final DepartmentModel? department,
       final String? address,
       final String? notes,
+      final bool? save,
       final PhoneModel? phone}) = _$AddressModelImpl;
   const _AddressModel._() : super._();
 
@@ -334,6 +352,8 @@ abstract class _AddressModel extends AddressModel {
   String? get address;
   @override
   String? get notes;
+  @override
+  bool? get save;
   @override
   PhoneModel? get phone;
 
