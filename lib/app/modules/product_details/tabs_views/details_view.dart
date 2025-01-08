@@ -5,8 +5,8 @@ import 'package:get/get.dart';
 
 import '../controllers/product_details_controller.dart';
 
-class DescriptionView extends StatelessWidget {
-  const DescriptionView({super.key});
+class DetailsView extends StatelessWidget {
+  const DetailsView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,9 +20,9 @@ class DescriptionView extends StatelessWidget {
               showCursor: false,
               scrollPhysics: NeverScrollableScrollPhysics(),
             ),
-            controller: controller.descriptionController,
-            scrollController: controller.descriptionEditorScrollController,
-            focusNode: controller.descriptionEditorFocusNode,
+            controller: controller.detailsController,
+            scrollController: controller.detailsEditorScrollController,
+            focusNode: controller.detailsEditorFocusNode,
           ),
         );
       },
