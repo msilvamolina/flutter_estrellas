@@ -30,6 +30,47 @@ class ProductsRepository {
     }
   }
 
+  Future<List<ProductVariantModel>> getAllProductVariantsFuture({
+    required String productId,
+  }) async {
+    try {
+      // Obtén el snapshot de una sola vez
+      QuerySnapshot snapshot = await _firebaseFirestore
+          .collection('products/$productId/variants')
+          .get();
+
+      // Transforma los documentos del snapshot en una lista de ProductVariantModel
+      return snapshot.docs
+          .map((doc) => ProductVariantModel.fromDocument(doc))
+          .toList();
+    } catch (e) {
+      print(e);
+      // Retorna una lista vacía o lanza la excepción, según lo que prefieras
+      return [];
+    }
+  }
+
+  Future<List<ProductVariantAttributesModel>>
+      getAllProductVariantAttributesFuture({
+    required String productId,
+  }) async {
+    try {
+      // Obtén el snapshot de una sola vez
+      QuerySnapshot snapshot = await _firebaseFirestore
+          .collection('products/$productId/attributes')
+          .get();
+
+      // Transforma los documentos del snapshot en una lista de ProductVariantAttributesModel
+      return snapshot.docs
+          .map((doc) => ProductVariantAttributesModel.fromDocument(doc))
+          .toList();
+    } catch (e) {
+      print(e);
+      // Retorna una lista vacía o lanza la excepción según lo que prefieras
+      return [];
+    }
+  }
+
   Future<VariantInfoModel?> getVariantsInfo(String productId) async {
     try {
       DocumentSnapshot<Map<String, dynamic>> snapshot = await _firebaseFirestore

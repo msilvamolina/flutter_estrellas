@@ -1,5 +1,6 @@
 enum BottomSheetTypes {
   newCatalog,
+  pickProductVariant,
   catalog,
   selectSize,
   signOut,

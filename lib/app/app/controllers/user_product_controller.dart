@@ -9,6 +9,7 @@ import 'package:flutter_estrellas/app/data/models/order/order_model.dart';
 import 'package:flutter_estrellas/app/data/models/product_firebase_lite/product_firebase_lite.dart';
 import 'package:flutter_estrellas/app/data/models/user_catalog/user_catalog_model.dart';
 import 'package:flutter_estrellas/app/data/models/video_model.dart';
+import 'package:flutter_estrellas/app/data/providers/repositories/products/products_repository.dart';
 import 'package:flutter_estrellas/app/data/providers/repositories/user_products/user_products_repository.dart';
 import 'package:flutter_estrellas/app/services/environment.dart';
 import 'package:flutter_estrellas/app/utils/utils.dart';
@@ -18,9 +19,14 @@ import 'package:social_sharing_plus/social_sharing_plus.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../components/bottom_sheets/types.dart';
+import '../../data/models/product_variant/product_variant_model.dart';
+import '../../data/models/product_variant_attributes/product_variant_attributes.dart';
 import '../../data/models/request_order/request_order_model.dart';
 import '../../data/models/user_product/user_product_model.dart';
 import '../../data/models/user_product_cart/user_product_cart_model.dart';
+import '../../data/models/variant_attributte/variant_attributte.dart';
+import '../../data/models/variant_info/variant_info.dart';
+import '../../data/models/variant_variant/variant_variant.dart';
 import '../../data/models/videos/video_post_model.dart';
 import '../../routes/app_pages.dart';
 import '../../components/bottom_sheets/dragabble_bottom_sheet.dart';
@@ -35,6 +41,7 @@ enum Fields {
 class UserProductController extends GetxController {
   MainController mainController = Get.find<MainController>();
   UserProductsRepository userProductRepository = UserProductsRepository();
+  ProductsRepository productRepository = ProductsRepository();
   final RxList<UserProductCartModel> _listProductCart =
       <UserProductCartModel>[].obs;
   List<UserProductCartModel> get listProductCart => _listProductCart.toList();
@@ -69,6 +76,7 @@ class UserProductController extends GetxController {
   Map<String, int> mapProductsQuantity = {};
 
   bool addCatalogFormIsSubmitted = false;
+  bool isVariantsLoading = false;
 
   Rx<double> cartPrices = 0.0.obs;
   RxInt cartPoints = 0.obs;
@@ -89,6 +97,14 @@ class UserProductController extends GetxController {
 
   String _shareLinkTitle = '';
   String get shareLinkTitle => _shareLinkTitle;
+
+  List<ProductVariantModel>? _listVariantCombinations;
+  List<ProductVariantModel>? get listVariantCombinations =>
+      _listVariantCombinations;
+  List<ProductVariantAttributesModel>? _listAttributes;
+  List<ProductVariantAttributesModel>? get listAttributes => _listAttributes;
+  VariantInfoModel? variantInfoModel;
+  RxMap<String, String> selectedVariantsMap = <String, String>{}.obs;
 
   FormGroup addCatalogForm() => fb.group(<String, Object>{
         Fields.addCatalogName.name: FormControl<String>(
@@ -538,6 +554,10 @@ class UserProductController extends GetxController {
     Bottomsheets.staticBottomSheet(BottomSheetTypes.newCatalog);
   }
 
+  Future<void> openPickProductVariant() async {
+    Bottomsheets.staticBottomSheet(BottomSheetTypes.pickProductVariant);
+  }
+
   Future<void> onPressedAddCatalog(form) async {
     if (form.valid) {
       return sendFormAddCatalog(form.value);
@@ -606,6 +626,68 @@ class UserProductController extends GetxController {
   }
 
   Future<void> addToCart(VideoPostModel videoPostModel) async {
+    variantInfoModel = await productRepository
+        .getVariantsInfo(videoPostModel.product?.id ?? '');
+
+    if (variantInfoModel != null) {
+      isVariantsLoading = true;
+      update(['pick_product_variant_bottom_sheet']);
+      openPickProductVariant();
+      _listVariantCombinations =
+          await productRepository.getAllProductVariantsFuture(
+              productId: videoPostModel.product?.id ?? '');
+      _listAttributes =
+          await productRepository.getAllProductVariantAttributesFuture(
+              productId: videoPostModel.product?.id ?? '');
+
+      isVariantsLoading = false;
+      update(['pick_product_variant_bottom_sheet']);
+    } else {
+      saveaddToCart(videoPostModel);
+    }
+  }
+
+  VariantVariantModel? getVariationWithName(String name) {
+    return variantInfoModel!.variants!.firstWhereOrNull(
+      (variant) => variant.name == name,
+    );
+  }
+
+  List<VariantVariantModel> getVariations(VariantAttributeModel attribute) {
+    return variantInfoModel!.variants!
+        .where((variant) => variant.attributeId == attribute.id)
+        .toList();
+  }
+
+  Future<void> onCardPressed(VariantVariantModel variant) async {
+    selectedVariantsMap[variant.attributeName] = variant.name;
+    checkVariations();
+  }
+
+  void checkVariations() {
+    if (selectedVariantsMap.length == variantInfoModel!.attributes!.length) {
+      ProductVariantModel? productVariant = findMatchingCombination();
+      if (productVariant != null) {}
+    }
+  }
+
+  ProductVariantModel? findMatchingCombination() {
+    return listVariantCombinations?.firstWhereOrNull(
+      (combination) {
+        return selectedVariantsMap.entries.every((entry) {
+          final attribute = entry.key;
+          final selectedValue = entry.value;
+
+          return combination.values.any((value) =>
+              value['attribute_name']?.toLowerCase() ==
+                  attribute.toLowerCase() &&
+              value['value']?.toLowerCase() == selectedValue.toLowerCase());
+        });
+      },
+    );
+  }
+
+  Future<void> saveaddToCart(VideoPostModel videoPostModel) async {
     Either<String, Unit> response = await userProductRepository.addToCart(
       video: videoPostModel,
       productVariant: null,
