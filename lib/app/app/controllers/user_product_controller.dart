@@ -78,6 +78,10 @@ class UserProductController extends GetxController {
   bool addCatalogFormIsSubmitted = false;
   bool isVariantsLoading = false;
   bool isVariantsButtonEnabled = false;
+  bool isPickVariantButtonLoading = false;
+  bool isVariantsButtonAddToCart = false;
+  bool isVariantsButtonAddToCartUpdate = false;
+  String isVariantsButtonText = '';
 
   Rx<double> cartPrices = 0.0.obs;
   RxInt cartPoints = 0.obs;
@@ -627,6 +631,13 @@ class UserProductController extends GetxController {
   }
 
   Future<void> addToCart(VideoPostModel videoPostModel) async {
+    isVariantsButtonText = 'Agregar al carrito';
+    isVariantsButtonAddToCart = true;
+    isVariantsButtonAddToCartUpdate = false;
+    pickVariants(videoPostModel);
+  }
+
+  Future<void> pickVariants(VideoPostModel videoPostModel) async {
     variantInfoModel = await productRepository
         .getVariantsInfo(videoPostModel.product?.id ?? '');
     isVariantsButtonEnabled = false;
@@ -647,8 +658,15 @@ class UserProductController extends GetxController {
       isVariantsLoading = false;
       update(['pick_product_variant_bottom_sheet']);
     } else {
-      saveaddToCart(videoPostModel);
+      if (isVariantsButtonAddToCart) {
+        saveaddToCart(videoPostModel);
+      }
     }
+  }
+
+  void onPickVariantButtonPressed() {
+    isPickVariantButtonLoading = true;
+    update(['pick_product_variant_bottom_sheet']);
   }
 
   VariantVariantModel? getVariationWithName(String name) {

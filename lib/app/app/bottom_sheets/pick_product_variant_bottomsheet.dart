@@ -43,10 +43,12 @@ class PickProductVariantBottomsheet extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(16),
                 child: LoadingButton(
-                  isLoading: controller.addCatalogIsLoading,
+                  isLoading: controller.isPickVariantButtonLoading,
                   style: ButtonStyles.primary,
-                  onPressed: controller.isVariantsButtonEnabled ? () {} : null,
-                  label: 'Guardar',
+                  onPressed: controller.isVariantsButtonEnabled
+                      ? controller.onPickVariantButtonPressed
+                      : null,
+                  label: controller.isVariantsButtonText,
                 ),
               ),
             ],
