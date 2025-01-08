@@ -13,12 +13,18 @@ abstract class ProductVariantModel implements _$ProductVariantModel {
 
   const factory ProductVariantModel({
     required String id,
-    required String name,
-    required String label,
-    required String type,
+    String? name,
+    String? label,
+    String? type,
     String? imageUrl,
     int? color,
     String? searchField,
+    required int points,
+    required double sale_price,
+    required String sku,
+    required int stock,
+    required double suggested_price,
+    dynamic values,
   }) = _ProductVariantModel;
 
   factory ProductVariantModel.fromJson(Map<String, dynamic> json) =>
@@ -26,22 +32,5 @@ abstract class ProductVariantModel implements _$ProductVariantModel {
 
   factory ProductVariantModel.fromDocument(DocumentSnapshot doc) {
     return ProductVariantModel.fromJson(ModelHelpers.fromDocument(doc.data()!));
-  }
-
-  Map<String, dynamic> toDocument() => ModelHelpers.toDocument(toJson());
-
-  static Future<ProductVariantModel?> fromReference(dynamic reference) async {
-    try {
-      DocumentSnapshot<Object?>? data =
-          await ModelHelpers.fromReference(reference as DocumentReference);
-
-      if (data != null) {
-        return ProductVariantModel.fromDocument(data);
-      }
-
-      return null;
-    } catch (_) {
-      return null;
-    }
   }
 }

@@ -61,7 +61,7 @@ class SelectVariantSizeBottomSheet extends StatelessWidget {
                             padding: EdgeInsets.symmetric(
                                 horizontal: 20, vertical: 12),
                             child: Text(
-                              element.label,
+                              element.label ?? '',
                               style: TypographyStyle.bodyRegularMedium.copyWith(
                                 fontWeight: FontWeight.w400,
                               ),

@@ -36,10 +36,32 @@ mixin _$ProductFirebaseModel {
   bool? get active => throw _privateConstructorUsedError;
   bool? get isPercentage => throw _privateConstructorUsedError;
   int? get points => throw _privateConstructorUsedError;
+  dynamic get categories => throw _privateConstructorUsedError;
+  String? get categoriesIds => throw _privateConstructorUsedError;
+  String? get categoriesNames => throw _privateConstructorUsedError;
+  dynamic get descriptionFormatted => throw _privateConstructorUsedError;
+  String? get descriptionPlainText => throw _privateConstructorUsedError;
+  dynamic get detailsFormatted => throw _privateConstructorUsedError;
+  String? get detailsPlainText => throw _privateConstructorUsedError;
+  dynamic get warrantyFormatted => throw _privateConstructorUsedError;
+  String? get warrantyPlainText => throw _privateConstructorUsedError;
   double? get suggestedPrice => throw _privateConstructorUsedError;
   String? get thumbnail => throw _privateConstructorUsedError;
+  String? get standardImage => throw _privateConstructorUsedError;
+  String? get fullImage => throw _privateConstructorUsedError;
+  Map<String, String>? get imagesMap => throw _privateConstructorUsedError;
+  String? get warehouseID => throw _privateConstructorUsedError;
+  String? get warehouseName => throw _privateConstructorUsedError;
+  String? get providerID => throw _privateConstructorUsedError;
+  String? get providerName => throw _privateConstructorUsedError;
+  String? get defaultVariation => throw _privateConstructorUsedError;
+  dynamic get attributes => throw _privateConstructorUsedError;
+  dynamic get variations => throw _privateConstructorUsedError;
+  String? get createdAt => throw _privateConstructorUsedError;
   String? get uploadDate => throw _privateConstructorUsedError;
   String? get searchField => throw _privateConstructorUsedError;
+  dynamic get reference => throw _privateConstructorUsedError;
+  String? get updatedAt => throw _privateConstructorUsedError;
 
   /// Serializes this ProductFirebaseModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -73,10 +95,32 @@ abstract class $ProductFirebaseModelCopyWith<$Res> {
       bool? active,
       bool? isPercentage,
       int? points,
+      dynamic categories,
+      String? categoriesIds,
+      String? categoriesNames,
+      dynamic descriptionFormatted,
+      String? descriptionPlainText,
+      dynamic detailsFormatted,
+      String? detailsPlainText,
+      dynamic warrantyFormatted,
+      String? warrantyPlainText,
       double? suggestedPrice,
       String? thumbnail,
+      String? standardImage,
+      String? fullImage,
+      Map<String, String>? imagesMap,
+      String? warehouseID,
+      String? warehouseName,
+      String? providerID,
+      String? providerName,
+      String? defaultVariation,
+      dynamic attributes,
+      dynamic variations,
+      String? createdAt,
       String? uploadDate,
-      String? searchField});
+      String? searchField,
+      dynamic reference,
+      String? updatedAt});
 }
 
 /// @nodoc
@@ -110,10 +154,32 @@ class _$ProductFirebaseModelCopyWithImpl<$Res,
     Object? active = freezed,
     Object? isPercentage = freezed,
     Object? points = freezed,
+    Object? categories = freezed,
+    Object? categoriesIds = freezed,
+    Object? categoriesNames = freezed,
+    Object? descriptionFormatted = freezed,
+    Object? descriptionPlainText = freezed,
+    Object? detailsFormatted = freezed,
+    Object? detailsPlainText = freezed,
+    Object? warrantyFormatted = freezed,
+    Object? warrantyPlainText = freezed,
     Object? suggestedPrice = freezed,
     Object? thumbnail = freezed,
+    Object? standardImage = freezed,
+    Object? fullImage = freezed,
+    Object? imagesMap = freezed,
+    Object? warehouseID = freezed,
+    Object? warehouseName = freezed,
+    Object? providerID = freezed,
+    Object? providerName = freezed,
+    Object? defaultVariation = freezed,
+    Object? attributes = freezed,
+    Object? variations = freezed,
+    Object? createdAt = freezed,
     Object? uploadDate = freezed,
     Object? searchField = freezed,
+    Object? reference = freezed,
+    Object? updatedAt = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -176,6 +242,42 @@ class _$ProductFirebaseModelCopyWithImpl<$Res,
           ? _value.points
           : points // ignore: cast_nullable_to_non_nullable
               as int?,
+      categories: freezed == categories
+          ? _value.categories
+          : categories // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      categoriesIds: freezed == categoriesIds
+          ? _value.categoriesIds
+          : categoriesIds // ignore: cast_nullable_to_non_nullable
+              as String?,
+      categoriesNames: freezed == categoriesNames
+          ? _value.categoriesNames
+          : categoriesNames // ignore: cast_nullable_to_non_nullable
+              as String?,
+      descriptionFormatted: freezed == descriptionFormatted
+          ? _value.descriptionFormatted
+          : descriptionFormatted // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      descriptionPlainText: freezed == descriptionPlainText
+          ? _value.descriptionPlainText
+          : descriptionPlainText // ignore: cast_nullable_to_non_nullable
+              as String?,
+      detailsFormatted: freezed == detailsFormatted
+          ? _value.detailsFormatted
+          : detailsFormatted // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      detailsPlainText: freezed == detailsPlainText
+          ? _value.detailsPlainText
+          : detailsPlainText // ignore: cast_nullable_to_non_nullable
+              as String?,
+      warrantyFormatted: freezed == warrantyFormatted
+          ? _value.warrantyFormatted
+          : warrantyFormatted // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      warrantyPlainText: freezed == warrantyPlainText
+          ? _value.warrantyPlainText
+          : warrantyPlainText // ignore: cast_nullable_to_non_nullable
+              as String?,
       suggestedPrice: freezed == suggestedPrice
           ? _value.suggestedPrice
           : suggestedPrice // ignore: cast_nullable_to_non_nullable
@@ -184,6 +286,50 @@ class _$ProductFirebaseModelCopyWithImpl<$Res,
           ? _value.thumbnail
           : thumbnail // ignore: cast_nullable_to_non_nullable
               as String?,
+      standardImage: freezed == standardImage
+          ? _value.standardImage
+          : standardImage // ignore: cast_nullable_to_non_nullable
+              as String?,
+      fullImage: freezed == fullImage
+          ? _value.fullImage
+          : fullImage // ignore: cast_nullable_to_non_nullable
+              as String?,
+      imagesMap: freezed == imagesMap
+          ? _value.imagesMap
+          : imagesMap // ignore: cast_nullable_to_non_nullable
+              as Map<String, String>?,
+      warehouseID: freezed == warehouseID
+          ? _value.warehouseID
+          : warehouseID // ignore: cast_nullable_to_non_nullable
+              as String?,
+      warehouseName: freezed == warehouseName
+          ? _value.warehouseName
+          : warehouseName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      providerID: freezed == providerID
+          ? _value.providerID
+          : providerID // ignore: cast_nullable_to_non_nullable
+              as String?,
+      providerName: freezed == providerName
+          ? _value.providerName
+          : providerName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      defaultVariation: freezed == defaultVariation
+          ? _value.defaultVariation
+          : defaultVariation // ignore: cast_nullable_to_non_nullable
+              as String?,
+      attributes: freezed == attributes
+          ? _value.attributes
+          : attributes // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      variations: freezed == variations
+          ? _value.variations
+          : variations // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      createdAt: freezed == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as String?,
       uploadDate: freezed == uploadDate
           ? _value.uploadDate
           : uploadDate // ignore: cast_nullable_to_non_nullable
@@ -191,6 +337,14 @@ class _$ProductFirebaseModelCopyWithImpl<$Res,
       searchField: freezed == searchField
           ? _value.searchField
           : searchField // ignore: cast_nullable_to_non_nullable
+              as String?,
+      reference: freezed == reference
+          ? _value.reference
+          : reference // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      updatedAt: freezed == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
   }
@@ -220,10 +374,32 @@ abstract class _$$ProductFirebaseModelImplCopyWith<$Res>
       bool? active,
       bool? isPercentage,
       int? points,
+      dynamic categories,
+      String? categoriesIds,
+      String? categoriesNames,
+      dynamic descriptionFormatted,
+      String? descriptionPlainText,
+      dynamic detailsFormatted,
+      String? detailsPlainText,
+      dynamic warrantyFormatted,
+      String? warrantyPlainText,
       double? suggestedPrice,
       String? thumbnail,
+      String? standardImage,
+      String? fullImage,
+      Map<String, String>? imagesMap,
+      String? warehouseID,
+      String? warehouseName,
+      String? providerID,
+      String? providerName,
+      String? defaultVariation,
+      dynamic attributes,
+      dynamic variations,
+      String? createdAt,
       String? uploadDate,
-      String? searchField});
+      String? searchField,
+      dynamic reference,
+      String? updatedAt});
 }
 
 /// @nodoc
@@ -254,10 +430,32 @@ class __$$ProductFirebaseModelImplCopyWithImpl<$Res>
     Object? active = freezed,
     Object? isPercentage = freezed,
     Object? points = freezed,
+    Object? categories = freezed,
+    Object? categoriesIds = freezed,
+    Object? categoriesNames = freezed,
+    Object? descriptionFormatted = freezed,
+    Object? descriptionPlainText = freezed,
+    Object? detailsFormatted = freezed,
+    Object? detailsPlainText = freezed,
+    Object? warrantyFormatted = freezed,
+    Object? warrantyPlainText = freezed,
     Object? suggestedPrice = freezed,
     Object? thumbnail = freezed,
+    Object? standardImage = freezed,
+    Object? fullImage = freezed,
+    Object? imagesMap = freezed,
+    Object? warehouseID = freezed,
+    Object? warehouseName = freezed,
+    Object? providerID = freezed,
+    Object? providerName = freezed,
+    Object? defaultVariation = freezed,
+    Object? attributes = freezed,
+    Object? variations = freezed,
+    Object? createdAt = freezed,
     Object? uploadDate = freezed,
     Object? searchField = freezed,
+    Object? reference = freezed,
+    Object? updatedAt = freezed,
   }) {
     return _then(_$ProductFirebaseModelImpl(
       id: null == id
@@ -320,6 +518,42 @@ class __$$ProductFirebaseModelImplCopyWithImpl<$Res>
           ? _value.points
           : points // ignore: cast_nullable_to_non_nullable
               as int?,
+      categories: freezed == categories
+          ? _value.categories
+          : categories // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      categoriesIds: freezed == categoriesIds
+          ? _value.categoriesIds
+          : categoriesIds // ignore: cast_nullable_to_non_nullable
+              as String?,
+      categoriesNames: freezed == categoriesNames
+          ? _value.categoriesNames
+          : categoriesNames // ignore: cast_nullable_to_non_nullable
+              as String?,
+      descriptionFormatted: freezed == descriptionFormatted
+          ? _value.descriptionFormatted
+          : descriptionFormatted // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      descriptionPlainText: freezed == descriptionPlainText
+          ? _value.descriptionPlainText
+          : descriptionPlainText // ignore: cast_nullable_to_non_nullable
+              as String?,
+      detailsFormatted: freezed == detailsFormatted
+          ? _value.detailsFormatted
+          : detailsFormatted // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      detailsPlainText: freezed == detailsPlainText
+          ? _value.detailsPlainText
+          : detailsPlainText // ignore: cast_nullable_to_non_nullable
+              as String?,
+      warrantyFormatted: freezed == warrantyFormatted
+          ? _value.warrantyFormatted
+          : warrantyFormatted // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      warrantyPlainText: freezed == warrantyPlainText
+          ? _value.warrantyPlainText
+          : warrantyPlainText // ignore: cast_nullable_to_non_nullable
+              as String?,
       suggestedPrice: freezed == suggestedPrice
           ? _value.suggestedPrice
           : suggestedPrice // ignore: cast_nullable_to_non_nullable
@@ -328,6 +562,50 @@ class __$$ProductFirebaseModelImplCopyWithImpl<$Res>
           ? _value.thumbnail
           : thumbnail // ignore: cast_nullable_to_non_nullable
               as String?,
+      standardImage: freezed == standardImage
+          ? _value.standardImage
+          : standardImage // ignore: cast_nullable_to_non_nullable
+              as String?,
+      fullImage: freezed == fullImage
+          ? _value.fullImage
+          : fullImage // ignore: cast_nullable_to_non_nullable
+              as String?,
+      imagesMap: freezed == imagesMap
+          ? _value._imagesMap
+          : imagesMap // ignore: cast_nullable_to_non_nullable
+              as Map<String, String>?,
+      warehouseID: freezed == warehouseID
+          ? _value.warehouseID
+          : warehouseID // ignore: cast_nullable_to_non_nullable
+              as String?,
+      warehouseName: freezed == warehouseName
+          ? _value.warehouseName
+          : warehouseName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      providerID: freezed == providerID
+          ? _value.providerID
+          : providerID // ignore: cast_nullable_to_non_nullable
+              as String?,
+      providerName: freezed == providerName
+          ? _value.providerName
+          : providerName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      defaultVariation: freezed == defaultVariation
+          ? _value.defaultVariation
+          : defaultVariation // ignore: cast_nullable_to_non_nullable
+              as String?,
+      attributes: freezed == attributes
+          ? _value.attributes
+          : attributes // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      variations: freezed == variations
+          ? _value.variations
+          : variations // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      createdAt: freezed == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as String?,
       uploadDate: freezed == uploadDate
           ? _value.uploadDate
           : uploadDate // ignore: cast_nullable_to_non_nullable
@@ -335,6 +613,14 @@ class __$$ProductFirebaseModelImplCopyWithImpl<$Res>
       searchField: freezed == searchField
           ? _value.searchField
           : searchField // ignore: cast_nullable_to_non_nullable
+              as String?,
+      reference: freezed == reference
+          ? _value.reference
+          : reference // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      updatedAt: freezed == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -359,11 +645,34 @@ class _$ProductFirebaseModelImpl extends _ProductFirebaseModel {
       this.active,
       this.isPercentage,
       this.points,
+      this.categories,
+      this.categoriesIds,
+      this.categoriesNames,
+      this.descriptionFormatted,
+      this.descriptionPlainText,
+      this.detailsFormatted,
+      this.detailsPlainText,
+      this.warrantyFormatted,
+      this.warrantyPlainText,
       this.suggestedPrice,
       this.thumbnail,
+      this.standardImage,
+      this.fullImage,
+      final Map<String, String>? imagesMap,
+      this.warehouseID,
+      this.warehouseName,
+      this.providerID,
+      this.providerName,
+      this.defaultVariation,
+      this.attributes,
+      this.variations,
+      this.createdAt,
       this.uploadDate,
-      this.searchField})
-      : super._();
+      this.searchField,
+      this.reference,
+      this.updatedAt})
+      : _imagesMap = imagesMap,
+        super._();
 
   factory _$ProductFirebaseModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$ProductFirebaseModelImplFromJson(json);
@@ -400,17 +709,69 @@ class _$ProductFirebaseModelImpl extends _ProductFirebaseModel {
   @override
   final int? points;
   @override
+  final dynamic categories;
+  @override
+  final String? categoriesIds;
+  @override
+  final String? categoriesNames;
+  @override
+  final dynamic descriptionFormatted;
+  @override
+  final String? descriptionPlainText;
+  @override
+  final dynamic detailsFormatted;
+  @override
+  final String? detailsPlainText;
+  @override
+  final dynamic warrantyFormatted;
+  @override
+  final String? warrantyPlainText;
+  @override
   final double? suggestedPrice;
   @override
   final String? thumbnail;
   @override
+  final String? standardImage;
+  @override
+  final String? fullImage;
+  final Map<String, String>? _imagesMap;
+  @override
+  Map<String, String>? get imagesMap {
+    final value = _imagesMap;
+    if (value == null) return null;
+    if (_imagesMap is EqualUnmodifiableMapView) return _imagesMap;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(value);
+  }
+
+  @override
+  final String? warehouseID;
+  @override
+  final String? warehouseName;
+  @override
+  final String? providerID;
+  @override
+  final String? providerName;
+  @override
+  final String? defaultVariation;
+  @override
+  final dynamic attributes;
+  @override
+  final dynamic variations;
+  @override
+  final String? createdAt;
+  @override
   final String? uploadDate;
   @override
   final String? searchField;
+  @override
+  final dynamic reference;
+  @override
+  final String? updatedAt;
 
   @override
   String toString() {
-    return 'ProductFirebaseModel(id: $id, provider: $provider, category: $category, name: $name, externalId: $externalId, stock: $stock, usefulId: $usefulId, videoUrl: $videoUrl, description: $description, type: $type, sku: $sku, price: $price, active: $active, isPercentage: $isPercentage, points: $points, suggestedPrice: $suggestedPrice, thumbnail: $thumbnail, uploadDate: $uploadDate, searchField: $searchField)';
+    return 'ProductFirebaseModel(id: $id, provider: $provider, category: $category, name: $name, externalId: $externalId, stock: $stock, usefulId: $usefulId, videoUrl: $videoUrl, description: $description, type: $type, sku: $sku, price: $price, active: $active, isPercentage: $isPercentage, points: $points, categories: $categories, categoriesIds: $categoriesIds, categoriesNames: $categoriesNames, descriptionFormatted: $descriptionFormatted, descriptionPlainText: $descriptionPlainText, detailsFormatted: $detailsFormatted, detailsPlainText: $detailsPlainText, warrantyFormatted: $warrantyFormatted, warrantyPlainText: $warrantyPlainText, suggestedPrice: $suggestedPrice, thumbnail: $thumbnail, standardImage: $standardImage, fullImage: $fullImage, imagesMap: $imagesMap, warehouseID: $warehouseID, warehouseName: $warehouseName, providerID: $providerID, providerName: $providerName, defaultVariation: $defaultVariation, attributes: $attributes, variations: $variations, createdAt: $createdAt, uploadDate: $uploadDate, searchField: $searchField, reference: $reference, updatedAt: $updatedAt)';
   }
 
   @override
@@ -438,14 +799,57 @@ class _$ProductFirebaseModelImpl extends _ProductFirebaseModel {
             (identical(other.isPercentage, isPercentage) ||
                 other.isPercentage == isPercentage) &&
             (identical(other.points, points) || other.points == points) &&
+            const DeepCollectionEquality()
+                .equals(other.categories, categories) &&
+            (identical(other.categoriesIds, categoriesIds) ||
+                other.categoriesIds == categoriesIds) &&
+            (identical(other.categoriesNames, categoriesNames) ||
+                other.categoriesNames == categoriesNames) &&
+            const DeepCollectionEquality()
+                .equals(other.descriptionFormatted, descriptionFormatted) &&
+            (identical(other.descriptionPlainText, descriptionPlainText) ||
+                other.descriptionPlainText == descriptionPlainText) &&
+            const DeepCollectionEquality()
+                .equals(other.detailsFormatted, detailsFormatted) &&
+            (identical(other.detailsPlainText, detailsPlainText) ||
+                other.detailsPlainText == detailsPlainText) &&
+            const DeepCollectionEquality()
+                .equals(other.warrantyFormatted, warrantyFormatted) &&
+            (identical(other.warrantyPlainText, warrantyPlainText) ||
+                other.warrantyPlainText == warrantyPlainText) &&
             (identical(other.suggestedPrice, suggestedPrice) ||
                 other.suggestedPrice == suggestedPrice) &&
             (identical(other.thumbnail, thumbnail) ||
                 other.thumbnail == thumbnail) &&
+            (identical(other.standardImage, standardImage) ||
+                other.standardImage == standardImage) &&
+            (identical(other.fullImage, fullImage) ||
+                other.fullImage == fullImage) &&
+            const DeepCollectionEquality()
+                .equals(other._imagesMap, _imagesMap) &&
+            (identical(other.warehouseID, warehouseID) ||
+                other.warehouseID == warehouseID) &&
+            (identical(other.warehouseName, warehouseName) ||
+                other.warehouseName == warehouseName) &&
+            (identical(other.providerID, providerID) ||
+                other.providerID == providerID) &&
+            (identical(other.providerName, providerName) ||
+                other.providerName == providerName) &&
+            (identical(other.defaultVariation, defaultVariation) ||
+                other.defaultVariation == defaultVariation) &&
+            const DeepCollectionEquality()
+                .equals(other.attributes, attributes) &&
+            const DeepCollectionEquality()
+                .equals(other.variations, variations) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
             (identical(other.uploadDate, uploadDate) ||
                 other.uploadDate == uploadDate) &&
             (identical(other.searchField, searchField) ||
-                other.searchField == searchField));
+                other.searchField == searchField) &&
+            const DeepCollectionEquality().equals(other.reference, reference) &&
+            (identical(other.updatedAt, updatedAt) ||
+                other.updatedAt == updatedAt));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -467,10 +871,32 @@ class _$ProductFirebaseModelImpl extends _ProductFirebaseModel {
         active,
         isPercentage,
         points,
+        const DeepCollectionEquality().hash(categories),
+        categoriesIds,
+        categoriesNames,
+        const DeepCollectionEquality().hash(descriptionFormatted),
+        descriptionPlainText,
+        const DeepCollectionEquality().hash(detailsFormatted),
+        detailsPlainText,
+        const DeepCollectionEquality().hash(warrantyFormatted),
+        warrantyPlainText,
         suggestedPrice,
         thumbnail,
+        standardImage,
+        fullImage,
+        const DeepCollectionEquality().hash(_imagesMap),
+        warehouseID,
+        warehouseName,
+        providerID,
+        providerName,
+        defaultVariation,
+        const DeepCollectionEquality().hash(attributes),
+        const DeepCollectionEquality().hash(variations),
+        createdAt,
         uploadDate,
-        searchField
+        searchField,
+        const DeepCollectionEquality().hash(reference),
+        updatedAt
       ]);
 
   /// Create a copy of ProductFirebaseModel
@@ -508,10 +934,32 @@ abstract class _ProductFirebaseModel extends ProductFirebaseModel {
       final bool? active,
       final bool? isPercentage,
       final int? points,
+      final dynamic categories,
+      final String? categoriesIds,
+      final String? categoriesNames,
+      final dynamic descriptionFormatted,
+      final String? descriptionPlainText,
+      final dynamic detailsFormatted,
+      final String? detailsPlainText,
+      final dynamic warrantyFormatted,
+      final String? warrantyPlainText,
       final double? suggestedPrice,
       final String? thumbnail,
+      final String? standardImage,
+      final String? fullImage,
+      final Map<String, String>? imagesMap,
+      final String? warehouseID,
+      final String? warehouseName,
+      final String? providerID,
+      final String? providerName,
+      final String? defaultVariation,
+      final dynamic attributes,
+      final dynamic variations,
+      final String? createdAt,
       final String? uploadDate,
-      final String? searchField}) = _$ProductFirebaseModelImpl;
+      final String? searchField,
+      final dynamic reference,
+      final String? updatedAt}) = _$ProductFirebaseModelImpl;
   const _ProductFirebaseModel._() : super._();
 
   factory _ProductFirebaseModel.fromJson(Map<String, dynamic> json) =
@@ -549,13 +997,57 @@ abstract class _ProductFirebaseModel extends ProductFirebaseModel {
   @override
   int? get points;
   @override
+  dynamic get categories;
+  @override
+  String? get categoriesIds;
+  @override
+  String? get categoriesNames;
+  @override
+  dynamic get descriptionFormatted;
+  @override
+  String? get descriptionPlainText;
+  @override
+  dynamic get detailsFormatted;
+  @override
+  String? get detailsPlainText;
+  @override
+  dynamic get warrantyFormatted;
+  @override
+  String? get warrantyPlainText;
+  @override
   double? get suggestedPrice;
   @override
   String? get thumbnail;
   @override
+  String? get standardImage;
+  @override
+  String? get fullImage;
+  @override
+  Map<String, String>? get imagesMap;
+  @override
+  String? get warehouseID;
+  @override
+  String? get warehouseName;
+  @override
+  String? get providerID;
+  @override
+  String? get providerName;
+  @override
+  String? get defaultVariation;
+  @override
+  dynamic get attributes;
+  @override
+  dynamic get variations;
+  @override
+  String? get createdAt;
+  @override
   String? get uploadDate;
   @override
   String? get searchField;
+  @override
+  dynamic get reference;
+  @override
+  String? get updatedAt;
 
   /// Create a copy of ProductFirebaseModel
   /// with the given fields replaced by the non-null parameter values.
