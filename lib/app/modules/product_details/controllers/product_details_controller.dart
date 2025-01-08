@@ -113,10 +113,10 @@ class ProductDetailsController extends GetxController {
     log(product.toString());
     _listImages
         .bindStream(_repository.getProductImages(productId: productLite.id));
-    _listVariantCombinations
-        .bindStream(_repository.getAllProductVariants(productId: product!.id));
+    _listVariantCombinations.bindStream(
+        _repository.getAllProductVariants(productId: productLite!.id));
     _listAttributes.bindStream(
-        _repository.getAllProductVariantAttributes(productId: product!.id));
+        _repository.getAllProductVariantAttributes(productId: productLite!.id));
 
     if (product?.descriptionFormatted != null) {
       final descriptionDelta =
@@ -309,6 +309,7 @@ class ProductDetailsController extends GetxController {
   }
 
   ProductVariantModel? findMatchingCombination() {
+    print(listVariantCombinations);
     return listVariantCombinations.firstWhereOrNull(
       (combination) {
         return selectedVariantsMap.entries.every((entry) {
