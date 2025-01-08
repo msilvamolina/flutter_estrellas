@@ -47,11 +47,9 @@ _$ProductFirebaseModelImpl _$$ProductFirebaseModelImplFromJson(
       defaultVariation: json['defaultVariation'] as String?,
       attributes: json['attributes'],
       variations: json['variations'],
-      createdAt: json['createdAt'] as String?,
       uploadDate: json['uploadDate'] as String?,
       searchField: json['searchField'] as String?,
       reference: json['reference'],
-      updatedAt: json['updatedAt'] as String?,
     );
 
 Map<String, dynamic> _$$ProductFirebaseModelImplToJson(
@@ -93,9 +91,7 @@ Map<String, dynamic> _$$ProductFirebaseModelImplToJson(
       'defaultVariation': instance.defaultVariation,
       'attributes': instance.attributes,
       'variations': instance.variations,
-      'createdAt': instance.createdAt,
       'uploadDate': instance.uploadDate,
       'searchField': instance.searchField,
       'reference': instance.reference,
-      'updatedAt': instance.updatedAt,
     };

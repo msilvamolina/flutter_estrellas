@@ -57,11 +57,9 @@ mixin _$ProductFirebaseModel {
   String? get defaultVariation => throw _privateConstructorUsedError;
   dynamic get attributes => throw _privateConstructorUsedError;
   dynamic get variations => throw _privateConstructorUsedError;
-  String? get createdAt => throw _privateConstructorUsedError;
   String? get uploadDate => throw _privateConstructorUsedError;
   String? get searchField => throw _privateConstructorUsedError;
   dynamic get reference => throw _privateConstructorUsedError;
-  String? get updatedAt => throw _privateConstructorUsedError;
 
   /// Serializes this ProductFirebaseModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -116,11 +114,9 @@ abstract class $ProductFirebaseModelCopyWith<$Res> {
       String? defaultVariation,
       dynamic attributes,
       dynamic variations,
-      String? createdAt,
       String? uploadDate,
       String? searchField,
-      dynamic reference,
-      String? updatedAt});
+      dynamic reference});
 }
 
 /// @nodoc
@@ -175,11 +171,9 @@ class _$ProductFirebaseModelCopyWithImpl<$Res,
     Object? defaultVariation = freezed,
     Object? attributes = freezed,
     Object? variations = freezed,
-    Object? createdAt = freezed,
     Object? uploadDate = freezed,
     Object? searchField = freezed,
     Object? reference = freezed,
-    Object? updatedAt = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -326,10 +320,6 @@ class _$ProductFirebaseModelCopyWithImpl<$Res,
           ? _value.variations
           : variations // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      createdAt: freezed == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as String?,
       uploadDate: freezed == uploadDate
           ? _value.uploadDate
           : uploadDate // ignore: cast_nullable_to_non_nullable
@@ -342,10 +332,6 @@ class _$ProductFirebaseModelCopyWithImpl<$Res,
           ? _value.reference
           : reference // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      updatedAt: freezed == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as String?,
     ) as $Val);
   }
 }
@@ -395,11 +381,9 @@ abstract class _$$ProductFirebaseModelImplCopyWith<$Res>
       String? defaultVariation,
       dynamic attributes,
       dynamic variations,
-      String? createdAt,
       String? uploadDate,
       String? searchField,
-      dynamic reference,
-      String? updatedAt});
+      dynamic reference});
 }
 
 /// @nodoc
@@ -451,11 +435,9 @@ class __$$ProductFirebaseModelImplCopyWithImpl<$Res>
     Object? defaultVariation = freezed,
     Object? attributes = freezed,
     Object? variations = freezed,
-    Object? createdAt = freezed,
     Object? uploadDate = freezed,
     Object? searchField = freezed,
     Object? reference = freezed,
-    Object? updatedAt = freezed,
   }) {
     return _then(_$ProductFirebaseModelImpl(
       id: null == id
@@ -602,10 +584,6 @@ class __$$ProductFirebaseModelImplCopyWithImpl<$Res>
           ? _value.variations
           : variations // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      createdAt: freezed == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as String?,
       uploadDate: freezed == uploadDate
           ? _value.uploadDate
           : uploadDate // ignore: cast_nullable_to_non_nullable
@@ -618,10 +596,6 @@ class __$$ProductFirebaseModelImplCopyWithImpl<$Res>
           ? _value.reference
           : reference // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      updatedAt: freezed == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as String?,
     ));
   }
 }
@@ -666,11 +640,9 @@ class _$ProductFirebaseModelImpl extends _ProductFirebaseModel {
       this.defaultVariation,
       this.attributes,
       this.variations,
-      this.createdAt,
       this.uploadDate,
       this.searchField,
-      this.reference,
-      this.updatedAt})
+      this.reference})
       : _imagesMap = imagesMap,
         super._();
 
@@ -759,19 +731,15 @@ class _$ProductFirebaseModelImpl extends _ProductFirebaseModel {
   @override
   final dynamic variations;
   @override
-  final String? createdAt;
-  @override
   final String? uploadDate;
   @override
   final String? searchField;
   @override
   final dynamic reference;
-  @override
-  final String? updatedAt;
 
   @override
   String toString() {
-    return 'ProductFirebaseModel(id: $id, provider: $provider, category: $category, name: $name, externalId: $externalId, stock: $stock, usefulId: $usefulId, videoUrl: $videoUrl, description: $description, type: $type, sku: $sku, price: $price, active: $active, isPercentage: $isPercentage, points: $points, categories: $categories, categoriesIds: $categoriesIds, categoriesNames: $categoriesNames, descriptionFormatted: $descriptionFormatted, descriptionPlainText: $descriptionPlainText, detailsFormatted: $detailsFormatted, detailsPlainText: $detailsPlainText, warrantyFormatted: $warrantyFormatted, warrantyPlainText: $warrantyPlainText, suggestedPrice: $suggestedPrice, thumbnail: $thumbnail, standardImage: $standardImage, fullImage: $fullImage, imagesMap: $imagesMap, warehouseID: $warehouseID, warehouseName: $warehouseName, providerID: $providerID, providerName: $providerName, defaultVariation: $defaultVariation, attributes: $attributes, variations: $variations, createdAt: $createdAt, uploadDate: $uploadDate, searchField: $searchField, reference: $reference, updatedAt: $updatedAt)';
+    return 'ProductFirebaseModel(id: $id, provider: $provider, category: $category, name: $name, externalId: $externalId, stock: $stock, usefulId: $usefulId, videoUrl: $videoUrl, description: $description, type: $type, sku: $sku, price: $price, active: $active, isPercentage: $isPercentage, points: $points, categories: $categories, categoriesIds: $categoriesIds, categoriesNames: $categoriesNames, descriptionFormatted: $descriptionFormatted, descriptionPlainText: $descriptionPlainText, detailsFormatted: $detailsFormatted, detailsPlainText: $detailsPlainText, warrantyFormatted: $warrantyFormatted, warrantyPlainText: $warrantyPlainText, suggestedPrice: $suggestedPrice, thumbnail: $thumbnail, standardImage: $standardImage, fullImage: $fullImage, imagesMap: $imagesMap, warehouseID: $warehouseID, warehouseName: $warehouseName, providerID: $providerID, providerName: $providerName, defaultVariation: $defaultVariation, attributes: $attributes, variations: $variations, uploadDate: $uploadDate, searchField: $searchField, reference: $reference)';
   }
 
   @override
@@ -841,15 +809,11 @@ class _$ProductFirebaseModelImpl extends _ProductFirebaseModel {
                 .equals(other.attributes, attributes) &&
             const DeepCollectionEquality()
                 .equals(other.variations, variations) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt) &&
             (identical(other.uploadDate, uploadDate) ||
                 other.uploadDate == uploadDate) &&
             (identical(other.searchField, searchField) ||
                 other.searchField == searchField) &&
-            const DeepCollectionEquality().equals(other.reference, reference) &&
-            (identical(other.updatedAt, updatedAt) ||
-                other.updatedAt == updatedAt));
+            const DeepCollectionEquality().equals(other.reference, reference));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -892,11 +856,9 @@ class _$ProductFirebaseModelImpl extends _ProductFirebaseModel {
         defaultVariation,
         const DeepCollectionEquality().hash(attributes),
         const DeepCollectionEquality().hash(variations),
-        createdAt,
         uploadDate,
         searchField,
-        const DeepCollectionEquality().hash(reference),
-        updatedAt
+        const DeepCollectionEquality().hash(reference)
       ]);
 
   /// Create a copy of ProductFirebaseModel
@@ -955,11 +917,9 @@ abstract class _ProductFirebaseModel extends ProductFirebaseModel {
       final String? defaultVariation,
       final dynamic attributes,
       final dynamic variations,
-      final String? createdAt,
       final String? uploadDate,
       final String? searchField,
-      final dynamic reference,
-      final String? updatedAt}) = _$ProductFirebaseModelImpl;
+      final dynamic reference}) = _$ProductFirebaseModelImpl;
   const _ProductFirebaseModel._() : super._();
 
   factory _ProductFirebaseModel.fromJson(Map<String, dynamic> json) =
@@ -1039,15 +999,11 @@ abstract class _ProductFirebaseModel extends ProductFirebaseModel {
   @override
   dynamic get variations;
   @override
-  String? get createdAt;
-  @override
   String? get uploadDate;
   @override
   String? get searchField;
   @override
   dynamic get reference;
-  @override
-  String? get updatedAt;
 
   /// Create a copy of ProductFirebaseModel
   /// with the given fields replaced by the non-null parameter values.

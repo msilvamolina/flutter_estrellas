@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dartz/dartz.dart';
 import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:flutter/material.dart';
@@ -75,9 +77,12 @@ class ProductDetailsController extends GetxController {
   int get points => _points;
 
   @override
-  void onInit() {
+  Future<void> onInit() async {
     videoPostModel = Get.arguments as VideoPostModel;
     productLite = videoPostModel.product!;
+    product = await _repository.getProduct(productId: productLite.id);
+
+    log(product.toString());
     _listImages
         .bindStream(_repository.getProductImages(productId: productLite.id));
     _listVariants.bindStream(_repository.getAllProductVariants(
@@ -86,17 +91,14 @@ class ProductDetailsController extends GetxController {
     _listCombination.bindStream(_repository.getAllProductVariantsCombinations(
       productId: productLite.id,
     ));
+    update(['view']);
 
     resetPrice();
     super.onInit();
   }
 
   @override
-  Future<void> onReady() async {
-    product = await _repository.getProduct(productId: productLite.id);
-
-    update(['product_info']);
-  }
+  Future<void> onReady() async {}
 
   void resetPrice() {
     _price = productLite.price ?? 0;
@@ -225,17 +227,13 @@ class ProductDetailsController extends GetxController {
 
   void openPhotoView() {
     MultiImageProvider multiImageProvider = MultiImageProvider([
-      NetworkImage(productLite.thumbnail ?? ''),
+      NetworkImage(product?.fullImage ?? product?.thumbnail ?? ''),
       if (_listImages.isNotEmpty)
         for (ProductImageModel image in _listImages)
-          NetworkImage(image.imageUrl),
+          NetworkImage(image.fullImage ?? image.imageUrl),
     ]);
 
     showImageViewerPager(Get.context!, multiImageProvider,
-        onPageChanged: (page) {
-      // print("page changed to $page");
-    }, onViewerDismissed: (page) {
-      // print("dismissed while on page $page");
-    });
+        onPageChanged: (page) {}, onViewerDismissed: (page) {});
   }
 }
