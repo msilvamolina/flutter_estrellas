@@ -103,6 +103,8 @@ class ProductDetailsController extends GetxController {
       _listAttributes.toList();
   VariantInfoModel? variantInfoModel;
   RxMap<String, String> selectedVariantsMap = <String, String>{}.obs;
+  RxMap<String, dynamic> selectedVariantsAttributesMap =
+      <String, dynamic>{}.obs;
   ProductVariantModel? productVariant;
   @override
   Future<void> onInit() async {
@@ -160,6 +162,7 @@ class ProductDetailsController extends GetxController {
     Either<String, Unit> response = await _userProductsRepository.addToCart(
       video: videoPostModel,
       productVariant: productVariant,
+      attributes: selectedVariantsAttributesMap,
       quantity: quantity,
       price: _price,
       suggestedPrice: _suggestedPrice,
@@ -286,10 +289,12 @@ class ProductDetailsController extends GetxController {
 
   Future<void> onCardPressed(VariantVariantModel variant) async {
     selectedVariantsMap[variant.attributeName] = variant.name;
+    selectedVariantsAttributesMap[variant.attributeName] = variant.toJson();
     checkVariations();
   }
 
   void checkVariations() {
+    print(selectedVariantsAttributesMap);
     if (selectedVariantsMap.length == variantInfoModel!.attributes!.length) {
       productVariant = findMatchingCombination();
       if (productVariant != null) {

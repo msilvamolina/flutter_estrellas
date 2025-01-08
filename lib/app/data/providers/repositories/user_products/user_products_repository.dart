@@ -385,6 +385,7 @@ class UserProductsRepository {
     required double suggestedPrice,
     required int points,
     ProductVariantModel? productVariant,
+    Map<String, dynamic>? attributes,
   }) async {
     Map<String, String> userData = getUidAndEmail();
     String uid = userData['uid'] ?? '';
@@ -402,6 +403,7 @@ class UserProductsRepository {
         'video': video.toDocument(),
         'productVariant':
             productVariant != null ? productVariant.toJson() : null,
+        'attributes': attributes != null ? attributes : null,
         'quantity': quantity,
         'stock': stock,
         'price': price,
