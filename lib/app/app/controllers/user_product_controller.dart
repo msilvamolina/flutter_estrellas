@@ -103,6 +103,7 @@ class UserProductController extends GetxController {
   String _shareLinkTitle = '';
   String get shareLinkTitle => _shareLinkTitle;
 
+  ProductVariantModel? productVariantSelected;
   List<ProductVariantModel>? _listVariantCombinations;
   List<ProductVariantModel>? get listVariantCombinations =>
       _listVariantCombinations;
@@ -110,7 +111,9 @@ class UserProductController extends GetxController {
   List<ProductVariantAttributesModel>? get listAttributes => _listAttributes;
   VariantInfoModel? variantInfoModel;
   RxMap<String, String> selectedVariantsMap = <String, String>{}.obs;
-
+  RxMap<String, dynamic> selectedVariantsAttributesMap =
+      <String, dynamic>{}.obs;
+  VideoPostModel? productSelected;
   FormGroup addCatalogForm() => fb.group(<String, Object>{
         Fields.addCatalogName.name: FormControl<String>(
           validators: [
@@ -638,12 +641,16 @@ class UserProductController extends GetxController {
   }
 
   Future<void> pickVariants(VideoPostModel videoPostModel) async {
+    productSelected = videoPostModel;
+    productVariantSelected = null;
     variantInfoModel = await productRepository
         .getVariantsInfo(videoPostModel.product?.id ?? '');
     isVariantsButtonEnabled = false;
     selectedVariantsMap.clear();
+    selectedVariantsAttributesMap.clear();
     _listVariantCombinations = null;
     _listAttributes = null;
+    isPickVariantButtonLoading = false;
     if (variantInfoModel != null) {
       isVariantsLoading = true;
       update(['pick_product_variant_bottom_sheet']);
@@ -667,6 +674,11 @@ class UserProductController extends GetxController {
   void onPickVariantButtonPressed() {
     isPickVariantButtonLoading = true;
     update(['pick_product_variant_bottom_sheet']);
+    if (productSelected != null && productVariantSelected != null) {
+      if (isVariantsButtonAddToCart) {
+        saveAddToCartVariant(productSelected!, productVariantSelected!);
+      }
+    }
   }
 
   VariantVariantModel? getVariationWithName(String name) {
@@ -683,13 +695,14 @@ class UserProductController extends GetxController {
 
   Future<void> onCardPressed(VariantVariantModel variant) async {
     selectedVariantsMap[variant.attributeName] = variant.name;
+    selectedVariantsAttributesMap[variant.attributeName] = variant.toJson();
     checkVariations();
   }
 
   void checkVariations() {
     if (selectedVariantsMap.length == variantInfoModel!.attributes!.length) {
-      ProductVariantModel? productVariant = findMatchingCombination();
-      if (productVariant != null) {
+      productVariantSelected = findMatchingCombination();
+      if (productVariantSelected != null) {
         isVariantsButtonEnabled = true;
         update(['pick_product_variant_bottom_sheet']);
       }
@@ -708,6 +721,32 @@ class UserProductController extends GetxController {
                   attribute.toLowerCase() &&
               value['value']?.toLowerCase() == selectedValue.toLowerCase());
         });
+      },
+    );
+  }
+
+  Future<void> saveAddToCartVariant(
+      VideoPostModel videoPostModel, ProductVariantModel variant) async {
+    Either<String, Unit> response = await userProductRepository.addToCart(
+      video: videoPostModel,
+      productVariant: variant,
+      attributes: selectedVariantsAttributesMap,
+      quantity: 1,
+      price: variant.sale_price ?? 0,
+      suggestedPrice: variant.suggested_price ?? 0,
+      points: variant.points ?? 0,
+      stock: variant.stock ?? 0,
+    );
+
+    response.fold(
+      (failure) {
+        Snackbars.error(failure);
+      },
+      (_) {
+        Get.back();
+        update(['product_cart_icon']);
+        Snackbars.success(
+            '${videoPostModel.product?.name ?? ''} agregado a tu carrito');
       },
     );
   }
