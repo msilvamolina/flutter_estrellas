@@ -20,9 +20,38 @@ class PickProductVariantBottomsheet extends StatelessWidget {
       id: 'pick_product_variant_bottom_sheet',
       builder: (controller) {
         if (controller.isVariantsLoading) {
-          return CircularProgressIndicator();
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(40),
+                child: SizedBox(
+                  width: 24,
+                  child: Center(child: CircularProgressIndicator()),
+                ),
+              ),
+            ],
+          );
         }
-        return VariantsBottomsheet(controller: controller);
+        return SafeArea(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TitleWithCloseButton(title: ''),
+              VariantsBottomsheet(controller: controller),
+              Padding(
+                padding: const EdgeInsets.all(16),
+                child: LoadingButton(
+                  isLoading: controller.addCatalogIsLoading,
+                  style: ButtonStyles.primary,
+                  onPressed: controller.isVariantsButtonEnabled ? () {} : null,
+                  label: 'Guardar',
+                ),
+              ),
+            ],
+          ),
+        );
       },
     );
   }

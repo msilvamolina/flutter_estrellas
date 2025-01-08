@@ -77,6 +77,7 @@ class UserProductController extends GetxController {
 
   bool addCatalogFormIsSubmitted = false;
   bool isVariantsLoading = false;
+  bool isVariantsButtonEnabled = false;
 
   Rx<double> cartPrices = 0.0.obs;
   RxInt cartPoints = 0.obs;
@@ -628,7 +629,10 @@ class UserProductController extends GetxController {
   Future<void> addToCart(VideoPostModel videoPostModel) async {
     variantInfoModel = await productRepository
         .getVariantsInfo(videoPostModel.product?.id ?? '');
-
+    isVariantsButtonEnabled = false;
+    selectedVariantsMap.clear();
+    _listVariantCombinations = null;
+    _listAttributes = null;
     if (variantInfoModel != null) {
       isVariantsLoading = true;
       update(['pick_product_variant_bottom_sheet']);
@@ -667,7 +671,10 @@ class UserProductController extends GetxController {
   void checkVariations() {
     if (selectedVariantsMap.length == variantInfoModel!.attributes!.length) {
       ProductVariantModel? productVariant = findMatchingCombination();
-      if (productVariant != null) {}
+      if (productVariant != null) {
+        isVariantsButtonEnabled = true;
+        update(['pick_product_variant_bottom_sheet']);
+      }
     }
   }
 
