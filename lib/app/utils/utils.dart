@@ -1,4 +1,6 @@
 import 'dart:math';
+import 'dart:ui';
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class Utils {
@@ -16,5 +18,19 @@ class Utils {
 
     return List.generate(length, (index) => chars[random.nextInt(chars.length)])
         .join();
+  }
+
+  static Color getColor(String originalColor) {
+    try {
+      String color = originalColor.replaceAll('#', '');
+      if (color.length == 6) {
+        color = '0xff${color}';
+      }
+      var myInt = int.parse(color.toString());
+      Color transformado = Color(myInt).withOpacity(1.0);
+      return transformado;
+    } catch (e) {
+      return Colors.grey;
+    }
   }
 }

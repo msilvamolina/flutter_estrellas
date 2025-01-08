@@ -5,7 +5,11 @@ import 'package:get/instance_manager.dart';
 import '../../../../services/api_services.dart';
 import '../../../models/product/product_firebase/product_firebase_model.dart';
 import '../../../models/product_variant/product_variant_model.dart';
+import '../../../models/product_variant_attributes/product_variant_attributes.dart';
 import '../../../models/product_variant_combination/product_variant_combination_model.dart';
+import '../../../models/variant_attributte/variant_attributte.dart';
+import '../../../models/variant_info/variant_info.dart';
+import '../../../models/variant_variant/variant_variant.dart';
 
 class ProductsRepository {
   ApiServices services = ApiServices();
@@ -23,6 +27,41 @@ class ProductsRepository {
     } catch (e) {
       print(e);
       return null; // En caso de error, también retornamos null
+    }
+  }
+
+  Future<VariantInfoModel?> getVariantsInfo(String productId) async {
+    try {
+      DocumentSnapshot<Map<String, dynamic>> snapshot = await _firebaseFirestore
+          .collection('products')
+          .doc(productId)
+          .collection('variantsInfo')
+          .doc('variantsInfo')
+          .get();
+
+      if (!snapshot.exists || snapshot.data() == null) {
+        throw Exception("El documento no existe o está vacío.");
+      }
+
+      final data = snapshot.data()!;
+
+      List<VariantAttributeModel> attributes =
+          (data['attributes'] as List<dynamic>)
+              .map((json) =>
+                  VariantAttributeModel.fromJson(json as Map<String, dynamic>))
+              .toList();
+
+      List<VariantVariantModel> variants = (data['variants'] as List<dynamic>)
+          .map((json) =>
+              VariantVariantModel.fromJson(json as Map<String, dynamic>))
+          .toList();
+
+      VariantInfoModel variantInfoModel =
+          VariantInfoModel(attributes: attributes, variants: variants);
+      return variantInfoModel;
+    } catch (e) {
+      print('Error al obtener datos de Firebase: $e');
+      return null;
     }
   }
 
@@ -55,6 +94,23 @@ class ProductsRepository {
       yield* snapshots.map((snapshot) {
         return snapshot.docs
             .map((doc) => ProductVariantModel.fromDocument(doc))
+            .toList();
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Stream<List<ProductVariantAttributesModel>> getAllProductVariantAttributes(
+      {required String productId}) async* {
+    try {
+      Stream<QuerySnapshot> snapshots = _firebaseFirestore
+          .collection('products/$productId/attributes')
+          .snapshots();
+
+      yield* snapshots.map((snapshot) {
+        return snapshot.docs
+            .map((doc) => ProductVariantAttributesModel.fromDocument(doc))
             .toList();
       });
     } catch (e) {
