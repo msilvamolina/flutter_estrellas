@@ -2,4 +2,6 @@
     <string name="app_name">Estrellas dev</string>
     <string name="facebook_app_id">1277829120093655</string>
     <string name="facebook_client_token">72aef1538a348391eac02228dbd21f85</string>
+    <string name="fb_login_protocol_scheme">fb1277829120093655</string>
+
 </resources>
