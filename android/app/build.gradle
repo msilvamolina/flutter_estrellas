@@ -77,12 +77,10 @@ flutter {
     source = "../.."
 }
 dependencies {
-
-    implementation 'com.facebook.android:facebook-login:latest.release'
-    implementation 'androidx.appcompat:appcompat:1.6.1' // Dependencia requerida por Facebook SDK
-    implementation 'com.android.support:multidex:2.0.1'
-
-    implementation platform('com.google.firebase:firebase-bom:32.1.1') // Firebase BOM
+    implementation 'androidx.annotation:annotation:1.7.0' // Anotaciones necesarias
+    implementation platform('com.google.firebase:firebase-bom:32.1.1') // BOM de Firebase
     implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.google.firebase:firebase-auth'
     implementation 'com.google.firebase:firebase-crashlytics'
+    implementation 'com.google.android.gms:play-services-basement:18.1.0' // Base de Google Play
 }
