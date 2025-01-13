@@ -77,6 +77,7 @@ flutter {
     source = "../.."
 }
 dependencies {
+    
     implementation 'androidx.annotation:annotation:1.7.0' // Anotaciones necesarias
     implementation platform('com.google.firebase:firebase-bom:32.1.1') // BOM de Firebase
     implementation 'com.google.firebase:firebase-analytics'
