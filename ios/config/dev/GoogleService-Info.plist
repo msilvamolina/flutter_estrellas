@@ -32,5 +32,7 @@
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
 	<string>1:802823199567:ios:dc8680d7821d8a785e033a</string>
+	<key>DATABASE_URL</key>
+	<string>https://estrellas-dev-ecd61-default-rtdb.firebaseio.com</string>
 </dict>
 </plist>

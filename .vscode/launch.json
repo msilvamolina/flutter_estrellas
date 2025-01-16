@@ -5,21 +5,16 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "flutter_estrellas_dev",
+      "request": "launch",
+      "type": "dart",
+      "args": ["--flavor", "dev"]
+    },
+    {
       "name": "flutter_estrellas",
       "request": "launch",
-      "type": "dart"
-    },
-    {
-      "name": "flutter_estrellas (profile mode)",
-      "request": "launch",
       "type": "dart",
-      "flutterMode": "profile"
-    },
-    {
-      "name": "flutter_estrellas (release mode)",
-      "request": "launch",
-      "type": "dart",
-      "flutterMode": "release"
+      "args": ["--flavor", "prod"]
     }
   ]
 }

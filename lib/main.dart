@@ -16,7 +16,6 @@ import 'app/config/firebase_config.dart';
 import 'app/routes/app_pages.dart';
 import 'app/services/dependency_injection.dart';
 import 'app/services/environment.dart';
-import 'app/services/firebase_messaging_service.dart';
 import 'app/themes/text_theme.dart';
 import 'app/themes/theme.dart';
 
@@ -85,9 +84,7 @@ Future<void> initRemoteConfig() async {
   try {
     await remoteConfig.setDefaults({});
     await remoteConfig.fetchAndActivate();
-    print('Remote Config inicializado correctamente.');
   } catch (e) {
-    print('Error inicializando Remote Config: $e');
     FirebaseCrashlytics.instance.recordError(e, StackTrace.current,
         reason: "Error en initRemoteConfig");
   }
@@ -113,10 +110,12 @@ class MyApp extends StatelessWidget {
       supportedLocales: const [
         Locale('es', ''),
       ],
-      title: "Estrellas",
+      title: Environment.instance.currentEnv == Env.prod
+          ? "Estrellas"
+          : "Estrellas DEV",
       locale: const Locale('es'),
       fallbackLocale: const Locale('es'),
-      debugShowCheckedModeBanner: false,
+      debugShowCheckedModeBanner: Environment.instance.currentEnv != Env.prod,
       theme: theme.light(),
       themeMode: ThemeMode.light,
       initialRoute: AppPages.INITIAL,

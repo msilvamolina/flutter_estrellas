@@ -72,17 +72,35 @@ android {
         }
     }
 
+  flavorDimensions "app"
+    productFlavors {
+        dev {
+            dimension "app"
+            resValue "string", "app_name", "Estrellas Dev"
+            applicationId "app.estrellas.dev"
+            manifestPlaceholders.baseUrl = "estrellas.page.link"   
+        }
+
+        prod {
+            dimension "app"
+            resValue "string", "app_name", "Estrellas"
+            applicationId "app.estrellas"
+            manifestPlaceholders.baseUrl = "estrellas.page.link"
+        }
+    }
 }
 
 flutter {
     source = "../.."
 }
+
 dependencies {
-    
     implementation 'androidx.annotation:annotation:1.7.0' // Anotaciones necesarias
     implementation platform('com.google.firebase:firebase-bom:32.1.1') // BOM de Firebase
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-auth'
+    implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
+    implementation 'androidx.core:core-splashscreen:1.0.0-beta02'
     implementation 'com.google.firebase:firebase-crashlytics'
     implementation 'com.google.android.gms:play-services-basement:18.1.0' // Base de Google Play
 }

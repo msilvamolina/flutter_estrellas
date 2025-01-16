@@ -6,8 +6,6 @@
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
-	<key>CFBundleDisplayName</key>
-	<string>Estrellas</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -15,7 +13,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>flutter_estrellas</string>
+	<string>$(APP_DISPLAY_NAME)</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -29,9 +27,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<!-- Google Sign-In -->
 				<string>com.googleusercontent.apps.802823199567-pbh57iua7v7veubh20eaf7o4g79peuhd</string>
-				<!-- Facebook Sign-In -->
 				<string>fb1277829120093655</string>
 			</array>
 		</dict>
@@ -41,7 +37,7 @@
 	<key>FacebookClientToken</key>
 	<string>72aef1538a348391eac02228dbd21f85</string>
 	<key>FacebookDisplayName</key>
-	<string>Estrellas dev</string>
+	<string>$(APP_DISPLAY_NAME)</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>fbapi</string>
@@ -120,5 +116,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>CFBundleDisplayName</key>
+	<string>$(APP_DISPLAY_NAME)</string>
 </dict>
 </plist>
