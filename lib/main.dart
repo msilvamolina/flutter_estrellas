@@ -58,7 +58,10 @@ Future<void> initFirebase() async {
       storageBucket: firebaseConfig['storageBucket'],
     );
   } else if (Platform.isAndroid) {
-    Map<String, dynamic>? firebaseConfig = firebaseConfigDevAndroid;
+    Map<String, dynamic>? firebaseConfig =
+        Environment.instance.currentEnv == Env.prod
+            ? firebaseConfigProdAndroid
+            : firebaseConfigDevAndroid;
 
     firebaseOptions = FirebaseOptions(
       apiKey: firebaseConfig['apiKey']!,

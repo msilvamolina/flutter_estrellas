@@ -47,5 +47,5 @@ const Map<String, dynamic> firebaseConfigProdAndroid = <String, dynamic>{
   'databaseURL': '',
   'measurementId': '',
   'trackingId': '',
-  'storageBucket': 'estrellas-176d3.appspot.com',
+  'storageBucket': 'estrellas-176d3.firebasestorage.app',
 };
