@@ -2,7 +2,7 @@ name: flutter_estrellas
 description: "Estrellas"
 publish_to: "none"
 
-version: 2.0.31+241
+version: 2.1.1+242
 
 environment:
   sdk: ^3.5.2
