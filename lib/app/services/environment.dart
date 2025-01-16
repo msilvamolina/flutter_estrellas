@@ -11,6 +11,7 @@ class Environment {
   String? fullVersion;
   String? version;
   String? packageVersion;
+  String? packageName;
 
   String? userCustomerApi;
   String? passwordCustomerApi;
@@ -26,6 +27,7 @@ class Environment {
       // Obtener información del paquete
       final packageInfo = await PackageInfo.fromPlatform();
 
+      packageName = packageInfo.packageName;
       // Configurar el entorno basado en el nombre del paquete o el argumento
       currentEnv = _determineEnvironment(env, packageInfo.packageName);
 
