@@ -75,7 +75,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		5BA59B9C2D38C6C30085C61E /* Exceptions for "config" folder in "Runner" target */ = {
+		5BDA267A2D3E3567003B0016 /* Exceptions for "config" folder in "Runner" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				"dev/GoogleService-Info.plist",
@@ -86,10 +86,10 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		5B963CE02D38B06600C3C7BB /* config */ = {
+		5B2E49322D3E34B1001B48AE /* config */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				5BA59B9C2D38C6C30085C61E /* Exceptions for "config" folder in "Runner" target */,
+				5BDA267A2D3E3567003B0016 /* Exceptions for "config" folder in "Runner" target */,
 			);
 			path = config;
 			sourceTree = "<group>";
@@ -157,7 +157,7 @@
 		97C146E51CF9000F007C117D = {
 			isa = PBXGroup;
 			children = (
-				5B963CE02D38B06600C3C7BB /* config */,
+				5B2E49322D3E34B1001B48AE /* config */,
 				9740EEB11CF90186004384FC /* Flutter */,
 				97C146F01CF9000F007C117D /* Runner */,
 				97C146EF1CF9000F007C117D /* Products */,
@@ -243,7 +243,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				5B963CE02D38B06600C3C7BB /* config */,
+				5B2E49322D3E34B1001B48AE /* config */,
 			);
 			name = Runner;
 			productName = Runner;

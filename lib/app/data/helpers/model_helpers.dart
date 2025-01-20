@@ -26,7 +26,7 @@ class ModelHelpers {
 
   static String dateFromDocument(dynamic date) {
     if (date != null) {
-      return date.toDate().toString();
+      // return date.toDate().toString();
     }
     return DateTime.now().toString();
   }

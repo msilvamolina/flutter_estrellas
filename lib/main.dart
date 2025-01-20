@@ -118,7 +118,7 @@ class MyApp extends StatelessWidget {
           : "Estrellas DEV",
       locale: const Locale('es'),
       fallbackLocale: const Locale('es'),
-      debugShowCheckedModeBanner: Environment.instance.currentEnv != Env.prod,
+      debugShowCheckedModeBanner: Environment.instance.currentEnv == Env.dev,
       theme: theme.light(),
       themeMode: ThemeMode.light,
       initialRoute: AppPages.INITIAL,
