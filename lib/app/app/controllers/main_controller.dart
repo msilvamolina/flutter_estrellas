@@ -145,9 +145,15 @@ class MainController extends GetxController {
   }
 
   Future<void> reloadUserData() async {
+    _userData = await userRepository.getUserDataFirebase();
+    bool isEmailVerified = await userRepository.isEmailVerified();
+
     _userEmail = userRepository.getUserEmail();
     _userUID = userRepository.getUserID();
-    _userData = await userRepository.getUserDataFirebase();
+
+    if (isEmailVerified) {
+      _userData = await userRepository.getUserDataFirebase();
+    }
     Get.forceAppUpdate();
   }
 
