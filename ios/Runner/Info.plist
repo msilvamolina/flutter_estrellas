@@ -28,14 +28,14 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>$(GOOGLE_REVERSE_ID)</string>
-				<string>fb1277829120093655</string>
+				<string>fb$(FACEBOOK_ID)</string>
 			</array>
 		</dict>
 	</array>
 	<key>FacebookAppID</key>
-	<string>1277829120093655</string>
+	<string>$(FACEBOOK_ID)</string>
 	<key>FacebookClientToken</key>
-	<string>72aef1538a348391eac02228dbd21f85</string>
+	<string>$(FACEBOOK_TOKEN)</string>
 	<key>FacebookDisplayName</key>
 	<string>$(APP_DISPLAY_NAME)</string>
 	<key>LSApplicationQueriesSchemes</key>
