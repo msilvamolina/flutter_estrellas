@@ -11,6 +11,7 @@ class Environment {
   String? fullVersion;
   String? version;
   String? packageVersion;
+  String? packageName;
 
   String? userCustomerApi;
   String? passwordCustomerApi;
@@ -26,6 +27,7 @@ class Environment {
       // Obtener información del paquete
       final packageInfo = await PackageInfo.fromPlatform();
 
+      packageName = packageInfo.packageName;
       // Configurar el entorno basado en el nombre del paquete o el argumento
       currentEnv = _determineEnvironment(env, packageInfo.packageName);
 
@@ -52,20 +54,14 @@ class Environment {
   /// Determina el entorno basado en el nombre del paquete o el argumento `env`
   Env _determineEnvironment(String env, String packageName) {
     if (env.isNotEmpty) {
-      return env == 'prod'
-          ? Env.prod
-          : env == 'dev'
-              ? Env.dev
-              : Env.qa;
+      return env == 'prod' ? Env.prod : Env.dev;
     }
 
     // Fallback a los nombres de paquete
     if (packageName == 'app.estrellas') {
       return Env.prod;
-    } else if (packageName == 'app.estrellas.dev') {
-      return Env.dev;
     } else {
-      return Env.qa;
+      return Env.dev;
     }
   }
 }

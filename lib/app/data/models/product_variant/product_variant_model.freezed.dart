@@ -21,12 +21,18 @@ ProductVariantModel _$ProductVariantModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$ProductVariantModel {
   String get id => throw _privateConstructorUsedError;
-  String get name => throw _privateConstructorUsedError;
-  String get label => throw _privateConstructorUsedError;
-  String get type => throw _privateConstructorUsedError;
+  String? get name => throw _privateConstructorUsedError;
+  String? get label => throw _privateConstructorUsedError;
+  String? get type => throw _privateConstructorUsedError;
   String? get imageUrl => throw _privateConstructorUsedError;
   int? get color => throw _privateConstructorUsedError;
   String? get searchField => throw _privateConstructorUsedError;
+  int get points => throw _privateConstructorUsedError;
+  double get sale_price => throw _privateConstructorUsedError;
+  String get sku => throw _privateConstructorUsedError;
+  int get stock => throw _privateConstructorUsedError;
+  double get suggested_price => throw _privateConstructorUsedError;
+  dynamic get values => throw _privateConstructorUsedError;
 
   /// Serializes this ProductVariantModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -46,12 +52,18 @@ abstract class $ProductVariantModelCopyWith<$Res> {
   @useResult
   $Res call(
       {String id,
-      String name,
-      String label,
-      String type,
+      String? name,
+      String? label,
+      String? type,
       String? imageUrl,
       int? color,
-      String? searchField});
+      String? searchField,
+      int points,
+      double sale_price,
+      String sku,
+      int stock,
+      double suggested_price,
+      dynamic values});
 }
 
 /// @nodoc
@@ -70,30 +82,36 @@ class _$ProductVariantModelCopyWithImpl<$Res, $Val extends ProductVariantModel>
   @override
   $Res call({
     Object? id = null,
-    Object? name = null,
-    Object? label = null,
-    Object? type = null,
+    Object? name = freezed,
+    Object? label = freezed,
+    Object? type = freezed,
     Object? imageUrl = freezed,
     Object? color = freezed,
     Object? searchField = freezed,
+    Object? points = null,
+    Object? sale_price = null,
+    Object? sku = null,
+    Object? stock = null,
+    Object? suggested_price = null,
+    Object? values = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      name: null == name
+      name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      label: null == label
+              as String?,
+      label: freezed == label
           ? _value.label
           : label // ignore: cast_nullable_to_non_nullable
-              as String,
-      type: null == type
+              as String?,
+      type: freezed == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       imageUrl: freezed == imageUrl
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
@@ -106,6 +124,30 @@ class _$ProductVariantModelCopyWithImpl<$Res, $Val extends ProductVariantModel>
           ? _value.searchField
           : searchField // ignore: cast_nullable_to_non_nullable
               as String?,
+      points: null == points
+          ? _value.points
+          : points // ignore: cast_nullable_to_non_nullable
+              as int,
+      sale_price: null == sale_price
+          ? _value.sale_price
+          : sale_price // ignore: cast_nullable_to_non_nullable
+              as double,
+      sku: null == sku
+          ? _value.sku
+          : sku // ignore: cast_nullable_to_non_nullable
+              as String,
+      stock: null == stock
+          ? _value.stock
+          : stock // ignore: cast_nullable_to_non_nullable
+              as int,
+      suggested_price: null == suggested_price
+          ? _value.suggested_price
+          : suggested_price // ignore: cast_nullable_to_non_nullable
+              as double,
+      values: freezed == values
+          ? _value.values
+          : values // ignore: cast_nullable_to_non_nullable
+              as dynamic,
     ) as $Val);
   }
 }
@@ -120,12 +162,18 @@ abstract class _$$ProductVariantModelImplCopyWith<$Res>
   @useResult
   $Res call(
       {String id,
-      String name,
-      String label,
-      String type,
+      String? name,
+      String? label,
+      String? type,
       String? imageUrl,
       int? color,
-      String? searchField});
+      String? searchField,
+      int points,
+      double sale_price,
+      String sku,
+      int stock,
+      double suggested_price,
+      dynamic values});
 }
 
 /// @nodoc
@@ -142,30 +190,36 @@ class __$$ProductVariantModelImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
-    Object? name = null,
-    Object? label = null,
-    Object? type = null,
+    Object? name = freezed,
+    Object? label = freezed,
+    Object? type = freezed,
     Object? imageUrl = freezed,
     Object? color = freezed,
     Object? searchField = freezed,
+    Object? points = null,
+    Object? sale_price = null,
+    Object? sku = null,
+    Object? stock = null,
+    Object? suggested_price = null,
+    Object? values = freezed,
   }) {
     return _then(_$ProductVariantModelImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      name: null == name
+      name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      label: null == label
+              as String?,
+      label: freezed == label
           ? _value.label
           : label // ignore: cast_nullable_to_non_nullable
-              as String,
-      type: null == type
+              as String?,
+      type: freezed == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       imageUrl: freezed == imageUrl
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
@@ -178,6 +232,30 @@ class __$$ProductVariantModelImplCopyWithImpl<$Res>
           ? _value.searchField
           : searchField // ignore: cast_nullable_to_non_nullable
               as String?,
+      points: null == points
+          ? _value.points
+          : points // ignore: cast_nullable_to_non_nullable
+              as int,
+      sale_price: null == sale_price
+          ? _value.sale_price
+          : sale_price // ignore: cast_nullable_to_non_nullable
+              as double,
+      sku: null == sku
+          ? _value.sku
+          : sku // ignore: cast_nullable_to_non_nullable
+              as String,
+      stock: null == stock
+          ? _value.stock
+          : stock // ignore: cast_nullable_to_non_nullable
+              as int,
+      suggested_price: null == suggested_price
+          ? _value.suggested_price
+          : suggested_price // ignore: cast_nullable_to_non_nullable
+              as double,
+      values: freezed == values
+          ? _value.values
+          : values // ignore: cast_nullable_to_non_nullable
+              as dynamic,
     ));
   }
 }
@@ -187,12 +265,18 @@ class __$$ProductVariantModelImplCopyWithImpl<$Res>
 class _$ProductVariantModelImpl extends _ProductVariantModel {
   const _$ProductVariantModelImpl(
       {required this.id,
-      required this.name,
-      required this.label,
-      required this.type,
+      this.name,
+      this.label,
+      this.type,
       this.imageUrl,
       this.color,
-      this.searchField})
+      this.searchField,
+      required this.points,
+      required this.sale_price,
+      required this.sku,
+      required this.stock,
+      required this.suggested_price,
+      this.values})
       : super._();
 
   factory _$ProductVariantModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -201,21 +285,33 @@ class _$ProductVariantModelImpl extends _ProductVariantModel {
   @override
   final String id;
   @override
-  final String name;
+  final String? name;
   @override
-  final String label;
+  final String? label;
   @override
-  final String type;
+  final String? type;
   @override
   final String? imageUrl;
   @override
   final int? color;
   @override
   final String? searchField;
+  @override
+  final int points;
+  @override
+  final double sale_price;
+  @override
+  final String sku;
+  @override
+  final int stock;
+  @override
+  final double suggested_price;
+  @override
+  final dynamic values;
 
   @override
   String toString() {
-    return 'ProductVariantModel(id: $id, name: $name, label: $label, type: $type, imageUrl: $imageUrl, color: $color, searchField: $searchField)';
+    return 'ProductVariantModel(id: $id, name: $name, label: $label, type: $type, imageUrl: $imageUrl, color: $color, searchField: $searchField, points: $points, sale_price: $sale_price, sku: $sku, stock: $stock, suggested_price: $suggested_price, values: $values)';
   }
 
   @override
@@ -231,13 +327,34 @@ class _$ProductVariantModelImpl extends _ProductVariantModel {
                 other.imageUrl == imageUrl) &&
             (identical(other.color, color) || other.color == color) &&
             (identical(other.searchField, searchField) ||
-                other.searchField == searchField));
+                other.searchField == searchField) &&
+            (identical(other.points, points) || other.points == points) &&
+            (identical(other.sale_price, sale_price) ||
+                other.sale_price == sale_price) &&
+            (identical(other.sku, sku) || other.sku == sku) &&
+            (identical(other.stock, stock) || other.stock == stock) &&
+            (identical(other.suggested_price, suggested_price) ||
+                other.suggested_price == suggested_price) &&
+            const DeepCollectionEquality().equals(other.values, values));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
-      runtimeType, id, name, label, type, imageUrl, color, searchField);
+      runtimeType,
+      id,
+      name,
+      label,
+      type,
+      imageUrl,
+      color,
+      searchField,
+      points,
+      sale_price,
+      sku,
+      stock,
+      suggested_price,
+      const DeepCollectionEquality().hash(values));
 
   /// Create a copy of ProductVariantModel
   /// with the given fields replaced by the non-null parameter values.
@@ -259,12 +376,18 @@ class _$ProductVariantModelImpl extends _ProductVariantModel {
 abstract class _ProductVariantModel extends ProductVariantModel {
   const factory _ProductVariantModel(
       {required final String id,
-      required final String name,
-      required final String label,
-      required final String type,
+      final String? name,
+      final String? label,
+      final String? type,
       final String? imageUrl,
       final int? color,
-      final String? searchField}) = _$ProductVariantModelImpl;
+      final String? searchField,
+      required final int points,
+      required final double sale_price,
+      required final String sku,
+      required final int stock,
+      required final double suggested_price,
+      final dynamic values}) = _$ProductVariantModelImpl;
   const _ProductVariantModel._() : super._();
 
   factory _ProductVariantModel.fromJson(Map<String, dynamic> json) =
@@ -273,17 +396,29 @@ abstract class _ProductVariantModel extends ProductVariantModel {
   @override
   String get id;
   @override
-  String get name;
+  String? get name;
   @override
-  String get label;
+  String? get label;
   @override
-  String get type;
+  String? get type;
   @override
   String? get imageUrl;
   @override
   int? get color;
   @override
   String? get searchField;
+  @override
+  int get points;
+  @override
+  double get sale_price;
+  @override
+  String get sku;
+  @override
+  int get stock;
+  @override
+  double get suggested_price;
+  @override
+  dynamic get values;
 
   /// Create a copy of ProductVariantModel
   /// with the given fields replaced by the non-null parameter values.

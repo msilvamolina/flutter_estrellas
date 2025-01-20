@@ -28,42 +28,47 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
     }
     return DefaultTabController(
       length: 3,
-      child: Scaffold(
-        bottomNavigationBar: SafeArea(
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: 16, vertical: isIos ? 0 : (isAndroid ? 8 : 16)),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Button(
-                    style: ButtonStyles.secondary,
-                    onPressed: () {},
-                    label: 'Vender',
-                  ),
+      child: GetBuilder<ProductDetailsController>(
+        id: 'view',
+        builder: (_) {
+          return Scaffold(
+            bottomNavigationBar: SafeArea(
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: 16, vertical: isIos ? 0 : (isAndroid ? 8 : 16)),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Button(
+                        style: ButtonStyles.secondary,
+                        onPressed: () {},
+                        label: 'Vender',
+                      ),
+                    ),
+                    SizedBox(width: 16),
+                    Expanded(
+                      child: Button(
+                        style: ButtonStyles.primary,
+                        onPressed: () => controller.userProductController
+                            .goToBuyUniqueProduct(controller.videoPostModel),
+                        label: 'Comprar',
+                      ),
+                    ),
+                  ],
                 ),
-                SizedBox(width: 16),
-                Expanded(
-                  child: Button(
-                    style: ButtonStyles.primary,
-                    onPressed: () => controller.userProductController
-                        .goToBuyUniqueProduct(controller.videoPostModel),
-                    label: 'Comprar',
-                  ),
-                ),
+              ),
+            ),
+            backgroundColor: white,
+            appBar: EstrellasAppbar(title: 'Detalle de producto'),
+            body: CustomScrollView(
+              shrinkWrap: true,
+              slivers: <Widget>[
+                ProductMainHeader(),
+                ProductStickyContent(),
               ],
             ),
-          ),
-        ),
-        backgroundColor: white,
-        appBar: EstrellasAppbar(title: 'Detalle de producto'),
-        body: CustomScrollView(
-          shrinkWrap: true,
-          slivers: <Widget>[
-            ProductMainHeader(),
-            ProductStickyContent(),
-          ],
-        ),
+          );
+        },
       ),
     );
   }

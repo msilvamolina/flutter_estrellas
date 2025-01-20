@@ -8,6 +8,7 @@ import '../../app/bottom_sheets/catalogs_bottomsheet.dart';
 import '../../app/bottom_sheets/delete_products_catalog_bottomsheet.dart';
 import '../../app/bottom_sheets/incomplete_profile_bottomsheet.dart';
 import '../../app/bottom_sheets/new_catalog_bottomsheet.dart';
+import '../../app/bottom_sheets/pick_product_variant_bottomsheet.dart';
 import '../../app/bottom_sheets/select_variant_size.dart';
 import '../../app/bottom_sheets/signout_bottomsheet.dart';
 import '../../app/bottom_sheets/verify_phone_back.dart';
@@ -51,6 +52,8 @@ class StaticBottomSeet extends StatelessWidget {
         return IncompleteProfileBottomsheet();
       case BottomSheetTypes.share:
         return ShareBottomsheet();
+      case BottomSheetTypes.pickProductVariant:
+        return PickProductVariantBottomsheet();
       default:
         return SizedBox.shrink();
     }

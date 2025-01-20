@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_quill/flutter_quill.dart';
 import 'package:get/get.dart';
 
-import '../../../libraries/icons/icons_font.dart';
 import '../controllers/product_details_controller.dart';
 
 class DescriptionView extends StatelessWidget {
@@ -15,7 +15,15 @@ class DescriptionView extends StatelessWidget {
       builder: (controller) {
         return Padding(
           padding: const EdgeInsets.all(16),
-          child: Text(controller.product?.description ?? ''),
+          child: QuillEditor(
+            config: QuillEditorConfig(
+              showCursor: false,
+              scrollPhysics: NeverScrollableScrollPhysics(),
+            ),
+            controller: controller.descriptionController,
+            scrollController: controller.descriptionEditorScrollController,
+            focusNode: controller.descriptionEditorFocusNode,
+          ),
         );
       },
     );

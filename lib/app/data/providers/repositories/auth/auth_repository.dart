@@ -44,7 +44,7 @@ class AuthRepository {
         final AccessToken? accessToken = result.accessToken;
 
         final facebookAuthCredential = FacebookAuthProvider.credential(
-          accessToken!.token,
+          accessToken!.tokenString,
         );
 
         await _firebaseAuth.signInWithCredential(facebookAuthCredential);

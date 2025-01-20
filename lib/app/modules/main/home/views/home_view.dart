@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_estrellas/app/services/environment.dart';
 import 'package:get/get.dart';
 
 import '../../../../libraries/icons/icons_font.dart';
@@ -89,7 +90,7 @@ class _HomeViewState extends State<HomeView> {
                 ),
               );
             } else {
-              return const Center(child: Text('no data'));
+              return SizedBox.shrink();
             }
           },
         ),

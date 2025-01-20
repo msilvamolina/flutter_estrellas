@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:dartz/dartz.dart';
 import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:flutter/material.dart';
@@ -5,6 +8,8 @@ import 'package:flutter_estrellas/app/data/models/product/product/product.dart';
 import 'package:flutter_estrellas/app/data/models/product/product_firebase/product_firebase_model.dart';
 import 'package:flutter_estrellas/app/data/providers/repositories/products/products_repository.dart';
 import 'package:flutter_estrellas/app/data/providers/repositories/user_products/user_products_repository.dart';
+import 'package:flutter_quill/flutter_quill.dart';
+import 'package:flutter_quill/quill_delta.dart';
 import 'package:get/get.dart';
 
 import '../../../app/controllers/main_controller.dart';
@@ -13,8 +18,12 @@ import '../../../components/snackbars/snackbars.dart';
 import '../../../data/models/product_firebase_lite/product_firebase_lite.dart';
 import '../../../data/models/product_image/product_image_model.dart';
 import '../../../data/models/product_variant/product_variant_model.dart';
+import '../../../data/models/product_variant_attributes/product_variant_attributes.dart';
 import '../../../data/models/product_variant_combination/product_variant_combination_model.dart';
 import '../../../data/models/user_product_cart/user_product_cart_model.dart';
+import '../../../data/models/variant_attributte/variant_attributte.dart';
+import '../../../data/models/variant_info/variant_info.dart';
+import '../../../data/models/variant_variant/variant_variant.dart';
 import '../../../data/models/videos/video_post_model.dart';
 
 class ProductDetailsController extends GetxController {
@@ -31,30 +40,16 @@ class ProductDetailsController extends GetxController {
   late ProductFirebaseLiteModel productLite;
 
   ProductFirebaseModel? product;
+  RxBool isLoading = true.obs;
 
   // Rxn<ProductFirebaseModel> product = Rxn<ProductFirebaseModel>();
 
   final RxList<ProductImageModel> _listImages = <ProductImageModel>[].obs;
   List<ProductImageModel> get listImages => _listImages.toList();
 
-  final RxList<ProductVariantCombinationModel> _listCombination =
-      <ProductVariantCombinationModel>[].obs;
-  List<ProductVariantCombinationModel> get listCombination =>
-      _listCombination.toList();
   List<String> _newOrderList = [];
   final RxList<ProductVariantModel> sizeList = <ProductVariantModel>[].obs;
   final RxList<ProductVariantModel> colorList = <ProductVariantModel>[].obs;
-
-  final RxList<ProductVariantModel> _listVariants = <ProductVariantModel>[].obs;
-  List<ProductVariantModel> get listVariants => _listVariants.toList();
-
-  ProductVariantModel? _userProductVariantColor;
-  ProductVariantModel? get userProductVariantColor => _userProductVariantColor;
-
-  ProductVariantModel? _userProductVariantSize;
-  ProductVariantModel? get userProductVariantSize => _userProductVariantSize;
-
-  ProductVariantCombinationModel? _productVariantCombination;
 
   bool _isInCart = true;
   bool get isInCart => _isInCart;
@@ -74,28 +69,84 @@ class ProductDetailsController extends GetxController {
   int _points = 0;
   int get points => _points;
 
+  final QuillController descriptionController = QuillController(
+    document: Document(),
+    readOnly: true,
+    selection: const TextSelection.collapsed(offset: 0),
+  );
+  final FocusNode descriptionEditorFocusNode = FocusNode();
+  final ScrollController descriptionEditorScrollController = ScrollController();
+
+  final QuillController detailsController = QuillController(
+    document: Document(),
+    readOnly: true,
+    selection: const TextSelection.collapsed(offset: 0),
+  );
+  final FocusNode detailsEditorFocusNode = FocusNode();
+  final ScrollController detailsEditorScrollController = ScrollController();
+
+  final QuillController warrantyController = QuillController(
+    document: Document(),
+    readOnly: true,
+    selection: const TextSelection.collapsed(offset: 0),
+  );
+  final FocusNode warrantyEditorFocusNode = FocusNode();
+  final ScrollController warrantyEditorScrollController = ScrollController();
+
+  final RxList<ProductVariantModel> _listVariantCombinations =
+      <ProductVariantModel>[].obs;
+  List<ProductVariantModel> get listVariantCombinations =>
+      _listVariantCombinations.toList();
+  final RxList<ProductVariantAttributesModel> _listAttributes =
+      <ProductVariantAttributesModel>[].obs;
+  List<ProductVariantAttributesModel> get listAttributes =>
+      _listAttributes.toList();
+  VariantInfoModel? variantInfoModel;
+  RxMap<String, String> selectedVariantsMap = <String, String>{}.obs;
+  RxMap<String, dynamic> selectedVariantsAttributesMap =
+      <String, dynamic>{}.obs;
+  ProductVariantModel? productVariant;
   @override
-  void onInit() {
+  Future<void> onInit() async {
     videoPostModel = Get.arguments as VideoPostModel;
     productLite = videoPostModel.product!;
+    product = await _repository.getProduct(productId: productLite.id);
+
+    log(product.toString());
     _listImages
         .bindStream(_repository.getProductImages(productId: productLite.id));
-    _listVariants.bindStream(_repository.getAllProductVariants(
-      productId: productLite.id,
-    ));
-    _listCombination.bindStream(_repository.getAllProductVariantsCombinations(
-      productId: productLite.id,
-    ));
+    _listVariantCombinations.bindStream(
+        _repository.getAllProductVariants(productId: productLite!.id));
+    _listAttributes.bindStream(
+        _repository.getAllProductVariantAttributes(productId: productLite!.id));
+
+    if (product?.descriptionFormatted != null) {
+      final descriptionDelta =
+          Delta.fromJson(jsonDecode(product?.descriptionFormatted));
+      descriptionController.document = Document.fromDelta(descriptionDelta);
+    }
+
+    if (product?.detailsFormatted != null) {
+      final detailsDelta =
+          Delta.fromJson(jsonDecode(product?.detailsFormatted));
+      detailsController.document = Document.fromDelta(detailsDelta);
+    }
+
+    if (product?.warrantyFormatted != null) {
+      final warrantyDelta =
+          Delta.fromJson(jsonDecode(product?.warrantyFormatted));
+      warrantyController.document = Document.fromDelta(warrantyDelta);
+    }
+    loadInfo();
+    update(['view']);
 
     resetPrice();
     super.onInit();
   }
 
-  @override
-  Future<void> onReady() async {
-    product = await _repository.getProduct(productId: productLite.id);
-
-    update(['product_info']);
+  Future<void> loadInfo() async {
+    variantInfoModel = await _repository.getVariantsInfo(product!.id);
+    isLoading.value = false;
   }
 
   void resetPrice() {
@@ -110,7 +161,8 @@ class ProductDetailsController extends GetxController {
   Future<void> addToCart() async {
     Either<String, Unit> response = await _userProductsRepository.addToCart(
       video: videoPostModel,
-      productVariantCombination: _productVariantCombination,
+      productVariant: productVariant,
+      attributes: selectedVariantsAttributesMap,
       quantity: quantity,
       price: _price,
       suggestedPrice: _suggestedPrice,
@@ -163,79 +215,130 @@ class ProductDetailsController extends GetxController {
     update(['product_quantity']);
   }
 
-  ProductVariantCombinationModel? getBySizeAndColor(
-      String? sizeId, String? colorId) {
-    ProductVariantCombinationModel? option = _listCombination.firstWhereOrNull(
-        (element) => element.sizeId == sizeId && element.colorId == colorId);
+  // ProductVariantCombinationModel? getBySizeAndColor(
+  //     String? sizeId, String? colorId) {
+  //   ProductVariantCombinationModel? option = _listCombination.firstWhereOrNull(
+  //       (element) => element.sizeId == sizeId && element.colorId == colorId);
 
-    return option;
+  //   return option;
+  // }
+
+  // void buildVariationPrice() {
+  //   _productVariantCombination = getBySizeAndColor(
+  //       _userProductVariantSize?.id, _userProductVariantColor?.id);
+
+  //   if (_productVariantCombination != null) {
+  //     _price = _productVariantCombination!.price ?? 0;
+  //     _suggestedPrice = _productVariantCombination!.suggestedPrice ?? 0;
+  //     _points = _productVariantCombination!.points ?? 0;
+  //     _stock = _productVariantCombination!.stock ?? 1;
+  //     _quantity = 1;
+  //     update(['product_price', 'content_product', 'product_quantity']);
+  //   } else {
+  //     resetPrice();
+  //   }
+  // }
+
+  // void setFirstProductVariationCombination() {
+  //   _productVariantCombination = getBySizeAndColor(
+  //       _userProductVariantSize?.id, _userProductVariantColor?.id);
+  // }
+
+  // void setFirstVariantColor(ProductVariantModel value) {
+  //   if (_userProductVariantColor == null) {
+  //     _userProductVariantColor = value;
+  //     setFirstProductVariationCombination();
+
+  //     update(['product_variant_color']);
+  //   }
+  // }
+
+  // void chooseColorVariant(ProductVariantModel value) {
+  //   _userProductVariantColor = value;
+  //   update(['product_variant_color']);
+  //   buildVariationPrice();
+  // }
+
+  // void setFirstVariantSize(ProductVariantModel value) {
+  //   if (_userProductVariantSize == null) {
+  //     _userProductVariantSize = value;
+  //     setFirstProductVariationCombination();
+
+  //     update(['product_variant_size']);
+  //   }
+  // }
+
+  // void chooseSizeVariant(ProductVariantModel value) {
+  //   _userProductVariantSize = value;
+  //   Get.back();
+  //   update(['product_variant_size']);
+  //   buildVariationPrice();
+  // }
+
+  VariantVariantModel? getVariationWithName(String name) {
+    return variantInfoModel!.variants!.firstWhereOrNull(
+      (variant) => variant.name == name,
+    );
   }
 
-  void buildVariationPrice() {
-    _productVariantCombination = getBySizeAndColor(
-        _userProductVariantSize?.id, _userProductVariantColor?.id);
+  List<VariantVariantModel> getVariations(VariantAttributeModel attribute) {
+    return variantInfoModel!.variants!
+        .where((variant) => variant.attributeId == attribute.id)
+        .toList();
+  }
 
-    if (_productVariantCombination != null) {
-      _price = _productVariantCombination!.price ?? 0;
-      _suggestedPrice = _productVariantCombination!.suggestedPrice ?? 0;
-      _points = _productVariantCombination!.points ?? 0;
-      _stock = _productVariantCombination!.stock ?? 1;
-      _quantity = 1;
-      update(['product_price', 'content_product', 'product_quantity']);
-    } else {
-      resetPrice();
+  Future<void> onCardPressed(VariantVariantModel variant) async {
+    selectedVariantsMap[variant.attributeName] = variant.name;
+    selectedVariantsAttributesMap[variant.attributeName] = variant.toJson();
+    checkVariations();
+  }
+
+  void checkVariations() {
+    print(selectedVariantsAttributesMap);
+    if (selectedVariantsMap.length == variantInfoModel!.attributes!.length) {
+      productVariant = findMatchingCombination();
+      if (productVariant != null) {
+        _stock = productVariant!.stock;
+        _suggestedPrice = productVariant!.suggested_price;
+        _price = productVariant!.sale_price;
+        _points = productVariant!.points;
+        _quantity = 1;
+        update([
+          'product_points',
+          'product_price',
+          'content_product',
+          'product_quantity'
+        ]);
+      }
     }
   }
 
-  void setFirstProductVariationCombination() {
-    _productVariantCombination = getBySizeAndColor(
-        _userProductVariantSize?.id, _userProductVariantColor?.id);
-  }
+  ProductVariantModel? findMatchingCombination() {
+    print(listVariantCombinations);
+    return listVariantCombinations.firstWhereOrNull(
+      (combination) {
+        return selectedVariantsMap.entries.every((entry) {
+          final attribute = entry.key;
+          final selectedValue = entry.value;
 
-  void setFirstVariantColor(ProductVariantModel value) {
-    if (_userProductVariantColor == null) {
-      _userProductVariantColor = value;
-      setFirstProductVariationCombination();
-
-      update(['product_variant_color']);
-    }
-  }
-
-  void chooseColorVariant(ProductVariantModel value) {
-    _userProductVariantColor = value;
-    update(['product_variant_color']);
-    buildVariationPrice();
-  }
-
-  void setFirstVariantSize(ProductVariantModel value) {
-    if (_userProductVariantSize == null) {
-      _userProductVariantSize = value;
-      setFirstProductVariationCombination();
-
-      update(['product_variant_size']);
-    }
-  }
-
-  void chooseSizeVariant(ProductVariantModel value) {
-    _userProductVariantSize = value;
-    Get.back();
-    update(['product_variant_size']);
-    buildVariationPrice();
+          return combination.values.any((value) =>
+              value['attribute_name']?.toLowerCase() ==
+                  attribute.toLowerCase() &&
+              value['value']?.toLowerCase() == selectedValue.toLowerCase());
+        });
+      },
+    );
   }
 
   void openPhotoView() {
     MultiImageProvider multiImageProvider = MultiImageProvider([
-      NetworkImage(productLite.thumbnail ?? ''),
+      NetworkImage(product?.fullImage ?? product?.thumbnail ?? ''),
       if (_listImages.isNotEmpty)
         for (ProductImageModel image in _listImages)
-          NetworkImage(image.imageUrl),
+          NetworkImage(image.fullImage ?? image.imageUrl),
     ]);
 
     showImageViewerPager(Get.context!, multiImageProvider,
-        onPageChanged: (page) {
-      // print("page changed to $page");
-    }, onViewerDismissed: (page) {
-      // print("dismissed while on page $page");
-    });
+        onPageChanged: (page) {}, onViewerDismissed: (page) {});
   }
 }

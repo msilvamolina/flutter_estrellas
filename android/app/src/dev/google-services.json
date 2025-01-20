@@ -1,0 +1,107 @@
+{
+  "project_info": {
+    "project_number": "802823199567",
+    "firebase_url": "https://estrellas-dev-ecd61-default-rtdb.firebaseio.com",
+    "project_id": "estrellas-dev-ecd61",
+    "storage_bucket": "estrellas-dev-ecd61.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:802823199567:android:83c9085a1ae419aa5e033a",
+        "android_client_info": {
+          "package_name": "app.estrellas.dashboard.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "802823199567-lspq1ralv8usp770082dejdg8npdhbqk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "app.estrellas.dashboard.dev",
+            "certificate_hash": "460b7b8c2b2e84abd823d8e73c49e614d4be9a5c"
+          }
+        },
+        {
+          "client_id": "802823199567-1tpc0jomt726h7euomfv41qfam9a4hp1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBAZAsBDxgIDbxa57os5XVi_q8qIDFpkXY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "802823199567-1tpc0jomt726h7euomfv41qfam9a4hp1.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "802823199567-isoa1imh6kiu7om1464986dq0kbpra6g.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "app.estrellas.checkout.dev"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:802823199567:android:b0e84ca7b5cafb4f5e033a",
+        "android_client_info": {
+          "package_name": "app.estrellas.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "802823199567-os6ath2f401ff00lhe9v6ipr5u2ih4pp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "app.estrellas.dev",
+            "certificate_hash": "eafde421392e9630959d80056e4aec613c479cd7"
+          }
+        },
+        {
+          "client_id": "802823199567-uvc51q709umdin2hij50c6hk253allcl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "app.estrellas.dev",
+            "certificate_hash": "460b7b8c2b2e84abd823d8e73c49e614d4be9a5c"
+          }
+        },
+        {
+          "client_id": "802823199567-1tpc0jomt726h7euomfv41qfam9a4hp1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBAZAsBDxgIDbxa57os5XVi_q8qIDFpkXY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "802823199567-1tpc0jomt726h7euomfv41qfam9a4hp1.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "802823199567-isoa1imh6kiu7om1464986dq0kbpra6g.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "app.estrellas.checkout.dev"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

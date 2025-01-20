@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter_estrellas/app/modules/main/home/controllers/home_controller.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -21,6 +22,7 @@ class DependecyInjection {
       Get.put<MainController>(MainController());
       Get.put(RemoteConfigController());
       Get.put<UserProductController>(UserProductController());
+      Get.put<HomeController>(HomeController());
     } catch (e, stackTrace) {
       FirebaseCrashlytics.instance.recordError(e, stackTrace,
           reason: "Error en DependecyInjection.init");

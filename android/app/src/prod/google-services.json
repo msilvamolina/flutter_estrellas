@@ -2,14 +2,14 @@
   "project_info": {
     "project_number": "345787762684",
     "project_id": "estrellas-176d3",
-    "storage_bucket": "estrellas-176d3.appspot.com"
+    "storage_bucket": "estrellas-176d3.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
         "mobilesdk_app_id": "1:345787762684:android:8affe83949138e37711479",
         "android_client_info": {
-          "package_name": "app.estrellas.dev"
+          "package_name": "app.estrellas"
         }
       },
       "oauth_client": [],

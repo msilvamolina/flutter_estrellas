@@ -48,9 +48,11 @@ android {
     defaultConfig {
         applicationId = "app.estrellas.dev"
         minSdkVersion 23
-        targetSdk = flutter.targetSdkVersion
+        targetSdk = 33
         versionCode = flutterVersionCode.toInteger()
         versionName = flutterVersionName
+        multiDexEnabled true
+
     }
 
     signingConfigs {
@@ -61,6 +63,7 @@ android {
            storePassword keystoreProperties['storePassword']
        }
     }
+
     buildTypes {
         release {
             signingConfig signingConfigs.release
@@ -69,8 +72,34 @@ android {
         }
     }
 
+  flavorDimensions "app"
+    productFlavors {
+        dev {
+            dimension "app"
+            resValue "string", "app_name", "Estrellas DEV"
+            resValue "string", "facebook_app_id", "1277829120093655"
+            resValue "string", "facebook_client_token", "72aef1538a348391eac02228dbd21f85"
+            resValue "string", "fb_login_protocol_scheme", "fb1277829120093655"
+            applicationId "app.estrellas.dev"
+            manifestPlaceholders.baseUrl = "estrellas.page.link"   
+        }
+        
+        prod {
+            dimension "app"
+            resValue "string", "app_name", "Estrellas"
+            resValue "string", "facebook_app_id", "1036341258258106"
+            resValue "string", "facebook_client_token", "e93499affeb82f45ecab3d5747aff500"
+            resValue "string", "fb_login_protocol_scheme", "fb1036341258258106"
+            applicationId "app.estrellas"
+            manifestPlaceholders.baseUrl = "estrellas.page.link"
+        }
+    }
 }
-
+ 
 flutter {
     source = "../.."
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
