@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_estrellas/app/data/models/phone/phone_model.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
+import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 
 class AuthRepository {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -38,24 +38,53 @@ class AuthRepository {
 
   Future<Either<String, Unit>> signInWithFacebook() async {
     try {
-      final LoginResult result = await FacebookAuth.instance.login();
+      // Inicializa el plugin de Facebook
+      final fb = FacebookLogin();
 
-      if (result.status == LoginStatus.success) {
-        final AccessToken? accessToken = result.accessToken;
+      // Inicia el proceso de inicio de sesión
+      final result = await fb.logIn(
+        permissions: [
+          FacebookPermission.publicProfile,
+          FacebookPermission.email,
+        ],
+      );
 
-        final facebookAuthCredential = FacebookAuthProvider.credential(
-          accessToken!.tokenString,
-        );
+      switch (result.status) {
+        case FacebookLoginStatus.success:
+          // Si el inicio de sesión es exitoso, obtenemos el token de acceso
+          final FacebookAccessToken? accessToken = result.accessToken;
 
-        await _firebaseAuth.signInWithCredential(facebookAuthCredential);
+          if (accessToken != null) {
+            // Creamos una credencial de Firebase con el token de Facebook
+            final facebookAuthCredential = FacebookAuthProvider.credential(
+              accessToken.token,
+            );
 
-        return right(unit);
-      } else {
-        return left(result.message ?? "Error desconocido en Facebook Login");
+            // Inicia sesión en Firebase con la credencial
+            await _firebaseAuth.signInWithCredential(facebookAuthCredential);
+
+            return right(unit);
+          } else {
+            return left("Error desconocido: token de acceso nulo.");
+          }
+
+        case FacebookLoginStatus.cancel:
+          // El usuario canceló el inicio de sesión
+          return left("Inicio de sesión cancelado por el usuario.");
+
+        case FacebookLoginStatus.error:
+          // Hubo un error en el proceso de inicio de sesión
+          return left(
+              "Error en el inicio de sesión de Facebook: ${result.error}");
+
+        default:
+          return left("Estado desconocido en Facebook Login.");
       }
     } on FirebaseAuthException catch (e) {
+      // Maneja errores de Firebase
       return left(e.code);
     } catch (e) {
+      // Maneja cualquier otro error
       return left(e.toString());
     }
   }

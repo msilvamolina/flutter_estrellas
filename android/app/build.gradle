@@ -94,6 +94,9 @@ flutter {
 }
 
 dependencies {
+    implementation 'com.google.android.gms:play-services-auth:20.6.0' // Para Google Sign-In
+    implementation 'com.facebook.android:facebook-android-sdk:latest.release'
+    implementation 'com.facebook.android:facebook-login:latest.release'
     implementation 'androidx.annotation:annotation:1.7.0' // Anotaciones necesarias
     implementation platform('com.google.firebase:firebase-bom:32.1.1') // BOM de Firebase
     implementation 'com.google.firebase:firebase-analytics'
