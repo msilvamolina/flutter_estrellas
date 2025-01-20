@@ -28,6 +28,7 @@ allprojects {
         maven { url 'https://jitpack.io' } // Como alternativa adicional
 
     }
+     
     subprojects {
         afterEvaluate { project ->
             if (project.hasProperty('android')) {
@@ -45,6 +46,7 @@ allprojects {
                 details.useVersion '1.9.10'
             }
         }
+        
     }
 }
 

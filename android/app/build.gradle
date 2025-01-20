@@ -94,14 +94,5 @@ flutter {
 }
 
 dependencies {
-    implementation 'com.google.android.gms:play-services-auth:20.6.0' // Para Google Sign-In
-    implementation 'com.facebook.android:facebook-android-sdk:latest.release'
-    implementation 'com.facebook.android:facebook-login:latest.release'
-    implementation 'androidx.annotation:annotation:1.7.0' // Anotaciones necesarias
-    implementation platform('com.google.firebase:firebase-bom:32.1.1') // BOM de Firebase
-    implementation 'com.google.firebase:firebase-analytics'
-    implementation 'com.google.firebase:firebase-auth'
-    implementation 'androidx.core:core-splashscreen:1.0.0-beta02'
-    implementation 'com.google.firebase:firebase-crashlytics'
-    implementation 'com.google.android.gms:play-services-basement:18.1.0' // Base de Google Play
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
