@@ -75,7 +75,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		5BDA267A2D3E3567003B0016 /* Exceptions for "config" folder in "Runner" target */ = {
+		5BB9A3042D3E3A61004FD775 /* Exceptions for "config" folder in "Runner" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				"dev/GoogleService-Info.plist",
@@ -86,10 +86,10 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		5B2E49322D3E34B1001B48AE /* config */ = {
+		5BB9A3012D3E3A5E004FD775 /* config */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				5BDA267A2D3E3567003B0016 /* Exceptions for "config" folder in "Runner" target */,
+				5BB9A3042D3E3A61004FD775 /* Exceptions for "config" folder in "Runner" target */,
 			);
 			path = config;
 			sourceTree = "<group>";
@@ -157,7 +157,7 @@
 		97C146E51CF9000F007C117D = {
 			isa = PBXGroup;
 			children = (
-				5B2E49322D3E34B1001B48AE /* config */,
+				5BB9A3012D3E3A5E004FD775 /* config */,
 				9740EEB11CF90186004384FC /* Flutter */,
 				97C146F01CF9000F007C117D /* Runner */,
 				97C146EF1CF9000F007C117D /* Products */,
@@ -243,7 +243,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				5B2E49322D3E34B1001B48AE /* config */,
+				5BB9A3012D3E3A5E004FD775 /* config */,
 			);
 			name = Runner;
 			productName = Runner;
@@ -552,6 +552,7 @@
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = 5679Q7NQ6N;
 				ENABLE_BITCODE = NO;
+				GOOGLE_REVERSE_ID = "com.googleusercontent.apps.345787762684-i2p9ifa59a0nbt9ok9qrs96t4gbq810a";
 				INFOPLIST_FILE = Runner/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Estrellas dev";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.shopping";
@@ -687,6 +688,7 @@
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = 5679Q7NQ6N;
 				ENABLE_BITCODE = NO;
+				GOOGLE_REVERSE_ID = "com.googleusercontent.apps.802823199567-pbh57iua7v7veubh20eaf7o4g79peuhd";
 				INFOPLIST_FILE = Runner/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Estrellas dev";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.shopping";
@@ -788,6 +790,7 @@
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = 5679Q7NQ6N;
 				ENABLE_BITCODE = NO;
+				GOOGLE_REVERSE_ID = "com.googleusercontent.apps.802823199567-pbh57iua7v7veubh20eaf7o4g79peuhd";
 				INFOPLIST_FILE = Runner/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Estrellas dev";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.shopping";
@@ -884,6 +887,7 @@
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = 5679Q7NQ6N;
 				ENABLE_BITCODE = NO;
+				GOOGLE_REVERSE_ID = "com.googleusercontent.apps.802823199567-pbh57iua7v7veubh20eaf7o4g79peuhd";
 				INFOPLIST_FILE = Runner/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Estrellas dev";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.shopping";
@@ -1041,6 +1045,7 @@
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = 5679Q7NQ6N;
 				ENABLE_BITCODE = NO;
+				GOOGLE_REVERSE_ID = "com.googleusercontent.apps.345787762684-i2p9ifa59a0nbt9ok9qrs96t4gbq810a";
 				INFOPLIST_FILE = Runner/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Estrellas dev";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.shopping";
@@ -1068,6 +1073,7 @@
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = 5679Q7NQ6N;
 				ENABLE_BITCODE = NO;
+				GOOGLE_REVERSE_ID = "com.googleusercontent.apps.345787762684-i2p9ifa59a0nbt9ok9qrs96t4gbq810a";
 				INFOPLIST_FILE = Runner/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Estrellas dev";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.shopping";
