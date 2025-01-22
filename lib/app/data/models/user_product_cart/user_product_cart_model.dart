@@ -21,7 +21,9 @@ abstract class UserProductCartModel implements _$UserProductCartModel {
     required int stock,
     int? quantity,
     VideoPostModel? video,
-    ProductVariantCombinationModel? productCombination,
+    String? variantID,
+    dynamic variantInfo,
+    // ProductVariantCombinationModel? productCombination,
     String? createdAt,
   }) = _UserProductCartModel;
 
@@ -37,9 +39,6 @@ abstract class UserProductCartModel implements _$UserProductCartModel {
       json['video'] = video!.toDocument();
     }
 
-    if (productCombination != null) {
-      json['productCombination'] = productCombination!.toDocument();
-    }
     return json;
   }
 }

@@ -18,10 +18,8 @@ _$UserProductCartModelImpl _$$UserProductCartModelImplFromJson(
       video: json['video'] == null
           ? null
           : VideoPostModel.fromJson(json['video'] as Map<String, dynamic>),
-      productCombination: json['productCombination'] == null
-          ? null
-          : ProductVariantCombinationModel.fromJson(
-              json['productCombination'] as Map<String, dynamic>),
+      variantID: json['variantID'] as String?,
+      variantInfo: json['variantInfo'],
       createdAt: json['createdAt'] as String?,
     );
 
@@ -35,6 +33,7 @@ Map<String, dynamic> _$$UserProductCartModelImplToJson(
       'stock': instance.stock,
       'quantity': instance.quantity,
       'video': instance.video,
-      'productCombination': instance.productCombination,
+      'variantID': instance.variantID,
+      'variantInfo': instance.variantInfo,
       'createdAt': instance.createdAt,
     };

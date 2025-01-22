@@ -35,8 +35,11 @@ class _CartUniqueCardState extends State<CartUniqueCard> {
         CurrencyHelpers.moneyFormat(amount: profit, withDecimals: false);
     String priceStr =
         CurrencyHelpers.moneyFormat(amount: price, withDecimals: false);
-    ProductVariantCombinationModel? variantCombination =
-        widget.userProductCartModel.productCombination;
+    // ProductVariantCombinationModel? variantCombination =
+    //     widget.userProductCartModel.productCombination;
+
+    String? variantID = widget.userProductCartModel.variantID;
+    dynamic variantInfo = widget.userProductCartModel.variantInfo;
 
     return GetBuilder<CartUniqueProductController>(
       id: 'card_product',
@@ -85,12 +88,12 @@ class _CartUniqueCardState extends State<CartUniqueCard> {
                           padding: const EdgeInsets.only(top: 6),
                           child: Row(
                             children: [
-                              Expanded(
-                                child: variantCombination != null
-                                    ? VariationWidget(
-                                        variantCombination: variantCombination)
-                                    : const SizedBox.shrink(),
-                              ),
+                              // Expanded(
+                              //   child: variantCombination != null
+                              //       ? VariationWidget(
+                              //           variantCombination: variantCombination)
+                              //       : const SizedBox.shrink(),
+                              // ),
                               Text(
                                 'Ganas $profitStr',
                                 style: TypographyStyle.bodyBlackMedium

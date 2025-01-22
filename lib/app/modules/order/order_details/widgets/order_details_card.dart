@@ -34,8 +34,8 @@ class _CartUniqueCardState extends State<OrderDetailsCard> {
         CurrencyHelpers.moneyFormat(amount: profit, withDecimals: false);
     String priceStr =
         CurrencyHelpers.moneyFormat(amount: price, withDecimals: false);
-    ProductVariantCombinationModel? variantCombination =
-        widget.userProductCartModel.productCombination;
+    // ProductVariantCombinationModel? variantCombination =
+    //     widget.userProductCartModel.productCombination;
 
     return GetBuilder<OrderDetailsController>(
       id: 'card_product',
@@ -80,19 +80,19 @@ class _CartUniqueCardState extends State<OrderDetailsCard> {
                             ),
                           ],
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 6),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: variantCombination != null
-                                    ? VariationWidget(
-                                        variantCombination: variantCombination)
-                                    : const SizedBox.shrink(),
-                              ),
-                            ],
-                          ),
-                        ),
+                        // Padding(
+                        //   padding: const EdgeInsets.only(top: 6),
+                        //   child: Row(
+                        //     children: [
+                        //       Expanded(
+                        //         child: variantCombination != null
+                        //             ? VariationWidget(
+                        //                 variantCombination: variantCombination)
+                        //             : const SizedBox.shrink(),
+                        //       ),
+                        //     ],
+                        //   ),
+                        // ),
                       ],
                     ),
                   ),

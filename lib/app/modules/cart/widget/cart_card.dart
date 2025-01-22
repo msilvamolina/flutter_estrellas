@@ -1,7 +1,9 @@
 import 'dart:async';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_estrellas/app/data/models/product_variant_combination/product_variant_combination_model.dart';
 import 'package:flutter_estrellas/app/data/models/user_product/user_product_model.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
@@ -12,6 +14,7 @@ import '../../../data/models/user_product_cart/user_product_cart_model.dart';
 import '../../../libraries/icons/icons_font.dart';
 import '../../../themes/styles/colors.dart';
 import '../../../themes/styles/typography.dart';
+import '../../../utils/utils.dart';
 import '../controllers/cart_controller.dart';
 import 'variation_widget.dart';
 
@@ -85,8 +88,11 @@ class _CartCardState extends State<CartCard> {
         CurrencyHelpers.moneyFormat(amount: profit, withDecimals: false);
     String priceStr =
         CurrencyHelpers.moneyFormat(amount: price, withDecimals: false);
-    ProductVariantCombinationModel? variantCombination =
-        widget.userProductCartModel.productCombination;
+    // ProductVariantCombinationModel? variantCombination =
+    //     widget.userProductCartModel.productCombination;
+
+    String? variantID = widget.userProductCartModel.variantID;
+    dynamic variantInfo = widget.userProductCartModel.variantInfo;
 
     return GetBuilder<CartController>(
       id: 'card_product',
@@ -177,7 +183,7 @@ class _CartCardState extends State<CartCard> {
                                     children: [
                                       Expanded(
                                         child: Text(
-                                          product.name ?? '',
+                                          Utils.capitalize(product.name ?? ''),
                                           style:
                                               TypographyStyle.bodyRegularLarge,
                                           maxLines: 1,
@@ -196,14 +202,35 @@ class _CartCardState extends State<CartCard> {
                                   Padding(
                                     padding: const EdgeInsets.only(top: 6),
                                     child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
-                                        Expanded(
-                                          child: variantCombination != null
-                                              ? VariationWidget(
-                                                  variantCombination:
-                                                      variantCombination)
-                                              : const SizedBox.shrink(),
-                                        ),
+                                        if (variantInfo != null)
+                                          Expanded(
+                                            child: Column(
+                                              children: [
+                                                for (dynamic value
+                                                    in variantInfo['values'])
+                                                  Row(
+                                                    children: [
+                                                      Text(
+                                                        '${Utils.capitalize(value['attribute_name'])}: ',
+                                                        style: TypographyStyle
+                                                            .bodyBlackMedium,
+                                                      ),
+                                                      Text(
+                                                        Utils.capitalize(
+                                                            value['value']),
+                                                        style: TypographyStyle
+                                                            .bodyRegularMedium,
+                                                      ),
+                                                    ],
+                                                  ),
+                                              ],
+                                            ),
+                                          )
+                                        else
+                                          Spacer(),
                                         Text(
                                           'Ganas $profitStr',
                                           style: TypographyStyle.bodyBlackMedium
