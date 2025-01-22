@@ -54,9 +54,11 @@ mixin _$ProductFirebaseModel {
   String? get warehouseName => throw _privateConstructorUsedError;
   String? get providerID => throw _privateConstructorUsedError;
   String? get providerName => throw _privateConstructorUsedError;
-  String? get defaultVariation => throw _privateConstructorUsedError;
+  String? get defaultVariantID => throw _privateConstructorUsedError;
+  dynamic get defaultVariantInfo => throw _privateConstructorUsedError;
   dynamic get attributes => throw _privateConstructorUsedError;
   dynamic get variations => throw _privateConstructorUsedError;
+  String? get createdAt => throw _privateConstructorUsedError;
   String? get uploadDate => throw _privateConstructorUsedError;
   String? get searchField => throw _privateConstructorUsedError;
   dynamic get reference => throw _privateConstructorUsedError;
@@ -111,9 +113,11 @@ abstract class $ProductFirebaseModelCopyWith<$Res> {
       String? warehouseName,
       String? providerID,
       String? providerName,
-      String? defaultVariation,
+      String? defaultVariantID,
+      dynamic defaultVariantInfo,
       dynamic attributes,
       dynamic variations,
+      String? createdAt,
       String? uploadDate,
       String? searchField,
       dynamic reference});
@@ -168,9 +172,11 @@ class _$ProductFirebaseModelCopyWithImpl<$Res,
     Object? warehouseName = freezed,
     Object? providerID = freezed,
     Object? providerName = freezed,
-    Object? defaultVariation = freezed,
+    Object? defaultVariantID = freezed,
+    Object? defaultVariantInfo = freezed,
     Object? attributes = freezed,
     Object? variations = freezed,
+    Object? createdAt = freezed,
     Object? uploadDate = freezed,
     Object? searchField = freezed,
     Object? reference = freezed,
@@ -308,10 +314,14 @@ class _$ProductFirebaseModelCopyWithImpl<$Res,
           ? _value.providerName
           : providerName // ignore: cast_nullable_to_non_nullable
               as String?,
-      defaultVariation: freezed == defaultVariation
-          ? _value.defaultVariation
-          : defaultVariation // ignore: cast_nullable_to_non_nullable
+      defaultVariantID: freezed == defaultVariantID
+          ? _value.defaultVariantID
+          : defaultVariantID // ignore: cast_nullable_to_non_nullable
               as String?,
+      defaultVariantInfo: freezed == defaultVariantInfo
+          ? _value.defaultVariantInfo
+          : defaultVariantInfo // ignore: cast_nullable_to_non_nullable
+              as dynamic,
       attributes: freezed == attributes
           ? _value.attributes
           : attributes // ignore: cast_nullable_to_non_nullable
@@ -320,6 +330,10 @@ class _$ProductFirebaseModelCopyWithImpl<$Res,
           ? _value.variations
           : variations // ignore: cast_nullable_to_non_nullable
               as dynamic,
+      createdAt: freezed == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as String?,
       uploadDate: freezed == uploadDate
           ? _value.uploadDate
           : uploadDate // ignore: cast_nullable_to_non_nullable
@@ -378,9 +392,11 @@ abstract class _$$ProductFirebaseModelImplCopyWith<$Res>
       String? warehouseName,
       String? providerID,
       String? providerName,
-      String? defaultVariation,
+      String? defaultVariantID,
+      dynamic defaultVariantInfo,
       dynamic attributes,
       dynamic variations,
+      String? createdAt,
       String? uploadDate,
       String? searchField,
       dynamic reference});
@@ -432,9 +448,11 @@ class __$$ProductFirebaseModelImplCopyWithImpl<$Res>
     Object? warehouseName = freezed,
     Object? providerID = freezed,
     Object? providerName = freezed,
-    Object? defaultVariation = freezed,
+    Object? defaultVariantID = freezed,
+    Object? defaultVariantInfo = freezed,
     Object? attributes = freezed,
     Object? variations = freezed,
+    Object? createdAt = freezed,
     Object? uploadDate = freezed,
     Object? searchField = freezed,
     Object? reference = freezed,
@@ -572,10 +590,14 @@ class __$$ProductFirebaseModelImplCopyWithImpl<$Res>
           ? _value.providerName
           : providerName // ignore: cast_nullable_to_non_nullable
               as String?,
-      defaultVariation: freezed == defaultVariation
-          ? _value.defaultVariation
-          : defaultVariation // ignore: cast_nullable_to_non_nullable
+      defaultVariantID: freezed == defaultVariantID
+          ? _value.defaultVariantID
+          : defaultVariantID // ignore: cast_nullable_to_non_nullable
               as String?,
+      defaultVariantInfo: freezed == defaultVariantInfo
+          ? _value.defaultVariantInfo
+          : defaultVariantInfo // ignore: cast_nullable_to_non_nullable
+              as dynamic,
       attributes: freezed == attributes
           ? _value.attributes
           : attributes // ignore: cast_nullable_to_non_nullable
@@ -584,6 +606,10 @@ class __$$ProductFirebaseModelImplCopyWithImpl<$Res>
           ? _value.variations
           : variations // ignore: cast_nullable_to_non_nullable
               as dynamic,
+      createdAt: freezed == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as String?,
       uploadDate: freezed == uploadDate
           ? _value.uploadDate
           : uploadDate // ignore: cast_nullable_to_non_nullable
@@ -637,9 +663,11 @@ class _$ProductFirebaseModelImpl extends _ProductFirebaseModel {
       this.warehouseName,
       this.providerID,
       this.providerName,
-      this.defaultVariation,
+      this.defaultVariantID,
+      this.defaultVariantInfo,
       this.attributes,
       this.variations,
+      this.createdAt,
       this.uploadDate,
       this.searchField,
       this.reference})
@@ -725,11 +753,15 @@ class _$ProductFirebaseModelImpl extends _ProductFirebaseModel {
   @override
   final String? providerName;
   @override
-  final String? defaultVariation;
+  final String? defaultVariantID;
+  @override
+  final dynamic defaultVariantInfo;
   @override
   final dynamic attributes;
   @override
   final dynamic variations;
+  @override
+  final String? createdAt;
   @override
   final String? uploadDate;
   @override
@@ -739,7 +771,7 @@ class _$ProductFirebaseModelImpl extends _ProductFirebaseModel {
 
   @override
   String toString() {
-    return 'ProductFirebaseModel(id: $id, provider: $provider, category: $category, name: $name, externalId: $externalId, stock: $stock, usefulId: $usefulId, videoUrl: $videoUrl, description: $description, type: $type, sku: $sku, price: $price, active: $active, isPercentage: $isPercentage, points: $points, categories: $categories, categoriesIds: $categoriesIds, categoriesNames: $categoriesNames, descriptionFormatted: $descriptionFormatted, descriptionPlainText: $descriptionPlainText, detailsFormatted: $detailsFormatted, detailsPlainText: $detailsPlainText, warrantyFormatted: $warrantyFormatted, warrantyPlainText: $warrantyPlainText, suggestedPrice: $suggestedPrice, thumbnail: $thumbnail, standardImage: $standardImage, fullImage: $fullImage, imagesMap: $imagesMap, warehouseID: $warehouseID, warehouseName: $warehouseName, providerID: $providerID, providerName: $providerName, defaultVariation: $defaultVariation, attributes: $attributes, variations: $variations, uploadDate: $uploadDate, searchField: $searchField, reference: $reference)';
+    return 'ProductFirebaseModel(id: $id, provider: $provider, category: $category, name: $name, externalId: $externalId, stock: $stock, usefulId: $usefulId, videoUrl: $videoUrl, description: $description, type: $type, sku: $sku, price: $price, active: $active, isPercentage: $isPercentage, points: $points, categories: $categories, categoriesIds: $categoriesIds, categoriesNames: $categoriesNames, descriptionFormatted: $descriptionFormatted, descriptionPlainText: $descriptionPlainText, detailsFormatted: $detailsFormatted, detailsPlainText: $detailsPlainText, warrantyFormatted: $warrantyFormatted, warrantyPlainText: $warrantyPlainText, suggestedPrice: $suggestedPrice, thumbnail: $thumbnail, standardImage: $standardImage, fullImage: $fullImage, imagesMap: $imagesMap, warehouseID: $warehouseID, warehouseName: $warehouseName, providerID: $providerID, providerName: $providerName, defaultVariantID: $defaultVariantID, defaultVariantInfo: $defaultVariantInfo, attributes: $attributes, variations: $variations, createdAt: $createdAt, uploadDate: $uploadDate, searchField: $searchField, reference: $reference)';
   }
 
   @override
@@ -803,12 +835,16 @@ class _$ProductFirebaseModelImpl extends _ProductFirebaseModel {
                 other.providerID == providerID) &&
             (identical(other.providerName, providerName) ||
                 other.providerName == providerName) &&
-            (identical(other.defaultVariation, defaultVariation) ||
-                other.defaultVariation == defaultVariation) &&
+            (identical(other.defaultVariantID, defaultVariantID) ||
+                other.defaultVariantID == defaultVariantID) &&
+            const DeepCollectionEquality()
+                .equals(other.defaultVariantInfo, defaultVariantInfo) &&
             const DeepCollectionEquality()
                 .equals(other.attributes, attributes) &&
             const DeepCollectionEquality()
                 .equals(other.variations, variations) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
             (identical(other.uploadDate, uploadDate) ||
                 other.uploadDate == uploadDate) &&
             (identical(other.searchField, searchField) ||
@@ -853,9 +889,11 @@ class _$ProductFirebaseModelImpl extends _ProductFirebaseModel {
         warehouseName,
         providerID,
         providerName,
-        defaultVariation,
+        defaultVariantID,
+        const DeepCollectionEquality().hash(defaultVariantInfo),
         const DeepCollectionEquality().hash(attributes),
         const DeepCollectionEquality().hash(variations),
+        createdAt,
         uploadDate,
         searchField,
         const DeepCollectionEquality().hash(reference)
@@ -914,9 +952,11 @@ abstract class _ProductFirebaseModel extends ProductFirebaseModel {
       final String? warehouseName,
       final String? providerID,
       final String? providerName,
-      final String? defaultVariation,
+      final String? defaultVariantID,
+      final dynamic defaultVariantInfo,
       final dynamic attributes,
       final dynamic variations,
+      final String? createdAt,
       final String? uploadDate,
       final String? searchField,
       final dynamic reference}) = _$ProductFirebaseModelImpl;
@@ -993,11 +1033,15 @@ abstract class _ProductFirebaseModel extends ProductFirebaseModel {
   @override
   String? get providerName;
   @override
-  String? get defaultVariation;
+  String? get defaultVariantID;
+  @override
+  dynamic get defaultVariantInfo;
   @override
   dynamic get attributes;
   @override
   dynamic get variations;
+  @override
+  String? get createdAt;
   @override
   String? get uploadDate;
   @override

@@ -18,13 +18,20 @@ abstract class ProductFirebaseLiteModel implements _$ProductFirebaseLiteModel {
     int? externalId,
     int? stock,
     String? type,
-    String? description,
     double? price,
     bool? active,
     int? points,
+    dynamic attributes,
+    dynamic variations,
+    dynamic categories,
+    String? categoriesIds,
+    String? categoriesNames,
+    String? defaultVariantID,
+    dynamic defaultVariantInfo,
+    dynamic category,
     double? suggestedPrice,
     String? thumbnail,
-    // String? createdAt,
+    String? createdAt,
   }) = _ProductFirebaseLiteModel;
 
   factory ProductFirebaseLiteModel.fromJson(Map<String, dynamic> json) =>
