@@ -40,17 +40,15 @@ class PickProductVariantBottomsheet extends StatelessWidget {
                     children: [
                       TitleWithCloseButton(title: 'Elige una variante'),
                       VariantsBottomsheet(controller: controller),
-                      // Padding(
-                      //   padding: const EdgeInsets.all(16),
-                      //   child: LoadingButton(
-                      //     isLoading: controller.isPickVariantButtonLoading,
-                      //     style: ButtonStyles.primary,
-                      //     onPressed: controller.isVariantsButtonEnabled
-                      //         ? controller.onPickVariantButtonPressed
-                      //         : null,
-                      //     label: controller.isVariantsButtonText,
-                      //   ),
-                      // ),
+                      Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: LoadingButton(
+                          isLoading: controller.isPickVariantButtonLoading,
+                          style: ButtonStyles.primary,
+                          onPressed: controller.onProductVariantSave,
+                          label: 'Guardar',
+                        ),
+                      ),
                     ],
                   ),
                 ),

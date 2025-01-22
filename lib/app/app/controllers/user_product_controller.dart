@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -667,15 +669,10 @@ class UserProductController extends GetxController {
     productVariantSelected = null;
     isProductVariantsLoading.value = true;
 
-    selectedVariantsMap.clear();
-    selectedVariantsAttributesMap.clear();
-
     openPickProductVariant();
 
     variantInfoModel = await productRepository
         .getVariantsInfo(userProductCartModel.video?.product?.id ?? '');
-
-    isProductVariantsLoading.value = false;
 
     _listVariantCombinations =
         await productRepository.getAllProductVariantsFuture(
@@ -684,8 +681,49 @@ class UserProductController extends GetxController {
     _listAttributes =
         await productRepository.getAllProductVariantAttributesFuture(
             productId: userProductCartModel.video?.product?.id ?? '');
+    buildVariantsMap(userProductCartModel);
+    isProductVariantsLoading.value = false;
 
     update(['pick_product_variant_bottom_sheet']);
+  }
+
+  void buildVariantsMap(UserProductCartModel userProductCartModel) {
+    selectedVariantsMap.clear();
+    selectedVariantsAttributesMap.clear();
+    if (userProductCartModel.variantInfo != null) {
+      String? _variantId = userProductCartModel.variantInfo['id'];
+
+      if (_listVariantCombinations != null) {
+        if (_variantId != null) {
+          ProductVariantModel? _variantCombination =
+              _listVariantCombinations!.firstWhereOrNull(
+            (variant) => variant.id == _variantId,
+          );
+
+          if (_variantCombination != null) {
+            for (dynamic value in _variantCombination.values) {
+              String id = value['id'];
+              String attributeName = value['attribute_name'];
+
+              VariantVariantModel variant =
+                  getVariationsByAttributeName(attributeName);
+
+              selectedVariantsMap[attributeName] = id;
+              selectedVariantsAttributesMap[attributeName] = variant.toJson();
+            }
+          }
+        }
+      }
+    }
+  }
+
+  //  selectedVariantsMap[variant.attributeName] = variant.name;
+  // selectedVariantsAttributesMap[variant.attributeName] = variant.toJson();
+  // checkVariations();
+
+  void onProductVariantSave() {
+    print('test: selectedVariantsMap $selectedVariantsMap');
+    print('test: selectedVariantsAttributesMap $selectedVariantsAttributesMap');
   }
 
   Future<void> pickVariants(VideoPostModel videoPostModel) async {
@@ -737,6 +775,12 @@ class UserProductController extends GetxController {
     return variantInfoModel!.variants!.firstWhereOrNull(
       (variant) => variant.name == name,
     );
+  }
+
+  VariantVariantModel getVariationsByAttributeName(String attributeName) {
+    return variantInfoModel!.variants!
+        .where((variant) => variant.attributeName == attributeName)
+        .toList()[0];
   }
 
   List<VariantVariantModel> getVariations(VariantAttributeModel attribute) {
