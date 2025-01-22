@@ -159,26 +159,26 @@ class ProductDetailsController extends GetxController {
   }
 
   Future<void> addToCart() async {
-    Either<String, Unit> response = await _userProductsRepository.addToCart(
-      video: videoPostModel,
-      productVariant: productVariant,
-      attributes: selectedVariantsAttributesMap,
-      quantity: quantity,
-      price: _price,
-      suggestedPrice: _suggestedPrice,
-      points: _points,
-      stock: _stock,
-    );
+    // Either<String, Unit> response = await _userProductsRepository.addToCart(
+    //   video: videoPostModel,
+    //   productVariant: productVariant,
+    //   attributes: selectedVariantsAttributesMap,
+    //   quantity: quantity,
+    //   price: _price,
+    //   suggestedPrice: _suggestedPrice,
+    //   points: _points,
+    //   stock: _stock,
+    // );
 
-    response.fold(
-      (failure) {
-        Snackbars.error(failure);
-      },
-      (_) {
-        update(['product_cart_icon']);
-        Snackbars.success('${productLite.name ?? ''} agregado a tu carrito');
-      },
-    );
+    // response.fold(
+    //   (failure) {
+    //     Snackbars.error(failure);
+    //   },
+    //   (_) {
+    //     update(['product_cart_icon']);
+    //     Snackbars.success('${productLite.name ?? ''} agregado a tu carrito');
+    //   },
+    // );
   }
 
   Future<void> removeFromCart() async {

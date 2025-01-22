@@ -384,7 +384,8 @@ class UserProductsRepository {
     required double price,
     required double suggestedPrice,
     required int points,
-    ProductVariantModel? productVariant,
+    required String variantID,
+    dynamic variantInfo,
     Map<String, dynamic>? attributes,
   }) async {
     Map<String, String> userData = getUidAndEmail();
@@ -401,9 +402,8 @@ class UserProductsRepository {
           .set({
         'id': id,
         'video': video.toDocument(),
-        'productVariant':
-            productVariant != null ? productVariant.toJson() : null,
-        'attributes': attributes != null ? attributes : null,
+        'variantID': variantID,
+        'variantInfo': variantInfo,
         'quantity': quantity,
         'stock': stock,
         'price': price,

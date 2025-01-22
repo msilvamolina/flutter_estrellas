@@ -28,13 +28,24 @@ class VideoLabel extends StatelessWidget {
         providerName = product?.provider['name'];
       }
     }
-
     double price = product?.price ?? 0;
     double suggestedPrice = product?.suggestedPrice ?? 0;
+    int points = product?.points ?? 0;
+
+    if (product?.defaultVariantInfo != null) {
+      if (product?.defaultVariantInfo['sale_price'] != null) {
+        price = product?.defaultVariantInfo['sale_price'];
+      }
+      if (product?.defaultVariantInfo['suggested_price'] != null) {
+        suggestedPrice = product?.defaultVariantInfo['suggested_price'];
+      }
+      if (product?.defaultVariantInfo['points'] != null) {
+        points = product?.defaultVariantInfo['points'];
+      }
+    }
 
     double profit = suggestedPrice - price;
 
-    int points = product?.points ?? 0;
     String profitStr =
         CurrencyHelpers.moneyFormat(amount: profit, withDecimals: false);
     String priceStr =
@@ -42,6 +53,7 @@ class VideoLabel extends StatelessWidget {
 
     double screenWidth = MediaQuery.of(context).size.width;
     bool isMobile = screenWidth < 480;
+
     return GestureDetector(
       onTap: () =>
           Get.toNamed(Routes.PRODUCT_DETAILS, arguments: videoPostModel),

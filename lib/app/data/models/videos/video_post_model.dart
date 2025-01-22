@@ -17,11 +17,8 @@ abstract class VideoPostModel implements _$VideoPostModel {
   const factory VideoPostModel({
     required String name,
     required String id,
-    required String createdAt,
     required String thumbnail,
     required String videoUrl,
-    required String createdByEmail,
-    required String createdById,
     String? productId,
     ProductFirebaseLiteModel? product,
     String? searchField,

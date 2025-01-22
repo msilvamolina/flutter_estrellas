@@ -651,10 +651,12 @@ class UserProductController extends GetxController {
   }
 
   Future<void> addToCart(VideoPostModel videoPostModel) async {
-    isVariantsButtonText = 'Agregar al carrito';
-    isVariantsButtonAddToCart = true;
-    isVariantsButtonAddToCartUpdate = false;
-    pickVariants(videoPostModel);
+    saveaddToCart(videoPostModel);
+    // print('addtocart');
+    // isVariantsButtonText = 'Agregar al carrito';
+    // isVariantsButtonAddToCart = true;
+    // isVariantsButtonAddToCartUpdate = false;
+    // pickVariants(videoPostModel);
   }
 
   Future<void> pickVariants(VideoPostModel videoPostModel) async {
@@ -695,7 +697,7 @@ class UserProductController extends GetxController {
       if (isVariantsButtonAddToCart) {
         isPickVariantButtonLoading = true;
         update(['pick_product_variant_bottom_sheet']);
-        saveAddToCartVariant(productSelected!, productVariantSelected!);
+        // saveAddToCartVariant(productSelected!, productVariantSelected!);
       } else {
         saveBuyActionVariant(productSelected!, productVariantSelected!);
       }
@@ -746,41 +748,63 @@ class UserProductController extends GetxController {
     );
   }
 
-  Future<void> saveAddToCartVariant(
-      VideoPostModel videoPostModel, ProductVariantModel variant) async {
-    Either<String, Unit> response = await userProductRepository.addToCart(
-      video: videoPostModel,
-      productVariant: variant,
-      attributes: selectedVariantsAttributesMap,
-      quantity: 1,
-      price: variant.sale_price ?? 0,
-      suggestedPrice: variant.suggested_price ?? 0,
-      points: variant.points ?? 0,
-      stock: variant.stock ?? 0,
-    );
+  // Future<void> saveAddToCartVariant(
+  //     VideoPostModel videoPostModel, ProductVariantModel variant) async {
+  //   Either<String, Unit> response = await userProductRepository.addToCart(
+  //     video: videoPostModel,
+  //     productVariant: variant,
+  //     attributes: selectedVariantsAttributesMap,
+  //     quantity: 1,
+  //     price: variant.sale_price ?? 0,
+  //     suggestedPrice: variant.suggested_price ?? 0,
+  //     points: variant.points ?? 0,
+  //     stock: variant.stock ?? 0,
+  //   );
 
-    response.fold(
-      (failure) {
-        Snackbars.error(failure);
-      },
-      (_) {
-        Get.back();
-        update(['product_cart_icon']);
-        Snackbars.success(
-            '${videoPostModel.product?.name ?? ''} agregado a tu carrito');
-      },
-    );
-  }
+  //   response.fold(
+  //     (failure) {
+  //       Snackbars.error(failure);
+  //     },
+  //     (_) {
+  //       Get.back();
+  //       update(['product_cart_icon']);
+  //       Snackbars.success(
+  //           '${videoPostModel.product?.name ?? ''} agregado a tu carrito');
+  //     },
+  //   );
+  // }
 
   Future<void> saveaddToCart(VideoPostModel videoPostModel) async {
+    String? defaultVariantID = videoPostModel.product?.defaultVariantID;
+    dynamic defaultVariantInfo = videoPostModel.product?.defaultVariantInfo;
+
+    double price = videoPostModel.product?.price ?? 0;
+    double suggestedPrice = videoPostModel.product?.suggestedPrice ?? 0;
+    int points = videoPostModel.product?.points ?? 0;
+    int stock = videoPostModel.product?.stock ?? 0;
+
+    if (videoPostModel.product?.defaultVariantInfo != null) {
+      if (videoPostModel.product?.defaultVariantInfo['sale_price'] != null) {
+        price = videoPostModel.product?.defaultVariantInfo['sale_price'];
+      }
+      if (videoPostModel.product?.defaultVariantInfo['suggested_price'] !=
+          null) {
+        suggestedPrice =
+            videoPostModel.product?.defaultVariantInfo['suggested_price'];
+      }
+      if (videoPostModel.product?.defaultVariantInfo['points'] != null) {
+        points = videoPostModel.product?.defaultVariantInfo['points'];
+      }
+    }
     Either<String, Unit> response = await userProductRepository.addToCart(
       video: videoPostModel,
-      productVariant: null,
+      variantID: defaultVariantID ?? '',
+      variantInfo: defaultVariantInfo,
       quantity: 1,
-      price: videoPostModel.product?.price ?? 0,
-      suggestedPrice: videoPostModel.product?.suggestedPrice ?? 0,
-      points: videoPostModel.product?.points ?? 0,
-      stock: videoPostModel.product?.stock ?? 0,
+      price: price,
+      suggestedPrice: suggestedPrice,
+      points: points,
+      stock: stock,
     );
 
     response.fold(
