@@ -657,11 +657,6 @@ class UserProductController extends GetxController {
 
   Future<void> addToCart(VideoPostModel videoPostModel) async {
     saveaddToCart(videoPostModel);
-    // print('addtocart');
-    // isVariantsButtonText = 'Agregar al carrito';
-    // isVariantsButtonAddToCart = true;
-    // isVariantsButtonAddToCartUpdate = false;
-    // pickVariants(videoPostModel);
   }
 
   Future<void> pickVariantsProduct(
@@ -691,17 +686,17 @@ class UserProductController extends GetxController {
     selectedVariantsMap.clear();
     selectedVariantsAttributesMap.clear();
     if (userProductCartModel.variantInfo != null) {
-      String? _variantId = userProductCartModel.variantInfo['id'];
+      String? variantId = userProductCartModel.variantInfo['id'];
 
       if (_listVariantCombinations != null) {
-        if (_variantId != null) {
-          ProductVariantModel? _variantCombination =
+        if (variantId != null) {
+          ProductVariantModel? variantCombination =
               _listVariantCombinations!.firstWhereOrNull(
-            (variant) => variant.id == _variantId,
+            (variant) => variant.id == variantId,
           );
 
-          if (_variantCombination != null) {
-            for (dynamic value in _variantCombination.values) {
+          if (variantCombination != null) {
+            for (dynamic value in variantCombination.values) {
               String id = value['id'];
               String attributeName = value['attribute_name'];
 
@@ -716,10 +711,6 @@ class UserProductController extends GetxController {
       }
     }
   }
-
-  //  selectedVariantsMap[variant.attributeName] = variant.name;
-  // selectedVariantsAttributesMap[variant.attributeName] = variant.toJson();
-  // checkVariations();
 
   void onProductVariantSave() {
     print('test: selectedVariantsMap $selectedVariantsMap');
