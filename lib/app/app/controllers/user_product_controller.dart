@@ -677,6 +677,7 @@ class UserProductController extends GetxController {
         await productRepository.getAllProductVariantAttributesFuture(
             productId: userProductCartModel.video?.product?.id ?? '');
     buildVariantsMap(userProductCartModel);
+    checkVariations();
     isProductVariantsLoading.value = false;
 
     update(['pick_product_variant_bottom_sheet']);
@@ -713,8 +714,7 @@ class UserProductController extends GetxController {
   }
 
   void onProductVariantSave() {
-    print('test: selectedVariantsMap $selectedVariantsMap');
-    print('test: selectedVariantsAttributesMap $selectedVariantsAttributesMap');
+    log('test productVariantSelected $productVariantSelected');
   }
 
   Future<void> pickVariants(VideoPostModel videoPostModel) async {

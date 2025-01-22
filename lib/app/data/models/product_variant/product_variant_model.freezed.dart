@@ -21,6 +21,7 @@ ProductVariantModel _$ProductVariantModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$ProductVariantModel {
   String get id => throw _privateConstructorUsedError;
+  int? get externalID => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
   String? get label => throw _privateConstructorUsedError;
   String? get type => throw _privateConstructorUsedError;
@@ -52,6 +53,7 @@ abstract class $ProductVariantModelCopyWith<$Res> {
   @useResult
   $Res call(
       {String id,
+      int? externalID,
       String? name,
       String? label,
       String? type,
@@ -82,6 +84,7 @@ class _$ProductVariantModelCopyWithImpl<$Res, $Val extends ProductVariantModel>
   @override
   $Res call({
     Object? id = null,
+    Object? externalID = freezed,
     Object? name = freezed,
     Object? label = freezed,
     Object? type = freezed,
@@ -100,6 +103,10 @@ class _$ProductVariantModelCopyWithImpl<$Res, $Val extends ProductVariantModel>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
+      externalID: freezed == externalID
+          ? _value.externalID
+          : externalID // ignore: cast_nullable_to_non_nullable
+              as int?,
       name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -162,6 +169,7 @@ abstract class _$$ProductVariantModelImplCopyWith<$Res>
   @useResult
   $Res call(
       {String id,
+      int? externalID,
       String? name,
       String? label,
       String? type,
@@ -190,6 +198,7 @@ class __$$ProductVariantModelImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
+    Object? externalID = freezed,
     Object? name = freezed,
     Object? label = freezed,
     Object? type = freezed,
@@ -208,6 +217,10 @@ class __$$ProductVariantModelImplCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
+      externalID: freezed == externalID
+          ? _value.externalID
+          : externalID // ignore: cast_nullable_to_non_nullable
+              as int?,
       name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -265,6 +278,7 @@ class __$$ProductVariantModelImplCopyWithImpl<$Res>
 class _$ProductVariantModelImpl extends _ProductVariantModel {
   const _$ProductVariantModelImpl(
       {required this.id,
+      this.externalID,
       this.name,
       this.label,
       this.type,
@@ -284,6 +298,8 @@ class _$ProductVariantModelImpl extends _ProductVariantModel {
 
   @override
   final String id;
+  @override
+  final int? externalID;
   @override
   final String? name;
   @override
@@ -311,7 +327,7 @@ class _$ProductVariantModelImpl extends _ProductVariantModel {
 
   @override
   String toString() {
-    return 'ProductVariantModel(id: $id, name: $name, label: $label, type: $type, imageUrl: $imageUrl, color: $color, searchField: $searchField, points: $points, sale_price: $sale_price, sku: $sku, stock: $stock, suggested_price: $suggested_price, values: $values)';
+    return 'ProductVariantModel(id: $id, externalID: $externalID, name: $name, label: $label, type: $type, imageUrl: $imageUrl, color: $color, searchField: $searchField, points: $points, sale_price: $sale_price, sku: $sku, stock: $stock, suggested_price: $suggested_price, values: $values)';
   }
 
   @override
@@ -320,6 +336,8 @@ class _$ProductVariantModelImpl extends _ProductVariantModel {
         (other.runtimeType == runtimeType &&
             other is _$ProductVariantModelImpl &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.externalID, externalID) ||
+                other.externalID == externalID) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.label, label) || other.label == label) &&
             (identical(other.type, type) || other.type == type) &&
@@ -343,6 +361,7 @@ class _$ProductVariantModelImpl extends _ProductVariantModel {
   int get hashCode => Object.hash(
       runtimeType,
       id,
+      externalID,
       name,
       label,
       type,
@@ -376,6 +395,7 @@ class _$ProductVariantModelImpl extends _ProductVariantModel {
 abstract class _ProductVariantModel extends ProductVariantModel {
   const factory _ProductVariantModel(
       {required final String id,
+      final int? externalID,
       final String? name,
       final String? label,
       final String? type,
@@ -395,6 +415,8 @@ abstract class _ProductVariantModel extends ProductVariantModel {
 
   @override
   String get id;
+  @override
+  int? get externalID;
   @override
   String? get name;
   @override
