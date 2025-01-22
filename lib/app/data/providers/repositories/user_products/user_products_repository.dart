@@ -438,6 +438,39 @@ class UserProductsRepository {
     }
   }
 
+  Future<Either<String, Unit>> updateVariantFromCart({
+    required String cartId,
+    required String variantID,
+    required dynamic variantInfo,
+    required int points,
+    required int stock,
+    required int quantity,
+    required double price,
+    required double suggestedPrice,
+  }) async {
+    Map<String, String> userData = getUidAndEmail();
+    String uid = userData['uid'] ?? '';
+    try {
+      await _firebaseFirestore
+          .collection('users')
+          .doc(uid)
+          .collection('video_cart')
+          .doc(cartId)
+          .update({
+        'variantID': variantID,
+        'variantInfo': variantInfo,
+        'points': points,
+        'stock': stock,
+        'price': price,
+        'suggestedPrice': suggestedPrice,
+        'quantity': quantity,
+      });
+      return right(unit);
+    } on FirebaseException catch (e) {
+      return left(e.code);
+    }
+  }
+
   Future<Either<String, Unit>> clearCart() async {
     Map<String, String> userData = getUidAndEmail();
     String uid = userData['uid'] ?? '';

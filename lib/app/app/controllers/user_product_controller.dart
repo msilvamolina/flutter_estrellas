@@ -109,6 +109,7 @@ class UserProductController extends GetxController {
   String get shareLinkTitle => _shareLinkTitle;
 
   ProductVariantModel? productVariantSelected;
+  UserProductCartModel? userProductCartSelected;
   List<ProductVariantModel>? _listVariantCombinations;
   List<ProductVariantModel>? get listVariantCombinations =>
       _listVariantCombinations;
@@ -662,6 +663,7 @@ class UserProductController extends GetxController {
   Future<void> pickVariantsProduct(
       UserProductCartModel userProductCartModel) async {
     productVariantSelected = null;
+    userProductCartSelected = userProductCartModel;
     isProductVariantsLoading.value = true;
 
     openPickProductVariant();
@@ -713,8 +715,38 @@ class UserProductController extends GetxController {
     }
   }
 
-  void onProductVariantSave() {
-    log('test productVariantSelected $productVariantSelected');
+  Future<void> onProductVariantSave() async {
+    checkVariations();
+    if (productVariantSelected != null) {
+      String variantID = (productVariantSelected?.externalID ?? '').toString();
+      dynamic variantInfo = productVariantSelected!.toJson();
+      int points = productVariantSelected!.points;
+      int stock = productVariantSelected!.stock;
+      double price = productVariantSelected!.sale_price;
+      double suggestedPrice = productVariantSelected!.suggested_price;
+
+      int quantity = 1;
+      Either<String, Unit> response =
+          await userProductRepository.updateVariantFromCart(
+        cartId: userProductCartSelected!.id,
+        variantID: variantID,
+        variantInfo: variantInfo,
+        points: points,
+        stock: stock,
+        price: price,
+        suggestedPrice: suggestedPrice,
+        quantity: quantity,
+      );
+
+      response.fold(
+        (failure) {
+          Snackbars.error(failure);
+        },
+        (_) {
+          Get.back();
+        },
+      );
+    }
   }
 
   Future<void> pickVariants(VideoPostModel videoPostModel) async {
