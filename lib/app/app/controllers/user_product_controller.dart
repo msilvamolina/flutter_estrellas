@@ -78,6 +78,8 @@ class UserProductController extends GetxController {
 
   bool addCatalogFormIsSubmitted = false;
   bool isVariantsLoading = false;
+  RxBool isProductVariantsLoading = false.obs;
+
   bool isVariantsButtonEnabled = false;
   bool isPickVariantButtonLoading = false;
   bool isVariantsButtonAddToCart = false;
@@ -663,13 +665,27 @@ class UserProductController extends GetxController {
   Future<void> pickVariantsProduct(
       UserProductCartModel userProductCartModel) async {
     productVariantSelected = null;
-    // selectedVariantsMap.clear();
-    // selectedVariantsAttributesMap.clear();
+    isProductVariantsLoading.value = true;
+
+    selectedVariantsMap.clear();
+    selectedVariantsAttributesMap.clear();
+
+    openPickProductVariant();
+
     variantInfoModel = await productRepository
         .getVariantsInfo(userProductCartModel.video?.product?.id ?? '');
-    print('variantInfoModel $variantInfoModel');
+
+    isProductVariantsLoading.value = false;
+
+    _listVariantCombinations =
+        await productRepository.getAllProductVariantsFuture(
+            productId: userProductCartModel.video?.product?.id ?? '');
+
+    _listAttributes =
+        await productRepository.getAllProductVariantAttributesFuture(
+            productId: userProductCartModel.video?.product?.id ?? '');
+
     update(['pick_product_variant_bottom_sheet']);
-    openPickProductVariant();
   }
 
   Future<void> pickVariants(VideoPostModel videoPostModel) async {

@@ -50,9 +50,8 @@ class VariantsBottomsheet extends StatelessWidget {
                             ),
                             Text(
                               Utils.capitalize(controller.selectedVariantsMap[
-                                      controller.variantInfoModel!
-                                          .attributes![index].name] ??
-                                  ''),
+                                  controller.variantInfoModel!
+                                      .attributes![index].name]),
                               style: TypographyStyle.bodyRegularLarge.copyWith(
                                   color: neutral700,
                                   fontWeight: FontWeight.w600),
