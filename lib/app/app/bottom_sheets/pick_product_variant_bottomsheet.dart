@@ -19,41 +19,41 @@ class PickProductVariantBottomsheet extends StatelessWidget {
     return GetBuilder<UserProductController>(
       id: 'pick_product_variant_bottom_sheet',
       builder: (controller) {
-        if (controller.isVariantsLoading) {
-          return Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(40),
-                child: SizedBox(
-                  width: 24,
-                  child: Center(child: CircularProgressIndicator()),
-                ),
+        // if (controller.isVariantsLoading) {
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(40),
+              child: SizedBox(
+                width: 24,
+                child: Center(child: CircularProgressIndicator()),
               ),
-            ],
-          );
-        }
-        return SafeArea(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TitleWithCloseButton(title: ''),
-              VariantsBottomsheet(controller: controller),
-              Padding(
-                padding: const EdgeInsets.all(16),
-                child: LoadingButton(
-                  isLoading: controller.isPickVariantButtonLoading,
-                  style: ButtonStyles.primary,
-                  onPressed: controller.isVariantsButtonEnabled
-                      ? controller.onPickVariantButtonPressed
-                      : null,
-                  label: controller.isVariantsButtonText,
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         );
+
+        // return SafeArea(
+        //   child: Column(
+        //     mainAxisSize: MainAxisSize.min,
+        //     children: [
+        //       TitleWithCloseButton(title: 'Elige una variante'),
+        //       VariantsBottomsheet(controller: controller),
+        //       Padding(
+        //         padding: const EdgeInsets.all(16),
+        //         child: LoadingButton(
+        //           isLoading: controller.isPickVariantButtonLoading,
+        //           style: ButtonStyles.primary,
+        //           onPressed: controller.isVariantsButtonEnabled
+        //               ? controller.onPickVariantButtonPressed
+        //               : null,
+        //           label: controller.isVariantsButtonText,
+        //         ),
+        //       ),
+        //     ],
+        //   ),
+        // );
       },
     );
   }

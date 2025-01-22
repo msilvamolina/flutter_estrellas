@@ -19,6 +19,7 @@ import 'package:social_sharing_plus/social_sharing_plus.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../components/bottom_sheets/types.dart';
+import '../../data/models/product/product_firebase/product_firebase_model.dart';
 import '../../data/models/product_variant/product_variant_model.dart';
 import '../../data/models/product_variant_attributes/product_variant_attributes.dart';
 import '../../data/models/request_order/request_order_model.dart';
@@ -657,6 +658,18 @@ class UserProductController extends GetxController {
     // isVariantsButtonAddToCart = true;
     // isVariantsButtonAddToCartUpdate = false;
     // pickVariants(videoPostModel);
+  }
+
+  Future<void> pickVariantsProduct(
+      UserProductCartModel userProductCartModel) async {
+    productVariantSelected = null;
+    // selectedVariantsMap.clear();
+    // selectedVariantsAttributesMap.clear();
+    variantInfoModel = await productRepository
+        .getVariantsInfo(userProductCartModel.video?.product?.id ?? '');
+    print('variantInfoModel $variantInfoModel');
+    update(['pick_product_variant_bottom_sheet']);
+    openPickProductVariant();
   }
 
   Future<void> pickVariants(VideoPostModel videoPostModel) async {
