@@ -721,6 +721,7 @@ class UserProductController extends GetxController {
           }
 
           productVariantDefault = findMatchingCombination();
+          Get.find<CartController>().refreshCardProducts();
         }
       }
     }
@@ -910,6 +911,9 @@ class UserProductController extends GetxController {
       }
       if (videoPostModel.product?.defaultVariantInfo?.points != null) {
         points = videoPostModel.product?.defaultVariantInfo?.points ?? 0;
+      }
+      if (videoPostModel.product?.defaultVariantInfo?.stock != null) {
+        stock = videoPostModel.product?.defaultVariantInfo?.stock ?? 0;
       }
     }
 

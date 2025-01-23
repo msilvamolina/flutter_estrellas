@@ -140,11 +140,15 @@ class ProductDetailsController extends GetxController {
           Delta.fromJson(jsonDecode(product?.warrantyFormatted));
       warrantyController.document = Document.fromDelta(warrantyDelta);
     }
-    loadInfo();
-
-    update(['view']);
 
     resetPrice();
+    update(['view']);
+
+    ever<List<ProductVariantModel>>(_listVariantCombinations, (list) async {
+      await loadInfo();
+      buildVariantsMap();
+    });
+
     super.onInit();
   }
 
@@ -178,9 +182,11 @@ class ProductDetailsController extends GetxController {
 
           productVariantDefault = findMatchingCombination();
           productVariantSelected = productVariantDefault;
+          checkVariations();
         }
       }
     }
+    update(['view']);
   }
 
   VariantVariantModel getVariationsByAttributeName(String attributeName) {
