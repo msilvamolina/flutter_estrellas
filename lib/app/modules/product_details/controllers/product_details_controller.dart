@@ -295,7 +295,8 @@ class ProductDetailsController extends GetxController {
         _suggestedPrice = productVariantSelected!.suggested_price;
         _price = productVariantSelected!.sale_price;
         _points = productVariantSelected!.points;
-        _quantity = 1;
+
+        _quantity = _quantity > _stock ? _stock : _quantity;
         update([
           'product_points',
           'product_price',
