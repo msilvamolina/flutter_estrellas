@@ -28,6 +28,8 @@ class ProductContent extends StatelessWidget {
             ProductContentProduct(),
             SizedBox(height: 16),
             ProductPrice(),
+            SizedBox(height: 16),
+            ProductQuantity(),
             Obx(
               () => !controller.isLoading.value
                   ? ProductNewVariants(controller: controller)
@@ -35,8 +37,6 @@ class ProductContent extends StatelessWidget {
                       child: CircularProgressIndicator(),
                     ),
             ),
-            SizedBox(height: 16),
-            ProductQuantity(),
             SizedBox(height: 16),
           ],
         );

@@ -20,6 +20,7 @@ import '../../../data/models/product_image/product_image_model.dart';
 import '../../../data/models/product_variant/product_variant_model.dart';
 import '../../../data/models/product_variant_attributes/product_variant_attributes.dart';
 import '../../../data/models/product_variant_combination/product_variant_combination_model.dart';
+import '../../../data/models/product_variant_info/product_variant_info_model.dart';
 import '../../../data/models/user_product_cart/user_product_cart_model.dart';
 import '../../../data/models/variant_attributte/variant_attributte.dart';
 import '../../../data/models/variant_info/variant_info.dart';
@@ -176,6 +177,7 @@ class ProductDetailsController extends GetxController {
           }
 
           productVariantDefault = findMatchingCombination();
+          productVariantSelected = productVariantDefault;
         }
       }
     }
@@ -202,26 +204,29 @@ class ProductDetailsController extends GetxController {
   }
 
   Future<void> addToCart() async {
-    // Either<String, Unit> response = await _userProductsRepository.addToCart(
-    //   video: videoPostModel,
-    //   productVariant: productVariant,
-    //   attributes: selectedVariantsAttributesMap,
-    //   quantity: quantity,
-    //   price: _price,
-    //   suggestedPrice: _suggestedPrice,
-    //   points: _points,
-    //   stock: _stock,
-    // );
+    dynamic variantInfo = productVariantSelected!.toJson();
+    String variantID = (productVariantSelected?.externalID ?? '').toString();
 
-    // response.fold(
-    //   (failure) {
-    //     Snackbars.error(failure);
-    //   },
-    //   (_) {
-    //     update(['product_cart_icon']);
-    //     Snackbars.success('${productLite.name ?? ''} agregado a tu carrito');
-    //   },
-    // );
+    Either<String, Unit> response = await _userProductsRepository.addToCart(
+      video: videoPostModel,
+      variantID: variantID,
+      variantInfo: variantInfo,
+      quantity: quantity,
+      price: _price,
+      suggestedPrice: _suggestedPrice,
+      points: _points,
+      stock: _stock,
+    );
+
+    response.fold(
+      (failure) {
+        Snackbars.error(failure);
+      },
+      (_) {
+        update(['product_cart_icon']);
+        Snackbars.success('${productLite.name ?? ''} agregado a tu carrito');
+      },
+    );
   }
 
   Future<void> removeFromCart() async {
@@ -278,12 +283,12 @@ class ProductDetailsController extends GetxController {
 
   void checkVariations() {
     if (selectedVariantsMap.length == variantInfoModel!.attributes!.length) {
-      productVariant = findMatchingCombination();
-      if (productVariant != null) {
-        _stock = productVariant!.stock;
-        _suggestedPrice = productVariant!.suggested_price;
-        _price = productVariant!.sale_price;
-        _points = productVariant!.points;
+      productVariantSelected = findMatchingCombination();
+      if (productVariantSelected != null) {
+        _stock = productVariantSelected!.stock;
+        _suggestedPrice = productVariantSelected!.suggested_price;
+        _price = productVariantSelected!.sale_price;
+        _points = productVariantSelected!.points;
         _quantity = 1;
         update([
           'product_points',
