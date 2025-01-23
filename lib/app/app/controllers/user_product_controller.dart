@@ -731,8 +731,12 @@ class UserProductController extends GetxController {
       double price = productVariantSelected!.sale_price;
       double suggestedPrice = productVariantSelected!.suggested_price;
       int quantity = 1;
+      String cartId = userProductCartSelected!.id;
 
+      int currentQuantity = mapProductsQuantity[cartId] ?? 1;
+      quantity = currentQuantity > stock ? stock : currentQuantity;
       isProductVariantsButtonLoading.value = true;
+
       Either<String, Unit> response =
           await userProductRepository.updateVariantFromCart(
         cartId: userProductCartSelected!.id,
