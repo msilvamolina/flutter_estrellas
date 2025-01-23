@@ -37,7 +37,8 @@ mixin _$ProductFirebaseLiteModel {
   String? get categoriesIds => throw _privateConstructorUsedError;
   String? get categoriesNames => throw _privateConstructorUsedError;
   String? get defaultVariantID => throw _privateConstructorUsedError;
-  dynamic get defaultVariantInfo => throw _privateConstructorUsedError;
+  ProductVariantInfoModel? get defaultVariantInfo =>
+      throw _privateConstructorUsedError;
   dynamic get category => throw _privateConstructorUsedError;
   double? get suggestedPrice => throw _privateConstructorUsedError;
   String? get thumbnail => throw _privateConstructorUsedError;
@@ -75,11 +76,13 @@ abstract class $ProductFirebaseLiteModelCopyWith<$Res> {
       String? categoriesIds,
       String? categoriesNames,
       String? defaultVariantID,
-      dynamic defaultVariantInfo,
+      ProductVariantInfoModel? defaultVariantInfo,
       dynamic category,
       double? suggestedPrice,
       String? thumbnail,
       String? createdAt});
+
+  $ProductVariantInfoModelCopyWith<$Res>? get defaultVariantInfo;
 }
 
 /// @nodoc
@@ -183,7 +186,7 @@ class _$ProductFirebaseLiteModelCopyWithImpl<$Res,
       defaultVariantInfo: freezed == defaultVariantInfo
           ? _value.defaultVariantInfo
           : defaultVariantInfo // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as ProductVariantInfoModel?,
       category: freezed == category
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
@@ -201,6 +204,21 @@ class _$ProductFirebaseLiteModelCopyWithImpl<$Res,
           : createdAt // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
+  }
+
+  /// Create a copy of ProductFirebaseLiteModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $ProductVariantInfoModelCopyWith<$Res>? get defaultVariantInfo {
+    if (_value.defaultVariantInfo == null) {
+      return null;
+    }
+
+    return $ProductVariantInfoModelCopyWith<$Res>(_value.defaultVariantInfo!,
+        (value) {
+      return _then(_value.copyWith(defaultVariantInfo: value) as $Val);
+    });
   }
 }
 
@@ -229,11 +247,14 @@ abstract class _$$ProductFirebaseLiteModelImplCopyWith<$Res>
       String? categoriesIds,
       String? categoriesNames,
       String? defaultVariantID,
-      dynamic defaultVariantInfo,
+      ProductVariantInfoModel? defaultVariantInfo,
       dynamic category,
       double? suggestedPrice,
       String? thumbnail,
       String? createdAt});
+
+  @override
+  $ProductVariantInfoModelCopyWith<$Res>? get defaultVariantInfo;
 }
 
 /// @nodoc
@@ -336,7 +357,7 @@ class __$$ProductFirebaseLiteModelImplCopyWithImpl<$Res>
       defaultVariantInfo: freezed == defaultVariantInfo
           ? _value.defaultVariantInfo
           : defaultVariantInfo // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as ProductVariantInfoModel?,
       category: freezed == category
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
@@ -418,7 +439,7 @@ class _$ProductFirebaseLiteModelImpl extends _ProductFirebaseLiteModel {
   @override
   final String? defaultVariantID;
   @override
-  final dynamic defaultVariantInfo;
+  final ProductVariantInfoModel? defaultVariantInfo;
   @override
   final dynamic category;
   @override
@@ -460,8 +481,8 @@ class _$ProductFirebaseLiteModelImpl extends _ProductFirebaseLiteModel {
                 other.categoriesNames == categoriesNames) &&
             (identical(other.defaultVariantID, defaultVariantID) ||
                 other.defaultVariantID == defaultVariantID) &&
-            const DeepCollectionEquality()
-                .equals(other.defaultVariantInfo, defaultVariantInfo) &&
+            (identical(other.defaultVariantInfo, defaultVariantInfo) ||
+                other.defaultVariantInfo == defaultVariantInfo) &&
             const DeepCollectionEquality().equals(other.category, category) &&
             (identical(other.suggestedPrice, suggestedPrice) ||
                 other.suggestedPrice == suggestedPrice) &&
@@ -490,7 +511,7 @@ class _$ProductFirebaseLiteModelImpl extends _ProductFirebaseLiteModel {
         categoriesIds,
         categoriesNames,
         defaultVariantID,
-        const DeepCollectionEquality().hash(defaultVariantInfo),
+        defaultVariantInfo,
         const DeepCollectionEquality().hash(category),
         suggestedPrice,
         thumbnail,
@@ -531,7 +552,7 @@ abstract class _ProductFirebaseLiteModel extends ProductFirebaseLiteModel {
       final String? categoriesIds,
       final String? categoriesNames,
       final String? defaultVariantID,
-      final dynamic defaultVariantInfo,
+      final ProductVariantInfoModel? defaultVariantInfo,
       final dynamic category,
       final double? suggestedPrice,
       final String? thumbnail,
@@ -573,7 +594,7 @@ abstract class _ProductFirebaseLiteModel extends ProductFirebaseLiteModel {
   @override
   String? get defaultVariantID;
   @override
-  dynamic get defaultVariantInfo;
+  ProductVariantInfoModel? get defaultVariantInfo;
   @override
   dynamic get category;
   @override

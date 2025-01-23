@@ -24,7 +24,10 @@ _$ProductFirebaseLiteModelImpl _$$ProductFirebaseLiteModelImplFromJson(
       categoriesIds: json['categoriesIds'] as String?,
       categoriesNames: json['categoriesNames'] as String?,
       defaultVariantID: json['defaultVariantID'] as String?,
-      defaultVariantInfo: json['defaultVariantInfo'],
+      defaultVariantInfo: json['defaultVariantInfo'] == null
+          ? null
+          : ProductVariantInfoModel.fromJson(
+              json['defaultVariantInfo'] as Map<String, dynamic>),
       category: json['category'],
       suggestedPrice: (json['suggestedPrice'] as num?)?.toDouble(),
       thumbnail: json['thumbnail'] as String?,

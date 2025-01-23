@@ -81,6 +81,8 @@ class UserProductController extends GetxController {
   bool addCatalogFormIsSubmitted = false;
   bool isVariantsLoading = false;
   RxBool isProductVariantsLoading = false.obs;
+  RxBool isProductVariantsButtonLoading = false.obs;
+  RxBool isProductVariantsButtonEnabled = false.obs;
 
   bool isVariantsButtonEnabled = false;
   bool isPickVariantButtonLoading = false;
@@ -109,6 +111,7 @@ class UserProductController extends GetxController {
   String get shareLinkTitle => _shareLinkTitle;
 
   ProductVariantModel? productVariantSelected;
+  ProductVariantModel? productVariantDefault;
   UserProductCartModel? userProductCartSelected;
   List<ProductVariantModel>? _listVariantCombinations;
   List<ProductVariantModel>? get listVariantCombinations =>
@@ -662,7 +665,9 @@ class UserProductController extends GetxController {
 
   Future<void> pickVariantsProduct(
       UserProductCartModel userProductCartModel) async {
+    isProductVariantsButtonLoading.value = false;
     productVariantSelected = null;
+    productVariantDefault = null;
     userProductCartSelected = userProductCartModel;
     isProductVariantsLoading.value = true;
 
@@ -710,6 +715,7 @@ class UserProductController extends GetxController {
               selectedVariantsAttributesMap[attributeName] = variant.toJson();
             }
           }
+          productVariantDefault = findMatchingCombination();
         }
       }
     }
@@ -724,8 +730,9 @@ class UserProductController extends GetxController {
       int stock = productVariantSelected!.stock;
       double price = productVariantSelected!.sale_price;
       double suggestedPrice = productVariantSelected!.suggested_price;
-
       int quantity = 1;
+
+      isProductVariantsButtonLoading.value = true;
       Either<String, Unit> response =
           await userProductRepository.updateVariantFromCart(
         cartId: userProductCartSelected!.id,
@@ -740,6 +747,7 @@ class UserProductController extends GetxController {
 
       response.fold(
         (failure) {
+          isProductVariantsButtonLoading.value = false;
           Snackbars.error(failure);
         },
         (_) {
@@ -821,10 +829,8 @@ class UserProductController extends GetxController {
   void checkVariations() {
     if (selectedVariantsMap.length == variantInfoModel!.attributes!.length) {
       productVariantSelected = findMatchingCombination();
-      if (productVariantSelected != null) {
-        isVariantsButtonEnabled = true;
-        update(['pick_product_variant_bottom_sheet']);
-      }
+      isProductVariantsButtonEnabled.value =
+          productVariantDefault != productVariantSelected;
     }
   }
 
@@ -880,18 +886,18 @@ class UserProductController extends GetxController {
     int stock = videoPostModel.product?.stock ?? 0;
 
     if (videoPostModel.product?.defaultVariantInfo != null) {
-      if (videoPostModel.product?.defaultVariantInfo['sale_price'] != null) {
-        price = videoPostModel.product?.defaultVariantInfo['sale_price'];
+      if (videoPostModel.product?.defaultVariantInfo?.sale_price != null) {
+        price = videoPostModel.product?.defaultVariantInfo?.sale_price ?? 0;
       }
-      if (videoPostModel.product?.defaultVariantInfo['suggested_price'] !=
-          null) {
+      if (videoPostModel.product?.defaultVariantInfo?.suggested_price != null) {
         suggestedPrice =
-            videoPostModel.product?.defaultVariantInfo['suggested_price'];
+            videoPostModel.product?.defaultVariantInfo?.suggested_price ?? 0;
       }
-      if (videoPostModel.product?.defaultVariantInfo['points'] != null) {
-        points = videoPostModel.product?.defaultVariantInfo['points'];
+      if (videoPostModel.product?.defaultVariantInfo?.points != null) {
+        points = videoPostModel.product?.defaultVariantInfo?.points ?? 0;
       }
     }
+
     Either<String, Unit> response = await userProductRepository.addToCart(
       video: videoPostModel,
       variantID: defaultVariantID ?? '',

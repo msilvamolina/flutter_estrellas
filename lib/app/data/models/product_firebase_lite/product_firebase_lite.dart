@@ -3,6 +3,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../helpers/model_helpers.dart';
 import '../product/product_firebase/product_firebase_model.dart';
+import '../product_variant/product_variant_model.dart';
+import '../product_variant_info/product_variant_info_model.dart';
 
 part 'product_firebase_lite.freezed.dart';
 part 'product_firebase_lite.g.dart';
@@ -27,7 +29,7 @@ abstract class ProductFirebaseLiteModel implements _$ProductFirebaseLiteModel {
     String? categoriesIds,
     String? categoriesNames,
     String? defaultVariantID,
-    dynamic defaultVariantInfo,
+    ProductVariantInfoModel? defaultVariantInfo,
     dynamic category,
     double? suggestedPrice,
     String? thumbnail,

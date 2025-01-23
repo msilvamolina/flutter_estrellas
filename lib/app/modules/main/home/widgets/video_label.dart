@@ -1,10 +1,7 @@
-import 'dart:io';
 import 'dart:ui';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_estrellas/app/data/models/product_firebase_lite/product_firebase_lite.dart';
-import 'package:flutter_estrellas/app/data/models/product_lite/product_lite.dart';
 import 'package:flutter_estrellas/app/libraries/icons/icons_font.dart';
 import 'package:flutter_estrellas/app/themes/styles/colors.dart';
 import 'package:flutter_svg/svg.dart';
@@ -33,14 +30,14 @@ class VideoLabel extends StatelessWidget {
     int points = product?.points ?? 0;
 
     if (product?.defaultVariantInfo != null) {
-      if (product?.defaultVariantInfo['sale_price'] != null) {
-        price = product?.defaultVariantInfo['sale_price'];
+      if (product?.defaultVariantInfo?.sale_price != null) {
+        price = product?.defaultVariantInfo?.sale_price ?? 0;
       }
-      if (product?.defaultVariantInfo['suggested_price'] != null) {
-        suggestedPrice = product?.defaultVariantInfo['suggested_price'];
+      if (product?.defaultVariantInfo?.suggested_price != null) {
+        suggestedPrice = product?.defaultVariantInfo?.suggested_price ?? 0;
       }
-      if (product?.defaultVariantInfo['points'] != null) {
-        points = product?.defaultVariantInfo['points'];
+      if (product?.defaultVariantInfo?.points != null) {
+        points = product?.defaultVariantInfo?.points ?? 0;
       }
     }
 

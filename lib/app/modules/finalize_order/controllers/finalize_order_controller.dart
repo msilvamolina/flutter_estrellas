@@ -109,7 +109,7 @@ class FinalizeOrderController extends GetxController {
           {
             "product_id": element.video!.product!.id,
             "client_quantity": element.quantity ?? 1,
-            "variation_id": ""
+            "variation_id": element.variantID,
           },
         );
       }
