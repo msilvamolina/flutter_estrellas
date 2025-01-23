@@ -738,11 +738,11 @@ class UserProductController extends GetxController {
       int quantity = 1;
       String cartId = userProductCartSelected!.id;
 
+      isProductVariantsButtonLoading.value = true;
+
       if (mapProductsQuantity[cartId] != null) {
         int currentQuantity = mapProductsQuantity[cartId] ?? 1;
         quantity = currentQuantity > stock ? stock : currentQuantity;
-        isProductVariantsButtonLoading.value = true;
-
         mapProductsQuantity[cartId] = quantity;
         Get.find<CartController>().refreshCardProducts();
       }
