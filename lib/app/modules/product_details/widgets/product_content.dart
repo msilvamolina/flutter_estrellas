@@ -35,11 +35,6 @@ class ProductContent extends StatelessWidget {
                       child: CircularProgressIndicator(),
                     ),
             ),
-            // Obx(
-            //   () => controller.listVariants.isNotEmpty
-            //       ? ProductVariants(listVariants: controller.listVariants)
-            //       : SizedBox.shrink(),
-            // ),
             SizedBox(height: 16),
             ProductQuantity(),
             SizedBox(height: 16),

@@ -106,13 +106,15 @@ class ProductDetailsController extends GetxController {
   RxMap<String, dynamic> selectedVariantsAttributesMap =
       <String, dynamic>{}.obs;
   ProductVariantModel? productVariant;
+
+  ProductVariantModel? productVariantSelected;
+  ProductVariantModel? productVariantDefault;
   @override
   Future<void> onInit() async {
     videoPostModel = Get.arguments as VideoPostModel;
     productLite = videoPostModel.product!;
     product = await _repository.getProduct(productId: productLite.id);
 
-    log(product.toString());
     _listImages
         .bindStream(_repository.getProductImages(productId: productLite.id));
     _listVariantCombinations.bindStream(
@@ -138,10 +140,51 @@ class ProductDetailsController extends GetxController {
       warrantyController.document = Document.fromDelta(warrantyDelta);
     }
     loadInfo();
+
     update(['view']);
 
     resetPrice();
     super.onInit();
+  }
+
+  void buildVariantsMap() {
+    selectedVariantsMap.clear();
+    selectedVariantsAttributesMap.clear();
+
+    if (videoPostModel.product?.defaultVariantInfo != null) {
+      String? variantId = videoPostModel.product?.defaultVariantInfo?.id;
+      variantId ??= videoPostModel.product?.defaultVariantInfo?.id0;
+
+      if (_listVariantCombinations != null) {
+        if (variantId != null) {
+          ProductVariantModel? variantCombination =
+              _listVariantCombinations.firstWhereOrNull(
+            (variant) => variant.id == variantId,
+          );
+
+          if (variantCombination != null) {
+            for (dynamic value in variantCombination.values) {
+              String id = value['id'];
+              String attributeName = value['attribute_name'];
+
+              VariantVariantModel variant =
+                  getVariationsByAttributeName(attributeName);
+
+              selectedVariantsMap[attributeName] = id;
+              selectedVariantsAttributesMap[attributeName] = variant.toJson();
+            }
+          }
+
+          productVariantDefault = findMatchingCombination();
+        }
+      }
+    }
+  }
+
+  VariantVariantModel getVariationsByAttributeName(String attributeName) {
+    return variantInfoModel!.variants!
+        .where((variant) => variant.attributeName == attributeName)
+        .toList()[0];
   }
 
   Future<void> loadInfo() async {
@@ -215,66 +258,6 @@ class ProductDetailsController extends GetxController {
     update(['product_quantity']);
   }
 
-  // ProductVariantCombinationModel? getBySizeAndColor(
-  //     String? sizeId, String? colorId) {
-  //   ProductVariantCombinationModel? option = _listCombination.firstWhereOrNull(
-  //       (element) => element.sizeId == sizeId && element.colorId == colorId);
-
-  //   return option;
-  // }
-
-  // void buildVariationPrice() {
-  //   _productVariantCombination = getBySizeAndColor(
-  //       _userProductVariantSize?.id, _userProductVariantColor?.id);
-
-  //   if (_productVariantCombination != null) {
-  //     _price = _productVariantCombination!.price ?? 0;
-  //     _suggestedPrice = _productVariantCombination!.suggestedPrice ?? 0;
-  //     _points = _productVariantCombination!.points ?? 0;
-  //     _stock = _productVariantCombination!.stock ?? 1;
-  //     _quantity = 1;
-  //     update(['product_price', 'content_product', 'product_quantity']);
-  //   } else {
-  //     resetPrice();
-  //   }
-  // }
-
-  // void setFirstProductVariationCombination() {
-  //   _productVariantCombination = getBySizeAndColor(
-  //       _userProductVariantSize?.id, _userProductVariantColor?.id);
-  // }
-
-  // void setFirstVariantColor(ProductVariantModel value) {
-  //   if (_userProductVariantColor == null) {
-  //     _userProductVariantColor = value;
-  //     setFirstProductVariationCombination();
-
-  //     update(['product_variant_color']);
-  //   }
-  // }
-
-  // void chooseColorVariant(ProductVariantModel value) {
-  //   _userProductVariantColor = value;
-  //   update(['product_variant_color']);
-  //   buildVariationPrice();
-  // }
-
-  // void setFirstVariantSize(ProductVariantModel value) {
-  //   if (_userProductVariantSize == null) {
-  //     _userProductVariantSize = value;
-  //     setFirstProductVariationCombination();
-
-  //     update(['product_variant_size']);
-  //   }
-  // }
-
-  // void chooseSizeVariant(ProductVariantModel value) {
-  //   _userProductVariantSize = value;
-  //   Get.back();
-  //   update(['product_variant_size']);
-  //   buildVariationPrice();
-  // }
-
   VariantVariantModel? getVariationWithName(String name) {
     return variantInfoModel!.variants!.firstWhereOrNull(
       (variant) => variant.name == name,
@@ -294,7 +277,6 @@ class ProductDetailsController extends GetxController {
   }
 
   void checkVariations() {
-    print(selectedVariantsAttributesMap);
     if (selectedVariantsMap.length == variantInfoModel!.attributes!.length) {
       productVariant = findMatchingCombination();
       if (productVariant != null) {
@@ -314,7 +296,6 @@ class ProductDetailsController extends GetxController {
   }
 
   ProductVariantModel? findMatchingCombination() {
-    print(listVariantCombinations);
     return listVariantCombinations.firstWhereOrNull(
       (combination) {
         return selectedVariantsMap.entries.every((entry) {
