@@ -19,6 +19,11 @@ class CartController extends GetxController {
     super.onReady();
   }
 
+  void refreshCardProducts() {
+    update(['card_product']);
+    calculateProducts();
+  }
+
   void addFunction(UserProductCartModel userProductCartModel) {
     int _quantity = getQuantity(userProductCartModel);
     userProductController.mapProductsQuantity[userProductCartModel.id] =

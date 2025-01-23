@@ -41,7 +41,15 @@ abstract class ProductFirebaseLiteModel implements _$ProductFirebaseLiteModel {
 
   factory ProductFirebaseLiteModel.fromDocument(DocumentSnapshot doc) =>
       ProductFirebaseLiteModel.fromJson(ModelHelpers.fromDocument(doc.data()!));
-  Map<String, dynamic> toDocument() => ModelHelpers.toDocument(toJson());
+
+  Map<String, dynamic> toDocument() {
+    dynamic json = toJson();
+    if (defaultVariantInfo != null) {
+      json['defaultVariantInfo'] = defaultVariantInfo!.toJson();
+    }
+
+    return json;
+  }
 
   static ProductFirebaseLiteModel? fromProduct(ProductFirebaseModel? product) {
     if (product == null) {

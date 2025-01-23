@@ -39,7 +39,7 @@ abstract class VideoPostModel implements _$VideoPostModel {
   }
   Map<String, dynamic> toDocument() {
     dynamic videoJson = toJson();
-    videoJson['product'] = product!.toJson();
+    videoJson['product'] = product!.toDocument();
     return videoJson;
   }
 

@@ -9,6 +9,7 @@ import 'package:flutter_estrellas/app/components/bottom_sheets/bottomsheets.dart
 import 'package:flutter_estrellas/app/components/snackbars/snackbars.dart';
 import 'package:flutter_estrellas/app/data/models/order/order_model.dart';
 import 'package:flutter_estrellas/app/data/models/product_firebase_lite/product_firebase_lite.dart';
+import 'package:flutter_estrellas/app/data/models/product_variant_info/product_variant_info_model.dart';
 import 'package:flutter_estrellas/app/data/models/user_catalog/user_catalog_model.dart';
 import 'package:flutter_estrellas/app/data/models/video_model.dart';
 import 'package:flutter_estrellas/app/data/providers/repositories/products/products_repository.dart';
@@ -31,6 +32,7 @@ import '../../data/models/variant_attributte/variant_attributte.dart';
 import '../../data/models/variant_info/variant_info.dart';
 import '../../data/models/variant_variant/variant_variant.dart';
 import '../../data/models/videos/video_post_model.dart';
+import '../../modules/cart/controllers/cart_controller.dart';
 import '../../routes/app_pages.dart';
 import '../../components/bottom_sheets/dragabble_bottom_sheet.dart';
 
@@ -733,9 +735,14 @@ class UserProductController extends GetxController {
       int quantity = 1;
       String cartId = userProductCartSelected!.id;
 
-      int currentQuantity = mapProductsQuantity[cartId] ?? 1;
-      quantity = currentQuantity > stock ? stock : currentQuantity;
-      isProductVariantsButtonLoading.value = true;
+      if (mapProductsQuantity[cartId] != null) {
+        int currentQuantity = mapProductsQuantity[cartId] ?? 1;
+        quantity = currentQuantity > stock ? stock : currentQuantity;
+        isProductVariantsButtonLoading.value = true;
+
+        mapProductsQuantity[cartId] = quantity;
+        Get.find<CartController>().refreshCardProducts();
+      }
 
       Either<String, Unit> response =
           await userProductRepository.updateVariantFromCart(
@@ -882,7 +889,8 @@ class UserProductController extends GetxController {
 
   Future<void> saveaddToCart(VideoPostModel videoPostModel) async {
     String? defaultVariantID = videoPostModel.product?.defaultVariantID;
-    dynamic defaultVariantInfo = videoPostModel.product?.defaultVariantInfo;
+    ProductVariantInfoModel? defaultVariantInfo =
+        videoPostModel.product?.defaultVariantInfo;
 
     double price = videoPostModel.product?.price ?? 0;
     double suggestedPrice = videoPostModel.product?.suggestedPrice ?? 0;
@@ -905,7 +913,7 @@ class UserProductController extends GetxController {
     Either<String, Unit> response = await userProductRepository.addToCart(
       video: videoPostModel,
       variantID: defaultVariantID ?? '',
-      variantInfo: defaultVariantInfo,
+      variantInfo: defaultVariantInfo?.toJson(),
       quantity: 1,
       price: price,
       suggestedPrice: suggestedPrice,
