@@ -94,8 +94,11 @@ class UserProductController extends GetxController {
 
   Rx<double> cartPrices = 0.0.obs;
   RxInt cartPoints = 0.obs;
+  RxInt cartStock = 1.obs;
   RxInt cartQuantity = 0.obs;
   Rx<double> cartProfit = 0.0.obs;
+  Rx<String> cartVariantId = ''.obs;
+  Rx<ProductVariantInfoModel>? cartVariantInfo;
 
   bool _shareIsLoading = true;
   bool get shareIsLoading => _shareIsLoading;
@@ -156,19 +159,46 @@ class UserProductController extends GetxController {
   }
 
   void goToBuyUniqueProductAction(VideoPostModel? videoPostModel) {
-    isVariantsButtonText = 'Comprar';
-    isVariantsButtonAddToCart = false;
-    isVariantsButtonAddToCartUpdate = false;
-    pickVariants(videoPostModel!);
+    // isVariantsButtonText = 'Comprar';
+    // isVariantsButtonAddToCart = false;
+    // isVariantsButtonAddToCartUpdate = false;
+    // pickVariants(videoPostModel!);
+    if (videoPostModel != null) {
+      saveBuyActionVariant(videoPostModel);
+    }
   }
 
-  void saveBuyActionVariant(
-      VideoPostModel videoPostModel, ProductVariantModel variant) {
+  void saveBuyActionVariant(VideoPostModel videoPostModel) {
     setUniqueProduct(videoPostModel);
-    cartPoints.value = variant.points ?? 0;
-    cartPrices.value = variant.sale_price ?? 0;
-    cartProfit.value = (variant.suggested_price ?? 0) - cartPrices.value;
+    cartPoints.value = videoPostModel.product?.points ?? 0;
+    cartPrices.value = videoPostModel.product?.price ?? 0;
+    cartProfit.value =
+        (videoPostModel.product?.suggestedPrice ?? 0) - cartPrices.value;
     cartQuantity.value = 1;
+
+    if (videoPostModel.product?.defaultVariantInfo != null) {
+      cartVariantId.value = videoPostModel.product?.defaultVariantID ?? '';
+
+      cartVariantInfo = Rx<ProductVariantInfoModel>(
+          videoPostModel.product!.defaultVariantInfo!);
+
+      if (videoPostModel.product?.defaultVariantInfo?.points != null) {
+        cartPoints.value = videoPostModel.product!.defaultVariantInfo!.points;
+      }
+      if (videoPostModel.product?.defaultVariantInfo?.stock != null) {
+        cartStock.value = videoPostModel.product!.defaultVariantInfo!.stock;
+      }
+      if (videoPostModel.product?.defaultVariantInfo?.sale_price != null) {
+        cartPrices.value =
+            videoPostModel.product!.defaultVariantInfo!.sale_price;
+      }
+      if (videoPostModel.product?.defaultVariantInfo?.sale_price != null) {
+        cartProfit.value =
+            (videoPostModel.product?.defaultVariantInfo?.suggested_price ?? 0) -
+                cartPrices.value;
+      }
+    }
+
     Get.toNamed(Routes.CART_UNIQUE_PRODUCT);
   }
 
@@ -398,6 +428,8 @@ class UserProductController extends GetxController {
         id: id,
         quantity: 1,
         video: videoPostModel,
+        variantID: videoPostModel.product?.defaultVariantID ?? '',
+        variantInfo: videoPostModel.product?.defaultVariantInfo,
         price: videoPostModel.product?.price ?? 0,
         suggestedPrice: videoPostModel.product?.suggestedPrice ?? 0,
         points: videoPostModel.product?.points ?? 0,
@@ -812,7 +844,7 @@ class UserProductController extends GetxController {
         update(['pick_product_variant_bottom_sheet']);
         // saveAddToCartVariant(productSelected!, productVariantSelected!);
       } else {
-        saveBuyActionVariant(productSelected!, productVariantSelected!);
+        // saveBuyActionVariant(productSelected!, productVariantSelected!);
       }
     }
   }
