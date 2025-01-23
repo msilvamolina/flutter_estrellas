@@ -12,7 +12,8 @@ abstract class ProductVariantInfoModel implements _$ProductVariantInfoModel {
   const ProductVariantInfoModel._();
 
   const factory ProductVariantInfoModel({
-    @JsonKey(name: '_id') String? id,
+    @JsonKey(name: '_id') String? id0,
+    String? id,
     int? externalID,
     String? name,
     String? label,
@@ -34,5 +35,18 @@ abstract class ProductVariantInfoModel implements _$ProductVariantInfoModel {
   factory ProductVariantInfoModel.fromDocument(DocumentSnapshot doc) {
     return ProductVariantInfoModel.fromJson(
         ModelHelpers.fromDocument(doc.data()!));
+  }
+
+  Map<String, dynamic> toDocument() {
+    dynamic json = toJson();
+
+    String? id = json['id'];
+
+    if (id == null) {
+      id = json['id0'];
+      json['id'] = id;
+    }
+
+    return json;
   }
 }

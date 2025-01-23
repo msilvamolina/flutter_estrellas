@@ -695,8 +695,10 @@ class UserProductController extends GetxController {
   void buildVariantsMap(UserProductCartModel userProductCartModel) {
     selectedVariantsMap.clear();
     selectedVariantsAttributesMap.clear();
+
     if (userProductCartModel.variantInfo != null) {
       String? variantId = userProductCartModel.variantInfo['id'];
+      variantId ??= userProductCartModel.variantInfo['_id'];
 
       if (_listVariantCombinations != null) {
         if (variantId != null) {
@@ -717,6 +719,7 @@ class UserProductController extends GetxController {
               selectedVariantsAttributesMap[attributeName] = variant.toJson();
             }
           }
+
           productVariantDefault = findMatchingCombination();
         }
       }
@@ -913,7 +916,7 @@ class UserProductController extends GetxController {
     Either<String, Unit> response = await userProductRepository.addToCart(
       video: videoPostModel,
       variantID: defaultVariantID ?? '',
-      variantInfo: defaultVariantInfo?.toJson(),
+      variantInfo: defaultVariantInfo?.toDocument(),
       quantity: 1,
       price: price,
       suggestedPrice: suggestedPrice,

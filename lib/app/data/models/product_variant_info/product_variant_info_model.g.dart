@@ -9,7 +9,8 @@ part of 'product_variant_info_model.dart';
 _$ProductVariantInfoModelImpl _$$ProductVariantInfoModelImplFromJson(
         Map<String, dynamic> json) =>
     _$ProductVariantInfoModelImpl(
-      id: json['_id'] as String?,
+      id0: json['_id'] as String?,
+      id: json['id'] as String?,
       externalID: (json['externalID'] as num?)?.toInt(),
       name: json['name'] as String?,
       label: json['label'] as String?,
@@ -28,7 +29,8 @@ _$ProductVariantInfoModelImpl _$$ProductVariantInfoModelImplFromJson(
 Map<String, dynamic> _$$ProductVariantInfoModelImplToJson(
         _$ProductVariantInfoModelImpl instance) =>
     <String, dynamic>{
-      '_id': instance.id,
+      '_id': instance.id0,
+      'id': instance.id,
       'externalID': instance.externalID,
       'name': instance.name,
       'label': instance.label,

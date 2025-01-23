@@ -22,6 +22,7 @@ ProductVariantInfoModel _$ProductVariantInfoModelFromJson(
 /// @nodoc
 mixin _$ProductVariantInfoModel {
   @JsonKey(name: '_id')
+  String? get id0 => throw _privateConstructorUsedError;
   String? get id => throw _privateConstructorUsedError;
   int? get externalID => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
@@ -54,7 +55,8 @@ abstract class $ProductVariantInfoModelCopyWith<$Res> {
       _$ProductVariantInfoModelCopyWithImpl<$Res, ProductVariantInfoModel>;
   @useResult
   $Res call(
-      {@JsonKey(name: '_id') String? id,
+      {@JsonKey(name: '_id') String? id0,
+      String? id,
       int? externalID,
       String? name,
       String? label,
@@ -86,6 +88,7 @@ class _$ProductVariantInfoModelCopyWithImpl<$Res,
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id0 = freezed,
     Object? id = freezed,
     Object? externalID = freezed,
     Object? name = freezed,
@@ -102,6 +105,10 @@ class _$ProductVariantInfoModelCopyWithImpl<$Res,
     Object? values = freezed,
   }) {
     return _then(_value.copyWith(
+      id0: freezed == id0
+          ? _value.id0
+          : id0 // ignore: cast_nullable_to_non_nullable
+              as String?,
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -172,7 +179,8 @@ abstract class _$$ProductVariantInfoModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: '_id') String? id,
+      {@JsonKey(name: '_id') String? id0,
+      String? id,
       int? externalID,
       String? name,
       String? label,
@@ -203,6 +211,7 @@ class __$$ProductVariantInfoModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id0 = freezed,
     Object? id = freezed,
     Object? externalID = freezed,
     Object? name = freezed,
@@ -219,6 +228,10 @@ class __$$ProductVariantInfoModelImplCopyWithImpl<$Res>
     Object? values = freezed,
   }) {
     return _then(_$ProductVariantInfoModelImpl(
+      id0: freezed == id0
+          ? _value.id0
+          : id0 // ignore: cast_nullable_to_non_nullable
+              as String?,
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -283,7 +296,8 @@ class __$$ProductVariantInfoModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$ProductVariantInfoModelImpl extends _ProductVariantInfoModel {
   const _$ProductVariantInfoModelImpl(
-      {@JsonKey(name: '_id') this.id,
+      {@JsonKey(name: '_id') this.id0,
+      this.id,
       this.externalID,
       this.name,
       this.label,
@@ -304,6 +318,8 @@ class _$ProductVariantInfoModelImpl extends _ProductVariantInfoModel {
 
   @override
   @JsonKey(name: '_id')
+  final String? id0;
+  @override
   final String? id;
   @override
   final int? externalID;
@@ -334,7 +350,7 @@ class _$ProductVariantInfoModelImpl extends _ProductVariantInfoModel {
 
   @override
   String toString() {
-    return 'ProductVariantInfoModel(id: $id, externalID: $externalID, name: $name, label: $label, type: $type, imageUrl: $imageUrl, color: $color, searchField: $searchField, points: $points, sale_price: $sale_price, sku: $sku, stock: $stock, suggested_price: $suggested_price, values: $values)';
+    return 'ProductVariantInfoModel(id0: $id0, id: $id, externalID: $externalID, name: $name, label: $label, type: $type, imageUrl: $imageUrl, color: $color, searchField: $searchField, points: $points, sale_price: $sale_price, sku: $sku, stock: $stock, suggested_price: $suggested_price, values: $values)';
   }
 
   @override
@@ -342,6 +358,7 @@ class _$ProductVariantInfoModelImpl extends _ProductVariantInfoModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ProductVariantInfoModelImpl &&
+            (identical(other.id0, id0) || other.id0 == id0) &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.externalID, externalID) ||
                 other.externalID == externalID) &&
@@ -367,6 +384,7 @@ class _$ProductVariantInfoModelImpl extends _ProductVariantInfoModel {
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      id0,
       id,
       externalID,
       name,
@@ -401,7 +419,8 @@ class _$ProductVariantInfoModelImpl extends _ProductVariantInfoModel {
 
 abstract class _ProductVariantInfoModel extends ProductVariantInfoModel {
   const factory _ProductVariantInfoModel(
-      {@JsonKey(name: '_id') final String? id,
+      {@JsonKey(name: '_id') final String? id0,
+      final String? id,
       final int? externalID,
       final String? name,
       final String? label,
@@ -422,6 +441,8 @@ abstract class _ProductVariantInfoModel extends ProductVariantInfoModel {
 
   @override
   @JsonKey(name: '_id')
+  String? get id0;
+  @override
   String? get id;
   @override
   int? get externalID;
