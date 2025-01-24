@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_estrellas/app/data/models/product_variant_info/product_variant_info_model.dart';
+import 'package:flutter_estrellas/app/data/models/user_product/user_product_model.dart';
 import 'package:get/get.dart';
 
+import '../../../app/controllers/user_product_controller.dart';
 import '../../../components/fields/quantity.dart';
 import '../../../data/helpers/currency_helper.dart';
 import '../../../data/models/product_firebase_lite/product_firebase_lite.dart';
@@ -29,10 +31,19 @@ class _CartUniqueCardState extends State<CartUniqueCard> {
     double suggestedPrice = widget.userProductCartModel.suggestedPrice;
     double profit = suggestedPrice - price;
     int points = widget.userProductCartModel.points;
-    String profitStr =
-        CurrencyHelpers.moneyFormat(amount: profit, withDecimals: false);
-    String priceStr =
-        CurrencyHelpers.moneyFormat(amount: price, withDecimals: false);
+    String providerId = widget.userProductCartModel.providerId;
+
+    String profitStr = Get.find<UserProductController>().getProductProfitStr(
+      price: price,
+      suggestedPrice: suggestedPrice,
+      providerId: providerId,
+    );
+
+    String priceStr = Get.find<UserProductController>().getProductPriceStr(
+      price: price,
+      suggestedPrice: suggestedPrice,
+    );
+
     // ProductVariantCombinationModel? variantCombination =
     //     widget.userProductCartModel.productCombination;
 

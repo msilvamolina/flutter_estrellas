@@ -183,9 +183,14 @@ class UserProductController extends GetxController {
       {ProductVariantInfoModel? variantInfo}) {
     setUniqueProduct(videoPostModel, variantInfo: variantInfo);
     cartPoints.value = videoPostModel.product?.points ?? 0;
-    cartPrices.value = videoPostModel.product?.price ?? 0;
-    cartProfit.value =
-        (videoPostModel.product?.suggestedPrice ?? 0) - cartPrices.value;
+    cartPrices.value = videoPostModel.product?.suggestedPrice ?? 0;
+
+    double profit = getProductProfit(
+      price: videoPostModel.product?.price ?? 0,
+      suggestedPrice: videoPostModel.product?.suggestedPrice ?? 0,
+      providerId: videoPostModel.product?.provider['_id'],
+    );
+    cartProfit.value = profit;
     cartQuantity.value = 1;
 
     ProductVariantInfoModel? selectVariantInfo =
@@ -236,12 +241,18 @@ class UserProductController extends GetxController {
   }
 
   void calculateUniqueProducts() {
-    cartPrices.value = _uniqueProduct?.price ?? 0;
-    cartProfit.value = (_uniqueProduct?.suggestedPrice ?? 0) - cartPrices.value;
-    cartPoints.value = _uniqueProduct?.points ?? 0;
-    cartPrices.value = cartPrices.value * cartQuantity.value;
-    cartProfit.value = cartProfit.value * cartQuantity.value;
-    cartPoints.value = cartPoints.value * cartQuantity.value;
+    String providerId = _uniqueProduct?.providerId ?? '';
+    double profit = getProductProfit(
+      price: _uniqueProduct?.price ?? 0,
+      suggestedPrice: _uniqueProduct?.suggestedPrice ?? 0,
+      providerId: providerId,
+    );
+
+    int points = _uniqueProduct?.points ?? 0;
+    double price = _uniqueProduct?.suggestedPrice ?? 0;
+    cartPrices.value = price * cartQuantity.value;
+    cartProfit.value = profit * cartQuantity.value;
+    cartPoints.value = points * cartQuantity.value;
   }
 
   Future<void> clearCart() async {
