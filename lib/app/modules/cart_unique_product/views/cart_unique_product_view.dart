@@ -14,45 +14,51 @@ class CartUniqueProductView extends GetView<CartUniqueProductController> {
   const CartUniqueProductView({super.key});
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: white,
-      appBar: EstrellasAppbar(title: 'Carrito'),
-      bottomNavigationBar: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Obx(
-                () => CartPriceBottomBar(
-                  productsProfit:
-                      controller.userProductController.cartProfit.value,
-                  productsPoints:
-                      controller.userProductController.cartPoints.value,
-                  productsQuantity:
-                      controller.userProductController.cartQuantity.value,
-                  productsPrices:
-                      controller.userProductController.cartPrices.value,
-                  productsShipping: 0,
-                ),
+    return GetBuilder<CartUniqueProductController>(
+      id: 'view',
+      builder: (_) {
+        return Scaffold(
+          backgroundColor: white,
+          appBar: EstrellasAppbar(title: 'Carrito'),
+          bottomNavigationBar: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Obx(
+                    () => CartPriceBottomBar(
+                      productsProfit:
+                          controller.userProductController.cartProfit.value,
+                      productsPoints:
+                          controller.userProductController.cartPoints.value,
+                      productsQuantity:
+                          controller.userProductController.cartQuantity.value,
+                      productsPrices:
+                          controller.userProductController.cartPrices.value,
+                      productsShipping: 0,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Button(
+                      onPressed: controller.buyAction,
+                      label: 'Continuar compra',
+                      style: ButtonStyles.primary,
+                    ),
+                  ),
+                ],
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Button(
-                  onPressed: controller.buyAction,
-                  label: 'Continuar compra',
-                  style: ButtonStyles.primary,
-                ),
-              ),
-            ],
+            ),
           ),
-        ),
-      ),
-      body: CartUniqueCard(
-        userProductCartModel: controller.userProductController.uniqueProduct!,
-      ),
+          body: CartUniqueCard(
+            userProductCartModel:
+                controller.userProductController.uniqueProduct!,
+          ),
+        );
+      },
     );
   }
 }

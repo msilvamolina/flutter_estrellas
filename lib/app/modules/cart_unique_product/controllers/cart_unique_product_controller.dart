@@ -13,4 +13,12 @@ class CartUniqueProductController extends GetxController {
   void buyAction() {
     Get.toNamed(Routes.ADDRESS);
   }
+
+  void pickVariantsProduct(UserProductCartModel userProductCartModel) {
+    userProductController.pickVariantsUniqueProduct(userProductCartModel);
+  }
+
+  void refreshCardProducts() {
+    update(['card_product', 'view']);
+  }
 }
