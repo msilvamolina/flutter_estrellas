@@ -21,6 +21,7 @@ class VideosRepository {
     try {
       Stream<QuerySnapshot> snapshots = _firebaseFirestore
           .collection('videos')
+          .where('active', isEqualTo: true)
           .orderBy('createdAt', descending: true)
           .snapshots();
 

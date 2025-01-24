@@ -178,6 +178,9 @@ class OrdersRepository {
       }
       List<dynamic> arrayOrders = json['data'] as List<dynamic>;
 
+      if (arrayOrders.isEmpty) {
+        return left('Hubo un problema con tu compra, inténtalo nuevamente');
+      }
       // String orderNumber = json['data'].toString();
       // int orderInt = 0;
 
