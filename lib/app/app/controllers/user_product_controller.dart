@@ -156,49 +156,53 @@ class UserProductController extends GetxController {
     _listOrder.bindStream(userProductRepository.getListOrders());
   }
 
-  void goToBuyUniqueProduct(VideoPostModel? videoPostModel) {
-    mainController
-        .actionNeedLogin(() => goToBuyUniqueProductAction(videoPostModel));
+  void goToBuyUniqueProduct(VideoPostModel? videoPostModel,
+      {ProductVariantInfoModel? variantInfo}) {
+    mainController.actionNeedLogin(() =>
+        goToBuyUniqueProductAction(videoPostModel, variantInfo: variantInfo));
   }
 
-  void goToBuyUniqueProductAction(VideoPostModel? videoPostModel) {
+  void goToBuyUniqueProductAction(VideoPostModel? videoPostModel,
+      {ProductVariantInfoModel? variantInfo}) {
     // isVariantsButtonText = 'Comprar';
     // isVariantsButtonAddToCart = false;
     // isVariantsButtonAddToCartUpdate = false;
     // pickVariants(videoPostModel!);
     if (videoPostModel != null) {
-      saveBuyActionVariant(videoPostModel);
+      saveBuyActionVariant(videoPostModel, variantInfo: variantInfo);
     }
   }
 
-  void saveBuyActionVariant(VideoPostModel videoPostModel) {
-    setUniqueProduct(videoPostModel);
+  void saveBuyActionVariant(VideoPostModel videoPostModel,
+      {ProductVariantInfoModel? variantInfo}) {
+    setUniqueProduct(videoPostModel, variantInfo: variantInfo);
     cartPoints.value = videoPostModel.product?.points ?? 0;
     cartPrices.value = videoPostModel.product?.price ?? 0;
     cartProfit.value =
         (videoPostModel.product?.suggestedPrice ?? 0) - cartPrices.value;
     cartQuantity.value = 1;
 
-    if (videoPostModel.product?.defaultVariantInfo != null) {
+    ProductVariantInfoModel? selectVariantInfo =
+        variantInfo ?? videoPostModel.product?.defaultVariantInfo;
+
+    if (selectVariantInfo != null) {
       cartVariantId.value = videoPostModel.product?.defaultVariantID ?? '';
 
-      cartVariantInfo = Rx<ProductVariantInfoModel>(
-          videoPostModel.product!.defaultVariantInfo!);
+      cartVariantInfo = Rx<ProductVariantInfoModel>(selectVariantInfo);
 
-      if (videoPostModel.product?.defaultVariantInfo?.points != null) {
+      if (selectVariantInfo?.points != null) {
         cartPoints.value = videoPostModel.product!.defaultVariantInfo!.points;
       }
-      if (videoPostModel.product?.defaultVariantInfo?.stock != null) {
+      if (selectVariantInfo?.stock != null) {
         cartStock.value = videoPostModel.product!.defaultVariantInfo!.stock;
       }
-      if (videoPostModel.product?.defaultVariantInfo?.sale_price != null) {
+      if (selectVariantInfo?.sale_price != null) {
         cartPrices.value =
             videoPostModel.product!.defaultVariantInfo!.sale_price;
       }
-      if (videoPostModel.product?.defaultVariantInfo?.sale_price != null) {
+      if (selectVariantInfo?.sale_price != null) {
         cartProfit.value =
-            (videoPostModel.product?.defaultVariantInfo?.suggested_price ?? 0) -
-                cartPrices.value;
+            (selectVariantInfo?.suggested_price ?? 0) - cartPrices.value;
       }
     }
 
@@ -424,15 +428,27 @@ class UserProductController extends GetxController {
     );
   }
 
-  void setUniqueProduct(VideoPostModel? videoPostModel) {
+  void setUniqueProductFromDetails(UserProductCartModel? uniqueProduct) {
+    if (_uniqueProduct != null) {
+      _uniqueProduct = uniqueProduct;
+    } else {
+      _uniqueProduct = null;
+    }
+  }
+
+  void setUniqueProduct(VideoPostModel? videoPostModel,
+      {ProductVariantInfoModel? variantInfo}) {
     if (videoPostModel != null) {
       String id = Uuid().v4();
       UserProductCartModel unique = UserProductCartModel(
         id: id,
         quantity: 1,
         video: videoPostModel,
-        variantID: videoPostModel.product?.defaultVariantID ?? '',
-        variantInfo: videoPostModel.product?.defaultVariantInfo,
+        variantID: variantInfo?.id ??
+            variantInfo?.id0 ??
+            videoPostModel.product?.defaultVariantID ??
+            '',
+        variantInfo: variantInfo ?? videoPostModel.product?.defaultVariantInfo,
         price: videoPostModel.product?.price ?? 0,
         suggestedPrice: videoPostModel.product?.suggestedPrice ?? 0,
         points: videoPostModel.product?.points ?? 0,
@@ -841,7 +857,6 @@ class UserProductController extends GetxController {
 
     if (productVariantSelected != null) {
       String variantID = (productVariantSelected?.externalID ?? '').toString();
-      ProductVariantModel variantInfo = productVariantSelected!;
       int points = productVariantSelected!.points;
       int stock = productVariantSelected!.stock;
       double price = productVariantSelected!.sale_price;
@@ -850,7 +865,8 @@ class UserProductController extends GetxController {
 
       int currentQuantity = cartQuantity.value;
       quantity = currentQuantity > stock ? stock : currentQuantity;
-
+      
+      ProductVariantModel variantInfo = productVariantSelected!;
       ProductVariantInfoModel newVariantInfo = ProductVariantInfoModel(
         id: variantInfo.id,
         externalID: variantInfo.externalID,

@@ -334,4 +334,27 @@ class ProductDetailsController extends GetxController {
     showImageViewerPager(Get.context!, multiImageProvider,
         onPageChanged: (page) {}, onViewerDismissed: (page) {});
   }
+
+  void buyProduct() {
+    ProductVariantInfoModel? newVariantInfo;
+
+    if (productVariantSelected != null) {
+      ProductVariantModel variantInfo = productVariantSelected!;
+      newVariantInfo = ProductVariantInfoModel(
+        id: variantInfo.id,
+        externalID: variantInfo.externalID,
+        points: variantInfo.points,
+        sale_price: variantInfo.sale_price,
+        sku: variantInfo.sku,
+        stock: variantInfo.stock,
+        suggested_price: variantInfo.suggested_price,
+        values: variantInfo.values,
+      );
+    }
+
+    userProductController.goToBuyUniqueProduct(
+      videoPostModel,
+      variantInfo: newVariantInfo,
+    );
+  }
 }
