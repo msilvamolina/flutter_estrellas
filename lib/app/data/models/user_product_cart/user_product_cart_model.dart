@@ -5,6 +5,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../helpers/model_helpers.dart';
 import '../product_firebase_lite/product_firebase_lite.dart';
+import '../product_variant_info/product_variant_info_model.dart';
 
 part 'user_product_cart_model.freezed.dart';
 part 'user_product_cart_model.g.dart';
@@ -39,7 +40,9 @@ abstract class UserProductCartModel implements _$UserProductCartModel {
     if (video != null) {
       json['video'] = video!.toDocument();
     }
-
+    if (json['variantInfo'] is ProductVariantInfoModel) {
+      json['variantInfo'] = json['variantInfo'].toJson();
+    }
     return json;
   }
 }

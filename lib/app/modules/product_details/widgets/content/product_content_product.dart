@@ -34,41 +34,41 @@ class ProductContentProduct extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    'ESTRELLAS',
+                    controller.productLite.provider['name'] ?? 'ESTRELLAS',
                     style: TypographyStyle.bodyRegularMedium.copyWith(
                       color: neutral700,
                       // fontWeight: FontWeight.w700,
                     ),
                   ),
-                  SizedBox(width: 6),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 2),
-                    child: CircleAvatar(
-                      backgroundColor: neutral500,
-                      radius: 1.5,
-                    ),
-                  ),
-                  SizedBox(width: 4),
-                  Icon(
-                    EstrellasIcons.starFill,
-                    color: tertiaryBase,
-                    size: 22,
-                  ),
-                  Text(
-                    '4.8',
-                    style: TypographyStyle.bodyRegularMedium.copyWith(
-                      color: neutral700,
-                      // fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                  SizedBox(width: 4),
-                  Text(
-                    'comentarios',
-                    style: TypographyStyle.bodyRegularMedium.copyWith(
-                      color: neutral700,
-                      decoration: TextDecoration.underline,
-                    ),
-                  ),
+                  // SizedBox(width: 6),
+                  // Padding(
+                  //   padding: const EdgeInsets.only(top: 2),
+                  //   child: CircleAvatar(
+                  //     backgroundColor: neutral500,
+                  //     radius: 1.5,
+                  //   ),
+                  // ),
+                  // SizedBox(width: 4),
+                  // Icon(
+                  //   EstrellasIcons.starFill,
+                  //   color: tertiaryBase,
+                  //   size: 22,
+                  // ),
+                  // Text(
+                  //   '4.8',
+                  //   style: TypographyStyle.bodyRegularMedium.copyWith(
+                  //     color: neutral700,
+                  //     // fontWeight: FontWeight.w700,
+                  //   ),
+                  // ),
+                  // SizedBox(width: 4),
+                  // Text(
+                  //   'comentarios',
+                  //   style: TypographyStyle.bodyRegularMedium.copyWith(
+                  //     color: neutral700,
+                  //     decoration: TextDecoration.underline,
+                  //   ),
+                  // ),
                 ],
               ),
               SizedBox(height: 8),

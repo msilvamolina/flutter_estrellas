@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter_estrellas/app/app/controllers/main_controller.dart';
+import 'package:flutter_estrellas/app/services/environment.dart';
 import 'package:get/instance_manager.dart';
 // ignore: depend_on_referenced_packages
 import 'package:http/http.dart' as http;
@@ -10,15 +11,6 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dartz/dartz.dart';
-import 'package:flutter_estrellas/app/data/models/product/product/product.dart';
-import 'package:flutter_estrellas/app/data/models/product_image/product_image_model.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:get/instance_manager.dart';
-import 'package:http/http.dart';
-
 import 'package:path/path.dart';
 import 'package:async/async.dart';
 import 'dart:io';
@@ -27,7 +19,10 @@ import 'dart:convert';
 
 class ApiServices {
   static var client = http.Client();
-  static String baseUrl = "dev-api.estrellas.app";
+  static String baseUrlDev = "dev-api.estrellas.app";
+  static String baseUrlProd = "api.estrellas.app";
+  static String baseUrl =
+      Environment.instance.currentEnv == Env.prod ? baseUrlProd : baseUrlDev;
 
   Future<Response> get({
     required String url,

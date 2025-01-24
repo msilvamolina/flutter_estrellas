@@ -58,22 +58,20 @@ class FinalizeOrderController extends GetxController {
     }
   }
 
-  void saveOrder(String _) async {
-    String order = '2860064';
+  // void saveOrder(List<dynamic> order) async {
+  //   Either<String, Unit> response =
+  //       await ordersRepository.saveOrder(orderNumber: order, id: orderId);
 
-    Either<String, Unit> response =
-        await ordersRepository.saveOrder(orderNumber: order, id: orderId);
-
-    response.fold((failure) {
-      failureMessage.value = failure;
-      status.value = Status.failed;
-    }, (_) {
-      orderNumber.value = order;
-      status.value = paymentMethod == PaymentMethod.delivery
-          ? Status.success
-          : Status.pending;
-    });
-  }
+  //   response.fold((failure) {
+  //     failureMessage.value = failure;
+  //     status.value = Status.failed;
+  //   }, (_) {
+  //     orderNumber.value = order;
+  //     status.value = paymentMethod == PaymentMethod.delivery
+  //         ? Status.success
+  //         : Status.pending;
+  //   });
+  // }
 
   void buyProducts({UserProductCartModel? product}) async {
     List<dynamic> products = [];
@@ -121,9 +119,15 @@ class FinalizeOrderController extends GetxController {
     response.fold((failure) {
       failureMessage.value = failure;
       status.value = Status.failed;
-    }, (order) async {
-      await userProductController.clearCart();
-      saveOrder(order);
+    }, (listOrders) async {
+      if (userProductController.uniqueProduct == null) {
+        await userProductController.clearCart();
+      }
+      orderNumber.value = listOrders;
+      status.value = paymentMethod == PaymentMethod.delivery
+          ? Status.success
+          : Status.pending;
+      // saveOrder(listOrders);
     });
   }
 }
