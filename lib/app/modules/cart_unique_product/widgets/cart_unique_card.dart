@@ -44,10 +44,6 @@ class _CartUniqueCardState extends State<CartUniqueCard> {
       suggestedPrice: suggestedPrice,
     );
 
-    // ProductVariantCombinationModel? variantCombination =
-    //     widget.userProductCartModel.productCombination;
-
-    String? variantID = widget.userProductCartModel.variantID;
     ProductVariantInfoModel? variantInfo =
         widget.userProductCartModel.variantInfo;
 

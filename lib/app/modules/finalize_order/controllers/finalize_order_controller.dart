@@ -8,7 +8,6 @@ import '../../../data/models/address/address_model.dart';
 import '../../../data/models/payments_types/payments_types_model.dart';
 import '../../../data/models/user_product_cart/user_product_cart_model.dart';
 import '../../../data/providers/repositories/orders/orders_repository.dart';
-import '../../../routes/app_pages.dart';
 
 enum Status {
   loading,
@@ -53,31 +52,10 @@ class FinalizeOrderController extends GetxController {
 
   void buy() {
     if (userProductController.uniqueProduct != null) {
-      buyUniqueProducts(userProductController.uniqueProduct!);
+      buyProducts(product: userProductController.uniqueProduct!);
     } else {
-      buyMultipleProducts();
+      buyProducts();
     }
-  }
-
-  void buyUniqueProducts(UserProductCartModel product) async {
-    Either<String, String> response = await ordersRepository.createOrder(
-      id: orderId,
-      product: product,
-      address: address,
-      paymentMethod: paymentMethod,
-      paymentOrderNumber: paymentOrderNumber,
-      amount: amount,
-      profit: profit,
-      points: points,
-      status: 'Orden registrada',
-    );
-
-    response.fold((failure) {
-      failureMessage.value = failure;
-      status.value = Status.failed;
-    }, (order) {
-      saveOrder(order);
-    });
   }
 
   void saveOrder(String _) async {
@@ -97,21 +75,32 @@ class FinalizeOrderController extends GetxController {
     });
   }
 
-  void buyMultipleProducts() async {
+  void buyProducts({UserProductCartModel? product}) async {
     List<dynamic> products = [];
     List<dynamic> productsDocuments = [];
 
-    if (userProductController.listProductCart.isNotEmpty) {
-      for (UserProductCartModel element
-          in userProductController.listProductCart) {
-        productsDocuments.add(element.toDocument());
-        products.add(
-          {
-            "product_id": element.video!.product!.id,
-            "client_quantity": element.quantity ?? 1,
-            "variation_id": element.variantID,
-          },
-        );
+    if (product != null) {
+      productsDocuments.add(product.toDocument());
+      products.add(
+        {
+          "product_id": product.video!.product!.id,
+          "client_quantity": product.quantity ?? 1,
+          "variation_id": product.variantID,
+        },
+      );
+    } else {
+      if (userProductController.listProductCart.isNotEmpty) {
+        for (UserProductCartModel element
+            in userProductController.listProductCart) {
+          productsDocuments.add(element.toDocument());
+          products.add(
+            {
+              "product_id": element.video!.product!.id,
+              "client_quantity": element.quantity ?? 1,
+              "variation_id": element.variantID,
+            },
+          );
+        }
       }
     }
 
