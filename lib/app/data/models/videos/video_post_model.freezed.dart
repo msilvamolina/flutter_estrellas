@@ -24,6 +24,7 @@ mixin _$VideoPostModel {
   String get id => throw _privateConstructorUsedError;
   String get thumbnail => throw _privateConstructorUsedError;
   String get videoUrl => throw _privateConstructorUsedError;
+  int? get likes => throw _privateConstructorUsedError;
   String? get productId => throw _privateConstructorUsedError;
   ProductFirebaseLiteModel? get product => throw _privateConstructorUsedError;
   String? get searchField => throw _privateConstructorUsedError;
@@ -50,6 +51,7 @@ abstract class $VideoPostModelCopyWith<$Res> {
       String id,
       String thumbnail,
       String videoUrl,
+      int? likes,
       String? productId,
       ProductFirebaseLiteModel? product,
       String? searchField,
@@ -77,6 +79,7 @@ class _$VideoPostModelCopyWithImpl<$Res, $Val extends VideoPostModel>
     Object? id = null,
     Object? thumbnail = null,
     Object? videoUrl = null,
+    Object? likes = freezed,
     Object? productId = freezed,
     Object? product = freezed,
     Object? searchField = freezed,
@@ -99,6 +102,10 @@ class _$VideoPostModelCopyWithImpl<$Res, $Val extends VideoPostModel>
           ? _value.videoUrl
           : videoUrl // ignore: cast_nullable_to_non_nullable
               as String,
+      likes: freezed == likes
+          ? _value.likes
+          : likes // ignore: cast_nullable_to_non_nullable
+              as int?,
       productId: freezed == productId
           ? _value.productId
           : productId // ignore: cast_nullable_to_non_nullable
@@ -146,6 +153,7 @@ abstract class _$$VideoPostModelImplCopyWith<$Res>
       String id,
       String thumbnail,
       String videoUrl,
+      int? likes,
       String? productId,
       ProductFirebaseLiteModel? product,
       String? searchField,
@@ -172,6 +180,7 @@ class __$$VideoPostModelImplCopyWithImpl<$Res>
     Object? id = null,
     Object? thumbnail = null,
     Object? videoUrl = null,
+    Object? likes = freezed,
     Object? productId = freezed,
     Object? product = freezed,
     Object? searchField = freezed,
@@ -194,6 +203,10 @@ class __$$VideoPostModelImplCopyWithImpl<$Res>
           ? _value.videoUrl
           : videoUrl // ignore: cast_nullable_to_non_nullable
               as String,
+      likes: freezed == likes
+          ? _value.likes
+          : likes // ignore: cast_nullable_to_non_nullable
+              as int?,
       productId: freezed == productId
           ? _value.productId
           : productId // ignore: cast_nullable_to_non_nullable
@@ -222,6 +235,7 @@ class _$VideoPostModelImpl extends _VideoPostModel {
       required this.id,
       required this.thumbnail,
       required this.videoUrl,
+      this.likes,
       this.productId,
       this.product,
       this.searchField,
@@ -240,6 +254,8 @@ class _$VideoPostModelImpl extends _VideoPostModel {
   @override
   final String videoUrl;
   @override
+  final int? likes;
+  @override
   final String? productId;
   @override
   final ProductFirebaseLiteModel? product;
@@ -250,7 +266,7 @@ class _$VideoPostModelImpl extends _VideoPostModel {
 
   @override
   String toString() {
-    return 'VideoPostModel(name: $name, id: $id, thumbnail: $thumbnail, videoUrl: $videoUrl, productId: $productId, product: $product, searchField: $searchField, reference: $reference)';
+    return 'VideoPostModel(name: $name, id: $id, thumbnail: $thumbnail, videoUrl: $videoUrl, likes: $likes, productId: $productId, product: $product, searchField: $searchField, reference: $reference)';
   }
 
   @override
@@ -264,6 +280,7 @@ class _$VideoPostModelImpl extends _VideoPostModel {
                 other.thumbnail == thumbnail) &&
             (identical(other.videoUrl, videoUrl) ||
                 other.videoUrl == videoUrl) &&
+            (identical(other.likes, likes) || other.likes == likes) &&
             (identical(other.productId, productId) ||
                 other.productId == productId) &&
             (identical(other.product, product) || other.product == product) &&
@@ -280,6 +297,7 @@ class _$VideoPostModelImpl extends _VideoPostModel {
       id,
       thumbnail,
       videoUrl,
+      likes,
       productId,
       product,
       searchField,
@@ -308,6 +326,7 @@ abstract class _VideoPostModel extends VideoPostModel {
       required final String id,
       required final String thumbnail,
       required final String videoUrl,
+      final int? likes,
       final String? productId,
       final ProductFirebaseLiteModel? product,
       final String? searchField,
@@ -325,6 +344,8 @@ abstract class _VideoPostModel extends VideoPostModel {
   String get thumbnail;
   @override
   String get videoUrl;
+  @override
+  int? get likes;
   @override
   String? get productId;
   @override

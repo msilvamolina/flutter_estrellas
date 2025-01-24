@@ -19,6 +19,7 @@ abstract class VideoPostModel implements _$VideoPostModel {
     required String id,
     required String thumbnail,
     required String videoUrl,
+    int? likes,
     String? productId,
     ProductFirebaseLiteModel? product,
     String? searchField,

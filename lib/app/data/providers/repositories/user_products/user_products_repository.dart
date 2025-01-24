@@ -186,6 +186,7 @@ class UserProductsRepository {
     String uid = userData['uid'] ?? '';
     String email = userData['email'] ?? '';
 
+    int likes = (videoPostModel.likes ?? 0) + 1;
     try {
       await _firebaseFirestore
           .collection('users')
@@ -199,6 +200,26 @@ class UserProductsRepository {
         'createdByUserId': uid,
         'createdAt': DateTime.now(),
       });
+
+      await _firebaseFirestore
+          .collection('videos')
+          .doc(videoPostModel.id)
+          .collection('likes')
+          .doc(uid)
+          .set({
+        'uid': uid,
+        'email': email,
+        'addLike': likes,
+        'addAt': DateTime.now(),
+      });
+
+      await _firebaseFirestore
+          .collection('videos')
+          .doc(videoPostModel.id)
+          .update({
+        'likes': likes,
+      });
+
       return right(unit);
     } on FirebaseException catch (e) {
       return left(e.code);
@@ -255,6 +276,11 @@ class UserProductsRepository {
   }) async {
     Map<String, String> userData = getUidAndEmail();
     String uid = userData['uid'] ?? '';
+    String email = userData['email'] ?? '';
+
+    int likes = (videoPostModel.likes ?? 0) - 1;
+    likes = likes < 0 ? 0 : likes;
+
     try {
       await _firebaseFirestore
           .collection('users')
@@ -262,6 +288,26 @@ class UserProductsRepository {
           .collection('video_favorites')
           .doc(videoPostModel.id)
           .delete();
+
+      await _firebaseFirestore
+          .collection('videos')
+          .doc(videoPostModel.id)
+          .collection('likes')
+          .doc(uid)
+          .update(
+        {
+          'removeLike': likes,
+          'removeAt': DateTime.now(),
+        },
+      );
+
+      await _firebaseFirestore
+          .collection('videos')
+          .doc(videoPostModel.id)
+          .update({
+        'likes': likes,
+      });
+
       return right(unit);
     } on FirebaseException catch (e) {
       return left(e.code);

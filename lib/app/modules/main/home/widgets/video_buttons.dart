@@ -73,7 +73,7 @@ class _VideoButtonsState extends State<VideoButtons> {
                         .isProductInFavorites(widget.videoPostModel)
                     ? 'assets/svg/HeartColor.svg'
                     : 'assets/svg/HeartFill.svg',
-                label: '0',
+                label: (widget.videoPostModel.likes ?? 0).toString(),
                 colorIcon: null,
               );
             }),
