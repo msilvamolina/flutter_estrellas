@@ -213,8 +213,10 @@ class ProductDetailsController extends GetxController {
     dynamic variantInfo = productVariantSelected!.toJson();
     String variantID = (productVariantSelected?.externalID ?? '').toString();
 
+    String providerId = videoPostModel.product?.provider['_id'];
     Either<String, Unit> response = await _userProductsRepository.addToCart(
       video: videoPostModel,
+      providerId: providerId,
       variantID: variantID,
       variantInfo: variantInfo,
       quantity: quantity,

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../helpers/model_helpers.dart';
@@ -20,13 +21,18 @@ abstract class ProviderModel implements _$ProviderModel {
     String? phone,
     bool? isActive,
     int? porcentage,
-    String? uploadDate,
+    // String? createdAt,
+    // String? uploadDate,
+    // String? updatedAt,
     String? avatarUrl,
   }) = _ProviderModel;
 
   factory ProviderModel.fromJson(Map<String, dynamic> json) =>
       _$ProviderModelFromJson(json);
 
+  factory ProviderModel.fromDocument(DocumentSnapshot doc) {
+    return ProviderModel.fromJson(ModelHelpers.fromDocument(doc.data()!));
+  }
   Map<String, dynamic> toDocument() {
     Map<String, dynamic> json = toJson();
 
@@ -35,8 +41,8 @@ abstract class ProviderModel implements _$ProviderModel {
           warehouses!.map((warehouse) => warehouse.toJson()).toList();
     }
 
-    // json['createdAt'] = ModelHelpers.dateToDocument(json['createdAt']);
-    // json['updatedAt'] = ModelHelpers.dateToDocument(json['updatedAt']);
+    json['createdAt'] = ModelHelpers.dateToDocument(json['createdAt']);
+    json['updatedAt'] = ModelHelpers.dateToDocument(json['updatedAt']);
 
     return json;
   }

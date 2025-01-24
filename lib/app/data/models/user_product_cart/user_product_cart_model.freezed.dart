@@ -23,6 +23,7 @@ mixin _$UserProductCartModel {
   String get id => throw _privateConstructorUsedError;
   double get price => throw _privateConstructorUsedError;
   double get suggestedPrice => throw _privateConstructorUsedError;
+  String get providerId => throw _privateConstructorUsedError;
   int get points => throw _privateConstructorUsedError;
   int get stock => throw _privateConstructorUsedError;
   int? get quantity => throw _privateConstructorUsedError;
@@ -52,6 +53,7 @@ abstract class $UserProductCartModelCopyWith<$Res> {
       {String id,
       double price,
       double suggestedPrice,
+      String providerId,
       int points,
       int stock,
       int? quantity,
@@ -82,6 +84,7 @@ class _$UserProductCartModelCopyWithImpl<$Res,
     Object? id = null,
     Object? price = null,
     Object? suggestedPrice = null,
+    Object? providerId = null,
     Object? points = null,
     Object? stock = null,
     Object? quantity = freezed,
@@ -103,6 +106,10 @@ class _$UserProductCartModelCopyWithImpl<$Res,
           ? _value.suggestedPrice
           : suggestedPrice // ignore: cast_nullable_to_non_nullable
               as double,
+      providerId: null == providerId
+          ? _value.providerId
+          : providerId // ignore: cast_nullable_to_non_nullable
+              as String,
       points: null == points
           ? _value.points
           : points // ignore: cast_nullable_to_non_nullable
@@ -161,6 +168,7 @@ abstract class _$$UserProductCartModelImplCopyWith<$Res>
       {String id,
       double price,
       double suggestedPrice,
+      String providerId,
       int points,
       int stock,
       int? quantity,
@@ -189,6 +197,7 @@ class __$$UserProductCartModelImplCopyWithImpl<$Res>
     Object? id = null,
     Object? price = null,
     Object? suggestedPrice = null,
+    Object? providerId = null,
     Object? points = null,
     Object? stock = null,
     Object? quantity = freezed,
@@ -210,6 +219,10 @@ class __$$UserProductCartModelImplCopyWithImpl<$Res>
           ? _value.suggestedPrice
           : suggestedPrice // ignore: cast_nullable_to_non_nullable
               as double,
+      providerId: null == providerId
+          ? _value.providerId
+          : providerId // ignore: cast_nullable_to_non_nullable
+              as String,
       points: null == points
           ? _value.points
           : points // ignore: cast_nullable_to_non_nullable
@@ -249,6 +262,7 @@ class _$UserProductCartModelImpl extends _UserProductCartModel {
       {required this.id,
       required this.price,
       required this.suggestedPrice,
+      required this.providerId,
       required this.points,
       required this.stock,
       this.quantity,
@@ -268,6 +282,8 @@ class _$UserProductCartModelImpl extends _UserProductCartModel {
   @override
   final double suggestedPrice;
   @override
+  final String providerId;
+  @override
   final int points;
   @override
   final int stock;
@@ -285,7 +301,7 @@ class _$UserProductCartModelImpl extends _UserProductCartModel {
 
   @override
   String toString() {
-    return 'UserProductCartModel(id: $id, price: $price, suggestedPrice: $suggestedPrice, points: $points, stock: $stock, quantity: $quantity, video: $video, variantID: $variantID, variantInfo: $variantInfo, createdAt: $createdAt)';
+    return 'UserProductCartModel(id: $id, price: $price, suggestedPrice: $suggestedPrice, providerId: $providerId, points: $points, stock: $stock, quantity: $quantity, video: $video, variantID: $variantID, variantInfo: $variantInfo, createdAt: $createdAt)';
   }
 
   @override
@@ -297,6 +313,8 @@ class _$UserProductCartModelImpl extends _UserProductCartModel {
             (identical(other.price, price) || other.price == price) &&
             (identical(other.suggestedPrice, suggestedPrice) ||
                 other.suggestedPrice == suggestedPrice) &&
+            (identical(other.providerId, providerId) ||
+                other.providerId == providerId) &&
             (identical(other.points, points) || other.points == points) &&
             (identical(other.stock, stock) || other.stock == stock) &&
             (identical(other.quantity, quantity) ||
@@ -317,6 +335,7 @@ class _$UserProductCartModelImpl extends _UserProductCartModel {
       id,
       price,
       suggestedPrice,
+      providerId,
       points,
       stock,
       quantity,
@@ -348,6 +367,7 @@ abstract class _UserProductCartModel extends UserProductCartModel {
       {required final String id,
       required final double price,
       required final double suggestedPrice,
+      required final String providerId,
       required final int points,
       required final int stock,
       final int? quantity,
@@ -366,6 +386,8 @@ abstract class _UserProductCartModel extends UserProductCartModel {
   double get price;
   @override
   double get suggestedPrice;
+  @override
+  String get providerId;
   @override
   int get points;
   @override

@@ -11,6 +11,7 @@ import 'package:uuid/uuid.dart';
 
 import '../../../models/product_variant/product_variant_model.dart';
 import '../../../models/product_variant_combination/product_variant_combination_model.dart';
+import '../../../models/provider/provider/provider_model.dart';
 import '../../../models/user_product/user_product_model.dart';
 import '../../../models/user_product_cart/user_product_cart_model.dart';
 
@@ -130,6 +131,23 @@ class UserProductsRepository {
       yield* snapshots.map((snapshot) {
         return snapshot.docs
             .map((doc) => RequestOrderModel.fromDocument(doc))
+            .toList();
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Stream<List<ProviderModel>> getProviersFromFirebase() async* {
+    try {
+      Stream<QuerySnapshot> snapshots = _firebaseFirestore
+          .collection('providers')
+          .orderBy('createdAt', descending: true)
+          .snapshots();
+
+      yield* snapshots.map((snapshot) {
+        return snapshot.docs
+            .map((doc) => ProviderModel.fromDocument(doc))
             .toList();
       });
     } catch (e) {
@@ -381,6 +399,7 @@ class UserProductsRepository {
     required VideoPostModel video,
     required int quantity,
     required int stock,
+    required String providerId,
     required double price,
     required double suggestedPrice,
     required int points,
@@ -404,6 +423,7 @@ class UserProductsRepository {
         'video': video.toDocument(),
         'variantID': variantID,
         'variantInfo': variantInfo,
+        'providerId': providerId,
         'quantity': quantity,
         'stock': stock,
         'price': price,

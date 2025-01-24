@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_estrellas/app/app/controllers/user_product_controller.dart';
 import 'package:flutter_estrellas/app/data/models/product_firebase_lite/product_firebase_lite.dart';
 import 'package:flutter_estrellas/app/libraries/icons/icons_font.dart';
 import 'package:flutter_estrellas/app/themes/styles/colors.dart';
@@ -20,7 +21,11 @@ class VideoLabel extends StatelessWidget {
   Widget build(BuildContext context) {
     ProductFirebaseLiteModel? product = videoPostModel.product;
     String providerName = 'Estrellas';
+    String providerId = '';
     if (product?.provider != null) {
+      if (product?.provider['_id'] != null) {
+        providerId = product?.provider['_id'];
+      }
       if (product?.provider['name'] != null) {
         providerName = product?.provider['name'];
       }
@@ -41,12 +46,16 @@ class VideoLabel extends StatelessWidget {
       }
     }
 
-    double profit = suggestedPrice - price;
+    String profitStr = Get.find<UserProductController>().getProductProfitStr(
+      price: price,
+      suggestedPrice: suggestedPrice,
+      providerId: providerId,
+    );
 
-    String profitStr =
-        CurrencyHelpers.moneyFormat(amount: profit, withDecimals: false);
-    String priceStr =
-        CurrencyHelpers.moneyFormat(amount: price, withDecimals: false);
+    String priceStr = Get.find<UserProductController>().getProductPriceStr(
+      price: price,
+      suggestedPrice: suggestedPrice,
+    );
 
     double screenWidth = MediaQuery.of(context).size.width;
     bool isMobile = screenWidth < 480;

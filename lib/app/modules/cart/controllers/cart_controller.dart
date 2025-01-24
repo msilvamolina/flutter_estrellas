@@ -55,9 +55,14 @@ class CartController extends GetxController {
       for (UserProductCartModel element
           in userProductController.listProductCart) {
         int _productQuantity = getQuantity(element);
-        double _productPrice = element.price * _productQuantity;
-        double _productProfit =
-            (element.suggestedPrice - element.price) * _productQuantity;
+
+        double profit = userProductController.getProductProfit(
+          price: element.price,
+          suggestedPrice: element.suggestedPrice,
+          providerId: element.providerId,
+        );
+        double _productPrice = element.suggestedPrice * _productQuantity;
+        double _productProfit = profit * _productQuantity;
         int _elementPoints = element.points * _productQuantity;
 
         userProductController.cartQuantity.value =

@@ -17,6 +17,7 @@ abstract class UserProductCartModel implements _$UserProductCartModel {
     required String id,
     required double price,
     required double suggestedPrice,
+    required String providerId,
     required int points,
     required int stock,
     int? quantity,

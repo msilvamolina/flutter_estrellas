@@ -22,9 +22,11 @@ import 'package:social_sharing_plus/social_sharing_plus.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../components/bottom_sheets/types.dart';
+import '../../data/helpers/currency_helper.dart';
 import '../../data/models/product/product_firebase/product_firebase_model.dart';
 import '../../data/models/product_variant/product_variant_model.dart';
 import '../../data/models/product_variant_attributes/product_variant_attributes.dart';
+import '../../data/models/provider/provider/provider_model.dart';
 import '../../data/models/request_order/request_order_model.dart';
 import '../../data/models/user_product/user_product_model.dart';
 import '../../data/models/user_product_cart/user_product_cart_model.dart';
@@ -70,6 +72,9 @@ class UserProductController extends GetxController {
 
   final RxList<UserCatalogModel> _listUserCatalogs = <UserCatalogModel>[].obs;
   List<UserCatalogModel> get listUserCatalogs => _listUserCatalogs.toList();
+
+  final RxList<ProviderModel> _listProvider = <ProviderModel>[].obs;
+  List<ProviderModel> get listProvider => _listProvider.toList();
 
   UserProductCartModel? _uniqueProduct;
   UserProductCartModel? get uniqueProduct => _uniqueProduct;
@@ -147,6 +152,7 @@ class UserProductController extends GetxController {
   }
 
   void fillUserList() {
+    _listProvider.bindStream(userProductRepository.getProviersFromFirebase());
     _listProductCart.bindStream(userProductRepository.getUserCart());
     _listProductFavorites.bindStream(userProductRepository.getUserFavorites());
     _listProductCatalogPrivate
@@ -440,10 +446,12 @@ class UserProductController extends GetxController {
       {ProductVariantInfoModel? variantInfo}) {
     if (videoPostModel != null) {
       String id = Uuid().v4();
+      String providerId = videoPostModel.product?.provider['_id'] ?? '';
       UserProductCartModel unique = UserProductCartModel(
         id: id,
         quantity: 1,
         video: videoPostModel,
+        providerId: providerId,
         variantID: variantInfo?.id ??
             variantInfo?.id0 ??
             videoPostModel.product?.defaultVariantID ??
@@ -865,7 +873,7 @@ class UserProductController extends GetxController {
 
       int currentQuantity = cartQuantity.value;
       quantity = currentQuantity > stock ? stock : currentQuantity;
-      
+
       ProductVariantModel variantInfo = productVariantSelected!;
       ProductVariantInfoModel newVariantInfo = ProductVariantInfoModel(
         id: variantInfo.id,
@@ -879,6 +887,7 @@ class UserProductController extends GetxController {
       );
       UserProductCartModel unique = UserProductCartModel(
         id: _uniqueProduct!.id,
+        providerId: _uniqueProduct!.providerId,
         quantity: cartQuantity.value,
         video: _uniqueProduct!.video,
         variantID: variantID,
@@ -891,7 +900,10 @@ class UserProductController extends GetxController {
 
       cartPoints.value = points;
       cartPrices.value = price;
-      cartProfit.value = 2000;
+      cartProfit.value = getProductProfit(
+          price: price,
+          suggestedPrice: suggestedPrice,
+          providerId: _uniqueProduct!.providerId);
       cartQuantity.value = quantity;
       cartStock.value = stock;
       cartVariantId.value = variantID;
@@ -1094,8 +1106,10 @@ class UserProductController extends GetxController {
       }
     }
 
+    String providerId = videoPostModel.product?.provider['_id'];
     Either<String, Unit> response = await userProductRepository.addToCart(
       video: videoPostModel,
+      providerId: providerId,
       variantID: defaultVariantID ?? '',
       variantInfo: defaultVariantInfo?.toDocument(),
       quantity: 1,
@@ -1218,5 +1232,44 @@ class UserProductController extends GetxController {
             _productCatalogBottomSheet!.product!, '$message ${catalog.name}');
       },
     );
+  }
+
+  double getProductPrice({
+    required double price,
+    required double suggestedPrice,
+  }) {
+    return suggestedPrice;
+  }
+
+  double getProductProfit({
+    required double price,
+    required double suggestedPrice,
+    required String providerId,
+  }) {
+    ProviderModel? provider =
+        _listProvider.firstWhereOrNull((element) => element.id == providerId);
+    int porcentage = provider?.porcentage ?? 0;
+    double providerPorcentage = 1 + (porcentage / 100);
+    double profit = suggestedPrice - price * providerPorcentage;
+    return profit;
+  }
+
+  String getProductPriceStr({
+    required double price,
+    required double suggestedPrice,
+  }) {
+    double value =
+        getProductPrice(price: price, suggestedPrice: suggestedPrice);
+    return CurrencyHelpers.moneyFormat(amount: value, withDecimals: false);
+  }
+
+  String getProductProfitStr({
+    required double price,
+    required double suggestedPrice,
+    required String providerId,
+  }) {
+    double value = getProductProfit(
+        price: price, suggestedPrice: suggestedPrice, providerId: providerId);
+    return CurrencyHelpers.moneyFormat(amount: value, withDecimals: false);
   }
 }

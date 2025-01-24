@@ -86,12 +86,20 @@ class _CartCardState extends State<CartCard> {
         widget.userProductCartModel.video!.product!;
     double price = widget.userProductCartModel.price;
     double suggestedPrice = widget.userProductCartModel.suggestedPrice;
-    double profit = suggestedPrice - price;
     int points = widget.userProductCartModel.points;
-    String profitStr =
-        CurrencyHelpers.moneyFormat(amount: profit, withDecimals: false);
-    String priceStr =
-        CurrencyHelpers.moneyFormat(amount: price, withDecimals: false);
+
+    String providerId = product.provider?['_id'] ?? '';
+    String profitStr = Get.find<UserProductController>().getProductProfitStr(
+      price: price,
+      suggestedPrice: suggestedPrice,
+      providerId: providerId,
+    );
+
+    String priceStr = Get.find<UserProductController>().getProductPriceStr(
+      price: price,
+      suggestedPrice: suggestedPrice,
+    );
+
     // ProductVariantCombinationModel? variantCombination =
     //     widget.userProductCartModel.productCombination;
 
