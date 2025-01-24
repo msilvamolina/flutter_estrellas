@@ -185,10 +185,11 @@ class UserProductController extends GetxController {
     cartPoints.value = videoPostModel.product?.points ?? 0;
     cartPrices.value = videoPostModel.product?.suggestedPrice ?? 0;
 
+    String providerId = videoPostModel.product?.provider['_id'];
     double profit = getProductProfit(
       price: videoPostModel.product?.price ?? 0,
       suggestedPrice: videoPostModel.product?.suggestedPrice ?? 0,
-      providerId: videoPostModel.product?.provider['_id'],
+      providerId: providerId,
     );
     cartProfit.value = profit;
     cartQuantity.value = 1;
@@ -207,13 +208,15 @@ class UserProductController extends GetxController {
       if (selectVariantInfo?.stock != null) {
         cartStock.value = videoPostModel.product!.defaultVariantInfo!.stock;
       }
-      if (selectVariantInfo?.sale_price != null) {
+      if (selectVariantInfo?.suggested_price != null) {
         cartPrices.value =
-            videoPostModel.product!.defaultVariantInfo!.sale_price;
+            videoPostModel.product!.defaultVariantInfo!.suggested_price;
       }
       if (selectVariantInfo?.sale_price != null) {
-        cartProfit.value =
-            (selectVariantInfo?.suggested_price ?? 0) - cartPrices.value;
+        cartProfit.value = getProductProfit(
+            price: selectVariantInfo?.sale_price ?? 0,
+            suggestedPrice: selectVariantInfo?.suggested_price ?? 0,
+            providerId: providerId);
       }
     }
 
@@ -223,9 +226,15 @@ class UserProductController extends GetxController {
   void saveBuyAction(VideoPostModel? videoPostModel) {
     setUniqueProduct(videoPostModel);
     cartPoints.value = videoPostModel?.product?.points ?? 0;
-    cartPrices.value = videoPostModel?.product?.price ?? 0;
-    cartProfit.value =
-        (videoPostModel?.product?.suggestedPrice ?? 0) - cartPrices.value;
+    cartPrices.value = videoPostModel?.product?.suggestedPrice ?? 0;
+
+    String providerId = videoPostModel?.product?.provider['_id'];
+    double profit = getProductProfit(
+      price: videoPostModel?.product?.price ?? 0,
+      suggestedPrice: videoPostModel?.product?.suggestedPrice ?? 0,
+      providerId: providerId,
+    );
+    cartProfit.value = profit;
     cartQuantity.value = 1;
     Get.toNamed(Routes.CART_UNIQUE_PRODUCT);
   }
@@ -458,6 +467,7 @@ class UserProductController extends GetxController {
     if (videoPostModel != null) {
       String id = Uuid().v4();
       String providerId = videoPostModel.product?.provider['_id'] ?? '';
+
       UserProductCartModel unique = UserProductCartModel(
         id: id,
         quantity: 1,
@@ -473,6 +483,7 @@ class UserProductController extends GetxController {
         points: videoPostModel.product?.points ?? 0,
         stock: videoPostModel.product?.stock ?? 1,
       );
+
       _uniqueProduct = unique;
     } else {
       _uniqueProduct = null;

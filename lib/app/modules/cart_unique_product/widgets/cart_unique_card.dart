@@ -51,6 +51,18 @@ class _CartUniqueCardState extends State<CartUniqueCard> {
     ProductVariantInfoModel? variantInfo =
         widget.userProductCartModel.variantInfo;
 
+    if (widget.userProductCartModel.variantInfo != null) {
+      priceStr = Get.find<UserProductController>().getProductPriceStr(
+        price: widget.userProductCartModel.variantInfo.sale_price,
+        suggestedPrice: widget.userProductCartModel.variantInfo.suggested_price,
+      );
+      profitStr = Get.find<UserProductController>().getProductProfitStr(
+        price: widget.userProductCartModel.variantInfo.sale_price,
+        suggestedPrice: widget.userProductCartModel.variantInfo.suggested_price,
+        providerId: providerId,
+      );
+    }
+
     return GetBuilder<CartUniqueProductController>(
       id: 'card_product',
       builder: (controller) {
