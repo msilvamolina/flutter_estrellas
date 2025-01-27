@@ -48,11 +48,15 @@ class ReportVideoBlockBrandBottomsheet extends StatelessWidget {
                     ),
                     SizedBox(height: 16),
                     SizedBox(height: 22),
-                    Button(
-                      style: ButtonStyles.primary,
-                      onPressed: () =>
-                          controller.reportVideoBlockBrandButtonPressed(true),
-                      label: 'Sí, bloquear',
+                    Obx(
+                      () => LoadingButton(
+                        isLoading:
+                            controller.reportVideoConfirmButtonIsLoading.value,
+                        style: ButtonStyles.primary,
+                        onPressed: () =>
+                            controller.reportVideoBlockBrandButtonPressed(true),
+                        label: 'Sí, bloquear',
+                      ),
                     ),
                     SizedBox(height: 24),
                     Button(

@@ -347,6 +347,7 @@ class UserProductController extends GetxController {
       },
       (_) {
         Get.back();
+        reportVideoConfirmButtonIsLoading.value = false;
         Bottomsheets.staticBottomSheet(BottomSheetTypes.reportVideoThanks);
       },
     );
@@ -357,10 +358,21 @@ class UserProductController extends GetxController {
     Bottomsheets.staticBottomSheet(BottomSheetTypes.reportVideoBlockBrand);
   }
 
-  void reportVideoBlockBrandButtonPressed(bool yes) {
+  Future<void> reportVideoBlockBrandButtonPressed(bool yes) async {
+    reportVideoShowBlackViewBrand.value = yes;
+
+    if (yes) {
+      reportVideoConfirmButtonIsLoading.value = true;
+
+      String reason = getReportVideosText();
+
+      await userProductRepository.blockProvider(
+        videoPostModel: reportVideoSelected!,
+        reason: reason,
+      );
+    }
     Get.back();
     reportVideoShowBlackView.value = true;
-    reportVideoShowBlackViewBrand.value = yes;
   }
 
   void reloadFeed() {

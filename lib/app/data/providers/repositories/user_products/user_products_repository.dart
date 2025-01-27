@@ -276,6 +276,43 @@ class UserProductsRepository {
     }
   }
 
+  Future<Either<String, Unit>> blockProvider({
+    required VideoPostModel videoPostModel,
+    required String reason,
+  }) async {
+    Map<String, String> userData = getUidAndEmail();
+    String uid = userData['uid'] ?? '';
+    String email = userData['email'] ?? '';
+
+    String providerId = videoPostModel.product?.provider['_id'];
+    String providerName = videoPostModel.product?.provider['name'];
+    String providerAvatarUrl = videoPostModel.product?.provider['avatarUrl'];
+
+    try {
+      await _firebaseFirestore
+          .collection('users')
+          .doc(uid)
+          .collection('providers_blocked')
+          .doc(providerId)
+          .set({
+        'videoId': videoPostModel.id,
+        'videoName': videoPostModel.name,
+        'productId': videoPostModel.productId,
+        'productName': videoPostModel.product?.name ?? '',
+        'providerId': providerId,
+        'providerName': providerName,
+        'providerAvatarUrl': providerAvatarUrl,
+        'reason': reason,
+        'createdBy': email,
+        'createdByUserId': uid,
+        'createdAt': DateTime.now(),
+      });
+      return right(unit);
+    } on FirebaseException catch (e) {
+      return left(e.code);
+    }
+  }
+
   Future<Either<String, Unit>> removeFromCatalogPrivate({
     required VideoPostModel videoPostModel,
   }) async {
