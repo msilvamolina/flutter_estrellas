@@ -18,13 +18,13 @@ import 'video_label.dart';
 class VideoApp extends StatefulWidget {
   const VideoApp({
     required this.videoPostModel,
-    required this.onCompleted,
+    // required this.onCompleted,
     this.bottomSpace = true,
     super.key,
   });
 
   final VideoPostModel videoPostModel;
-  final Function() onCompleted;
+  // final Function() onCompleted;
   final bool bottomSpace;
   @override
   _VideoAppState createState() => _VideoAppState();

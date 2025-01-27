@@ -81,13 +81,13 @@ class VideoListView extends GetView<VideoListController> {
                 itemBuilder: (context, index) => VideoCard(
                   bottomSpace: false,
                   videoPostModel: controller.listVideos[index],
-                  onCompleted: () {
-                    controller.pageController.animateToPage(
-                      controller.pageSelected.value++,
-                      duration: Duration(milliseconds: 200),
-                      curve: Curves.linear,
-                    );
-                  },
+                  // onCompleted: () {
+                  //   controller.pageController.animateToPage(
+                  //     controller.pageSelected.value++,
+                  //     duration: Duration(milliseconds: 200),
+                  //     curve: Curves.linear,
+                  //   );
+                  // },
                 ),
               )
             : Center(

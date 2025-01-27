@@ -70,7 +70,7 @@ class VideoDetailsView extends GetView<VideoDetailsController> {
       body: VideoCard(
         bottomSpace: false,
         videoPostModel: controller.videoPostModel,
-        onCompleted: () {},
+        // onCompleted: () {},
       ),
     );
   }

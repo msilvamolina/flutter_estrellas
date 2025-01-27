@@ -17,6 +17,53 @@ class VideosRepository {
   final FirebaseFirestore _firebaseFirestore = Get.find<FirebaseFirestore>();
   final FirebaseStorage _firebaseStorage = Get.find<FirebaseStorage>();
 
+  Future<List<DocumentSnapshot>> getVideosFutureDocument(
+    int page, {
+    int limit = 5,
+    String? search,
+    DocumentSnapshot? lastDocument,
+  }) async {
+    try {
+      if (lastDocument != null) {
+        if (lastDocument['order'] == 0) {
+          lastDocument = null;
+        }
+      }
+      Query query = _firebaseFirestore
+          .collection('videos')
+          .where('active', isEqualTo: true)
+          .orderBy('order', descending: true)
+          .limit(limit);
+
+      if (lastDocument != null) {
+        query = query.startAfterDocument(lastDocument);
+      }
+
+      QuerySnapshot snapshot = await query.get();
+
+      return snapshot.docs;
+    } catch (e) {
+      print('Error: $e');
+      return [];
+    }
+  }
+
+  Stream<List<DocumentSnapshot>> getVideosDocument() async* {
+    try {
+      Stream<QuerySnapshot> snapshots = _firebaseFirestore
+          .collection('videos')
+          .where('active', isEqualTo: true)
+          .orderBy('createdAt', descending: true)
+          .snapshots();
+
+      yield* snapshots.map((snapshot) {
+        return snapshot.docs.map((doc) => doc).toList();
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
   Stream<List<VideoPostModel>> getVideos() async* {
     try {
       Stream<QuerySnapshot> snapshots = _firebaseFirestore
