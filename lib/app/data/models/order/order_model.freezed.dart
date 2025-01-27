@@ -24,8 +24,8 @@ mixin _$OrderModel {
   AddressModel? get address => throw _privateConstructorUsedError;
   dynamic get body => throw _privateConstructorUsedError;
   dynamic get orderData => throw _privateConstructorUsedError;
-  double get amount => throw _privateConstructorUsedError;
-  int get orderId => throw _privateConstructorUsedError;
+  double get amount =>
+      throw _privateConstructorUsedError; // required int orderId,
   String get paymentMethod => throw _privateConstructorUsedError;
   String get type => throw _privateConstructorUsedError;
   String get status => throw _privateConstructorUsedError;
@@ -56,7 +56,6 @@ abstract class $OrderModelCopyWith<$Res> {
       dynamic body,
       dynamic orderData,
       double amount,
-      int orderId,
       String paymentMethod,
       String type,
       String status,
@@ -88,7 +87,6 @@ class _$OrderModelCopyWithImpl<$Res, $Val extends OrderModel>
     Object? body = freezed,
     Object? orderData = freezed,
     Object? amount = null,
-    Object? orderId = null,
     Object? paymentMethod = null,
     Object? type = null,
     Object? status = null,
@@ -118,10 +116,6 @@ class _$OrderModelCopyWithImpl<$Res, $Val extends OrderModel>
           ? _value.amount
           : amount // ignore: cast_nullable_to_non_nullable
               as double,
-      orderId: null == orderId
-          ? _value.orderId
-          : orderId // ignore: cast_nullable_to_non_nullable
-              as int,
       paymentMethod: null == paymentMethod
           ? _value.paymentMethod
           : paymentMethod // ignore: cast_nullable_to_non_nullable
@@ -182,7 +176,6 @@ abstract class _$$OrderModelImplCopyWith<$Res>
       dynamic body,
       dynamic orderData,
       double amount,
-      int orderId,
       String paymentMethod,
       String type,
       String status,
@@ -213,7 +206,6 @@ class __$$OrderModelImplCopyWithImpl<$Res>
     Object? body = freezed,
     Object? orderData = freezed,
     Object? amount = null,
-    Object? orderId = null,
     Object? paymentMethod = null,
     Object? type = null,
     Object? status = null,
@@ -243,10 +235,6 @@ class __$$OrderModelImplCopyWithImpl<$Res>
           ? _value.amount
           : amount // ignore: cast_nullable_to_non_nullable
               as double,
-      orderId: null == orderId
-          ? _value.orderId
-          : orderId // ignore: cast_nullable_to_non_nullable
-              as int,
       paymentMethod: null == paymentMethod
           ? _value.paymentMethod
           : paymentMethod // ignore: cast_nullable_to_non_nullable
@@ -288,7 +276,6 @@ class _$OrderModelImpl extends _OrderModel {
       required this.body,
       required this.orderData,
       required this.amount,
-      required this.orderId,
       required this.paymentMethod,
       required this.type,
       required this.status,
@@ -312,8 +299,7 @@ class _$OrderModelImpl extends _OrderModel {
   final dynamic orderData;
   @override
   final double amount;
-  @override
-  final int orderId;
+// required int orderId,
   @override
   final String paymentMethod;
   @override
@@ -336,7 +322,7 @@ class _$OrderModelImpl extends _OrderModel {
 
   @override
   String toString() {
-    return 'OrderModel(id: $id, address: $address, body: $body, orderData: $orderData, amount: $amount, orderId: $orderId, paymentMethod: $paymentMethod, type: $type, status: $status, profit: $profit, points: $points, createdAt: $createdAt, products: $products)';
+    return 'OrderModel(id: $id, address: $address, body: $body, orderData: $orderData, amount: $amount, paymentMethod: $paymentMethod, type: $type, status: $status, profit: $profit, points: $points, createdAt: $createdAt, products: $products)';
   }
 
   @override
@@ -349,7 +335,6 @@ class _$OrderModelImpl extends _OrderModel {
             const DeepCollectionEquality().equals(other.body, body) &&
             const DeepCollectionEquality().equals(other.orderData, orderData) &&
             (identical(other.amount, amount) || other.amount == amount) &&
-            (identical(other.orderId, orderId) || other.orderId == orderId) &&
             (identical(other.paymentMethod, paymentMethod) ||
                 other.paymentMethod == paymentMethod) &&
             (identical(other.type, type) || other.type == type) &&
@@ -370,7 +355,6 @@ class _$OrderModelImpl extends _OrderModel {
       const DeepCollectionEquality().hash(body),
       const DeepCollectionEquality().hash(orderData),
       amount,
-      orderId,
       paymentMethod,
       type,
       status,
@@ -402,7 +386,6 @@ abstract class _OrderModel extends OrderModel {
       required final dynamic body,
       required final dynamic orderData,
       required final double amount,
-      required final int orderId,
       required final String paymentMethod,
       required final String type,
       required final String status,
@@ -424,9 +407,7 @@ abstract class _OrderModel extends OrderModel {
   @override
   dynamic get orderData;
   @override
-  double get amount;
-  @override
-  int get orderId;
+  double get amount; // required int orderId,
   @override
   String get paymentMethod;
   @override

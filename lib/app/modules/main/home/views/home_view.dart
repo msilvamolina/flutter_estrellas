@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_estrellas/app/services/environment.dart';
 import 'package:get/get.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 import '../../../../libraries/icons/icons_font.dart';
 import '../../../../routes/app_pages.dart';
@@ -64,31 +65,39 @@ class _HomeViewState extends State<HomeView> {
         child: GetX<HomeController>(
           builder: (controller) {
             if (controller.list.isNotEmpty) {
-              return PageView.builder(
-                itemCount: controller.list.length,
-                controller: pageController,
+              return PagedPageView<int, dynamic>(
                 scrollDirection: Axis.vertical,
-                onPageChanged: (value) {
-                  if (mounted) {
-                    setState(() {
-                      pageSelected = value;
-                    });
-                  }
-                  controller.mainController.removeSwipeUp();
-                },
-                itemBuilder: (context, index) => VideoCard(
-                  videoPostModel: controller.list[index],
-                  onCompleted: () {
-                    if (pageController.hasClients) {
-                      pageController.animateToPage(
-                        pageSelected + 1, // Asegúrate de sumar 1 correctamente
-                        duration: const Duration(milliseconds: 200),
-                        curve: Curves.linear,
-                      );
-                    }
-                  },
+                pageController: controller.pageController,
+                pagingController: controller.pagingController,
+                builderDelegate: PagedChildBuilderDelegate(
+                  itemBuilder: (context, item, index) => Text('asdad'),
                 ),
               );
+              // return PageView.builder(
+              //   itemCount: controller.list.length,
+              //   controller: pageController,
+              //   scrollDirection: Axis.vertical,
+              //   onPageChanged: (value) {
+              //     if (mounted) {
+              //       setState(() {
+              //         pageSelected = value;
+              //       });
+              //     }
+              //     controller.mainController.removeSwipeUp();
+              //   },
+              //   itemBuilder: (context, index) => VideoCard(
+              //     videoPostModel: controller.list[index],
+              //     onCompleted: () {
+              //       if (pageController.hasClients) {
+              //         pageController.animateToPage(
+              //           pageSelected + 1, // Asegúrate de sumar 1 correctamente
+              //           duration: const Duration(milliseconds: 200),
+              //           curve: Curves.linear,
+              //         );
+              //       }
+              //     },
+              //   ),
+              // );
             } else {
               return SizedBox.shrink();
             }
