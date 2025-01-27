@@ -40,7 +40,6 @@ class VideosRepository {
       }
 
       QuerySnapshot snapshot = await query.get();
-
       return snapshot.docs;
     } catch (e) {
       print('Error: $e');

@@ -73,6 +73,14 @@ class _HomeViewState extends State<HomeView> {
               scrollDirection: Axis.vertical,
               pageController: controller.pageController,
               pagingController: controller.pagingController,
+              onPageChanged: (value) {
+                if (mounted) {
+                  setState(() {
+                    pageSelected = value;
+                  });
+                }
+                controller.mainController.removeSwipeUp();
+              },
               builderDelegate: PagedChildBuilderDelegate(
                 itemBuilder: (context, item, index) => VideoCard(
                   videoPostModel: VideoPostModel.fromDocument(item),
