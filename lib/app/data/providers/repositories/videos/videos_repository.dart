@@ -19,7 +19,7 @@ class VideosRepository {
 
   Future<List<DocumentSnapshot>> getVideosFutureDocument(
     int page, {
-    int limit = 5,
+    int limit = 10,
     String? search,
     DocumentSnapshot? lastDocument,
   }) async {

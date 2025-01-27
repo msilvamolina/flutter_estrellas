@@ -37,10 +37,19 @@ class HomeController extends GetxController {
 
   Future<void> _fetchPage(int pageKey) async {
     try {
-      final newItems = await _repository.getVideosFutureDocument(pageKey,
-          lastDocument: lastDocument);
+      List<DocumentSnapshot<Object?>> getNewItems = await _repository
+          .getVideosFutureDocument(pageKey, lastDocument: lastDocument);
 
-      lastDocument = newItems.last;
+      List<DocumentSnapshot<Object?>> newItems = [];
+      for (DocumentSnapshot<Object?> element in getNewItems) {
+        VideoPostModel video = VideoPostModel.fromDocument(element);
+
+        if (!userProductController.isProviderBlockedForUser(video)) {
+          newItems.add(element);
+        }
+      }
+
+      lastDocument = getNewItems.last;
       final isLastPage = newItems.isEmpty;
       if (isLastPage) {
         pagingController.appendLastPage(newItems);

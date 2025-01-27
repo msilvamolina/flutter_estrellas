@@ -28,6 +28,7 @@ import '../../data/models/product/product_firebase/product_firebase_model.dart';
 import '../../data/models/product_variant/product_variant_model.dart';
 import '../../data/models/product_variant_attributes/product_variant_attributes.dart';
 import '../../data/models/provider/provider/provider_model.dart';
+import '../../data/models/provider/provider_blocked/provider_blocked_model.dart';
 import '../../data/models/request_order/request_order_model.dart';
 import '../../data/models/user_product/user_product_model.dart';
 import '../../data/models/user_product_cart/user_product_cart_model.dart';
@@ -76,6 +77,11 @@ class UserProductController extends GetxController {
 
   final RxList<ProviderModel> _listProvider = <ProviderModel>[].obs;
   List<ProviderModel> get listProvider => _listProvider.toList();
+
+  final RxList<ProviderBlockedModel> _listProviderBlocked =
+      <ProviderBlockedModel>[].obs;
+  List<ProviderBlockedModel> get listProviderBlocked =>
+      _listProviderBlocked.toList();
 
   UserProductCartModel? _uniqueProduct;
   UserProductCartModel? get uniqueProduct => _uniqueProduct;
@@ -166,6 +172,8 @@ class UserProductController extends GetxController {
 
   void fillUserList() {
     _listProvider.bindStream(userProductRepository.getProviersFromFirebase());
+    _listProviderBlocked
+        .bindStream(userProductRepository.getProviersBlockedFromFirebase());
     _listProductCart.bindStream(userProductRepository.getUserCart());
     _listProductFavorites.bindStream(userProductRepository.getUserFavorites());
     _listProductCatalogPrivate
@@ -829,6 +837,13 @@ class UserProductController extends GetxController {
         }
       },
     );
+  }
+
+  bool isProviderBlockedForUser(VideoPostModel videoPostModel) {
+    String providerId = videoPostModel.product?.provider['_id'];
+    ProviderBlockedModel? option = listProviderBlocked
+        .firstWhereOrNull((element) => element.providerId == providerId);
+    return option != null;
   }
 
   bool isProductoInCatalog(

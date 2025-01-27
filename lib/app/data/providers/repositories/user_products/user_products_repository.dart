@@ -12,6 +12,7 @@ import 'package:uuid/uuid.dart';
 import '../../../models/product_variant/product_variant_model.dart';
 import '../../../models/product_variant_combination/product_variant_combination_model.dart';
 import '../../../models/provider/provider/provider_model.dart';
+import '../../../models/provider/provider_blocked/provider_blocked_model.dart';
 import '../../../models/user_product/user_product_model.dart';
 import '../../../models/user_product_cart/user_product_cart_model.dart';
 
@@ -148,6 +149,26 @@ class UserProductsRepository {
       yield* snapshots.map((snapshot) {
         return snapshot.docs
             .map((doc) => ProviderModel.fromDocument(doc))
+            .toList();
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Stream<List<ProviderBlockedModel>> getProviersBlockedFromFirebase() async* {
+    Map<String, String> userData = getUidAndEmail();
+    String uid = userData['uid'] ?? '';
+    try {
+      Stream<QuerySnapshot> snapshots = _firebaseFirestore
+          .collection('users')
+          .doc(uid)
+          .collection('providers_blocked')
+          .snapshots();
+
+      yield* snapshots.map((snapshot) {
+        return snapshot.docs
+            .map((doc) => ProviderBlockedModel.fromDocument(doc))
             .toList();
       });
     } catch (e) {

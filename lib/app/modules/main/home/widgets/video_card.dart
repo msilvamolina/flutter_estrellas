@@ -25,6 +25,7 @@ class VideoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     MainController mainController = Get.find<MainController>();
+
     return Stack(
       children: [
         VideoApp(

@@ -86,9 +86,12 @@ class _HomeViewState extends State<HomeView> {
                     controller.mainController.removeSwipeUp();
                   },
                   builderDelegate: PagedChildBuilderDelegate(
-                    itemBuilder: (context, item, index) => VideoCard(
-                      videoPostModel: VideoPostModel.fromDocument(item),
-                    ),
+                    itemBuilder: (context, item, index) {
+                      VideoPostModel video = VideoPostModel.fromDocument(item);
+                      return VideoCard(
+                        videoPostModel: video,
+                      );
+                    },
                   ),
                 );
               },
