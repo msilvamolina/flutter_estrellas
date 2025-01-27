@@ -23,6 +23,7 @@ import 'package:uuid/uuid.dart';
 
 import '../../components/bottom_sheets/types.dart';
 import '../../data/helpers/currency_helper.dart';
+import '../../data/models/payments_types/payments_types_model.dart';
 import '../../data/models/product/product_firebase/product_firebase_model.dart';
 import '../../data/models/product_variant/product_variant_model.dart';
 import '../../data/models/product_variant_attributes/product_variant_attributes.dart';
@@ -137,7 +138,16 @@ class UserProductController extends GetxController {
       <String, dynamic>{}.obs;
   VideoPostModel? productSelected;
 
+  String? reportVideoId;
   Map<String, int> mapVideoLikes = {};
+  Map<String, PaymentsTypesModel> mapReportVideos = {};
+
+  RxBool reportVideosButtonEnabled = false.obs;
+  RxBool reportVideosButtonIsLoading = false.obs;
+
+  RxBool reportVideoShowBlackView = false.obs;
+  RxBool reportVideoShowBlackViewBrand = false.obs;
+
   FormGroup addCatalogForm() => fb.group(<String, Object>{
         Fields.addCatalogName.name: FormControl<String>(
           validators: [
@@ -272,6 +282,76 @@ class UserProductController extends GetxController {
 
   void goToSellProduct(VideoPostModel? videoPostModel) {
     mainController.actionNeedLogin(() => goToSellProductAction(videoPostModel));
+  }
+
+  void goToReportVideo(VideoPostModel? videoPostModel) {
+    mainController.actionNeedLogin(() => goToReportVideoAction(videoPostModel));
+  }
+
+  void goToReportVideoAction(VideoPostModel? videoPostModel) async {
+    if (videoPostModel == null) {
+      return;
+    }
+    reportVideoId = videoPostModel.id;
+    mapReportVideos.clear();
+
+    update(['report_video_bottomsheet']);
+    Bottomsheets.staticBottomSheet(BottomSheetTypes.reportVideo);
+
+    _shareIsLoading = false;
+    update(['share_bottomsheet']);
+  }
+
+  void selectReportVideo(PaymentsTypesModel option) {
+    if (reportVideoId == null) {
+      return;
+    }
+
+    if (mapReportVideos[option.id] != null) {
+      mapReportVideos.remove(option.id);
+    } else {
+      mapReportVideos[option.id] = option;
+    }
+
+    reportVideosButtonEnabled.value = mapReportVideos.isNotEmpty;
+    update(['report_video_bottomsheet']);
+  }
+
+  bool isReportVideoSelected(String optionId) {
+    if (mapReportVideos[optionId] == null) {
+      return false;
+    }
+    return mapReportVideos[optionId] != null;
+  }
+
+  void reportVideoButtonPressed() {
+    Get.back();
+    Bottomsheets.staticBottomSheet(BottomSheetTypes.reportVideoConfirm);
+  }
+
+  void reportVideoConfirmButtonPressed() {
+    Get.back();
+    Bottomsheets.staticBottomSheet(BottomSheetTypes.reportVideoThanks);
+  }
+
+  void reportVideoThanksButtonPressed() {
+    Get.back();
+    Bottomsheets.staticBottomSheet(BottomSheetTypes.reportVideoBlockBrand);
+  }
+
+  void reportVideoBlockBrandButtonPressed(bool yes) {
+    Get.back();
+    reportVideoShowBlackView.value = true;
+    reportVideoShowBlackViewBrand.value = yes;
+  }
+
+  void reloadFeed() {
+    reportVideoShowBlackView.value = false;
+    Get.offAllNamed(Routes.HOME);
+  }
+
+  String getReportVideosText() {
+    return mapReportVideos.values.map((document) => document.title).join(', ');
   }
 
   void goToSellProductAction(VideoPostModel? videoPostModel) async {

@@ -21,6 +21,7 @@ class PaymentsTypesModel {
 }
 
 enum PaymentMethod {
+  none('none'),
   delivery('delivery'),
   bancolombia('bancolombia'),
   pse('pse'),

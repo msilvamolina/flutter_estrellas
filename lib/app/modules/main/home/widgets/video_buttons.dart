@@ -110,6 +110,14 @@ class _VideoButtonsState extends State<VideoButtons> {
           isLogo: true,
           colorIcon: primaryBase,
         ),
+        SizedBox(height: 22),
+        buttonCard(
+          onTap: () =>
+              userProductController.goToReportVideo(widget.videoPostModel),
+          image: 'assets/svg/DotsThree.svg',
+          isLogo: true,
+          colorIcon: white,
+        ),
       ],
     );
   }
@@ -117,7 +125,7 @@ class _VideoButtonsState extends State<VideoButtons> {
   Widget buttonCard({
     required Function()? onTap,
     required String image,
-    required String label,
+    String? label,
     Color? colorIcon = white,
     bool isLogo = false,
     double iconSize = 34,
@@ -156,25 +164,28 @@ class _VideoButtonsState extends State<VideoButtons> {
                   ),
                 ),
               ),
-              SizedBox(height: 4),
-              Text(
-                label,
-                style: TypographyStyle.bodyBlackMedium.copyWith(
-                  color: neutral50,
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
-                  shadows: [
-                    Shadow(
-                      offset: Offset(1, 1), // Desplazamiento en x y y
-                      blurRadius: 8, // Radio de desenfoque
-                      color:
-                          Colors.black.withOpacity(0.8), // Color de la sombra
+              if (label != null)
+                Padding(
+                  padding: const EdgeInsets.only(top: 4),
+                  child: Text(
+                    label,
+                    style: TypographyStyle.bodyBlackMedium.copyWith(
+                      color: neutral50,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                      shadows: [
+                        Shadow(
+                          offset: Offset(1, 1), // Desplazamiento en x y y
+                          blurRadius: 8, // Radio de desenfoque
+                          color: Colors.black
+                              .withOpacity(0.8), // Color de la sombra
+                        ),
+                      ],
                     ),
-                  ],
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
             ],
           ),
         ),

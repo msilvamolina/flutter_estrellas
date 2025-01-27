@@ -2,8 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_estrellas/app/app/controllers/main_controller.dart';
 import 'package:flutter_estrellas/app/app/controllers/user_product_controller.dart';
-import 'package:flutter_estrellas/app/modules/main/home/controllers/api.dart';
-import 'package:flutter_estrellas/app/modules/main/home/controllers/item.dart';
 import 'package:flutter_estrellas/app/routes/app_pages.dart';
 import 'package:get/get.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';

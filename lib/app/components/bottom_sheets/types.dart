@@ -8,5 +8,9 @@ enum BottomSheetTypes {
   deleteProductsInCatalog,
   incompleteProfile,
   verifyPhoneBack,
-  share
+  share,
+  reportVideo,
+  reportVideoConfirm,
+  reportVideoThanks,
+  reportVideoBlockBrand,
 }

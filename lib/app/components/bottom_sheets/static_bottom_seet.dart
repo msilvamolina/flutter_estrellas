@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_estrellas/app/app/bottom_sheets/report_video_block_brand_bottomsheet.dart';
+import 'package:flutter_estrellas/app/app/bottom_sheets/report_video_bottomsheet.dart';
+import 'package:flutter_estrellas/app/app/bottom_sheets/report_video_thanks_bottomsheeet.dart';
 import 'package:flutter_estrellas/app/app/bottom_sheets/share_bottomsheet.dart';
 import 'package:flutter_estrellas/app/app/controllers/main_controller.dart';
 import 'package:get/get.dart';
@@ -9,6 +12,7 @@ import '../../app/bottom_sheets/delete_products_catalog_bottomsheet.dart';
 import '../../app/bottom_sheets/incomplete_profile_bottomsheet.dart';
 import '../../app/bottom_sheets/new_catalog_bottomsheet.dart';
 import '../../app/bottom_sheets/pick_product_variant_bottomsheet.dart';
+import '../../app/bottom_sheets/report_video_confirm_bottomsheet.dart';
 import '../../app/bottom_sheets/select_variant_size.dart';
 import '../../app/bottom_sheets/signout_bottomsheet.dart';
 import '../../app/bottom_sheets/verify_phone_back.dart';
@@ -54,6 +58,14 @@ class StaticBottomSeet extends StatelessWidget {
         return ShareBottomsheet();
       case BottomSheetTypes.pickProductVariant:
         return PickProductVariantBottomsheet();
+      case BottomSheetTypes.reportVideo:
+        return ReportVideoBottomsheet();
+      case BottomSheetTypes.reportVideoConfirm:
+        return ReportVideoConfirmBottomsheet();
+      case BottomSheetTypes.reportVideoThanks:
+        return ReportVideoThanksBottomsheet();
+      case BottomSheetTypes.reportVideoBlockBrand:
+        return ReportVideoBlockBrandBottomsheet();
       default:
         return SizedBox.shrink();
     }
