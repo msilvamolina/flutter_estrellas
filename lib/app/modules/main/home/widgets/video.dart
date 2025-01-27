@@ -214,7 +214,7 @@ class _VideoAppState extends State<VideoApp> with RouteAware {
                               Expanded(
                                 child: Padding(
                                   padding: const EdgeInsets.only(
-                                      right: 16, bottom: 180),
+                                      right: 16, bottom: 140),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [

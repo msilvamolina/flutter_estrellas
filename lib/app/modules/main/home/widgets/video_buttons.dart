@@ -74,7 +74,7 @@ class _VideoButtonsState extends State<VideoButtons> {
                   ? 'assets/svg/HeartColor.svg'
                   : 'assets/svg/HeartFill.svg',
               label: userProductController.getLikes(widget.videoPostModel),
-              colorIcon: null,
+              colorIcon: white,
             );
           },
         ),
@@ -92,7 +92,7 @@ class _VideoButtonsState extends State<VideoButtons> {
                     ? 'assets/svg/addCart.svg'
                     : 'assets/svg/addCartFilled.svg',
                 label: 'Agregar',
-                colorIcon: null,
+                colorIcon: white,
               );
             }),
         SizedBox(height: 24),
@@ -139,29 +139,34 @@ class _VideoButtonsState extends State<VideoButtons> {
           width: 55,
           child: Column(
             children: [
-              Container(
-                decoration: BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(
-                          0.1), // Menor opacidad para una sombra más sutil
-                      offset: Offset(0.5, 0.5), // Sombra más cercana al ícono
-                      blurRadius: 4, // Menor desenfoque
+              Padding(
+                padding: EdgeInsets.only(left: paddingLeft),
+                child: Stack(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 1, top: 1),
+                      child: SvgPicture.asset(
+                        image,
+                        width: (isLogo ? (iconSize + 6) : iconSize) + 1,
+                        colorFilter: colorIcon != null
+                            ? ColorFilter.mode(
+                                Colors.black.withOpacity(0.3),
+                                BlendMode.srcIn,
+                              )
+                            : null,
+                      ),
+                    ),
+                    SvgPicture.asset(
+                      image,
+                      width: isLogo ? (iconSize + 6) : iconSize,
+                      colorFilter: colorIcon != null
+                          ? ColorFilter.mode(
+                              colorIcon,
+                              BlendMode.srcIn,
+                            )
+                          : null,
                     ),
                   ],
-                ),
-                child: Padding(
-                  padding: EdgeInsets.only(left: paddingLeft),
-                  child: SvgPicture.asset(
-                    image,
-                    width: isLogo ? (iconSize + 6) : iconSize,
-                    colorFilter: colorIcon != null
-                        ? ColorFilter.mode(
-                            colorIcon,
-                            BlendMode.srcIn,
-                          )
-                        : null,
-                  ),
                 ),
               ),
               if (label != null)
