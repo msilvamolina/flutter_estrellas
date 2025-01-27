@@ -62,10 +62,14 @@ class ReportVideoConfirmBottomsheet extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 22),
-                    Button(
-                      style: ButtonStyles.primary,
-                      onPressed: controller.reportVideoConfirmButtonPressed,
-                      label: 'Reportar',
+                    Obx(
+                      () => LoadingButton(
+                        isLoading:
+                            controller.reportVideoConfirmButtonIsLoading.value,
+                        style: ButtonStyles.primary,
+                        onPressed: controller.reportVideoConfirmButtonPressed,
+                        label: 'Reportar',
+                      ),
                     ),
                     SizedBox(height: 24),
                     Button(

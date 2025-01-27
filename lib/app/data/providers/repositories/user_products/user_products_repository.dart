@@ -252,6 +252,30 @@ class UserProductsRepository {
     }
   }
 
+  Future<Either<String, Unit>> reportVideo({
+    required VideoPostModel videoPostModel,
+    required String reason,
+  }) async {
+    Map<String, String> userData = getUidAndEmail();
+    String uid = userData['uid'] ?? '';
+    String email = userData['email'] ?? '';
+    try {
+      await _firebaseFirestore.collection('reports').doc().set({
+        'videoId': videoPostModel.id,
+        'videoName': videoPostModel.name,
+        'productId': videoPostModel.productId,
+        'productName': videoPostModel.product?.name ?? '',
+        'reason': reason,
+        'createdBy': email,
+        'createdByUserId': uid,
+        'createdAt': DateTime.now(),
+      });
+      return right(unit);
+    } on FirebaseException catch (e) {
+      return left(e.code);
+    }
+  }
+
   Future<Either<String, Unit>> removeFromCatalogPrivate({
     required VideoPostModel videoPostModel,
   }) async {

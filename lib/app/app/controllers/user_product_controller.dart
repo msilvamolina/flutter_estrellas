@@ -138,7 +138,7 @@ class UserProductController extends GetxController {
       <String, dynamic>{}.obs;
   VideoPostModel? productSelected;
 
-  String? reportVideoId;
+  VideoPostModel? reportVideoSelected;
   Map<String, int> mapVideoLikes = {};
   Map<String, PaymentsTypesModel> mapReportVideos = {};
 
@@ -147,6 +147,7 @@ class UserProductController extends GetxController {
 
   RxBool reportVideoShowBlackView = false.obs;
   RxBool reportVideoShowBlackViewBrand = false.obs;
+  RxBool reportVideoConfirmButtonIsLoading = false.obs;
 
   FormGroup addCatalogForm() => fb.group(<String, Object>{
         Fields.addCatalogName.name: FormControl<String>(
@@ -292,7 +293,7 @@ class UserProductController extends GetxController {
     if (videoPostModel == null) {
       return;
     }
-    reportVideoId = videoPostModel.id;
+    reportVideoSelected = videoPostModel;
     mapReportVideos.clear();
 
     update(['report_video_bottomsheet']);
@@ -303,7 +304,7 @@ class UserProductController extends GetxController {
   }
 
   void selectReportVideo(PaymentsTypesModel option) {
-    if (reportVideoId == null) {
+    if (reportVideoSelected == null) {
       return;
     }
 
@@ -326,12 +327,29 @@ class UserProductController extends GetxController {
 
   void reportVideoButtonPressed() {
     Get.back();
+    reportVideoConfirmButtonIsLoading.value = false;
     Bottomsheets.staticBottomSheet(BottomSheetTypes.reportVideoConfirm);
   }
 
-  void reportVideoConfirmButtonPressed() {
-    Get.back();
-    Bottomsheets.staticBottomSheet(BottomSheetTypes.reportVideoThanks);
+  Future<void> reportVideoConfirmButtonPressed() async {
+    reportVideoConfirmButtonIsLoading.value = true;
+
+    String reason = getReportVideosText();
+
+    Either<String, Unit> response = await userProductRepository.reportVideo(
+      videoPostModel: reportVideoSelected!,
+      reason: reason,
+    );
+
+    response.fold(
+      (failure) {
+        Snackbars.error(failure);
+      },
+      (_) {
+        Get.back();
+        Bottomsheets.staticBottomSheet(BottomSheetTypes.reportVideoThanks);
+      },
+    );
   }
 
   void reportVideoThanksButtonPressed() {
