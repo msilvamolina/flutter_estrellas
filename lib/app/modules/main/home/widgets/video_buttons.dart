@@ -64,19 +64,20 @@ class _VideoButtonsState extends State<VideoButtons> {
             label: 'Info'),
         SizedBox(height: 22),
         GetBuilder<UserProductController>(
-            id: 'product_favorite_icon',
-            builder: (_) {
-              return buttonCard(
-                onTap: () => userProductController
-                    .productFavoriteButton(widget.videoPostModel),
-                image: userProductController
-                        .isProductInFavorites(widget.videoPostModel)
-                    ? 'assets/svg/HeartColor.svg'
-                    : 'assets/svg/HeartFill.svg',
-                label: (widget.videoPostModel.likes ?? 0).toString(),
-                colorIcon: null,
-              );
-            }),
+          id: 'product_favorite_icon',
+          builder: (_) {
+            return buttonCard(
+              onTap: () => userProductController
+                  .productFavoriteButton(widget.videoPostModel),
+              image: userProductController
+                      .isProductInFavorites(widget.videoPostModel)
+                  ? 'assets/svg/HeartColor.svg'
+                  : 'assets/svg/HeartFill.svg',
+              label: userProductController.getLikes(widget.videoPostModel),
+              colorIcon: null,
+            );
+          },
+        ),
         SizedBox(height: 12),
         GetBuilder<UserProductController>(
             id: 'product_cart_icon',

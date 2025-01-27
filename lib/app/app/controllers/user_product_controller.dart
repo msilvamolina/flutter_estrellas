@@ -136,6 +136,8 @@ class UserProductController extends GetxController {
   RxMap<String, dynamic> selectedVariantsAttributesMap =
       <String, dynamic>{}.obs;
   VideoPostModel? productSelected;
+
+  Map<String, int> mapVideoLikes = {};
   FormGroup addCatalogForm() => fb.group(<String, Object>{
         Fields.addCatalogName.name: FormControl<String>(
           validators: [
@@ -530,6 +532,8 @@ class UserProductController extends GetxController {
     if (videoPostModel == null) {
       return;
     }
+    mapVideoLikes[videoPostModel.id] = (videoPostModel.likes ?? 0) + 1;
+    update(['product_favorite_icon']);
     Either<String, Unit> response = await userProductRepository.addToFavorites(
         videoPostModel: videoPostModel);
 
@@ -550,6 +554,10 @@ class UserProductController extends GetxController {
     if (videoPostModel == null) {
       return;
     }
+    int newLike = (videoPostModel.likes ?? 0) - 1;
+    mapVideoLikes[videoPostModel.id] = newLike < 0 ? 0 : newLike;
+
+    update(['product_favorite_icon']);
     Either<String, Unit> response = await userProductRepository
         .removeFromFavorites(videoPostModel: videoPostModel);
 
@@ -721,6 +729,15 @@ class UserProductController extends GetxController {
         .firstWhereOrNull((element) => element.id == videoPostModel.id);
 
     return option != null;
+  }
+
+  String getLikes(VideoPostModel? videoPostModel) {
+    int likes = videoPostModel!.likes ?? 0;
+
+    if (mapVideoLikes[videoPostModel.id] != null) {
+      return mapVideoLikes[videoPostModel.id].toString();
+    }
+    return likes.toString();
   }
 
   bool isProductInFavorites(VideoPostModel? videoPostModel) {
