@@ -74,7 +74,7 @@ class _VideoButtonsState extends State<VideoButtons> {
                   ? 'assets/svg/HeartColor.svg'
                   : 'assets/svg/HeartFill.svg',
               label: userProductController.getLikes(widget.videoPostModel),
-              colorIcon: white,
+              colorIcon: null,
             );
           },
         ),
@@ -92,7 +92,7 @@ class _VideoButtonsState extends State<VideoButtons> {
                     ? 'assets/svg/addCart.svg'
                     : 'assets/svg/addCartFilled.svg',
                 label: 'Agregar',
-                colorIcon: white,
+                colorIcon: null,
               );
             }),
         SizedBox(height: 24),
@@ -145,16 +145,12 @@ class _VideoButtonsState extends State<VideoButtons> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(left: 1, top: 1),
-                      child: SvgPicture.asset(
-                        image,
-                        width: (isLogo ? (iconSize + 6) : iconSize) + 1,
-                        colorFilter: colorIcon != null
-                            ? ColorFilter.mode(
-                                Colors.black.withOpacity(0.3),
-                                BlendMode.srcIn,
-                              )
-                            : null,
-                      ),
+                      child: SvgPicture.asset(image,
+                          width: (isLogo ? (iconSize + 6) : iconSize) + 1,
+                          colorFilter: ColorFilter.mode(
+                            Colors.black.withOpacity(0.3),
+                            BlendMode.srcIn,
+                          )),
                     ),
                     SvgPicture.asset(
                       image,
