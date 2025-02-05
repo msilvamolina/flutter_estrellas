@@ -15,7 +15,8 @@ class OrderDetailsView extends GetView<OrderDetailsController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: EstrellasAppbar(
-        title: 'ID de venta: ${controller.order.orderId}',
+        // title: 'ID de venta: ${controller.order.orderId}',
+        title: '',
         backgroundColor: neutral100,
       ),
       backgroundColor: neutral100,

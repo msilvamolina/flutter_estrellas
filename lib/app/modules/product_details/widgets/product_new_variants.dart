@@ -5,6 +5,7 @@ import '../../../data/models/variant_attributte/variant_attributte.dart';
 import '../../../data/models/variant_variant/variant_variant.dart';
 import '../../../themes/styles/colors.dart';
 import '../../../themes/styles/typography.dart';
+import '../../../utils/utils.dart';
 import '../controllers/product_details_controller.dart';
 import 'content/product_card_container.dart';
 import 'product_variant_card.dart';
@@ -44,16 +45,14 @@ class ProductNewVariants extends StatelessWidget {
                         () => Row(
                           children: [
                             Text(
-                              '${controller.variantInfoModel!.attributes![index].name}: ',
+                              '${Utils.capitalize(controller.variantInfoModel!.attributes![index].name)}: ',
                               style: TypographyStyle.bodyRegularLarge
                                   .copyWith(color: neutral700),
                             ),
                             Text(
-                              controller.selectedVariantsMap[controller
-                                      .variantInfoModel!
-                                      .attributes![index]
-                                      .name] ??
-                                  '',
+                              Utils.capitalize(controller.selectedVariantsMap[
+                                  controller.variantInfoModel!
+                                      .attributes![index].name]),
                               style: TypographyStyle.bodyRegularLarge.copyWith(
                                   color: neutral700,
                                   fontWeight: FontWeight.w600),

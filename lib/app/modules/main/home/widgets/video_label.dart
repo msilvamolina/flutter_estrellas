@@ -1,10 +1,8 @@
-import 'dart:io';
 import 'dart:ui';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_estrellas/app/app/controllers/user_product_controller.dart';
 import 'package:flutter_estrellas/app/data/models/product_firebase_lite/product_firebase_lite.dart';
-import 'package:flutter_estrellas/app/data/models/product_lite/product_lite.dart';
 import 'package:flutter_estrellas/app/libraries/icons/icons_font.dart';
 import 'package:flutter_estrellas/app/themes/styles/colors.dart';
 import 'package:flutter_svg/svg.dart';
@@ -23,25 +21,45 @@ class VideoLabel extends StatelessWidget {
   Widget build(BuildContext context) {
     ProductFirebaseLiteModel? product = videoPostModel.product;
     String providerName = 'Estrellas';
+    String providerId = '';
     if (product?.provider != null) {
+      if (product?.provider['_id'] != null) {
+        providerId = product?.provider['_id'];
+      }
       if (product?.provider['name'] != null) {
         providerName = product?.provider['name'];
       }
     }
-
     double price = product?.price ?? 0;
     double suggestedPrice = product?.suggestedPrice ?? 0;
-
-    double profit = suggestedPrice - price;
-
     int points = product?.points ?? 0;
-    String profitStr =
-        CurrencyHelpers.moneyFormat(amount: profit, withDecimals: false);
-    String priceStr =
-        CurrencyHelpers.moneyFormat(amount: price, withDecimals: false);
+
+    if (product?.defaultVariantInfo != null) {
+      if (product?.defaultVariantInfo?.sale_price != null) {
+        price = product?.defaultVariantInfo?.sale_price ?? 0;
+      }
+      if (product?.defaultVariantInfo?.suggested_price != null) {
+        suggestedPrice = product?.defaultVariantInfo?.suggested_price ?? 0;
+      }
+      if (product?.defaultVariantInfo?.points != null) {
+        points = product?.defaultVariantInfo?.points ?? 0;
+      }
+    }
+
+    String profitStr = Get.find<UserProductController>().getProductProfitStr(
+      price: price,
+      suggestedPrice: suggestedPrice,
+      providerId: providerId,
+    );
+
+    String priceStr = Get.find<UserProductController>().getProductPriceStr(
+      price: price,
+      suggestedPrice: suggestedPrice,
+    );
 
     double screenWidth = MediaQuery.of(context).size.width;
     bool isMobile = screenWidth < 480;
+
     return GestureDetector(
       onTap: () =>
           Get.toNamed(Routes.PRODUCT_DETAILS, arguments: videoPostModel),

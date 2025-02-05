@@ -3,6 +3,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../helpers/model_helpers.dart';
 import '../product/product_firebase/product_firebase_model.dart';
+import '../product_variant/product_variant_model.dart';
+import '../product_variant_info/product_variant_info_model.dart';
 
 part 'product_firebase_lite.freezed.dart';
 part 'product_firebase_lite.g.dart';
@@ -18,13 +20,20 @@ abstract class ProductFirebaseLiteModel implements _$ProductFirebaseLiteModel {
     int? externalId,
     int? stock,
     String? type,
-    String? description,
     double? price,
     bool? active,
     int? points,
+    dynamic attributes,
+    dynamic variations,
+    dynamic categories,
+    String? categoriesIds,
+    String? categoriesNames,
+    String? defaultVariantID,
+    ProductVariantInfoModel? defaultVariantInfo,
+    dynamic category,
     double? suggestedPrice,
     String? thumbnail,
-    // String? createdAt,
+    String? createdAt,
   }) = _ProductFirebaseLiteModel;
 
   factory ProductFirebaseLiteModel.fromJson(Map<String, dynamic> json) =>
@@ -32,7 +41,15 @@ abstract class ProductFirebaseLiteModel implements _$ProductFirebaseLiteModel {
 
   factory ProductFirebaseLiteModel.fromDocument(DocumentSnapshot doc) =>
       ProductFirebaseLiteModel.fromJson(ModelHelpers.fromDocument(doc.data()!));
-  Map<String, dynamic> toDocument() => ModelHelpers.toDocument(toJson());
+
+  Map<String, dynamic> toDocument() {
+    dynamic json = toJson();
+    if (defaultVariantInfo != null) {
+      json['defaultVariantInfo'] = defaultVariantInfo!.toJson();
+    }
+
+    return json;
+  }
 
   static ProductFirebaseLiteModel? fromProduct(ProductFirebaseModel? product) {
     if (product == null) {

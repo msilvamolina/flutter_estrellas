@@ -6,6 +6,7 @@ import '../../../../modules/product_details/widgets/content/product_card_contain
 import '../../../../modules/product_details/widgets/product_variant_card.dart';
 import '../../../../themes/styles/colors.dart';
 import '../../../../themes/styles/typography.dart';
+import '../../../../utils/utils.dart';
 
 class VariantsBottomsheet extends StatelessWidget {
   const VariantsBottomsheet({required this.controller, super.key});
@@ -43,16 +44,14 @@ class VariantsBottomsheet extends StatelessWidget {
                         () => Row(
                           children: [
                             Text(
-                              '${controller.variantInfoModel!.attributes![index].name}: ',
+                              '${Utils.capitalize(controller.variantInfoModel!.attributes![index].name)}: ',
                               style: TypographyStyle.bodyRegularLarge
                                   .copyWith(color: neutral700),
                             ),
                             Text(
-                              controller.selectedVariantsMap[controller
-                                      .variantInfoModel!
-                                      .attributes![index]
-                                      .name] ??
-                                  '',
+                              Utils.capitalize(controller.selectedVariantsMap[
+                                  controller.variantInfoModel!
+                                      .attributes![index].name]),
                               style: TypographyStyle.bodyRegularLarge.copyWith(
                                   color: neutral700,
                                   fontWeight: FontWeight.w600),

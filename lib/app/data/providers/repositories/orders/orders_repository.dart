@@ -140,21 +140,27 @@ class OrdersRepository {
         "products": products,
       };
 
+      List<String> userName = address.fullname!.split(' ');
+
+      String firstName = userName[0].trim();
+      String lastName = userName.sublist(1).join(' ').trim();
+
       Map<String, dynamic> body = {
-        "city_id": address.city?.dropiId,
-        "department_id": address.department?.dropiId,
+        "city_id": address.city?.dropiId.toString(),
+        "department_id": address.department?.dropiId.toString(),
         "client_direction": address.address,
         "client_email": email,
-        "client_name": address.fullname,
+        "client_name": firstName,
         "client_notes": address.notes,
         "client_phone": address.phone!.number,
-        "client_surname": address.fullname,
+        "client_surname": lastName,
         "catalogue": catalogue,
         "user_id": "6463b06a7420bf4da4c1ecef",
       };
 
       String bodyJson = jsonEncode(body);
 
+      log(bodyJson);
       Response response = await services.postWithTokenJson(
         url: url,
         body: bodyJson,
@@ -170,13 +176,17 @@ class OrdersRepository {
         }
         return left('Ocurrió un error');
       }
-      String orderNumber = json['data'].toString();
+      List<dynamic> arrayOrders = json['data'] as List<dynamic>;
 
-      int orderInt = 0;
-
-      if (orderNumber != 'null') {
-        orderInt = int.tryParse(orderNumber) ?? 0;
+      if (arrayOrders.isEmpty) {
+        return left('Hubo un problema con tu compra, inténtalo nuevamente');
       }
+      // String orderNumber = json['data'].toString();
+      // int orderInt = 0;
+
+      // if (orderNumber != 'null') {
+      //   orderInt = int.tryParse(orderNumber) ?? 0;
+      // }
 
       try {
         await _firebaseFirestore
@@ -193,7 +203,7 @@ class OrdersRepository {
           'type': 'multipleProducts',
           'paymentOrderNumber': paymentOrderNumber,
           'products': productsDocuments,
-          'orderId': orderInt,
+          'ordersId': arrayOrders,
           'address': address.toDocument(),
           'body': body,
           'paymentMethod': paymentMethod.name,
@@ -201,7 +211,9 @@ class OrdersRepository {
           'createdByUserId': uid,
           'createdAt': DateTime.now(),
         });
-        return right(orderNumber);
+
+        String ordersStrings = arrayOrders.join(', ');
+        return right(ordersStrings);
       } on FirebaseException catch (e) {
         return left(e.code);
       }

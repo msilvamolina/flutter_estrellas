@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_estrellas/app/app/controllers/main_controller.dart';
+import 'package:flutter_estrellas/app/services/environment.dart';
 import 'package:flutter_estrellas/app/themes/input_decoration.dart';
 import 'package:get/get.dart';
 import 'package:reactive_forms/reactive_forms.dart';
@@ -59,7 +60,17 @@ class CustomPhoneInput extends StatelessWidget {
       ),
       countrySelectorNavigator: CountrySelectorNavigator.dialog(
         searchBoxTextStyle: TypographyStyle.bodyRegularLarge,
-        countries: [IsoCode.CO, IsoCode.AR, IsoCode.HR, IsoCode.IT],
+        countries: Environment.instance.currentEnv == Env.dev
+            ? [
+                IsoCode.CO,
+                IsoCode.FR,
+                IsoCode.AR,
+                IsoCode.HR,
+                IsoCode.IT,
+              ]
+            : [
+                IsoCode.CO,
+              ],
       ),
     );
   }

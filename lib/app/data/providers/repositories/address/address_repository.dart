@@ -51,19 +51,19 @@ class AddressRepository {
 
   Stream<List<CityModel>> getCities(String departmentId) async* {
     try {
+      int departmentIdInt = int.tryParse(departmentId) ?? 0;
       Stream<QuerySnapshot> snapshots = _firebaseFirestore
-          .collection('departments')
-          .doc(departmentId)
           .collection('cities')
+          .where('department_id', isEqualTo: departmentIdInt)
           .orderBy('name', descending: false)
           .snapshots();
 
       yield* snapshots.map((snapshot) {
-        return snapshot.docs.map((doc) => CityModel.fromDocument(doc)).toList();
+        return snapshot.docs.map((doc) {
+          return CityModel.fromDocument(doc);
+        }).toList();
       });
-    } catch (e) {
-      print(e);
-    }
+    } catch (e) {}
   }
 
   Stream<List<AddressModel>> getUserAddress() async* {

@@ -32,10 +32,9 @@ class PaymentTypeCard extends StatelessWidget {
         boxShadow: isSelected
             ? [
                 BoxShadow(
-                  color:
-                      secondaryLight, // Ajusta el color y opacidad según tu necesidad
-                  blurRadius: 0, // Tamaño de desenfoque
-                  offset: Offset(-4, 4), // Posición de la sombra
+                  color: secondaryLight,
+                  blurRadius: 0,
+                  offset: Offset(-4, 4),
                 ),
               ]
             : null,
@@ -61,10 +60,26 @@ class PaymentTypeCard extends StatelessWidget {
                           ? ColorFiltered(
                               colorFilter: ColorFilter.matrix(
                                 <double>[
-                                  0.2126, 0.7152, 0.0722, 0, 0, // Rojo
-                                  0.2126, 0.7152, 0.0722, 0, 0, // Verde
-                                  0.2126, 0.7152, 0.0722, 0, 0, // Azul
-                                  0, 0, 0, 1, 0, // Alfa
+                                  0.2126,
+                                  0.7152,
+                                  0.0722,
+                                  0,
+                                  0,
+                                  0.2126,
+                                  0.7152,
+                                  0.0722,
+                                  0,
+                                  0,
+                                  0.2126,
+                                  0.7152,
+                                  0.0722,
+                                  0,
+                                  0,
+                                  0,
+                                  0,
+                                  0,
+                                  1,
+                                  0,
                                 ],
                               ),
                               child: Image.asset(

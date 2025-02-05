@@ -11,6 +11,9 @@ class Utils {
     return formattedDate;
   }
 
+  static String capitalize(String? s) =>
+      s != null && s.isNotEmpty ? s[0].toUpperCase() + s.substring(1) : '';
+
   static String generateRandomCode() {
     int length = 6;
     const String chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';

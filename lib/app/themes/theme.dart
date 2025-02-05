@@ -8,12 +8,12 @@ class MaterialTheme {
   static ColorScheme lightScheme() {
     return const ColorScheme(
       brightness: Brightness.light,
-      primary: Color(4281559360),
+      primary: Color(0xFF6A00F5),
       surfaceTint: Color(4281559360),
       onPrimary: Color(4294967295),
       primaryContainer: Color(4290113980),
       onPrimaryContainer: Color(4278198538),
-      secondary: Color(4284896654),
+      secondary: Color(0xFF6A00F5), // Color para CircularProgressIndicator
       onSecondary: Color(4294967295),
       secondaryContainer: Color(4293516799),
       onSecondaryContainer: Color(4280356679),

@@ -20,6 +20,7 @@ import '../../../data/models/product_image/product_image_model.dart';
 import '../../../data/models/product_variant/product_variant_model.dart';
 import '../../../data/models/product_variant_attributes/product_variant_attributes.dart';
 import '../../../data/models/product_variant_combination/product_variant_combination_model.dart';
+import '../../../data/models/product_variant_info/product_variant_info_model.dart';
 import '../../../data/models/user_product_cart/user_product_cart_model.dart';
 import '../../../data/models/variant_attributte/variant_attributte.dart';
 import '../../../data/models/variant_info/variant_info.dart';
@@ -106,13 +107,15 @@ class ProductDetailsController extends GetxController {
   RxMap<String, dynamic> selectedVariantsAttributesMap =
       <String, dynamic>{}.obs;
   ProductVariantModel? productVariant;
+
+  ProductVariantModel? productVariantSelected;
+  ProductVariantModel? productVariantDefault;
   @override
   Future<void> onInit() async {
     videoPostModel = Get.arguments as VideoPostModel;
     productLite = videoPostModel.product!;
     product = await _repository.getProduct(productId: productLite.id);
 
-    log(product.toString());
     _listImages
         .bindStream(_repository.getProductImages(productId: productLite.id));
     _listVariantCombinations.bindStream(
@@ -137,11 +140,59 @@ class ProductDetailsController extends GetxController {
           Delta.fromJson(jsonDecode(product?.warrantyFormatted));
       warrantyController.document = Document.fromDelta(warrantyDelta);
     }
-    loadInfo();
-    update(['view']);
 
     resetPrice();
+    update(['view']);
+
+    ever<List<ProductVariantModel>>(_listVariantCombinations, (list) async {
+      await loadInfo();
+      buildVariantsMap();
+    });
+
     super.onInit();
+  }
+
+  void buildVariantsMap() {
+    selectedVariantsMap.clear();
+    selectedVariantsAttributesMap.clear();
+
+    if (videoPostModel.product?.defaultVariantInfo != null) {
+      String? variantId = videoPostModel.product?.defaultVariantInfo?.id;
+      variantId ??= videoPostModel.product?.defaultVariantInfo?.id0;
+
+      if (_listVariantCombinations != null) {
+        if (variantId != null) {
+          ProductVariantModel? variantCombination =
+              _listVariantCombinations.firstWhereOrNull(
+            (variant) => variant.id == variantId,
+          );
+
+          if (variantCombination != null) {
+            for (dynamic value in variantCombination.values) {
+              String id = value['id'];
+              String attributeName = value['attribute_name'];
+
+              VariantVariantModel variant =
+                  getVariationsByAttributeName(attributeName);
+
+              selectedVariantsMap[attributeName] = id;
+              selectedVariantsAttributesMap[attributeName] = variant.toJson();
+            }
+          }
+
+          productVariantDefault = findMatchingCombination();
+          productVariantSelected = productVariantDefault;
+          checkVariations();
+        }
+      }
+    }
+    update(['view']);
+  }
+
+  VariantVariantModel getVariationsByAttributeName(String attributeName) {
+    return variantInfoModel!.variants!
+        .where((variant) => variant.attributeName == attributeName)
+        .toList()[0];
   }
 
   Future<void> loadInfo() async {
@@ -159,10 +210,15 @@ class ProductDetailsController extends GetxController {
   }
 
   Future<void> addToCart() async {
+    dynamic variantInfo = productVariantSelected!.toJson();
+    String variantID = (productVariantSelected?.externalID ?? '').toString();
+
+    String providerId = videoPostModel.product?.provider['_id'];
     Either<String, Unit> response = await _userProductsRepository.addToCart(
       video: videoPostModel,
-      productVariant: productVariant,
-      attributes: selectedVariantsAttributesMap,
+      providerId: providerId,
+      variantID: variantID,
+      variantInfo: variantInfo,
       quantity: quantity,
       price: _price,
       suggestedPrice: _suggestedPrice,
@@ -215,66 +271,6 @@ class ProductDetailsController extends GetxController {
     update(['product_quantity']);
   }
 
-  // ProductVariantCombinationModel? getBySizeAndColor(
-  //     String? sizeId, String? colorId) {
-  //   ProductVariantCombinationModel? option = _listCombination.firstWhereOrNull(
-  //       (element) => element.sizeId == sizeId && element.colorId == colorId);
-
-  //   return option;
-  // }
-
-  // void buildVariationPrice() {
-  //   _productVariantCombination = getBySizeAndColor(
-  //       _userProductVariantSize?.id, _userProductVariantColor?.id);
-
-  //   if (_productVariantCombination != null) {
-  //     _price = _productVariantCombination!.price ?? 0;
-  //     _suggestedPrice = _productVariantCombination!.suggestedPrice ?? 0;
-  //     _points = _productVariantCombination!.points ?? 0;
-  //     _stock = _productVariantCombination!.stock ?? 1;
-  //     _quantity = 1;
-  //     update(['product_price', 'content_product', 'product_quantity']);
-  //   } else {
-  //     resetPrice();
-  //   }
-  // }
-
-  // void setFirstProductVariationCombination() {
-  //   _productVariantCombination = getBySizeAndColor(
-  //       _userProductVariantSize?.id, _userProductVariantColor?.id);
-  // }
-
-  // void setFirstVariantColor(ProductVariantModel value) {
-  //   if (_userProductVariantColor == null) {
-  //     _userProductVariantColor = value;
-  //     setFirstProductVariationCombination();
-
-  //     update(['product_variant_color']);
-  //   }
-  // }
-
-  // void chooseColorVariant(ProductVariantModel value) {
-  //   _userProductVariantColor = value;
-  //   update(['product_variant_color']);
-  //   buildVariationPrice();
-  // }
-
-  // void setFirstVariantSize(ProductVariantModel value) {
-  //   if (_userProductVariantSize == null) {
-  //     _userProductVariantSize = value;
-  //     setFirstProductVariationCombination();
-
-  //     update(['product_variant_size']);
-  //   }
-  // }
-
-  // void chooseSizeVariant(ProductVariantModel value) {
-  //   _userProductVariantSize = value;
-  //   Get.back();
-  //   update(['product_variant_size']);
-  //   buildVariationPrice();
-  // }
-
   VariantVariantModel? getVariationWithName(String name) {
     return variantInfoModel!.variants!.firstWhereOrNull(
       (variant) => variant.name == name,
@@ -294,15 +290,15 @@ class ProductDetailsController extends GetxController {
   }
 
   void checkVariations() {
-    print(selectedVariantsAttributesMap);
     if (selectedVariantsMap.length == variantInfoModel!.attributes!.length) {
-      productVariant = findMatchingCombination();
-      if (productVariant != null) {
-        _stock = productVariant!.stock;
-        _suggestedPrice = productVariant!.suggested_price;
-        _price = productVariant!.sale_price;
-        _points = productVariant!.points;
-        _quantity = 1;
+      productVariantSelected = findMatchingCombination();
+      if (productVariantSelected != null) {
+        _stock = productVariantSelected!.stock;
+        _suggestedPrice = productVariantSelected!.suggested_price;
+        _price = productVariantSelected!.sale_price;
+        _points = productVariantSelected!.points;
+
+        _quantity = _quantity > _stock ? _stock : _quantity;
         update([
           'product_points',
           'product_price',
@@ -314,7 +310,6 @@ class ProductDetailsController extends GetxController {
   }
 
   ProductVariantModel? findMatchingCombination() {
-    print(listVariantCombinations);
     return listVariantCombinations.firstWhereOrNull(
       (combination) {
         return selectedVariantsMap.entries.every((entry) {
@@ -340,5 +335,28 @@ class ProductDetailsController extends GetxController {
 
     showImageViewerPager(Get.context!, multiImageProvider,
         onPageChanged: (page) {}, onViewerDismissed: (page) {});
+  }
+
+  void buyProduct() {
+    ProductVariantInfoModel? newVariantInfo;
+
+    if (productVariantSelected != null) {
+      ProductVariantModel variantInfo = productVariantSelected!;
+      newVariantInfo = ProductVariantInfoModel(
+        id: variantInfo.id,
+        externalID: variantInfo.externalID,
+        points: variantInfo.points,
+        sale_price: variantInfo.sale_price,
+        sku: variantInfo.sku,
+        stock: variantInfo.stock,
+        suggested_price: variantInfo.suggested_price,
+        values: variantInfo.values,
+      );
+    }
+
+    userProductController.goToBuyUniqueProduct(
+      videoPostModel,
+      variantInfo: newVariantInfo,
+    );
   }
 }

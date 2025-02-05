@@ -10,6 +10,7 @@ _$ProductVariantModelImpl _$$ProductVariantModelImplFromJson(
         Map<String, dynamic> json) =>
     _$ProductVariantModelImpl(
       id: json['id'] as String,
+      externalID: (json['externalID'] as num?)?.toInt(),
       name: json['name'] as String?,
       label: json['label'] as String?,
       type: json['type'] as String?,
@@ -28,6 +29,7 @@ Map<String, dynamic> _$$ProductVariantModelImplToJson(
         _$ProductVariantModelImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
+      'externalID': instance.externalID,
       'name': instance.name,
       'label': instance.label,
       'type': instance.type,

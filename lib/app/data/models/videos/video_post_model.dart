@@ -3,6 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../helpers/friendly_helpers.dart';
 import '../../helpers/model_helpers.dart';
+import '../product/product_firebase/product_firebase_model.dart';
 import '../product_firebase_lite/product_firebase_lite.dart';
 import '../product_lite/product_lite.dart';
 
@@ -18,8 +19,11 @@ abstract class VideoPostModel implements _$VideoPostModel {
     required String id,
     required String thumbnail,
     required String videoUrl,
+    int? likes,
+    String? productId,
     ProductFirebaseLiteModel? product,
     String? searchField,
+    dynamic reference,
   }) = _VideoPostModel;
 
   factory VideoPostModel.fromJson(Map<String, dynamic> json) =>
@@ -28,8 +32,7 @@ abstract class VideoPostModel implements _$VideoPostModel {
   factory VideoPostModel.fromDocument(DocumentSnapshot doc) {
     VideoPostModel data =
         VideoPostModel.fromJson(ModelHelpers.fromDocument(doc.data()!));
-    String searchField =
-        '${data.name} ${data.product?.name ?? ''} ${data.product?.description ?? ''}';
+    String searchField = '${data.name} ${data.product?.name ?? ''}';
 
     return data.copyWith(
       searchField: FriendlyHelpers.friendlySearchField(searchField),
@@ -37,7 +40,7 @@ abstract class VideoPostModel implements _$VideoPostModel {
   }
   Map<String, dynamic> toDocument() {
     dynamic videoJson = toJson();
-    videoJson['product'] = product!.toJson();
+    videoJson['product'] = product!.toDocument();
     return videoJson;
   }
 

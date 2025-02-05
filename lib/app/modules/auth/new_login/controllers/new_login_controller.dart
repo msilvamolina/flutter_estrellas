@@ -62,7 +62,6 @@ class NewLoginController extends GetxController {
       (_) async {
         Get.back();
         Get.back();
-
         mainController.checkUser(login: true);
         await mainController.reloadUserData();
         userProductController.fillUserList();

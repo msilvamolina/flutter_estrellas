@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:flutter_estrellas/app/services/environment.dart';
 import 'package:get/get.dart';
 
 import '../../../data/models/address/address_model.dart';
@@ -51,7 +52,7 @@ class PaymentsMethodController extends GetxController {
       "client_lastname": lastName,
       "client_doctype": "4",
       "client_numdoc": '',
-      "response_url": "http://www.estrellas.pro/payments/response",
+      "response_url": "https://${Environment.websiteUrl}/payments/response",
     };
 
     super.onInit();

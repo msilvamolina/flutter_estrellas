@@ -23,12 +23,14 @@ mixin _$UserProductCartModel {
   String get id => throw _privateConstructorUsedError;
   double get price => throw _privateConstructorUsedError;
   double get suggestedPrice => throw _privateConstructorUsedError;
+  String get providerId => throw _privateConstructorUsedError;
   int get points => throw _privateConstructorUsedError;
   int get stock => throw _privateConstructorUsedError;
   int? get quantity => throw _privateConstructorUsedError;
   VideoPostModel? get video => throw _privateConstructorUsedError;
-  ProductVariantCombinationModel? get productCombination =>
-      throw _privateConstructorUsedError;
+  String? get variantID => throw _privateConstructorUsedError;
+  dynamic get variantInfo =>
+      throw _privateConstructorUsedError; // ProductVariantCombinationModel? productCombination,
   String? get createdAt => throw _privateConstructorUsedError;
 
   /// Serializes this UserProductCartModel to a JSON map.
@@ -51,15 +53,16 @@ abstract class $UserProductCartModelCopyWith<$Res> {
       {String id,
       double price,
       double suggestedPrice,
+      String providerId,
       int points,
       int stock,
       int? quantity,
       VideoPostModel? video,
-      ProductVariantCombinationModel? productCombination,
+      String? variantID,
+      dynamic variantInfo,
       String? createdAt});
 
   $VideoPostModelCopyWith<$Res>? get video;
-  $ProductVariantCombinationModelCopyWith<$Res>? get productCombination;
 }
 
 /// @nodoc
@@ -81,11 +84,13 @@ class _$UserProductCartModelCopyWithImpl<$Res,
     Object? id = null,
     Object? price = null,
     Object? suggestedPrice = null,
+    Object? providerId = null,
     Object? points = null,
     Object? stock = null,
     Object? quantity = freezed,
     Object? video = freezed,
-    Object? productCombination = freezed,
+    Object? variantID = freezed,
+    Object? variantInfo = freezed,
     Object? createdAt = freezed,
   }) {
     return _then(_value.copyWith(
@@ -101,6 +106,10 @@ class _$UserProductCartModelCopyWithImpl<$Res,
           ? _value.suggestedPrice
           : suggestedPrice // ignore: cast_nullable_to_non_nullable
               as double,
+      providerId: null == providerId
+          ? _value.providerId
+          : providerId // ignore: cast_nullable_to_non_nullable
+              as String,
       points: null == points
           ? _value.points
           : points // ignore: cast_nullable_to_non_nullable
@@ -117,10 +126,14 @@ class _$UserProductCartModelCopyWithImpl<$Res,
           ? _value.video
           : video // ignore: cast_nullable_to_non_nullable
               as VideoPostModel?,
-      productCombination: freezed == productCombination
-          ? _value.productCombination
-          : productCombination // ignore: cast_nullable_to_non_nullable
-              as ProductVariantCombinationModel?,
+      variantID: freezed == variantID
+          ? _value.variantID
+          : variantID // ignore: cast_nullable_to_non_nullable
+              as String?,
+      variantInfo: freezed == variantInfo
+          ? _value.variantInfo
+          : variantInfo // ignore: cast_nullable_to_non_nullable
+              as dynamic,
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -141,21 +154,6 @@ class _$UserProductCartModelCopyWithImpl<$Res,
       return _then(_value.copyWith(video: value) as $Val);
     });
   }
-
-  /// Create a copy of UserProductCartModel
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $ProductVariantCombinationModelCopyWith<$Res>? get productCombination {
-    if (_value.productCombination == null) {
-      return null;
-    }
-
-    return $ProductVariantCombinationModelCopyWith<$Res>(
-        _value.productCombination!, (value) {
-      return _then(_value.copyWith(productCombination: value) as $Val);
-    });
-  }
 }
 
 /// @nodoc
@@ -170,17 +168,17 @@ abstract class _$$UserProductCartModelImplCopyWith<$Res>
       {String id,
       double price,
       double suggestedPrice,
+      String providerId,
       int points,
       int stock,
       int? quantity,
       VideoPostModel? video,
-      ProductVariantCombinationModel? productCombination,
+      String? variantID,
+      dynamic variantInfo,
       String? createdAt});
 
   @override
   $VideoPostModelCopyWith<$Res>? get video;
-  @override
-  $ProductVariantCombinationModelCopyWith<$Res>? get productCombination;
 }
 
 /// @nodoc
@@ -199,11 +197,13 @@ class __$$UserProductCartModelImplCopyWithImpl<$Res>
     Object? id = null,
     Object? price = null,
     Object? suggestedPrice = null,
+    Object? providerId = null,
     Object? points = null,
     Object? stock = null,
     Object? quantity = freezed,
     Object? video = freezed,
-    Object? productCombination = freezed,
+    Object? variantID = freezed,
+    Object? variantInfo = freezed,
     Object? createdAt = freezed,
   }) {
     return _then(_$UserProductCartModelImpl(
@@ -219,6 +219,10 @@ class __$$UserProductCartModelImplCopyWithImpl<$Res>
           ? _value.suggestedPrice
           : suggestedPrice // ignore: cast_nullable_to_non_nullable
               as double,
+      providerId: null == providerId
+          ? _value.providerId
+          : providerId // ignore: cast_nullable_to_non_nullable
+              as String,
       points: null == points
           ? _value.points
           : points // ignore: cast_nullable_to_non_nullable
@@ -235,10 +239,14 @@ class __$$UserProductCartModelImplCopyWithImpl<$Res>
           ? _value.video
           : video // ignore: cast_nullable_to_non_nullable
               as VideoPostModel?,
-      productCombination: freezed == productCombination
-          ? _value.productCombination
-          : productCombination // ignore: cast_nullable_to_non_nullable
-              as ProductVariantCombinationModel?,
+      variantID: freezed == variantID
+          ? _value.variantID
+          : variantID // ignore: cast_nullable_to_non_nullable
+              as String?,
+      variantInfo: freezed == variantInfo
+          ? _value.variantInfo
+          : variantInfo // ignore: cast_nullable_to_non_nullable
+              as dynamic,
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -254,11 +262,13 @@ class _$UserProductCartModelImpl extends _UserProductCartModel {
       {required this.id,
       required this.price,
       required this.suggestedPrice,
+      required this.providerId,
       required this.points,
       required this.stock,
       this.quantity,
       this.video,
-      this.productCombination,
+      this.variantID,
+      this.variantInfo,
       this.createdAt})
       : super._();
 
@@ -272,6 +282,8 @@ class _$UserProductCartModelImpl extends _UserProductCartModel {
   @override
   final double suggestedPrice;
   @override
+  final String providerId;
+  @override
   final int points;
   @override
   final int stock;
@@ -280,13 +292,16 @@ class _$UserProductCartModelImpl extends _UserProductCartModel {
   @override
   final VideoPostModel? video;
   @override
-  final ProductVariantCombinationModel? productCombination;
+  final String? variantID;
+  @override
+  final dynamic variantInfo;
+// ProductVariantCombinationModel? productCombination,
   @override
   final String? createdAt;
 
   @override
   String toString() {
-    return 'UserProductCartModel(id: $id, price: $price, suggestedPrice: $suggestedPrice, points: $points, stock: $stock, quantity: $quantity, video: $video, productCombination: $productCombination, createdAt: $createdAt)';
+    return 'UserProductCartModel(id: $id, price: $price, suggestedPrice: $suggestedPrice, providerId: $providerId, points: $points, stock: $stock, quantity: $quantity, video: $video, variantID: $variantID, variantInfo: $variantInfo, createdAt: $createdAt)';
   }
 
   @override
@@ -298,21 +313,36 @@ class _$UserProductCartModelImpl extends _UserProductCartModel {
             (identical(other.price, price) || other.price == price) &&
             (identical(other.suggestedPrice, suggestedPrice) ||
                 other.suggestedPrice == suggestedPrice) &&
+            (identical(other.providerId, providerId) ||
+                other.providerId == providerId) &&
             (identical(other.points, points) || other.points == points) &&
             (identical(other.stock, stock) || other.stock == stock) &&
             (identical(other.quantity, quantity) ||
                 other.quantity == quantity) &&
             (identical(other.video, video) || other.video == video) &&
-            (identical(other.productCombination, productCombination) ||
-                other.productCombination == productCombination) &&
+            (identical(other.variantID, variantID) ||
+                other.variantID == variantID) &&
+            const DeepCollectionEquality()
+                .equals(other.variantInfo, variantInfo) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, price, suggestedPrice,
-      points, stock, quantity, video, productCombination, createdAt);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      price,
+      suggestedPrice,
+      providerId,
+      points,
+      stock,
+      quantity,
+      video,
+      variantID,
+      const DeepCollectionEquality().hash(variantInfo),
+      createdAt);
 
   /// Create a copy of UserProductCartModel
   /// with the given fields replaced by the non-null parameter values.
@@ -337,11 +367,13 @@ abstract class _UserProductCartModel extends UserProductCartModel {
       {required final String id,
       required final double price,
       required final double suggestedPrice,
+      required final String providerId,
       required final int points,
       required final int stock,
       final int? quantity,
       final VideoPostModel? video,
-      final ProductVariantCombinationModel? productCombination,
+      final String? variantID,
+      final dynamic variantInfo,
       final String? createdAt}) = _$UserProductCartModelImpl;
   const _UserProductCartModel._() : super._();
 
@@ -355,6 +387,8 @@ abstract class _UserProductCartModel extends UserProductCartModel {
   @override
   double get suggestedPrice;
   @override
+  String get providerId;
+  @override
   int get points;
   @override
   int get stock;
@@ -363,7 +397,10 @@ abstract class _UserProductCartModel extends UserProductCartModel {
   @override
   VideoPostModel? get video;
   @override
-  ProductVariantCombinationModel? get productCombination;
+  String? get variantID;
+  @override
+  dynamic
+      get variantInfo; // ProductVariantCombinationModel? productCombination,
   @override
   String? get createdAt;
 

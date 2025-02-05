@@ -41,7 +41,7 @@ class NewAddressController extends GetxController {
   bool get formIsSubmitted => _formIsSubmitted;
 
   RxBool saveAddress = true.obs;
-  AddressModel? address = Get.arguments as AddressModel;
+  AddressModel? address = Get.arguments;
 
   String addressId = '';
   RxBool editMode = false.obs;

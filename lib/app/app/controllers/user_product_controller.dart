@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -7,6 +9,7 @@ import 'package:flutter_estrellas/app/components/bottom_sheets/bottomsheets.dart
 import 'package:flutter_estrellas/app/components/snackbars/snackbars.dart';
 import 'package:flutter_estrellas/app/data/models/order/order_model.dart';
 import 'package:flutter_estrellas/app/data/models/product_firebase_lite/product_firebase_lite.dart';
+import 'package:flutter_estrellas/app/data/models/product_variant_info/product_variant_info_model.dart';
 import 'package:flutter_estrellas/app/data/models/user_catalog/user_catalog_model.dart';
 import 'package:flutter_estrellas/app/data/models/video_model.dart';
 import 'package:flutter_estrellas/app/data/providers/repositories/products/products_repository.dart';
@@ -19,8 +22,13 @@ import 'package:social_sharing_plus/social_sharing_plus.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../components/bottom_sheets/types.dart';
+import '../../data/helpers/currency_helper.dart';
+import '../../data/models/payments_types/payments_types_model.dart';
+import '../../data/models/product/product_firebase/product_firebase_model.dart';
 import '../../data/models/product_variant/product_variant_model.dart';
 import '../../data/models/product_variant_attributes/product_variant_attributes.dart';
+import '../../data/models/provider/provider/provider_model.dart';
+import '../../data/models/provider/provider_blocked/provider_blocked_model.dart';
 import '../../data/models/request_order/request_order_model.dart';
 import '../../data/models/user_product/user_product_model.dart';
 import '../../data/models/user_product_cart/user_product_cart_model.dart';
@@ -28,6 +36,8 @@ import '../../data/models/variant_attributte/variant_attributte.dart';
 import '../../data/models/variant_info/variant_info.dart';
 import '../../data/models/variant_variant/variant_variant.dart';
 import '../../data/models/videos/video_post_model.dart';
+import '../../modules/cart/controllers/cart_controller.dart';
+import '../../modules/cart_unique_product/controllers/cart_unique_product_controller.dart';
 import '../../routes/app_pages.dart';
 import '../../components/bottom_sheets/dragabble_bottom_sheet.dart';
 
@@ -65,6 +75,14 @@ class UserProductController extends GetxController {
   final RxList<UserCatalogModel> _listUserCatalogs = <UserCatalogModel>[].obs;
   List<UserCatalogModel> get listUserCatalogs => _listUserCatalogs.toList();
 
+  final RxList<ProviderModel> _listProvider = <ProviderModel>[].obs;
+  List<ProviderModel> get listProvider => _listProvider.toList();
+
+  final RxList<ProviderBlockedModel> _listProviderBlocked =
+      <ProviderBlockedModel>[].obs;
+  List<ProviderBlockedModel> get listProviderBlocked =>
+      _listProviderBlocked.toList();
+
   UserProductCartModel? _uniqueProduct;
   UserProductCartModel? get uniqueProduct => _uniqueProduct;
   bool _addCatalogIsLoading = false;
@@ -77,6 +95,12 @@ class UserProductController extends GetxController {
 
   bool addCatalogFormIsSubmitted = false;
   bool isVariantsLoading = false;
+  bool isProductVariantsIsUnique = false;
+
+  RxBool isProductVariantsLoading = false.obs;
+  RxBool isProductVariantsButtonLoading = false.obs;
+  RxBool isProductVariantsButtonEnabled = false.obs;
+
   bool isVariantsButtonEnabled = false;
   bool isPickVariantButtonLoading = false;
   bool isVariantsButtonAddToCart = false;
@@ -85,8 +109,11 @@ class UserProductController extends GetxController {
 
   Rx<double> cartPrices = 0.0.obs;
   RxInt cartPoints = 0.obs;
+  RxInt cartStock = 1.obs;
   RxInt cartQuantity = 0.obs;
   Rx<double> cartProfit = 0.0.obs;
+  Rx<String> cartVariantId = ''.obs;
+  Rx<ProductVariantInfoModel>? cartVariantInfo;
 
   bool _shareIsLoading = true;
   bool get shareIsLoading => _shareIsLoading;
@@ -104,6 +131,8 @@ class UserProductController extends GetxController {
   String get shareLinkTitle => _shareLinkTitle;
 
   ProductVariantModel? productVariantSelected;
+  ProductVariantModel? productVariantDefault;
+  UserProductCartModel? userProductCartSelected;
   List<ProductVariantModel>? _listVariantCombinations;
   List<ProductVariantModel>? get listVariantCombinations =>
       _listVariantCombinations;
@@ -114,6 +143,18 @@ class UserProductController extends GetxController {
   RxMap<String, dynamic> selectedVariantsAttributesMap =
       <String, dynamic>{}.obs;
   VideoPostModel? productSelected;
+
+  VideoPostModel? reportVideoSelected;
+  Map<String, int> mapVideoLikes = {};
+  Map<String, PaymentsTypesModel> mapReportVideos = {};
+
+  RxBool reportVideosButtonEnabled = false.obs;
+  RxBool reportVideosButtonIsLoading = false.obs;
+
+  RxBool reportVideoShowBlackView = false.obs;
+  RxBool reportVideoShowBlackViewBrand = false.obs;
+  RxBool reportVideoConfirmButtonIsLoading = false.obs;
+
   FormGroup addCatalogForm() => fb.group(<String, Object>{
         Fields.addCatalogName.name: FormControl<String>(
           validators: [
@@ -130,6 +171,9 @@ class UserProductController extends GetxController {
   }
 
   void fillUserList() {
+    _listProvider.bindStream(userProductRepository.getProviersFromFirebase());
+    _listProviderBlocked
+        .bindStream(userProductRepository.getProviersBlockedFromFirebase());
     _listProductCart.bindStream(userProductRepository.getUserCart());
     _listProductFavorites.bindStream(userProductRepository.getUserFavorites());
     _listProductCatalogPrivate
@@ -139,55 +183,106 @@ class UserProductController extends GetxController {
     _listOrder.bindStream(userProductRepository.getListOrders());
   }
 
-  void goToBuyUniqueProduct(VideoPostModel? videoPostModel) {
-    mainController
-        .actionNeedLogin(() => goToBuyUniqueProductAction(videoPostModel));
+  void goToBuyUniqueProduct(VideoPostModel? videoPostModel,
+      {ProductVariantInfoModel? variantInfo}) {
+    mainController.actionNeedLogin(() =>
+        goToBuyUniqueProductAction(videoPostModel, variantInfo: variantInfo));
   }
 
-  void goToBuyUniqueProductAction(VideoPostModel? videoPostModel) {
-    isVariantsButtonText = 'Comprar';
-    isVariantsButtonAddToCart = false;
-    isVariantsButtonAddToCartUpdate = false;
-    pickVariants(videoPostModel!);
+  void goToBuyUniqueProductAction(VideoPostModel? videoPostModel,
+      {ProductVariantInfoModel? variantInfo}) {
+    // isVariantsButtonText = 'Comprar';
+    // isVariantsButtonAddToCart = false;
+    // isVariantsButtonAddToCartUpdate = false;
+    // pickVariants(videoPostModel!);
+    if (videoPostModel != null) {
+      saveBuyActionVariant(videoPostModel, variantInfo: variantInfo);
+    }
   }
 
-  void saveBuyActionVariant(
-      VideoPostModel videoPostModel, ProductVariantModel variant) {
-    setUniqueProduct(videoPostModel);
-    cartPoints.value = variant.points ?? 0;
-    cartPrices.value = variant.sale_price ?? 0;
-    cartProfit.value = (variant.suggested_price ?? 0) - cartPrices.value;
+  void saveBuyActionVariant(VideoPostModel videoPostModel,
+      {ProductVariantInfoModel? variantInfo}) {
+    setUniqueProduct(videoPostModel, variantInfo: variantInfo);
+    cartPoints.value = videoPostModel.product?.points ?? 0;
+    cartPrices.value = videoPostModel.product?.suggestedPrice ?? 0;
+
+    String providerId = videoPostModel.product?.provider['_id'];
+    double profit = getProductProfit(
+      price: videoPostModel.product?.price ?? 0,
+      suggestedPrice: videoPostModel.product?.suggestedPrice ?? 0,
+      providerId: providerId,
+    );
+    cartProfit.value = profit;
     cartQuantity.value = 1;
+
+    ProductVariantInfoModel? selectVariantInfo =
+        variantInfo ?? videoPostModel.product?.defaultVariantInfo;
+
+    if (selectVariantInfo != null) {
+      cartVariantId.value = videoPostModel.product?.defaultVariantID ?? '';
+
+      cartVariantInfo = Rx<ProductVariantInfoModel>(selectVariantInfo);
+
+      if (selectVariantInfo?.points != null) {
+        cartPoints.value = videoPostModel.product!.defaultVariantInfo!.points;
+      }
+      if (selectVariantInfo?.stock != null) {
+        cartStock.value = videoPostModel.product!.defaultVariantInfo!.stock;
+      }
+      if (selectVariantInfo?.suggested_price != null) {
+        cartPrices.value =
+            videoPostModel.product!.defaultVariantInfo!.suggested_price;
+      }
+      if (selectVariantInfo?.sale_price != null) {
+        cartProfit.value = getProductProfit(
+            price: selectVariantInfo?.sale_price ?? 0,
+            suggestedPrice: selectVariantInfo?.suggested_price ?? 0,
+            providerId: providerId);
+      }
+    }
+
     Get.toNamed(Routes.CART_UNIQUE_PRODUCT);
   }
 
   void saveBuyAction(VideoPostModel? videoPostModel) {
     setUniqueProduct(videoPostModel);
     cartPoints.value = videoPostModel?.product?.points ?? 0;
-    cartPrices.value = videoPostModel?.product?.price ?? 0;
-    cartProfit.value =
-        (videoPostModel?.product?.suggestedPrice ?? 0) - cartPrices.value;
+    cartPrices.value = videoPostModel?.product?.suggestedPrice ?? 0;
+
+    String providerId = videoPostModel?.product?.provider['_id'];
+    double profit = getProductProfit(
+      price: videoPostModel?.product?.price ?? 0,
+      suggestedPrice: videoPostModel?.product?.suggestedPrice ?? 0,
+      providerId: providerId,
+    );
+    cartProfit.value = profit;
     cartQuantity.value = 1;
     Get.toNamed(Routes.CART_UNIQUE_PRODUCT);
   }
 
-  void addCartQuantity() {
+  void addUniqueProductQuantity() {
     cartQuantity.value = cartQuantity.value + 1;
     calculateUniqueProducts();
   }
 
-  void minusCartQuantity() {
+  void minusUniqueProductQuantity() {
     cartQuantity.value = cartQuantity.value - 1;
     calculateUniqueProducts();
   }
 
   void calculateUniqueProducts() {
-    cartPrices.value = _uniqueProduct?.price ?? 0;
-    cartProfit.value = (_uniqueProduct?.suggestedPrice ?? 0) - cartPrices.value;
-    cartPoints.value = _uniqueProduct?.points ?? 0;
-    cartPrices.value = cartPrices.value * cartQuantity.value;
-    cartProfit.value = cartProfit.value * cartQuantity.value;
-    cartPoints.value = cartPoints.value * cartQuantity.value;
+    String providerId = _uniqueProduct?.providerId ?? '';
+    double profit = getProductProfit(
+      price: _uniqueProduct?.price ?? 0,
+      suggestedPrice: _uniqueProduct?.suggestedPrice ?? 0,
+      providerId: providerId,
+    );
+
+    int points = _uniqueProduct?.points ?? 0;
+    double price = _uniqueProduct?.suggestedPrice ?? 0;
+    cartPrices.value = price * cartQuantity.value;
+    cartProfit.value = profit * cartQuantity.value;
+    cartPoints.value = points * cartQuantity.value;
   }
 
   Future<void> clearCart() async {
@@ -196,6 +291,105 @@ class UserProductController extends GetxController {
 
   void goToSellProduct(VideoPostModel? videoPostModel) {
     mainController.actionNeedLogin(() => goToSellProductAction(videoPostModel));
+  }
+
+  void goToReportVideo(VideoPostModel? videoPostModel) {
+    mainController.actionNeedLogin(() => goToReportVideoAction(videoPostModel));
+  }
+
+  void goToReportVideoAction(VideoPostModel? videoPostModel) async {
+    if (videoPostModel == null) {
+      return;
+    }
+    reportVideoSelected = videoPostModel;
+    mapReportVideos.clear();
+
+    update(['report_video_bottomsheet']);
+    Bottomsheets.staticBottomSheet(BottomSheetTypes.reportVideo);
+
+    _shareIsLoading = false;
+    update(['share_bottomsheet']);
+  }
+
+  void selectReportVideo(PaymentsTypesModel option) {
+    if (reportVideoSelected == null) {
+      return;
+    }
+
+    if (mapReportVideos[option.id] != null) {
+      mapReportVideos.remove(option.id);
+    } else {
+      mapReportVideos[option.id] = option;
+    }
+
+    reportVideosButtonEnabled.value = mapReportVideos.isNotEmpty;
+    update(['report_video_bottomsheet']);
+  }
+
+  bool isReportVideoSelected(String optionId) {
+    if (mapReportVideos[optionId] == null) {
+      return false;
+    }
+    return mapReportVideos[optionId] != null;
+  }
+
+  void reportVideoButtonPressed() {
+    Get.back();
+    reportVideoConfirmButtonIsLoading.value = false;
+    Bottomsheets.staticBottomSheet(BottomSheetTypes.reportVideoConfirm);
+  }
+
+  Future<void> reportVideoConfirmButtonPressed() async {
+    reportVideoConfirmButtonIsLoading.value = true;
+
+    String reason = getReportVideosText();
+
+    Either<String, Unit> response = await userProductRepository.reportVideo(
+      videoPostModel: reportVideoSelected!,
+      reason: reason,
+    );
+
+    response.fold(
+      (failure) {
+        Snackbars.error(failure);
+      },
+      (_) {
+        Get.back();
+        reportVideoConfirmButtonIsLoading.value = false;
+        Bottomsheets.staticBottomSheet(BottomSheetTypes.reportVideoThanks);
+      },
+    );
+  }
+
+  void reportVideoThanksButtonPressed() {
+    Get.back();
+    Bottomsheets.staticBottomSheet(BottomSheetTypes.reportVideoBlockBrand);
+  }
+
+  Future<void> reportVideoBlockBrandButtonPressed(bool yes) async {
+    reportVideoShowBlackViewBrand.value = yes;
+
+    if (yes) {
+      reportVideoConfirmButtonIsLoading.value = true;
+
+      String reason = getReportVideosText();
+
+      await userProductRepository.blockProvider(
+        videoPostModel: reportVideoSelected!,
+        reason: reason,
+      );
+    }
+    Get.back();
+    reportVideoShowBlackView.value = true;
+  }
+
+  void reloadFeed() {
+    reportVideoShowBlackView.value = false;
+    Get.offAllNamed(Routes.HOME);
+  }
+
+  String getReportVideosText() {
+    return mapReportVideos.values.map((document) => document.title).join(', ');
   }
 
   void goToSellProductAction(VideoPostModel? videoPostModel) async {
@@ -380,18 +574,36 @@ class UserProductController extends GetxController {
     );
   }
 
-  void setUniqueProduct(VideoPostModel? videoPostModel) {
+  void setUniqueProductFromDetails(UserProductCartModel? uniqueProduct) {
+    if (_uniqueProduct != null) {
+      _uniqueProduct = uniqueProduct;
+    } else {
+      _uniqueProduct = null;
+    }
+  }
+
+  void setUniqueProduct(VideoPostModel? videoPostModel,
+      {ProductVariantInfoModel? variantInfo}) {
     if (videoPostModel != null) {
       String id = Uuid().v4();
+      String providerId = videoPostModel.product?.provider['_id'] ?? '';
+
       UserProductCartModel unique = UserProductCartModel(
         id: id,
         quantity: 1,
         video: videoPostModel,
+        providerId: providerId,
+        variantID: variantInfo?.id ??
+            variantInfo?.id0 ??
+            videoPostModel.product?.defaultVariantID ??
+            '',
+        variantInfo: variantInfo ?? videoPostModel.product?.defaultVariantInfo,
         price: videoPostModel.product?.price ?? 0,
         suggestedPrice: videoPostModel.product?.suggestedPrice ?? 0,
         points: videoPostModel.product?.points ?? 0,
         stock: videoPostModel.product?.stock ?? 1,
       );
+
       _uniqueProduct = unique;
     } else {
       _uniqueProduct = null;
@@ -438,6 +650,8 @@ class UserProductController extends GetxController {
     if (videoPostModel == null) {
       return;
     }
+    mapVideoLikes[videoPostModel.id] = (videoPostModel.likes ?? 0) + 1;
+    update(['product_favorite_icon']);
     Either<String, Unit> response = await userProductRepository.addToFavorites(
         videoPostModel: videoPostModel);
 
@@ -458,6 +672,10 @@ class UserProductController extends GetxController {
     if (videoPostModel == null) {
       return;
     }
+    int newLike = (videoPostModel.likes ?? 0) - 1;
+    mapVideoLikes[videoPostModel.id] = newLike < 0 ? 0 : newLike;
+
+    update(['product_favorite_icon']);
     Either<String, Unit> response = await userProductRepository
         .removeFromFavorites(videoPostModel: videoPostModel);
 
@@ -621,6 +839,13 @@ class UserProductController extends GetxController {
     );
   }
 
+  bool isProviderBlockedForUser(VideoPostModel videoPostModel) {
+    String providerId = videoPostModel.product?.provider['_id'];
+    ProviderBlockedModel? option = listProviderBlocked
+        .firstWhereOrNull((element) => element.providerId == providerId);
+    return option != null;
+  }
+
   bool isProductoInCatalog(
       UserCatalogModel catalog, VideoPostModel videoPostModel) {
     List<VideoPostModel> listProducts = catalog.videos ?? [];
@@ -629,6 +854,15 @@ class UserProductController extends GetxController {
         .firstWhereOrNull((element) => element.id == videoPostModel.id);
 
     return option != null;
+  }
+
+  String getLikes(VideoPostModel? videoPostModel) {
+    int likes = videoPostModel!.likes ?? 0;
+
+    if (mapVideoLikes[videoPostModel.id] != null) {
+      return mapVideoLikes[videoPostModel.id].toString();
+    }
+    return likes.toString();
   }
 
   bool isProductInFavorites(VideoPostModel? videoPostModel) {
@@ -651,53 +885,287 @@ class UserProductController extends GetxController {
   }
 
   Future<void> addToCart(VideoPostModel videoPostModel) async {
-    isVariantsButtonText = 'Agregar al carrito';
-    isVariantsButtonAddToCart = true;
-    isVariantsButtonAddToCartUpdate = false;
-    pickVariants(videoPostModel);
+    saveaddToCart(videoPostModel);
   }
 
-  Future<void> pickVariants(VideoPostModel videoPostModel) async {
-    productSelected = videoPostModel;
+  Future<void> pickVariantsUniqueProduct(
+      UserProductCartModel userProductCartModel) async {
+    isProductVariantsIsUnique = true;
+    isProductVariantsButtonLoading.value = false;
     productVariantSelected = null;
+    productVariantDefault = null;
+    userProductCartSelected = userProductCartModel;
+    isProductVariantsLoading.value = true;
+
+    openPickProductVariant();
+
     variantInfoModel = await productRepository
-        .getVariantsInfo(videoPostModel.product?.id ?? '');
-    isVariantsButtonEnabled = false;
+        .getVariantsInfo(userProductCartModel.video?.product?.id ?? '');
+
+    _listVariantCombinations =
+        await productRepository.getAllProductVariantsFuture(
+            productId: userProductCartModel.video?.product?.id ?? '');
+
+    _listAttributes =
+        await productRepository.getAllProductVariantAttributesFuture(
+            productId: userProductCartModel.video?.product?.id ?? '');
+
+    buildVariantsMapWithModel(userProductCartModel);
+    checkVariations();
+    isProductVariantsLoading.value = false;
+
+    update(['pick_product_variant_bottom_sheet']);
+  }
+
+  Future<void> pickVariantsProduct(
+      UserProductCartModel userProductCartModel) async {
+    isProductVariantsIsUnique = false;
+
+    isProductVariantsButtonLoading.value = false;
+    productVariantSelected = null;
+    productVariantDefault = null;
+    userProductCartSelected = userProductCartModel;
+    isProductVariantsLoading.value = true;
+
+    openPickProductVariant();
+
+    variantInfoModel = await productRepository
+        .getVariantsInfo(userProductCartModel.video?.product?.id ?? '');
+
+    _listVariantCombinations =
+        await productRepository.getAllProductVariantsFuture(
+            productId: userProductCartModel.video?.product?.id ?? '');
+
+    _listAttributes =
+        await productRepository.getAllProductVariantAttributesFuture(
+            productId: userProductCartModel.video?.product?.id ?? '');
+    buildVariantsMap(userProductCartModel);
+    checkVariations();
+    isProductVariantsLoading.value = false;
+
+    update(['pick_product_variant_bottom_sheet']);
+  }
+
+  void buildVariantsMap(UserProductCartModel userProductCartModel) {
     selectedVariantsMap.clear();
     selectedVariantsAttributesMap.clear();
-    _listVariantCombinations = null;
-    _listAttributes = null;
-    isPickVariantButtonLoading = false;
-    if (variantInfoModel != null) {
-      isVariantsLoading = true;
-      update(['pick_product_variant_bottom_sheet']);
-      openPickProductVariant();
-      _listVariantCombinations =
-          await productRepository.getAllProductVariantsFuture(
-              productId: videoPostModel.product?.id ?? '');
-      _listAttributes =
-          await productRepository.getAllProductVariantAttributesFuture(
-              productId: videoPostModel.product?.id ?? '');
 
-      isVariantsLoading = false;
-      update(['pick_product_variant_bottom_sheet']);
-    } else {
-      if (isVariantsButtonAddToCart) {
-        saveaddToCart(videoPostModel);
-      } else {
-        saveBuyAction(videoPostModel);
+    if (userProductCartModel.variantInfo != null) {
+      String? variantId = userProductCartModel.variantInfo['id'];
+      variantId ??= userProductCartModel.variantInfo['_id'];
+
+      if (_listVariantCombinations != null) {
+        if (variantId != null) {
+          ProductVariantModel? variantCombination =
+              _listVariantCombinations!.firstWhereOrNull(
+            (variant) => variant.id == variantId,
+          );
+
+          if (variantCombination != null) {
+            for (dynamic value in variantCombination.values) {
+              String id = value['id'];
+              String attributeName = value['attribute_name'];
+
+              VariantVariantModel variant =
+                  getVariationsByAttributeName(attributeName);
+
+              selectedVariantsMap[attributeName] = id;
+              selectedVariantsAttributesMap[attributeName] = variant.toJson();
+            }
+          }
+
+          productVariantDefault = findMatchingCombination();
+          Get.find<CartController>().refreshCardProducts();
+        }
       }
     }
   }
+
+  void buildVariantsMapWithModel(UserProductCartModel userProductCartModel) {
+    selectedVariantsMap.clear();
+    selectedVariantsAttributesMap.clear();
+
+    if (userProductCartModel.variantInfo != null) {
+      String? variantId = userProductCartModel.variantInfo.id;
+      variantId ??= userProductCartModel.variantInfo.id0;
+
+      if (_listVariantCombinations != null) {
+        if (variantId != null) {
+          ProductVariantModel? variantCombination =
+              _listVariantCombinations!.firstWhereOrNull(
+            (variant) => variant.id == variantId,
+          );
+
+          if (variantCombination != null) {
+            for (dynamic value in variantCombination.values) {
+              String id = value['id'];
+              String attributeName = value['attribute_name'];
+
+              VariantVariantModel variant =
+                  getVariationsByAttributeName(attributeName);
+
+              selectedVariantsMap[attributeName] = id;
+              selectedVariantsAttributesMap[attributeName] = variant.toJson();
+            }
+          }
+
+          productVariantDefault = findMatchingCombination();
+          // Get.find<CartController>().refreshCardProducts();
+        }
+      }
+    }
+  }
+
+  Future<void> onProductVariantSave() async {
+    if (isProductVariantsIsUnique) {
+      onProductVariantSaveWithUnique();
+    } else {
+      onProductVariantSaveWithCart();
+    }
+  }
+
+  Future<void> onProductVariantSaveWithUnique() async {
+    checkVariations();
+
+    if (productVariantSelected != null) {
+      String variantID = (productVariantSelected?.externalID ?? '').toString();
+      int points = productVariantSelected!.points;
+      int stock = productVariantSelected!.stock;
+      double price = productVariantSelected!.sale_price;
+      double suggestedPrice = productVariantSelected!.suggested_price;
+      int quantity = 1;
+
+      int currentQuantity = cartQuantity.value;
+      quantity = currentQuantity > stock ? stock : currentQuantity;
+
+      ProductVariantModel variantInfo = productVariantSelected!;
+      ProductVariantInfoModel newVariantInfo = ProductVariantInfoModel(
+        id: variantInfo.id,
+        externalID: variantInfo.externalID,
+        points: variantInfo.points,
+        sale_price: variantInfo.sale_price,
+        sku: variantInfo.sku,
+        stock: variantInfo.stock,
+        suggested_price: variantInfo.suggested_price,
+        values: variantInfo.values,
+      );
+      UserProductCartModel unique = UserProductCartModel(
+        id: _uniqueProduct!.id,
+        providerId: _uniqueProduct!.providerId,
+        quantity: cartQuantity.value,
+        video: _uniqueProduct!.video,
+        variantID: variantID,
+        variantInfo: newVariantInfo,
+        price: price,
+        suggestedPrice: suggestedPrice,
+        points: points,
+        stock: stock,
+      );
+
+      cartPoints.value = points;
+      cartPrices.value = price;
+      cartProfit.value = getProductProfit(
+          price: price,
+          suggestedPrice: suggestedPrice,
+          providerId: _uniqueProduct!.providerId);
+      cartQuantity.value = quantity;
+      cartStock.value = stock;
+      cartVariantId.value = variantID;
+      // cartVariantInfo?.value = variantInfo;
+
+      _uniqueProduct = unique;
+
+      Get.find<CartUniqueProductController>().refreshCardProducts();
+      Get.back();
+    }
+  }
+
+  Future<void> onProductVariantSaveWithCart() async {
+    checkVariations();
+    if (productVariantSelected != null) {
+      String variantID = (productVariantSelected?.externalID ?? '').toString();
+      dynamic variantInfo = productVariantSelected!.toJson();
+      int points = productVariantSelected!.points;
+      int stock = productVariantSelected!.stock;
+      double price = productVariantSelected!.sale_price;
+      double suggestedPrice = productVariantSelected!.suggested_price;
+      int quantity = 1;
+      String cartId = userProductCartSelected!.id;
+
+      isProductVariantsButtonLoading.value = true;
+
+      if (mapProductsQuantity[cartId] != null) {
+        int currentQuantity = mapProductsQuantity[cartId] ?? 1;
+        quantity = currentQuantity > stock ? stock : currentQuantity;
+        mapProductsQuantity[cartId] = quantity;
+        Get.find<CartController>().refreshCardProducts();
+      }
+
+      Either<String, Unit> response =
+          await userProductRepository.updateVariantFromCart(
+        cartId: userProductCartSelected!.id,
+        variantID: variantID,
+        variantInfo: variantInfo,
+        points: points,
+        stock: stock,
+        price: price,
+        suggestedPrice: suggestedPrice,
+        quantity: quantity,
+      );
+
+      response.fold(
+        (failure) {
+          isProductVariantsButtonLoading.value = false;
+          Snackbars.error(failure);
+        },
+        (_) {
+          Get.back();
+        },
+      );
+    }
+  }
+
+  // Future<void> pickVariants(VideoPostModel videoPostModel) async {
+  //   productSelected = videoPostModel;
+  //   productVariantSelected = null;
+  //   variantInfoModel = await productRepository
+  //       .getVariantsInfo(videoPostModel.product?.id ?? '');
+  //   isVariantsButtonEnabled = false;
+  //   selectedVariantsMap.clear();
+  //   selectedVariantsAttributesMap.clear();
+  //   _listVariantCombinations = null;
+  //   _listAttributes = null;
+  //   isPickVariantButtonLoading = false;
+  //   if (variantInfoModel != null) {
+  //     isVariantsLoading = true;
+  //     update(['pick_product_variant_bottom_sheet']);
+  //     openPickProductVariant();
+  //     _listVariantCombinations =
+  //         await productRepository.getAllProductVariantsFuture(
+  //             productId: videoPostModel.product?.id ?? '');
+  //     _listAttributes =
+  //         await productRepository.getAllProductVariantAttributesFuture(
+  //             productId: videoPostModel.product?.id ?? '');
+
+  //     isVariantsLoading = false;
+  //     update(['pick_product_variant_bottom_sheet']);
+  //   } else {
+  //     if (isVariantsButtonAddToCart) {
+  //       saveaddToCart(videoPostModel);
+  //     } else {
+  //       saveBuyAction(videoPostModel);
+  //     }
+  //   }
+  // }
 
   void onPickVariantButtonPressed() {
     if (productSelected != null && productVariantSelected != null) {
       if (isVariantsButtonAddToCart) {
         isPickVariantButtonLoading = true;
         update(['pick_product_variant_bottom_sheet']);
-        saveAddToCartVariant(productSelected!, productVariantSelected!);
+        // saveAddToCartVariant(productSelected!, productVariantSelected!);
       } else {
-        saveBuyActionVariant(productSelected!, productVariantSelected!);
+        // saveBuyActionVariant(productSelected!, productVariantSelected!);
       }
     }
   }
@@ -706,6 +1174,12 @@ class UserProductController extends GetxController {
     return variantInfoModel!.variants!.firstWhereOrNull(
       (variant) => variant.name == name,
     );
+  }
+
+  VariantVariantModel getVariationsByAttributeName(String attributeName) {
+    return variantInfoModel!.variants!
+        .where((variant) => variant.attributeName == attributeName)
+        .toList()[0];
   }
 
   List<VariantVariantModel> getVariations(VariantAttributeModel attribute) {
@@ -723,10 +1197,8 @@ class UserProductController extends GetxController {
   void checkVariations() {
     if (selectedVariantsMap.length == variantInfoModel!.attributes!.length) {
       productVariantSelected = findMatchingCombination();
-      if (productVariantSelected != null) {
-        isVariantsButtonEnabled = true;
-        update(['pick_product_variant_bottom_sheet']);
-      }
+      isProductVariantsButtonEnabled.value =
+          productVariantDefault != productVariantSelected;
     }
   }
 
@@ -746,41 +1218,69 @@ class UserProductController extends GetxController {
     );
   }
 
-  Future<void> saveAddToCartVariant(
-      VideoPostModel videoPostModel, ProductVariantModel variant) async {
-    Either<String, Unit> response = await userProductRepository.addToCart(
-      video: videoPostModel,
-      productVariant: variant,
-      attributes: selectedVariantsAttributesMap,
-      quantity: 1,
-      price: variant.sale_price ?? 0,
-      suggestedPrice: variant.suggested_price ?? 0,
-      points: variant.points ?? 0,
-      stock: variant.stock ?? 0,
-    );
+  // Future<void> saveAddToCartVariant(
+  //     VideoPostModel videoPostModel, ProductVariantModel variant) async {
+  //   Either<String, Unit> response = await userProductRepository.addToCart(
+  //     video: videoPostModel,
+  //     productVariant: variant,
+  //     attributes: selectedVariantsAttributesMap,
+  //     quantity: 1,
+  //     price: variant.sale_price ?? 0,
+  //     suggestedPrice: variant.suggested_price ?? 0,
+  //     points: variant.points ?? 0,
+  //     stock: variant.stock ?? 0,
+  //   );
 
-    response.fold(
-      (failure) {
-        Snackbars.error(failure);
-      },
-      (_) {
-        Get.back();
-        update(['product_cart_icon']);
-        Snackbars.success(
-            '${videoPostModel.product?.name ?? ''} agregado a tu carrito');
-      },
-    );
-  }
+  //   response.fold(
+  //     (failure) {
+  //       Snackbars.error(failure);
+  //     },
+  //     (_) {
+  //       Get.back();
+  //       update(['product_cart_icon']);
+  //       Snackbars.success(
+  //           '${videoPostModel.product?.name ?? ''} agregado a tu carrito');
+  //     },
+  //   );
+  // }
 
   Future<void> saveaddToCart(VideoPostModel videoPostModel) async {
+    String? defaultVariantID = videoPostModel.product?.defaultVariantID;
+    ProductVariantInfoModel? defaultVariantInfo =
+        videoPostModel.product?.defaultVariantInfo;
+
+    double price = videoPostModel.product?.price ?? 0;
+    double suggestedPrice = videoPostModel.product?.suggestedPrice ?? 0;
+    int points = videoPostModel.product?.points ?? 0;
+    int stock = videoPostModel.product?.stock ?? 0;
+
+    if (videoPostModel.product?.defaultVariantInfo != null) {
+      if (videoPostModel.product?.defaultVariantInfo?.sale_price != null) {
+        price = videoPostModel.product?.defaultVariantInfo?.sale_price ?? 0;
+      }
+      if (videoPostModel.product?.defaultVariantInfo?.suggested_price != null) {
+        suggestedPrice =
+            videoPostModel.product?.defaultVariantInfo?.suggested_price ?? 0;
+      }
+      if (videoPostModel.product?.defaultVariantInfo?.points != null) {
+        points = videoPostModel.product?.defaultVariantInfo?.points ?? 0;
+      }
+      if (videoPostModel.product?.defaultVariantInfo?.stock != null) {
+        stock = videoPostModel.product?.defaultVariantInfo?.stock ?? 0;
+      }
+    }
+
+    String providerId = videoPostModel.product?.provider['_id'];
     Either<String, Unit> response = await userProductRepository.addToCart(
       video: videoPostModel,
-      productVariant: null,
+      providerId: providerId,
+      variantID: defaultVariantID ?? '',
+      variantInfo: defaultVariantInfo?.toDocument(),
       quantity: 1,
-      price: videoPostModel.product?.price ?? 0,
-      suggestedPrice: videoPostModel.product?.suggestedPrice ?? 0,
-      points: videoPostModel.product?.points ?? 0,
-      stock: videoPostModel.product?.stock ?? 0,
+      price: price,
+      suggestedPrice: suggestedPrice,
+      points: points,
+      stock: stock,
     );
 
     response.fold(
@@ -896,5 +1396,44 @@ class UserProductController extends GetxController {
             _productCatalogBottomSheet!.product!, '$message ${catalog.name}');
       },
     );
+  }
+
+  double getProductPrice({
+    required double price,
+    required double suggestedPrice,
+  }) {
+    return suggestedPrice;
+  }
+
+  double getProductProfit({
+    required double price,
+    required double suggestedPrice,
+    required String providerId,
+  }) {
+    ProviderModel? provider =
+        _listProvider.firstWhereOrNull((element) => element.id == providerId);
+    int porcentage = provider?.porcentage ?? 0;
+    double providerPorcentage = 1 + (porcentage / 100);
+    double profit = suggestedPrice - price * providerPorcentage;
+    return profit;
+  }
+
+  String getProductPriceStr({
+    required double price,
+    required double suggestedPrice,
+  }) {
+    double value =
+        getProductPrice(price: price, suggestedPrice: suggestedPrice);
+    return CurrencyHelpers.moneyFormat(amount: value, withDecimals: false);
+  }
+
+  String getProductProfitStr({
+    required double price,
+    required double suggestedPrice,
+    required String providerId,
+  }) {
+    double value = getProductProfit(
+        price: price, suggestedPrice: suggestedPrice, providerId: providerId);
+    return CurrencyHelpers.moneyFormat(amount: value, withDecimals: false);
   }
 }

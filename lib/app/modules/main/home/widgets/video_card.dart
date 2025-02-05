@@ -13,24 +13,25 @@ import '../../../../themes/styles/colors.dart';
 class VideoCard extends StatelessWidget {
   const VideoCard({
     required this.videoPostModel,
-    required this.onCompleted,
+    // required this.onCompleted,
     this.bottomSpace = true,
     super.key,
   });
 
   final VideoPostModel videoPostModel;
-  final Function() onCompleted;
+  // final Function() onCompleted;
   final bool bottomSpace;
 
   @override
   Widget build(BuildContext context) {
     MainController mainController = Get.find<MainController>();
+
     return Stack(
       children: [
         VideoApp(
           bottomSpace: bottomSpace,
           videoPostModel: videoPostModel,
-          onCompleted: onCompleted,
+          // onCompleted: onCompleted,
         ),
         if (mainController.showSwipeUpVideo)
           Center(

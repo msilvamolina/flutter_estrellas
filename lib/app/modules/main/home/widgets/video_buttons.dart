@@ -64,19 +64,20 @@ class _VideoButtonsState extends State<VideoButtons> {
             label: 'Info'),
         SizedBox(height: 22),
         GetBuilder<UserProductController>(
-            id: 'product_favorite_icon',
-            builder: (_) {
-              return buttonCard(
-                onTap: () => userProductController
-                    .productFavoriteButton(widget.videoPostModel),
-                image: userProductController
-                        .isProductInFavorites(widget.videoPostModel)
-                    ? 'assets/svg/HeartColor.svg'
-                    : 'assets/svg/HeartFill.svg',
-                label: '0',
-                colorIcon: null,
-              );
-            }),
+          id: 'product_favorite_icon',
+          builder: (_) {
+            return buttonCard(
+              onTap: () => userProductController
+                  .productFavoriteButton(widget.videoPostModel),
+              image: userProductController
+                      .isProductInFavorites(widget.videoPostModel)
+                  ? 'assets/svg/HeartColor.svg'
+                  : 'assets/svg/HeartFill.svg',
+              label: userProductController.getLikes(widget.videoPostModel),
+              colorIcon: null,
+            );
+          },
+        ),
         SizedBox(height: 12),
         GetBuilder<UserProductController>(
             id: 'product_cart_icon',
@@ -109,6 +110,14 @@ class _VideoButtonsState extends State<VideoButtons> {
           isLogo: true,
           colorIcon: primaryBase,
         ),
+        SizedBox(height: 22),
+        buttonCard(
+          onTap: () =>
+              userProductController.goToReportVideo(widget.videoPostModel),
+          image: 'assets/svg/DotsThree.svg',
+          isLogo: true,
+          colorIcon: white,
+        ),
       ],
     );
   }
@@ -116,7 +125,7 @@ class _VideoButtonsState extends State<VideoButtons> {
   Widget buttonCard({
     required Function()? onTap,
     required String image,
-    required String label,
+    String? label,
     Color? colorIcon = white,
     bool isLogo = false,
     double iconSize = 34,
@@ -130,50 +139,54 @@ class _VideoButtonsState extends State<VideoButtons> {
           width: 55,
           child: Column(
             children: [
-              Container(
-                decoration: BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(
-                          0.1), // Menor opacidad para una sombra más sutil
-                      offset: Offset(0.5, 0.5), // Sombra más cercana al ícono
-                      blurRadius: 4, // Menor desenfoque
+              Padding(
+                padding: EdgeInsets.only(left: paddingLeft),
+                child: Stack(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 1, top: 1),
+                      child: SvgPicture.asset(image,
+                          width: (isLogo ? (iconSize + 6) : iconSize) + 1,
+                          colorFilter: ColorFilter.mode(
+                            Colors.black.withOpacity(0.3),
+                            BlendMode.srcIn,
+                          )),
+                    ),
+                    SvgPicture.asset(
+                      image,
+                      width: isLogo ? (iconSize + 6) : iconSize,
+                      colorFilter: colorIcon != null
+                          ? ColorFilter.mode(
+                              colorIcon,
+                              BlendMode.srcIn,
+                            )
+                          : null,
                     ),
                   ],
                 ),
-                child: Padding(
-                  padding: EdgeInsets.only(left: paddingLeft),
-                  child: SvgPicture.asset(
-                    image,
-                    width: isLogo ? (iconSize + 6) : iconSize,
-                    colorFilter: colorIcon != null
-                        ? ColorFilter.mode(
-                            colorIcon,
-                            BlendMode.srcIn,
-                          )
-                        : null,
+              ),
+              if (label != null)
+                Padding(
+                  padding: const EdgeInsets.only(top: 4),
+                  child: Text(
+                    label,
+                    style: TypographyStyle.bodyBlackMedium.copyWith(
+                      color: neutral50,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                      shadows: [
+                        Shadow(
+                          offset: Offset(1, 1), // Desplazamiento en x y y
+                          blurRadius: 8, // Radio de desenfoque
+                          color: Colors.black
+                              .withOpacity(0.8), // Color de la sombra
+                        ),
+                      ],
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
-              ),
-              SizedBox(height: 4),
-              Text(
-                label,
-                style: TypographyStyle.bodyBlackMedium.copyWith(
-                  color: neutral50,
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
-                  shadows: [
-                    Shadow(
-                      offset: Offset(1, 1), // Desplazamiento en x y y
-                      blurRadius: 8, // Radio de desenfoque
-                      color:
-                          Colors.black.withOpacity(0.8), // Color de la sombra
-                    ),
-                  ],
-                ),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
             ],
           ),
         ),

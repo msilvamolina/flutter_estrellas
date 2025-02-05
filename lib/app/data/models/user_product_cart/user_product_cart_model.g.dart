@@ -12,16 +12,15 @@ _$UserProductCartModelImpl _$$UserProductCartModelImplFromJson(
       id: json['id'] as String,
       price: (json['price'] as num).toDouble(),
       suggestedPrice: (json['suggestedPrice'] as num).toDouble(),
+      providerId: json['providerId'] as String,
       points: (json['points'] as num).toInt(),
       stock: (json['stock'] as num).toInt(),
       quantity: (json['quantity'] as num?)?.toInt(),
       video: json['video'] == null
           ? null
           : VideoPostModel.fromJson(json['video'] as Map<String, dynamic>),
-      productCombination: json['productCombination'] == null
-          ? null
-          : ProductVariantCombinationModel.fromJson(
-              json['productCombination'] as Map<String, dynamic>),
+      variantID: json['variantID'] as String?,
+      variantInfo: json['variantInfo'],
       createdAt: json['createdAt'] as String?,
     );
 
@@ -31,10 +30,12 @@ Map<String, dynamic> _$$UserProductCartModelImplToJson(
       'id': instance.id,
       'price': instance.price,
       'suggestedPrice': instance.suggestedPrice,
+      'providerId': instance.providerId,
       'points': instance.points,
       'stock': instance.stock,
       'quantity': instance.quantity,
       'video': instance.video,
-      'productCombination': instance.productCombination,
+      'variantID': instance.variantID,
+      'variantInfo': instance.variantInfo,
       'createdAt': instance.createdAt,
     };

@@ -21,22 +21,22 @@ class SearchViewController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    _filteredList.assignAll(homeController.list);
+    // _filteredList.assignAll(homeController.list);
   }
 
   void filterList(String query) {
     if (query.isEmpty) {
       showCancelButton.value = false;
-      _filteredList.assignAll(homeController.list);
+      // _filteredList.assignAll(homeController.list);
     } else {
       showCancelButton.value = true;
 
-      _filteredList.assignAll(
-        homeController.list
-            .where((item) =>
-                item.searchField!.toLowerCase().contains(query.toLowerCase()))
-            .toList(),
-      );
+      // _filteredList.assignAll(
+      //   homeController.list
+      //       .where((item) =>
+      //           item.searchField!.toLowerCase().contains(query.toLowerCase()))
+      //       .toList(),
+      // );
     }
   }
 

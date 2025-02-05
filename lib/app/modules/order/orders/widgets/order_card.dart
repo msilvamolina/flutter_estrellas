@@ -46,10 +46,10 @@ class OrderCard extends StatelessWidget {
                   ),
                 ),
                 SizedBox(width: 4),
-                Text(
-                  'ID: ${order.orderId}',
-                  style: TypographyStyle.bodyRegularMedium,
-                ),
+                // Text(
+                //   'ID: ${order.orderId}',
+                //   style: TypographyStyle.bodyRegularMedium,
+                // ),
               ],
             ),
             SizedBox(height: 8),

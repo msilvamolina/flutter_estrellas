@@ -28,12 +28,21 @@ mixin _$ProductFirebaseLiteModel {
   int? get externalId => throw _privateConstructorUsedError;
   int? get stock => throw _privateConstructorUsedError;
   String? get type => throw _privateConstructorUsedError;
-  String? get description => throw _privateConstructorUsedError;
   double? get price => throw _privateConstructorUsedError;
   bool? get active => throw _privateConstructorUsedError;
   int? get points => throw _privateConstructorUsedError;
+  dynamic get attributes => throw _privateConstructorUsedError;
+  dynamic get variations => throw _privateConstructorUsedError;
+  dynamic get categories => throw _privateConstructorUsedError;
+  String? get categoriesIds => throw _privateConstructorUsedError;
+  String? get categoriesNames => throw _privateConstructorUsedError;
+  String? get defaultVariantID => throw _privateConstructorUsedError;
+  ProductVariantInfoModel? get defaultVariantInfo =>
+      throw _privateConstructorUsedError;
+  dynamic get category => throw _privateConstructorUsedError;
   double? get suggestedPrice => throw _privateConstructorUsedError;
   String? get thumbnail => throw _privateConstructorUsedError;
+  String? get createdAt => throw _privateConstructorUsedError;
 
   /// Serializes this ProductFirebaseLiteModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -58,12 +67,22 @@ abstract class $ProductFirebaseLiteModelCopyWith<$Res> {
       int? externalId,
       int? stock,
       String? type,
-      String? description,
       double? price,
       bool? active,
       int? points,
+      dynamic attributes,
+      dynamic variations,
+      dynamic categories,
+      String? categoriesIds,
+      String? categoriesNames,
+      String? defaultVariantID,
+      ProductVariantInfoModel? defaultVariantInfo,
+      dynamic category,
       double? suggestedPrice,
-      String? thumbnail});
+      String? thumbnail,
+      String? createdAt});
+
+  $ProductVariantInfoModelCopyWith<$Res>? get defaultVariantInfo;
 }
 
 /// @nodoc
@@ -88,12 +107,20 @@ class _$ProductFirebaseLiteModelCopyWithImpl<$Res,
     Object? externalId = freezed,
     Object? stock = freezed,
     Object? type = freezed,
-    Object? description = freezed,
     Object? price = freezed,
     Object? active = freezed,
     Object? points = freezed,
+    Object? attributes = freezed,
+    Object? variations = freezed,
+    Object? categories = freezed,
+    Object? categoriesIds = freezed,
+    Object? categoriesNames = freezed,
+    Object? defaultVariantID = freezed,
+    Object? defaultVariantInfo = freezed,
+    Object? category = freezed,
     Object? suggestedPrice = freezed,
     Object? thumbnail = freezed,
+    Object? createdAt = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -120,10 +147,6 @@ class _$ProductFirebaseLiteModelCopyWithImpl<$Res,
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as String?,
-      description: freezed == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String?,
       price: freezed == price
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
@@ -136,6 +159,38 @@ class _$ProductFirebaseLiteModelCopyWithImpl<$Res,
           ? _value.points
           : points // ignore: cast_nullable_to_non_nullable
               as int?,
+      attributes: freezed == attributes
+          ? _value.attributes
+          : attributes // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      variations: freezed == variations
+          ? _value.variations
+          : variations // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      categories: freezed == categories
+          ? _value.categories
+          : categories // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      categoriesIds: freezed == categoriesIds
+          ? _value.categoriesIds
+          : categoriesIds // ignore: cast_nullable_to_non_nullable
+              as String?,
+      categoriesNames: freezed == categoriesNames
+          ? _value.categoriesNames
+          : categoriesNames // ignore: cast_nullable_to_non_nullable
+              as String?,
+      defaultVariantID: freezed == defaultVariantID
+          ? _value.defaultVariantID
+          : defaultVariantID // ignore: cast_nullable_to_non_nullable
+              as String?,
+      defaultVariantInfo: freezed == defaultVariantInfo
+          ? _value.defaultVariantInfo
+          : defaultVariantInfo // ignore: cast_nullable_to_non_nullable
+              as ProductVariantInfoModel?,
+      category: freezed == category
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
+              as dynamic,
       suggestedPrice: freezed == suggestedPrice
           ? _value.suggestedPrice
           : suggestedPrice // ignore: cast_nullable_to_non_nullable
@@ -144,7 +199,26 @@ class _$ProductFirebaseLiteModelCopyWithImpl<$Res,
           ? _value.thumbnail
           : thumbnail // ignore: cast_nullable_to_non_nullable
               as String?,
+      createdAt: freezed == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
+  }
+
+  /// Create a copy of ProductFirebaseLiteModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $ProductVariantInfoModelCopyWith<$Res>? get defaultVariantInfo {
+    if (_value.defaultVariantInfo == null) {
+      return null;
+    }
+
+    return $ProductVariantInfoModelCopyWith<$Res>(_value.defaultVariantInfo!,
+        (value) {
+      return _then(_value.copyWith(defaultVariantInfo: value) as $Val);
+    });
   }
 }
 
@@ -164,12 +238,23 @@ abstract class _$$ProductFirebaseLiteModelImplCopyWith<$Res>
       int? externalId,
       int? stock,
       String? type,
-      String? description,
       double? price,
       bool? active,
       int? points,
+      dynamic attributes,
+      dynamic variations,
+      dynamic categories,
+      String? categoriesIds,
+      String? categoriesNames,
+      String? defaultVariantID,
+      ProductVariantInfoModel? defaultVariantInfo,
+      dynamic category,
       double? suggestedPrice,
-      String? thumbnail});
+      String? thumbnail,
+      String? createdAt});
+
+  @override
+  $ProductVariantInfoModelCopyWith<$Res>? get defaultVariantInfo;
 }
 
 /// @nodoc
@@ -193,12 +278,20 @@ class __$$ProductFirebaseLiteModelImplCopyWithImpl<$Res>
     Object? externalId = freezed,
     Object? stock = freezed,
     Object? type = freezed,
-    Object? description = freezed,
     Object? price = freezed,
     Object? active = freezed,
     Object? points = freezed,
+    Object? attributes = freezed,
+    Object? variations = freezed,
+    Object? categories = freezed,
+    Object? categoriesIds = freezed,
+    Object? categoriesNames = freezed,
+    Object? defaultVariantID = freezed,
+    Object? defaultVariantInfo = freezed,
+    Object? category = freezed,
     Object? suggestedPrice = freezed,
     Object? thumbnail = freezed,
+    Object? createdAt = freezed,
   }) {
     return _then(_$ProductFirebaseLiteModelImpl(
       id: null == id
@@ -225,10 +318,6 @@ class __$$ProductFirebaseLiteModelImplCopyWithImpl<$Res>
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as String?,
-      description: freezed == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String?,
       price: freezed == price
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
@@ -241,6 +330,38 @@ class __$$ProductFirebaseLiteModelImplCopyWithImpl<$Res>
           ? _value.points
           : points // ignore: cast_nullable_to_non_nullable
               as int?,
+      attributes: freezed == attributes
+          ? _value.attributes
+          : attributes // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      variations: freezed == variations
+          ? _value.variations
+          : variations // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      categories: freezed == categories
+          ? _value.categories
+          : categories // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      categoriesIds: freezed == categoriesIds
+          ? _value.categoriesIds
+          : categoriesIds // ignore: cast_nullable_to_non_nullable
+              as String?,
+      categoriesNames: freezed == categoriesNames
+          ? _value.categoriesNames
+          : categoriesNames // ignore: cast_nullable_to_non_nullable
+              as String?,
+      defaultVariantID: freezed == defaultVariantID
+          ? _value.defaultVariantID
+          : defaultVariantID // ignore: cast_nullable_to_non_nullable
+              as String?,
+      defaultVariantInfo: freezed == defaultVariantInfo
+          ? _value.defaultVariantInfo
+          : defaultVariantInfo // ignore: cast_nullable_to_non_nullable
+              as ProductVariantInfoModel?,
+      category: freezed == category
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
+              as dynamic,
       suggestedPrice: freezed == suggestedPrice
           ? _value.suggestedPrice
           : suggestedPrice // ignore: cast_nullable_to_non_nullable
@@ -248,6 +369,10 @@ class __$$ProductFirebaseLiteModelImplCopyWithImpl<$Res>
       thumbnail: freezed == thumbnail
           ? _value.thumbnail
           : thumbnail // ignore: cast_nullable_to_non_nullable
+              as String?,
+      createdAt: freezed == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -263,12 +388,20 @@ class _$ProductFirebaseLiteModelImpl extends _ProductFirebaseLiteModel {
       this.externalId,
       this.stock,
       this.type,
-      this.description,
       this.price,
       this.active,
       this.points,
+      this.attributes,
+      this.variations,
+      this.categories,
+      this.categoriesIds,
+      this.categoriesNames,
+      this.defaultVariantID,
+      this.defaultVariantInfo,
+      this.category,
       this.suggestedPrice,
-      this.thumbnail})
+      this.thumbnail,
+      this.createdAt})
       : super._();
 
   factory _$ProductFirebaseLiteModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -288,21 +421,37 @@ class _$ProductFirebaseLiteModelImpl extends _ProductFirebaseLiteModel {
   @override
   final String? type;
   @override
-  final String? description;
-  @override
   final double? price;
   @override
   final bool? active;
   @override
   final int? points;
   @override
+  final dynamic attributes;
+  @override
+  final dynamic variations;
+  @override
+  final dynamic categories;
+  @override
+  final String? categoriesIds;
+  @override
+  final String? categoriesNames;
+  @override
+  final String? defaultVariantID;
+  @override
+  final ProductVariantInfoModel? defaultVariantInfo;
+  @override
+  final dynamic category;
+  @override
   final double? suggestedPrice;
   @override
   final String? thumbnail;
+  @override
+  final String? createdAt;
 
   @override
   String toString() {
-    return 'ProductFirebaseLiteModel(id: $id, name: $name, provider: $provider, externalId: $externalId, stock: $stock, type: $type, description: $description, price: $price, active: $active, points: $points, suggestedPrice: $suggestedPrice, thumbnail: $thumbnail)';
+    return 'ProductFirebaseLiteModel(id: $id, name: $name, provider: $provider, externalId: $externalId, stock: $stock, type: $type, price: $price, active: $active, points: $points, attributes: $attributes, variations: $variations, categories: $categories, categoriesIds: $categoriesIds, categoriesNames: $categoriesNames, defaultVariantID: $defaultVariantID, defaultVariantInfo: $defaultVariantInfo, category: $category, suggestedPrice: $suggestedPrice, thumbnail: $thumbnail, createdAt: $createdAt)';
   }
 
   @override
@@ -317,33 +466,57 @@ class _$ProductFirebaseLiteModelImpl extends _ProductFirebaseLiteModel {
                 other.externalId == externalId) &&
             (identical(other.stock, stock) || other.stock == stock) &&
             (identical(other.type, type) || other.type == type) &&
-            (identical(other.description, description) ||
-                other.description == description) &&
             (identical(other.price, price) || other.price == price) &&
             (identical(other.active, active) || other.active == active) &&
             (identical(other.points, points) || other.points == points) &&
+            const DeepCollectionEquality()
+                .equals(other.attributes, attributes) &&
+            const DeepCollectionEquality()
+                .equals(other.variations, variations) &&
+            const DeepCollectionEquality()
+                .equals(other.categories, categories) &&
+            (identical(other.categoriesIds, categoriesIds) ||
+                other.categoriesIds == categoriesIds) &&
+            (identical(other.categoriesNames, categoriesNames) ||
+                other.categoriesNames == categoriesNames) &&
+            (identical(other.defaultVariantID, defaultVariantID) ||
+                other.defaultVariantID == defaultVariantID) &&
+            (identical(other.defaultVariantInfo, defaultVariantInfo) ||
+                other.defaultVariantInfo == defaultVariantInfo) &&
+            const DeepCollectionEquality().equals(other.category, category) &&
             (identical(other.suggestedPrice, suggestedPrice) ||
                 other.suggestedPrice == suggestedPrice) &&
             (identical(other.thumbnail, thumbnail) ||
-                other.thumbnail == thumbnail));
+                other.thumbnail == thumbnail) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      name,
-      const DeepCollectionEquality().hash(provider),
-      externalId,
-      stock,
-      type,
-      description,
-      price,
-      active,
-      points,
-      suggestedPrice,
-      thumbnail);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        id,
+        name,
+        const DeepCollectionEquality().hash(provider),
+        externalId,
+        stock,
+        type,
+        price,
+        active,
+        points,
+        const DeepCollectionEquality().hash(attributes),
+        const DeepCollectionEquality().hash(variations),
+        const DeepCollectionEquality().hash(categories),
+        categoriesIds,
+        categoriesNames,
+        defaultVariantID,
+        defaultVariantInfo,
+        const DeepCollectionEquality().hash(category),
+        suggestedPrice,
+        thumbnail,
+        createdAt
+      ]);
 
   /// Create a copy of ProductFirebaseLiteModel
   /// with the given fields replaced by the non-null parameter values.
@@ -370,12 +543,20 @@ abstract class _ProductFirebaseLiteModel extends ProductFirebaseLiteModel {
       final int? externalId,
       final int? stock,
       final String? type,
-      final String? description,
       final double? price,
       final bool? active,
       final int? points,
+      final dynamic attributes,
+      final dynamic variations,
+      final dynamic categories,
+      final String? categoriesIds,
+      final String? categoriesNames,
+      final String? defaultVariantID,
+      final ProductVariantInfoModel? defaultVariantInfo,
+      final dynamic category,
       final double? suggestedPrice,
-      final String? thumbnail}) = _$ProductFirebaseLiteModelImpl;
+      final String? thumbnail,
+      final String? createdAt}) = _$ProductFirebaseLiteModelImpl;
   const _ProductFirebaseLiteModel._() : super._();
 
   factory _ProductFirebaseLiteModel.fromJson(Map<String, dynamic> json) =
@@ -395,17 +576,33 @@ abstract class _ProductFirebaseLiteModel extends ProductFirebaseLiteModel {
   @override
   String? get type;
   @override
-  String? get description;
-  @override
   double? get price;
   @override
   bool? get active;
   @override
   int? get points;
   @override
+  dynamic get attributes;
+  @override
+  dynamic get variations;
+  @override
+  dynamic get categories;
+  @override
+  String? get categoriesIds;
+  @override
+  String? get categoriesNames;
+  @override
+  String? get defaultVariantID;
+  @override
+  ProductVariantInfoModel? get defaultVariantInfo;
+  @override
+  dynamic get category;
+  @override
   double? get suggestedPrice;
   @override
   String? get thumbnail;
+  @override
+  String? get createdAt;
 
   /// Create a copy of ProductFirebaseLiteModel
   /// with the given fields replaced by the non-null parameter values.

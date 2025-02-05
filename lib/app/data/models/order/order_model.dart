@@ -19,7 +19,7 @@ abstract class OrderModel implements _$OrderModel {
     required dynamic body,
     required dynamic orderData,
     required double amount,
-    required int orderId,
+    // required int orderId,
     required String paymentMethod,
     required String type,
     required String status,

@@ -18,13 +18,13 @@ import 'video_label.dart';
 class VideoApp extends StatefulWidget {
   const VideoApp({
     required this.videoPostModel,
-    required this.onCompleted,
+    // required this.onCompleted,
     this.bottomSpace = true,
     super.key,
   });
 
   final VideoPostModel videoPostModel;
-  final Function() onCompleted;
+  // final Function() onCompleted;
   final bool bottomSpace;
   @override
   _VideoAppState createState() => _VideoAppState();
@@ -214,7 +214,7 @@ class _VideoAppState extends State<VideoApp> with RouteAware {
                               Expanded(
                                 child: Padding(
                                   padding: const EdgeInsets.only(
-                                      right: 16, bottom: 180),
+                                      right: 16, bottom: 140),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
